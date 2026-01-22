@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-**As a** [role]  
+**As the** [role]  
  **I need** [function]  
  **So that** [benefit]  
    

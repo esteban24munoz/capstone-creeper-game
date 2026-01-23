@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhf38jkyxp6wr"
-path="res://.godot/imported/tile_063.png-de480e2f470e2ab7ac0bfb4fceba9508.ctex"
+uid="uid://08hq6pwdbr3u"
+path="res://.godot/imported/Frodo.png-0f43ac21d743596c372f4ae57d89d2bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tile_063.png"
-dest_files=["res://.godot/imported/tile_063.png-de480e2f470e2ab7ac0bfb4fceba9508.ctex"]
+source_file="res://Art/Heroes/Frodo.png"
+dest_files=["res://.godot/imported/Frodo.png-0f43ac21d743596c372f4ae57d89d2bd.ctex"]
 
 [params]
 

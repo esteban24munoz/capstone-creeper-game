@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://cpdpv0t1t7qk7"]
+
+[ext_resource type="Texture2D" uid="uid://y1qcxt168xiu" path="res://Art/Enemies/Sauron.png" id="1_kcj35"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqwqp"]
+atlas = ExtResource("1_kcj35")
+region = Rect2(0, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4po6"]
+atlas = ExtResource("1_kcj35")
+region = Rect2(64, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5ttt"]
+atlas = ExtResource("1_kcj35")
+region = Rect2(128, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqyy1"]
+atlas = ExtResource("1_kcj35")
+region = Rect2(192, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebjvb"]
+atlas = ExtResource("1_kcj35")
+region = Rect2(256, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6vqg"]
+atlas = ExtResource("1_kcj35")
+region = Rect2(320, 896, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqwqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4po6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5ttt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqyy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebjvb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6vqg")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_chxth")
+animation = &"idle"
+frame = 5
+frame_progress = 0.13192323

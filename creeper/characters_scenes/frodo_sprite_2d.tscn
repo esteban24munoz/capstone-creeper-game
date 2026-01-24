@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://ccf5opv3w7te5"]
+
+[ext_resource type="Texture2D" uid="uid://08hq6pwdbr3u" path="res://Art/Heroes/Frodo.png" id="1_001pc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psv4s"]
+atlas = ExtResource("1_001pc")
+region = Rect2(0, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_il6ss"]
+atlas = ExtResource("1_001pc")
+region = Rect2(64, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4fxtm"]
+atlas = ExtResource("1_001pc")
+region = Rect2(128, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hthl"]
+atlas = ExtResource("1_001pc")
+region = Rect2(192, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hph6a"]
+atlas = ExtResource("1_001pc")
+region = Rect2(256, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rp8f"]
+atlas = ExtResource("1_001pc")
+region = Rect2(320, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0eia"]
+atlas = ExtResource("1_001pc")
+region = Rect2(384, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eo788"]
+atlas = ExtResource("1_001pc")
+region = Rect2(448, 384, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psv4s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_il6ss")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4fxtm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8hthl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hph6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rp8f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0eia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eo788")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_chxth")
+animation = &"idle"
+frame = 2
+frame_progress = 0.7954167

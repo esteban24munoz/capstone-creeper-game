@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://btkj4btcrkety"]
+
+[ext_resource type="Texture2D" uid="uid://cdho0aw4aud17" path="res://Art/Enemies/The King of The Dead.png" id="1_75w3a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3ltq"]
+atlas = ExtResource("1_75w3a")
+region = Rect2(0, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6piw"]
+atlas = ExtResource("1_75w3a")
+region = Rect2(64, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81fuu"]
+atlas = ExtResource("1_75w3a")
+region = Rect2(128, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jg4os"]
+atlas = ExtResource("1_75w3a")
+region = Rect2(192, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya6k2"]
+atlas = ExtResource("1_75w3a")
+region = Rect2(256, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o21sl"]
+atlas = ExtResource("1_75w3a")
+region = Rect2(320, 896, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3ltq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6piw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81fuu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jg4os")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ya6k2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o21sl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_chxth")
+animation = &"idle"
+frame_progress = 0.008413632

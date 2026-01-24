@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://cgur7at6owf1s"]
+
+[ext_resource type="Texture2D" uid="uid://5731pytr7lip" path="res://Art/Heroes/Boromir.png" id="1_aw7xy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v354i"]
+atlas = ExtResource("1_aw7xy")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pawyf"]
+atlas = ExtResource("1_aw7xy")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6iak"]
+atlas = ExtResource("1_aw7xy")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3v2kf"]
+atlas = ExtResource("1_aw7xy")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbd06"]
+atlas = ExtResource("1_aw7xy")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1j67i"]
+atlas = ExtResource("1_aw7xy")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gfrq"]
+atlas = ExtResource("1_aw7xy")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v354i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pawyf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u6iak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3v2kf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbd06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1j67i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gfrq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_chxth")
+animation = &"idle"
+frame = 1
+frame_progress = 0.092774555

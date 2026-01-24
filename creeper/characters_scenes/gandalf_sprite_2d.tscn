@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://cdi1jd4b0mesk"]
+
+[ext_resource type="Texture2D" uid="uid://bmcl84tlonbjl" path="res://Art/Heroes/Gandalf the Grey.png" id="1_rko0t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psv4s"]
+atlas = ExtResource("1_rko0t")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_il6ss"]
+atlas = ExtResource("1_rko0t")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4fxtm"]
+atlas = ExtResource("1_rko0t")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hthl"]
+atlas = ExtResource("1_rko0t")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hph6a"]
+atlas = ExtResource("1_rko0t")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rp8f"]
+atlas = ExtResource("1_rko0t")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0eia"]
+atlas = ExtResource("1_rko0t")
+region = Rect2(384, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psv4s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_il6ss")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4fxtm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8hthl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hph6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rp8f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0eia")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_chxth")
+animation = &"idle"
+frame = 5
+frame_progress = 0.6540501

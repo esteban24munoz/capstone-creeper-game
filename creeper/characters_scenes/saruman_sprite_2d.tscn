@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://b8eng5glhbea6"]
+
+[ext_resource type="Texture2D" uid="uid://bcwgqotgv35vd" path="res://Art/Enemies/Sarumaun.png" id="1_0542s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hm80p"]
+atlas = ExtResource("1_0542s")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wa6en"]
+atlas = ExtResource("1_0542s")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8k5o"]
+atlas = ExtResource("1_0542s")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6ls1"]
+atlas = ExtResource("1_0542s")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qc4aj"]
+atlas = ExtResource("1_0542s")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kktlw"]
+atlas = ExtResource("1_0542s")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7au2i"]
+atlas = ExtResource("1_0542s")
+region = Rect2(384, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm80p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wa6en")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8k5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6ls1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qc4aj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kktlw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7au2i")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_chxth")
+animation = &"idle"
+frame_progress = 0.008413632

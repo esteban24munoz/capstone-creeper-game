@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://bjthtdb74s1yk"]
+
+[ext_resource type="Texture2D" uid="uid://cx2xaxbe7i35q" path="res://Art/Enemies/Light Orc.png" id="1_ocr6o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uixot"]
+atlas = ExtResource("1_ocr6o")
+region = Rect2(0, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdgvf"]
+atlas = ExtResource("1_ocr6o")
+region = Rect2(64, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcy8s"]
+atlas = ExtResource("1_ocr6o")
+region = Rect2(128, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jw68d"]
+atlas = ExtResource("1_ocr6o")
+region = Rect2(192, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xonu"]
+atlas = ExtResource("1_ocr6o")
+region = Rect2(256, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8ij8"]
+atlas = ExtResource("1_ocr6o")
+region = Rect2(320, 896, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uixot")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdgvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcy8s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jw68d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6xonu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8ij8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_chxth")
+animation = &"idle"
+frame_progress = 0.8880222

@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://i1mdmdanux0s"]
+
+[ext_resource type="Texture2D" uid="uid://ckgd62qpq6i0i" path="res://Art/Heroes/Legolas.png" id="1_tnh4e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmcx5"]
+atlas = ExtResource("1_tnh4e")
+region = Rect2(0, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0m2hl"]
+atlas = ExtResource("1_tnh4e")
+region = Rect2(64, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvkec"]
+atlas = ExtResource("1_tnh4e")
+region = Rect2(128, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shi7s"]
+atlas = ExtResource("1_tnh4e")
+region = Rect2(192, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tehh"]
+atlas = ExtResource("1_tnh4e")
+region = Rect2(256, 896, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8v05r"]
+atlas = ExtResource("1_tnh4e")
+region = Rect2(320, 896, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kmcx5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0m2hl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvkec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shi7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1tehh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8v05r")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_chxth")
+animation = &"idle"
+frame = 5
+frame_progress = 0.12835711

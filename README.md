@@ -16,7 +16,7 @@ Our version reimagines this abstract gameplay through a **Lord of the Rings–in
 | **Esteban Munoz** | **Team Lead** |
 | **Craig Dodson** | **AI Lead** |
 | **Hannah Dodson** | **Networking Lead** |
-| **Andrew Richardson** | **C# / Unity Developer** |
+| **Andrew Richardson** | **C# / Godot Developer** |
 
 
 

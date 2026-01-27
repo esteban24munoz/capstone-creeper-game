@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1rfobotlsf8p"
-path="res://.godot/imported/lava (1).png-7ae2bc875ebba0199fa6c521f4ca223e.ctex"
+uid="uid://do201musryjjj"
+path="res://.godot/imported/Sauron Tower Spritesheet.png-ecab942dcae5cecfcf310bf536f925f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Tiles/lava (1).png"
-dest_files=["res://.godot/imported/lava (1).png-7ae2bc875ebba0199fa6c521f4ca223e.ctex"]
+source_file="res://Bases/Sauron Tower Spritesheet.png"
+dest_files=["res://.godot/imported/Sauron Tower Spritesheet.png-ecab942dcae5cecfcf310bf536f925f8.ctex"]
 
 [params]
 

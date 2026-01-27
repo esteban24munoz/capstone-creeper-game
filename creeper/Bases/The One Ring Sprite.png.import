@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bn61ytm5gj53m"
-path="res://.godot/imported/green-vectorized (1).png-772f4eebcfef9f089bd97e739bf06289.ctex"
+uid="uid://dsehp0jdq86rb"
+path="res://.godot/imported/The One Ring Sprite.png-fb0e8405aa58c4c989c6519cdae1bf05.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Tiles/green-vectorized (1).png"
-dest_files=["res://.godot/imported/green-vectorized (1).png-772f4eebcfef9f089bd97e739bf06289.ctex"]
+source_file="res://Bases/The One Ring Sprite.png"
+dest_files=["res://.godot/imported/The One Ring Sprite.png-fb0e8405aa58c4c989c6519cdae1bf05.ctex"]
 
 [params]
 

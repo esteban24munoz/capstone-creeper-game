@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuormcq2jausw"
-path="res://.godot/imported/green-vectorized.png-46ec6877b4620640e74caaa0e4a18728.ctex"
+uid="uid://d3dnkksyhmh70"
+path="res://.godot/imported/New Grass Tile Sprite (1).png-d66cdc03b48859f86e74d4072f7a3f02.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Tiles/green-vectorized.png"
-dest_files=["res://.godot/imported/green-vectorized.png-46ec6877b4620640e74caaa0e4a18728.ctex"]
+source_file="res://Art/Tiles/New Grass Tile Sprite (1).png"
+dest_files=["res://.godot/imported/New Grass Tile Sprite (1).png-d66cdc03b48859f86e74d4072f7a3f02.ctex"]
 
 [params]
 

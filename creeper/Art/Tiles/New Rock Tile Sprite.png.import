@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cp6rx7i3d8tgq"
-path="res://.godot/imported/Adobe Express - file.png-7f78be5fcc9842242669f8886b1ea883.ctex"
+uid="uid://byp26q4if8fd"
+path="res://.godot/imported/New Rock Tile Sprite.png-bb0657893f86d09d0668b1de9fd4c49d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Tiles/Adobe Express - file.png"
-dest_files=["res://.godot/imported/Adobe Express - file.png-7f78be5fcc9842242669f8886b1ea883.ctex"]
+source_file="res://Art/Tiles/New Rock Tile Sprite.png"
+dest_files=["res://.godot/imported/New Rock Tile Sprite.png-bb0657893f86d09d0668b1de9fd4c49d.ctex"]
 
 [params]
 

@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://rus8obsl870u"]
+
+[ext_resource type="Texture2D" uid="uid://dgydy5l0ixd2b" path="res://Bases/Mt Doom Spritesheet.png" id="1_pvvmr"]
+[ext_resource type="Script" uid="uid://cqt6emwthjpfl" path="res://Base Scripts/Base.cs" id="2_c7rma"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kobrf"]
+atlas = ExtResource("1_pvvmr")
+region = Rect2(0, 0, 80, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tm4p"]
+atlas = ExtResource("1_pvvmr")
+region = Rect2(80, 0, 80, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrqtc"]
+atlas = ExtResource("1_pvvmr")
+region = Rect2(160, 0, 80, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kobrf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kobrf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tm4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tm4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrqtc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrqtc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrqtc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrqtc")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
+
+[node name="Volcano" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_chxth")
+animation = &"idle"
+frame = 5
+frame_progress = 0.96014476
+script = ExtResource("2_c7rma")

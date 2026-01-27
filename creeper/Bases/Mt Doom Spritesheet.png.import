@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cll1fsn1cd8ck"
-path="res://.godot/imported/vectorized.png-8550f1c7e2e26478979b186fd01560c1.ctex"
+uid="uid://dgydy5l0ixd2b"
+path="res://.godot/imported/Mt Doom Spritesheet.png-48b825c44f4afe3e1a4ed7e75333f996.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Tiles/vectorized.png"
-dest_files=["res://.godot/imported/vectorized.png-8550f1c7e2e26478979b186fd01560c1.ctex"]
+source_file="res://Bases/Mt Doom Spritesheet.png"
+dest_files=["res://.godot/imported/Mt Doom Spritesheet.png-48b825c44f4afe3e1a4ed7e75333f996.ctex"]
 
 [params]
 

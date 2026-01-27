@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://duklysfm6g8yo"]
+
+[ext_resource type="Texture2D" uid="uid://dsehp0jdq86rb" path="res://Bases/The One Ring Sprite.png" id="1_ipv2j"]
+[ext_resource type="Script" uid="uid://cqt6emwthjpfl" path="res://Base Scripts/Base.cs" id="2_yabeh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8y6a0"]
+atlas = ExtResource("1_ipv2j")
+region = Rect2(0, 0, 80, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13lxu"]
+atlas = ExtResource("1_ipv2j")
+region = Rect2(80, 0, 80, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d7em"]
+atlas = ExtResource("1_ipv2j")
+region = Rect2(160, 0, 80, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8y6a0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8y6a0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13lxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d7em")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d7em")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
+
+[node name="Ring" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_chxth")
+animation = &"idle"
+frame_progress = 0.09025239
+script = ExtResource("2_yabeh")

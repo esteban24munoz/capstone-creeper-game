@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cf4e7uyw085yq"
-path="res://.godot/imported/lava-vectorized.png-8d3a4c82c634b9edcafaaf1d31c88ae4.ctex"
+uid="uid://c3a0mhll3wr0s"
+path="res://.godot/imported/Orthanc Spritesheet.png-856ca45ce72c546f67ed95e74c359ad1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Tiles/lava-vectorized.png"
-dest_files=["res://.godot/imported/lava-vectorized.png-8d3a4c82c634b9edcafaaf1d31c88ae4.ctex"]
+source_file="res://Bases/Orthanc Spritesheet.png"
+dest_files=["res://.godot/imported/Orthanc Spritesheet.png-856ca45ce72c546f67ed95e74c359ad1.ctex"]
 
 [params]
 

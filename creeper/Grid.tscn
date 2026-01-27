@@ -1,12 +1,10 @@
 [gd_scene load_steps=28 format=4 uid="uid://bh7bd75p67acy"]
 
-[ext_resource type="Texture2D" uid="uid://dhf38jkyxp6wr" path="res://Art/Tiles/tile_063.png" id="1_84v8o"]
 [ext_resource type="Script" uid="uid://dnttn430tx1qb" path="res://Grid.cs" id="1_tyu4g"]
-[ext_resource type="Texture2D" uid="uid://cp6rx7i3d8tgq" path="res://Art/Tiles/Adobe Express - file.png" id="2_84v8o"]
-[ext_resource type="Texture2D" uid="uid://c1rfobotlsf8p" path="res://Art/Tiles/lava (1).png" id="3_wmkmj"]
-[ext_resource type="Texture2D" uid="uid://bn61ytm5gj53m" path="res://Art/Tiles/green-vectorized (1).png" id="4_e8iyr"]
-[ext_resource type="Texture2D" uid="uid://cf4e7uyw085yq" path="res://Art/Tiles/lava-vectorized.png" id="5_q4ifv"]
-[ext_resource type="Texture2D" uid="uid://cll1fsn1cd8ck" path="res://Art/Tiles/vectorized.png" id="6_l4avf"]
+[ext_resource type="Texture2D" uid="uid://djms4xij1g142" path="res://Art/Tiles/New Neutral Tile Sprite.png" id="2_xrsif"]
+[ext_resource type="Texture2D" uid="uid://byp26q4if8fd" path="res://Art/Tiles/New Rock Tile Sprite.png" id="3_aiw0r"]
+[ext_resource type="Texture2D" uid="uid://d3dnkksyhmh70" path="res://Art/Tiles/New Grass Tile Sprite (1).png" id="4_tyu4g"]
+[ext_resource type="Texture2D" uid="uid://dnmnmrymbvad6" path="res://Art/Tiles/New Lava Tile Sprite.png" id="5_gk1wl"]
 [ext_resource type="PackedScene" uid="uid://ddohyifhg7pkf" path="res://characters_scenes/boromir.tscn" id="7_aiw0r"]
 [ext_resource type="PackedScene" uid="uid://b2np60la80is1" path="res://characters_scenes/sam.tscn" id="13_gk1wl"]
 [ext_resource type="PackedScene" uid="uid://d2nplcigroap8" path="res://characters_scenes/heavy_orc.tscn" id="15_qpqai"]
@@ -17,113 +15,120 @@
 [ext_resource type="PackedScene" uid="uid://b23mrfkhmht37" path="res://characters_scenes/gandalf.tscn" id="19_gk1wl"]
 [ext_resource type="PackedScene" uid="uid://c1ksvherjw0rt" path="res://characters_scenes/merry.tscn" id="19_hg3fi"]
 [ext_resource type="PackedScene" uid="uid://pfnsyjsyvlmr" path="res://characters_scenes/king_of_the_dead.tscn" id="19_kfiik"]
+[ext_resource type="PackedScene" uid="uid://dsf28pp43orbx" path="res://Bases_scenes/eye_tower.tscn" id="19_mp7ew"]
 [ext_resource type="PackedScene" uid="uid://05gtou4jwd2y" path="res://characters_scenes/legolas.tscn" id="19_qpqai"]
 [ext_resource type="PackedScene" uid="uid://ckb1etmea5n10" path="res://characters_scenes/frodo.tscn" id="19_tyu4g"]
+[ext_resource type="PackedScene" uid="uid://dej68q6gb6r62" path="res://Bases_scenes/isengard_tower.tscn" id="20_gk1wl"]
 [ext_resource type="PackedScene" uid="uid://c1750db4ehttj" path="res://characters_scenes/light_orc.tscn" id="20_tyu4g"]
+[ext_resource type="PackedScene" uid="uid://duklysfm6g8yo" path="res://Bases_scenes/ring.tscn" id="21_kfiik"]
+[ext_resource type="PackedScene" uid="uid://rus8obsl870u" path="res://Bases_scenes/volcano.tscn" id="22_kfiik"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mel50"]
-texture = ExtResource("1_84v8o")
-texture_region_size = Vector2i(32, 32)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kfiik"]
+texture = ExtResource("2_xrsif")
+texture_region_size = Vector2i(96, 96)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p1qhe"]
-texture = ExtResource("2_84v8o")
-texture_region_size = Vector2i(64, 64)
-0:0/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jcvvf"]
-texture = ExtResource("3_wmkmj")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qpqai"]
+texture = ExtResource("3_aiw0r")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:1/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4vyub"]
-texture = ExtResource("4_e8iyr")
-texture_region_size = Vector2i(64, 64)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hg3fi"]
+texture = ExtResource("4_tyu4g")
+texture_region_size = Vector2i(96, 96)
 0:0/0 = 0
 0:1/0 = 0
+0:2/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x02jp"]
-texture = ExtResource("5_q4ifv")
-texture_region_size = Vector2i(64, 64)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bsa5o"]
+texture = ExtResource("5_gk1wl")
+texture_region_size = Vector2i(96, 96)
 0:0/0 = 0
 0:1/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fhks6"]
-texture = ExtResource("6_l4avf")
-texture_region_size = Vector2i(64, 64)
-0:0/0 = 0
-0:1/0 = 0
+0:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_mel50"]
 tile_shape = 1
 tile_layout = 5
-tile_size = Vector2i(57, 32)
-sources/0 = SubResource("TileSetAtlasSource_mel50")
-sources/2 = SubResource("TileSetAtlasSource_p1qhe")
-sources/3 = SubResource("TileSetAtlasSource_jcvvf")
-sources/5 = SubResource("TileSetAtlasSource_4vyub")
-sources/7 = SubResource("TileSetAtlasSource_x02jp")
-sources/8 = SubResource("TileSetAtlasSource_fhks6")
+tile_size = Vector2i(96, 60)
+sources/4 = SubResource("TileSetAtlasSource_kfiik")
+sources/5 = SubResource("TileSetAtlasSource_qpqai")
+sources/6 = SubResource("TileSetAtlasSource_hg3fi")
+sources/7 = SubResource("TileSetAtlasSource_bsa5o")
 
 [node name="Grid" type="Node2D"]
 script = ExtResource("1_tyu4g")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(108, 99)
-scale = Vector2(2.5, 2.5)
-tile_map_data = PackedByteArray("AAAAAP//AAAAAAAAAAAAAAAABQAAAAAAAAAAAAEAAAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAgAAAAAAAAABAAIAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAgAAAAAAAAACAAMAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAgAAAAAAAAADAAQAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAgAAAAAAAAAEAAUAAAAAAAAAAAABAP7/AAAAAAAAAAABAP//AgAAAAAAAAACAP3/AAAAAAAAAAACAP7/AgAAAAAAAAACAP//AAAAAAAAAAACAAAAAgAAAAAAAAADAPz/AAAAAAAAAAADAP3/AgAAAAAAAAADAP7/AAAAAAAAAAADAP//AgAAAAAAAAADAAAAAAAAAAAAAAADAAEAAgAAAAAAAAAEAPv/AAAAAAAAAAAEAPz/AgAAAAAAAAAEAP3/AAAAAAAAAAAEAP7/AgAAAAAAAAAEAP//AAAAAAAAAAAEAAAAAgAAAAAAAAAEAAEAAAAAAAAAAAAEAAIAAgAAAAAAAAAFAPv/BwAAAAAAAAAFAPz/AAAAAAAAAAAFAP3/AgAAAAAAAAAFAP7/AAAAAAAAAAAFAP//AgAAAAAAAAAFAAAAAAAAAAAAAAAFAAEAAgAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAgAAAAAAAAAFAAQAAAAAAAAAAAAFAAUABwAAAAAAAAAGAPv/AAAAAAAAAAAGAPz/AgAAAAAAAAAGAP3/AAAAAAAAAAAGAP7/AgAAAAAAAAAGAP//AAAAAAAAAAAGAAAAAgAAAAAAAAAGAAEAAAAAAAAAAAAGAAIAAgAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAgAAAAAAAAAGAAUAAAAAAAAAAAAHAPz/AAAAAAAAAAAHAP3/AgAAAAAAAAAHAP7/AAAAAAAAAAAHAP//AgAAAAAAAAAHAAAAAAAAAAAAAAAHAAEAAgAAAAAAAAAHAAIAAAAAAAAAAAAHAAMACAAAAAAAAAAHAAQAAAAAAAAAAAAIAP3/AAAAAAAAAAAIAP7/AgAAAAAAAAAIAP//AAAAAAAAAAAIAAAAAgAAAAAAAAAIAAEAAAAAAAAAAAAIAAIACAAAAAAAAAAIAAMAAAAAAAAAAAAJAP7/AAAAAAAAAAAJAP//AgAAAAAAAAAJAAAAAAAAAAAAAAAJAAEACAAAAAAAAAAJAAIAAAAAAAAAAAAKAP//AAAAAAAAAAAKAAAABQAAAAAAAAAKAAEAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAKAAEABQAAAAAAAAAJAAAABQAAAAAAAAAJAP//BAAAAAAAAAAJAP7/BQAAAAAAAAAIAP7/BAAAAAAAAAAIAP3/BQAAAAAAAAAHAP3/BAAAAAAAAAAGAP3/BQAAAAAAAAAGAPz/BAAAAAAAAAAGAPv/BQAAAAAAAAAEAPv/BQAAAAAAAAAEAPz/BAAAAAAAAAAFAPz/BQAAAAAAAAAFAP3/BAAAAAAAAAAHAP7/BQAAAAAAAAAIAP//BQAAAAAAAAAJAAEABAAAAAAAAAAHAPz/BQAAAAAAAAAKAP//BQAAAAAAAAAIAAEABQAAAAAAAAAIAAAABAAAAAAAAAAHAAAABQAAAAAAAAAHAP//BAAAAAAAAAAGAP//BQAAAAAAAAAGAP7/BAAAAAAAAAAFAP7/BQAAAAAAAAAEAP3/BQAAAAAAAAADAPz/BQAAAAAAAAADAP3/BAAAAAAAAAAEAP7/BAAAAAAAAAAFAP//BAAAAAAAAAAGAAAABAAAAAAAAAAHAAEABAAAAAAAAAAIAAIABAAAAAAAAAAJAAIABQAAAAAAAAAGAAEABQAAAAAAAAAFAAAABQAAAAAAAAAEAAAABAAAAAAAAAAEAP//BQAAAAAAAAADAP//BAAAAAAAAAADAP7/BQAAAAAAAAACAP7/BAAAAAAAAAACAP3/BQAAAAAAAAAHAAIABQAAAAAAAAAIAAMABQAAAAAAAAAHAAMABAAAAAAAAAAGAAIABAAAAAAAAAAFAAEABAAAAAAAAAAEAAEABQAAAAAAAAADAAAABQAAAAAAAAACAP//BQAAAAAAAAABAP7/BQAAAAAAAAABAP//BAAAAAAAAAAFAAIABQAAAAAAAAAGAAMABQAAAAAAAAAHAAQABQAAAAAAAAAGAAQABAAAAAAAAAAFAAMABAAAAAAAAAAEAAIABAAAAAAAAAADAAEABAAAAAAAAAACAAAABAAAAAAAAAAAAP//BQAAAAAAAAABAAAABQAAAAAAAAACAAEABQAAAAAAAAADAAIABQAAAAAAAAAEAAMABQAAAAAAAAAEAAQABAAAAAAAAAAFAAQABQAAAAAAAAAGAAUABQAAAAAAAAAEAAUABQAAAAAAAAADAAQABQAAAAAAAAADAAMABAAAAAAAAAACAAMABQAAAAAAAAACAAIABAAAAAAAAAABAAIABQAAAAAAAAABAAEABAAAAAAAAAAAAAEABQAAAAAAAAAAAAAABgAAAAAAAAD//wEABgAAAAAAAAD//wAABgAAAAAAAAD+/wEABgAAAAAAAAD+/wAABgAAAAAAAAAKAAAABgAAAAAAAAALAP//BgAAAAAAAAALAAAABgAAAAAAAAAMAP//BgAAAAAAAAAMAAAABgAAAAAAAAAFAAUABwAAAAAAAAAEAAYABwAAAAAAAAAFAAYABwAAAAAAAAAEAAcABwAAAAAAAAAFAAcABwAAAAAAAAAFAPv/BwAAAAAAAAAFAPr/BwAAAAAAAAAGAPr/BwAAAAAAAAAFAPn/BwAAAAAAAAAGAPn/BwAAAAAAAAA=")
 tile_set = SubResource("TileSet_mel50")
 
 [node name="Characters" type="Node2D" parent="TileMapLayer"]
+scale = Vector2(2, 2)
 
 [node name="Boromir" parent="TileMapLayer/Characters" instance=ExtResource("7_aiw0r")]
-position = Vector2(342, 140)
+position = Vector2(288, 130)
 
 [node name="Sam" parent="TileMapLayer/Characters" instance=ExtResource("13_gk1wl")]
-position = Vector2(114, -20)
+position = Vector2(96, -20)
 
 [node name="Heavy Orc" parent="TileMapLayer/Characters" instance=ExtResource("15_qpqai")]
-position = Vector2(285, -20)
+position = Vector2(240, -20)
 
 [node name="Heavy Orc2" parent="TileMapLayer/Characters" instance=ExtResource("15_qpqai")]
-position = Vector2(0, 140)
+position = Vector2(0, 130)
 
 [node name="Sauron" parent="TileMapLayer/Characters" instance=ExtResource("16_hg3fi")]
-position = Vector2(342, 44)
+position = Vector2(288, 40)
 
 [node name="Saruman" parent="TileMapLayer/Characters" instance=ExtResource("17_bsa5o")]
-position = Vector2(57, 172)
+position = Vector2(48, 160)
 
 [node name="Aragorn" parent="TileMapLayer/Characters" instance=ExtResource("19_aiw0r")]
-position = Vector2(228, 172)
+position = Vector2(192, 160)
 
 [node name="Frodo" parent="TileMapLayer/Characters" instance=ExtResource("19_tyu4g")]
-position = Vector2(57, -20)
+position = Vector2(48, -20)
 
 [node name="Gandalf" parent="TileMapLayer/Characters" instance=ExtResource("19_gk1wl")]
-position = Vector2(342, 108)
+position = Vector2(288, 100)
 frame = 0
 frame_progress = 0.0
 
 [node name="King of the Dead" parent="TileMapLayer/Characters" instance=ExtResource("19_kfiik")]
-position = Vector2(228, -20)
+position = Vector2(192, -20)
 
 [node name="Legolas" parent="TileMapLayer/Characters" instance=ExtResource("19_qpqai")]
-position = Vector2(285, 172)
+position = Vector2(240, 160)
 frame = 5
 
 [node name="Light Orc" parent="TileMapLayer/Characters" instance=ExtResource("20_tyu4g")]
-position = Vector2(114, 172)
+position = Vector2(96, 160)
 
 [node name="Light Orc2" parent="TileMapLayer/Characters" instance=ExtResource("20_tyu4g")]
-position = Vector2(342, 12)
+position = Vector2(288, 10)
 
 [node name="Light Orc3" parent="TileMapLayer/Characters" instance=ExtResource("20_tyu4g")]
-position = Vector2(0, 108)
+position = Vector2(0, 100)
 
 [node name="Merry" parent="TileMapLayer/Characters" instance=ExtResource("19_hg3fi")]
-position = Vector2(0, 12)
+position = Vector2(0, 10)
 
 [node name="Pippin" parent="TileMapLayer/Characters" instance=ExtResource("19_bsa5o")]
-position = Vector2(0, 44)
+position = Vector2(0, 40)
+
+[node name="Bases" type="Node2D" parent="TileMapLayer"]
+
+[node name="Eye Tower" parent="TileMapLayer/Bases" instance=ExtResource("19_mp7ew")]
+position = Vector2(-49, 296)
+
+[node name="Isengard Tower" parent="TileMapLayer/Bases" instance=ExtResource("20_gk1wl")]
+position = Vector2(617, -52)
+
+[node name="Ring" parent="TileMapLayer/Bases" instance=ExtResource("21_kfiik")]
+position = Vector2(-48, -25)
+
+[node name="Volcano" parent="TileMapLayer/Bases" instance=ExtResource("22_kfiik")]
+position = Vector2(614, 320)

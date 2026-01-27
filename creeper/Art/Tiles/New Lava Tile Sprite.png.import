@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhf38jkyxp6wr"
-path="res://.godot/imported/tile_063.png-781f2d1e0a053682f0c351521f21f6c7.ctex"
+uid="uid://dnmnmrymbvad6"
+path="res://.godot/imported/New Lava Tile Sprite.png-496c1dbf7d6904f6313725a4b75402b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Tiles/tile_063.png"
-dest_files=["res://.godot/imported/tile_063.png-781f2d1e0a053682f0c351521f21f6c7.ctex"]
+source_file="res://Art/Tiles/New Lava Tile Sprite.png"
+dest_files=["res://.godot/imported/New Lava Tile Sprite.png-496c1dbf7d6904f6313725a4b75402b0.ctex"]
 
 [params]
 

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dej68q6gb6r62"]
+
+[ext_resource type="Texture2D" uid="uid://c3a0mhll3wr0s" path="res://Bases/Orthanc Spritesheet.png" id="1_na5kd"]
+[ext_resource type="Script" uid="uid://cqt6emwthjpfl" path="res://Base Scripts/Base.cs" id="2_rh86o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jsem"]
+atlas = ExtResource("1_na5kd")
+region = Rect2(0, 0, 240, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0jsem")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
+
+[node name="Isengard Tower" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_chxth")
+animation = &"idle"
+frame_progress = 0.09025239
+script = ExtResource("2_rh86o")

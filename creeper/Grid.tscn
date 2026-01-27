@@ -1,24 +1,25 @@
-[gd_scene load_steps=27 format=4 uid="uid://bh7bd75p67acy"]
+[gd_scene load_steps=28 format=4 uid="uid://bh7bd75p67acy"]
 
 [ext_resource type="Texture2D" uid="uid://dhf38jkyxp6wr" path="res://Art/Tiles/tile_063.png" id="1_84v8o"]
+[ext_resource type="Script" uid="uid://dnttn430tx1qb" path="res://Grid.cs" id="1_tyu4g"]
 [ext_resource type="Texture2D" uid="uid://cp6rx7i3d8tgq" path="res://Art/Tiles/Adobe Express - file.png" id="2_84v8o"]
 [ext_resource type="Texture2D" uid="uid://c1rfobotlsf8p" path="res://Art/Tiles/lava (1).png" id="3_wmkmj"]
 [ext_resource type="Texture2D" uid="uid://bn61ytm5gj53m" path="res://Art/Tiles/green-vectorized (1).png" id="4_e8iyr"]
 [ext_resource type="Texture2D" uid="uid://cf4e7uyw085yq" path="res://Art/Tiles/lava-vectorized.png" id="5_q4ifv"]
 [ext_resource type="Texture2D" uid="uid://cll1fsn1cd8ck" path="res://Art/Tiles/vectorized.png" id="6_l4avf"]
-[ext_resource type="PackedScene" uid="uid://dk3gfamg5ouk4" path="res://aragon_sprite_2d.tscn" id="7_q4ifv"]
-[ext_resource type="PackedScene" uid="uid://cgur7at6owf1s" path="res://characters_scenes/boromir_sprite_2d.tscn" id="8_l4avf"]
-[ext_resource type="PackedScene" uid="uid://cdi1jd4b0mesk" path="res://characters_scenes/gandalf_sprite_2d.tscn" id="9_l4avf"]
-[ext_resource type="PackedScene" uid="uid://ccf5opv3w7te5" path="res://characters_scenes/frodo_sprite_2d.tscn" id="10_jcvvf"]
-[ext_resource type="PackedScene" uid="uid://i1mdmdanux0s" path="res://characters_scenes/legolas_sprite_2d.tscn" id="11_aiw0r"]
-[ext_resource type="PackedScene" uid="uid://d08khqd3b36a8" path="res://characters_scenes/merry_sprite_2d.tscn" id="12_tyu4g"]
-[ext_resource type="PackedScene" uid="uid://b2np60la80is1" path="res://characters_scenes/sam_sprite_2d.tscn" id="13_gk1wl"]
-[ext_resource type="PackedScene" uid="uid://dywgvou2v01f1" path="res://characters_scenes/pippin_sprite_2d.tscn" id="14_kfiik"]
+[ext_resource type="PackedScene" uid="uid://ddohyifhg7pkf" path="res://characters_scenes/boromir.tscn" id="7_aiw0r"]
+[ext_resource type="PackedScene" uid="uid://b2np60la80is1" path="res://characters_scenes/sam.tscn" id="13_gk1wl"]
 [ext_resource type="PackedScene" uid="uid://d2nplcigroap8" path="res://characters_scenes/heavy_orc.tscn" id="15_qpqai"]
-[ext_resource type="PackedScene" uid="uid://cpdpv0t1t7qk7" path="res://characters_scenes/sauron_sprite_2d.tscn" id="16_hg3fi"]
-[ext_resource type="PackedScene" uid="uid://b8eng5glhbea6" path="res://characters_scenes/saruman_sprite_2d.tscn" id="17_bsa5o"]
-[ext_resource type="PackedScene" uid="uid://bjthtdb74s1yk" path="res://characters_scenes/light_orc_sprite_2d.tscn" id="18_mp7ew"]
-[ext_resource type="PackedScene" uid="uid://btkj4btcrkety" path="res://characters_scenes/king_of_the_dead_sprite_2d.tscn" id="19_s5c1x"]
+[ext_resource type="PackedScene" uid="uid://cpdpv0t1t7qk7" path="res://characters_scenes/sauron.tscn" id="16_hg3fi"]
+[ext_resource type="PackedScene" uid="uid://b8eng5glhbea6" path="res://characters_scenes/saruman.tscn" id="17_bsa5o"]
+[ext_resource type="PackedScene" uid="uid://by3v2tslvmqwr" path="res://characters_scenes/aragorn.tscn" id="19_aiw0r"]
+[ext_resource type="PackedScene" uid="uid://dnu4c6bt62sqe" path="res://characters_scenes/pippin.tscn" id="19_bsa5o"]
+[ext_resource type="PackedScene" uid="uid://b23mrfkhmht37" path="res://characters_scenes/gandalf.tscn" id="19_gk1wl"]
+[ext_resource type="PackedScene" uid="uid://c1ksvherjw0rt" path="res://characters_scenes/merry.tscn" id="19_hg3fi"]
+[ext_resource type="PackedScene" uid="uid://pfnsyjsyvlmr" path="res://characters_scenes/king_of_the_dead.tscn" id="19_kfiik"]
+[ext_resource type="PackedScene" uid="uid://05gtou4jwd2y" path="res://characters_scenes/legolas.tscn" id="19_qpqai"]
+[ext_resource type="PackedScene" uid="uid://ckb1etmea5n10" path="res://characters_scenes/frodo.tscn" id="19_tyu4g"]
+[ext_resource type="PackedScene" uid="uid://c1750db4ehttj" path="res://characters_scenes/light_orc.tscn" id="20_tyu4g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mel50"]
 texture = ExtResource("1_84v8o")
@@ -65,58 +66,64 @@ sources/5 = SubResource("TileSetAtlasSource_4vyub")
 sources/7 = SubResource("TileSetAtlasSource_x02jp")
 sources/8 = SubResource("TileSetAtlasSource_fhks6")
 
-[node name="Node2D" type="Node2D"]
+[node name="Grid" type="Node2D"]
+script = ExtResource("1_tyu4g")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD//wMAAgAAAAAAAAD+/wQAAgAAAAAAAAD9/wUAAgAAAAAAAAD8/wQAAgAAAAAAAAD+/wIAAgAAAAAAAAD//wEAAgAAAAAAAAAAAAIAAgAAAAAAAAABAAMAAgAAAAAAAAAAAAQAAgAAAAAAAAD//wUAAgAAAAAAAAD+/wYAAgAAAAAAAAD7/wMAAgAAAAAAAAD8/wIAAgAAAAAAAAD9/wEAAgAAAAAAAAD+/wAAAgAAAAAAAAD9/wIAAAAAAAAAAAD+/wMAAAAAAAAAAAD+/wUAAAAAAAAAAAD//wQAAAAAAAAAAAAAAAMAAAAAAAAAAAD//wIAAAAAAAAAAAD+/wEAAAAAAAAAAAD//wAAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAIAAAAAAAAAAAD8/wMAAAAAAAAAAAD9/wMAAgAAAAAAAAD9/wQAAAAAAAAAAAACAAIAAgAAAAAAAAABAAEAAgAAAAAAAAAAAAAAAgAAAAAAAAD/////BwAAAAAAAAD//wcAAgAAAAAAAAAAAAYAAgAAAAAAAAABAAUAAgAAAAAAAAACAAQAAgAAAAAAAAADAAMAAgAAAAAAAAACAAYACAAAAAAAAAADAAUACAAAAAAAAAD+/wgAAgAAAAAAAAD9/wcAAgAAAAAAAAD8/wYAAgAAAAAAAAD7/wUAAgAAAAAAAAD//wkABwAAAAAAAAAEAAQABQAAAAAAAAD6/wQABQAAAAAAAAAAAAgAAgAAAAAAAAABAAYAAAAAAAAAAAACAAUAAAAAAAAAAAADAAQAAAAAAAAAAAACAAMAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAD//wYAAAAAAAAAAAD+/wcAAAAAAAAAAAD//wgAAAAAAAAAAAD9/wYAAAAAAAAAAAD8/wUAAAAAAAAAAAD7/wQAAAAAAAAAAAD6/wUAAAAAAAAAAAD7/wYAAAAAAAAAAAD8/wcAAAAAAAAAAAD9/wgAAAAAAAAAAAD+/wkAAAAAAAAAAAAEAAMAAAAAAAAAAAADAAIAAAAAAAAAAAAEAAUAAAAAAAAAAAADAAYAAAAAAAAAAAABAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAACAAEAAAAAAAAAAAABAAAAAAAAAAAAAAAAAP//AAAAAAAAAAD+////AAAAAAAAAAD9/wAAAAAAAAAAAAD8/wEAAAAAAAAAAAD7/wIAAAAAAAAAAAD6/wMAAAAAAAAAAAACAAcAAAAAAAAAAAAAAAcAAAAAAAAAAAABAAcACAAAAAAAAAA=")
+position = Vector2(108, 99)
+scale = Vector2(2.5, 2.5)
+tile_map_data = PackedByteArray("AAAAAP//AAAAAAAAAAAAAAAABQAAAAAAAAAAAAEAAAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAgAAAAAAAAABAAIAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAgAAAAAAAAACAAMAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAgAAAAAAAAADAAQAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAgAAAAAAAAAEAAUAAAAAAAAAAAABAP7/AAAAAAAAAAABAP//AgAAAAAAAAACAP3/AAAAAAAAAAACAP7/AgAAAAAAAAACAP//AAAAAAAAAAACAAAAAgAAAAAAAAADAPz/AAAAAAAAAAADAP3/AgAAAAAAAAADAP7/AAAAAAAAAAADAP//AgAAAAAAAAADAAAAAAAAAAAAAAADAAEAAgAAAAAAAAAEAPv/AAAAAAAAAAAEAPz/AgAAAAAAAAAEAP3/AAAAAAAAAAAEAP7/AgAAAAAAAAAEAP//AAAAAAAAAAAEAAAAAgAAAAAAAAAEAAEAAAAAAAAAAAAEAAIAAgAAAAAAAAAFAPv/BwAAAAAAAAAFAPz/AAAAAAAAAAAFAP3/AgAAAAAAAAAFAP7/AAAAAAAAAAAFAP//AgAAAAAAAAAFAAAAAAAAAAAAAAAFAAEAAgAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAgAAAAAAAAAFAAQAAAAAAAAAAAAFAAUABwAAAAAAAAAGAPv/AAAAAAAAAAAGAPz/AgAAAAAAAAAGAP3/AAAAAAAAAAAGAP7/AgAAAAAAAAAGAP//AAAAAAAAAAAGAAAAAgAAAAAAAAAGAAEAAAAAAAAAAAAGAAIAAgAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAgAAAAAAAAAGAAUAAAAAAAAAAAAHAPz/AAAAAAAAAAAHAP3/AgAAAAAAAAAHAP7/AAAAAAAAAAAHAP//AgAAAAAAAAAHAAAAAAAAAAAAAAAHAAEAAgAAAAAAAAAHAAIAAAAAAAAAAAAHAAMACAAAAAAAAAAHAAQAAAAAAAAAAAAIAP3/AAAAAAAAAAAIAP7/AgAAAAAAAAAIAP//AAAAAAAAAAAIAAAAAgAAAAAAAAAIAAEAAAAAAAAAAAAIAAIACAAAAAAAAAAIAAMAAAAAAAAAAAAJAP7/AAAAAAAAAAAJAP//AgAAAAAAAAAJAAAAAAAAAAAAAAAJAAEACAAAAAAAAAAJAAIAAAAAAAAAAAAKAP//AAAAAAAAAAAKAAAABQAAAAAAAAAKAAEAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_mel50")
 
-[node name="boromir" parent="." instance=ExtResource("8_l4avf")]
-position = Vector2(57, 108)
+[node name="Characters" type="Node2D" parent="TileMapLayer"]
 
-[node name="gandalf" parent="." instance=ExtResource("9_l4avf")]
-position = Vector2(59, 75)
+[node name="Boromir" parent="TileMapLayer/Characters" instance=ExtResource("7_aiw0r")]
+position = Vector2(342, 140)
+
+[node name="Sam" parent="TileMapLayer/Characters" instance=ExtResource("13_gk1wl")]
+position = Vector2(114, -20)
+
+[node name="Heavy Orc" parent="TileMapLayer/Characters" instance=ExtResource("15_qpqai")]
+position = Vector2(285, -20)
+
+[node name="Heavy Orc2" parent="TileMapLayer/Characters" instance=ExtResource("15_qpqai")]
+position = Vector2(0, 140)
+
+[node name="Sauron" parent="TileMapLayer/Characters" instance=ExtResource("16_hg3fi")]
+position = Vector2(342, 44)
+
+[node name="Saruman" parent="TileMapLayer/Characters" instance=ExtResource("17_bsa5o")]
+position = Vector2(57, 172)
+
+[node name="Aragorn" parent="TileMapLayer/Characters" instance=ExtResource("19_aiw0r")]
+position = Vector2(228, 172)
+
+[node name="Frodo" parent="TileMapLayer/Characters" instance=ExtResource("19_tyu4g")]
+position = Vector2(57, -20)
+
+[node name="Gandalf" parent="TileMapLayer/Characters" instance=ExtResource("19_gk1wl")]
+position = Vector2(342, 108)
 frame = 0
 frame_progress = 0.0
 
-[node name="aragon" parent="." instance=ExtResource("7_q4ifv")]
-position = Vector2(-58, 141)
+[node name="King of the Dead" parent="TileMapLayer/Characters" instance=ExtResource("19_kfiik")]
+position = Vector2(228, -20)
 
-[node name="frodo" parent="." instance=ExtResource("10_jcvvf")]
-position = Vector2(-228, -51)
+[node name="Legolas" parent="TileMapLayer/Characters" instance=ExtResource("19_qpqai")]
+position = Vector2(285, 172)
+frame = 5
 
-[node name="legolas" parent="." instance=ExtResource("11_aiw0r")]
-position = Vector2(-3, 138)
+[node name="Light Orc" parent="TileMapLayer/Characters" instance=ExtResource("20_tyu4g")]
+position = Vector2(114, 172)
 
-[node name="merry" parent="." instance=ExtResource("12_tyu4g")]
-position = Vector2(-288, -20)
+[node name="Light Orc2" parent="TileMapLayer/Characters" instance=ExtResource("20_tyu4g")]
+position = Vector2(342, 12)
 
-[node name="sam" parent="." instance=ExtResource("13_gk1wl")]
-position = Vector2(-172, -51)
+[node name="Light Orc3" parent="TileMapLayer/Characters" instance=ExtResource("20_tyu4g")]
+position = Vector2(0, 108)
 
-[node name="pippin" parent="." instance=ExtResource("14_kfiik")]
-position = Vector2(-288, 14)
+[node name="Merry" parent="TileMapLayer/Characters" instance=ExtResource("19_hg3fi")]
+position = Vector2(0, 12)
 
-[node name="heavy_orc" parent="." instance=ExtResource("15_qpqai")]
-position = Vector2(-1, -49)
-
-[node name="heavy_orc2" parent="." instance=ExtResource("15_qpqai")]
-position = Vector2(-287, 106)
-
-[node name="sauron" parent="." instance=ExtResource("16_hg3fi")]
-position = Vector2(57, 10)
-
-[node name="saruman" parent="." instance=ExtResource("17_bsa5o")]
-position = Vector2(-227, 140)
-
-[node name="light_orc" parent="." instance=ExtResource("18_mp7ew")]
-position = Vector2(-170, 140)
-
-[node name="light_orc2" parent="." instance=ExtResource("18_mp7ew")]
-position = Vector2(58, -20)
-
-[node name="light_orc3" parent="." instance=ExtResource("18_mp7ew")]
-position = Vector2(-286, 78)
-
-[node name="king_of_the_dead" parent="." instance=ExtResource("19_s5c1x")]
-position = Vector2(-57, -52)
+[node name="Pippin" parent="TileMapLayer/Characters" instance=ExtResource("19_bsa5o")]
+position = Vector2(0, 44)

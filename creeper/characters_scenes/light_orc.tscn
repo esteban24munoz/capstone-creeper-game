@@ -1,29 +1,30 @@
-[gd_scene load_steps=9 format=3 uid="uid://bjthtdb74s1yk"]
+[gd_scene load_steps=11 format=3 uid="uid://c1750db4ehttj"]
 
-[ext_resource type="Texture2D" uid="uid://cx2xaxbe7i35q" path="res://Art/Enemies/Light Orc.png" id="1_ocr6o"]
+[ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_cgjq0"]
+[ext_resource type="Texture2D" uid="uid://cx2xaxbe7i35q" path="res://Art/Enemies/Light Orc.png" id="2_drk08"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uixot"]
-atlas = ExtResource("1_ocr6o")
+atlas = ExtResource("2_drk08")
 region = Rect2(0, 896, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hdgvf"]
-atlas = ExtResource("1_ocr6o")
+atlas = ExtResource("2_drk08")
 region = Rect2(64, 896, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hcy8s"]
-atlas = ExtResource("1_ocr6o")
+atlas = ExtResource("2_drk08")
 region = Rect2(128, 896, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jw68d"]
-atlas = ExtResource("1_ocr6o")
+atlas = ExtResource("2_drk08")
 region = Rect2(192, 896, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6xonu"]
-atlas = ExtResource("1_ocr6o")
+atlas = ExtResource("2_drk08")
 region = Rect2(256, 896, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c8ij8"]
-atlas = ExtResource("1_ocr6o")
+atlas = ExtResource("2_drk08")
 region = Rect2(320, 896, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
@@ -52,8 +53,15 @@ animations = [{
 "speed": 2.0
 }]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ehvro"]
+radius = 14.0
+height = 52.0
+
+[node name="Light Orc" instance=ExtResource("1_cgjq0")]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_chxth")
 animation = &"idle"
-frame_progress = 0.8880222
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_ehvro")

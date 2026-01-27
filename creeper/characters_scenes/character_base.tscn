@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmk3h7qs4gcqi"]
+
+[ext_resource type="Script" uid="uid://oh3ng2oepsbq" path="res://Character Scripts/CharacterBase.cs" id="1_e5sm8"]
+
+[node name="Character Base" type="AnimatedSprite2D"]
+script = ExtResource("1_e5sm8")
+
+[node name="Area2D" type="Area2D" parent="."]

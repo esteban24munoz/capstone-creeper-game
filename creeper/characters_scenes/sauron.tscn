@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cpdpv0t1t7qk7"]
+[gd_scene load_steps=11 format=3 uid="uid://cpdpv0t1t7qk7"]
 
 [ext_resource type="Texture2D" uid="uid://y1qcxt168xiu" path="res://Art/Enemies/Sauron.png" id="1_kcj35"]
+[ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_ocn03"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gqwqp"]
 atlas = ExtResource("1_kcj35")
@@ -52,9 +53,15 @@ animations = [{
 "speed": 2.0
 }]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pags0"]
+radius = 16.0
+height = 60.0
+
+[node name="Sauron" instance=ExtResource("1_ocn03")]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_chxth")
 animation = &"idle"
-frame = 5
-frame_progress = 0.13192323
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(2, 6)
+shape = SubResource("CapsuleShape2D_pags0")

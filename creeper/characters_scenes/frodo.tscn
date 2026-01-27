@@ -1,37 +1,38 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccf5opv3w7te5"]
+[gd_scene load_steps=13 format=3 uid="uid://ckb1etmea5n10"]
 
-[ext_resource type="Texture2D" uid="uid://08hq6pwdbr3u" path="res://Art/Heroes/Frodo.png" id="1_001pc"]
+[ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_wwymi"]
+[ext_resource type="Texture2D" uid="uid://08hq6pwdbr3u" path="res://Art/Heroes/Frodo.png" id="2_2su0g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_psv4s"]
-atlas = ExtResource("1_001pc")
+atlas = ExtResource("2_2su0g")
 region = Rect2(0, 384, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_il6ss"]
-atlas = ExtResource("1_001pc")
+atlas = ExtResource("2_2su0g")
 region = Rect2(64, 384, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4fxtm"]
-atlas = ExtResource("1_001pc")
+atlas = ExtResource("2_2su0g")
 region = Rect2(128, 384, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8hthl"]
-atlas = ExtResource("1_001pc")
+atlas = ExtResource("2_2su0g")
 region = Rect2(192, 384, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hph6a"]
-atlas = ExtResource("1_001pc")
+atlas = ExtResource("2_2su0g")
 region = Rect2(256, 384, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0rp8f"]
-atlas = ExtResource("1_001pc")
+atlas = ExtResource("2_2su0g")
 region = Rect2(320, 384, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n0eia"]
-atlas = ExtResource("1_001pc")
+atlas = ExtResource("2_2su0g")
 region = Rect2(384, 384, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eo788"]
-atlas = ExtResource("1_001pc")
+atlas = ExtResource("2_2su0g")
 region = Rect2(448, 384, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
@@ -66,9 +67,16 @@ animations = [{
 "speed": 2.0
 }]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_62qfa"]
+radius = 12.0
+height = 52.0
+
+[node name="Frodo" instance=ExtResource("1_wwymi")]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_chxth")
 animation = &"idle"
 frame = 2
-frame_progress = 0.7954167
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_62qfa")

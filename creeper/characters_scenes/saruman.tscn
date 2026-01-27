@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8eng5glhbea6"]
+[gd_scene load_steps=12 format=3 uid="uid://b8eng5glhbea6"]
 
+[ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_5rfxv"]
 [ext_resource type="Texture2D" uid="uid://bcwgqotgv35vd" path="res://Art/Enemies/Sarumaun.png" id="1_0542s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hm80p"]
@@ -59,8 +60,15 @@ animations = [{
 "speed": 2.0
 }]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_taaih"]
+radius = 14.0
+height = 52.0
+
+[node name="Saruman" instance=ExtResource("1_5rfxv")]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_chxth")
 animation = &"idle"
-frame_progress = 0.008413632
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_taaih")

@@ -1,29 +1,30 @@
-[gd_scene load_steps=9 format=3 uid="uid://dywgvou2v01f1"]
+[gd_scene load_steps=11 format=3 uid="uid://dnu4c6bt62sqe"]
 
-[ext_resource type="Texture2D" uid="uid://bl2f58nvo6jdc" path="res://Art/Heroes/Pippin.png" id="1_cfeiv"]
+[ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_j557l"]
+[ext_resource type="Texture2D" uid="uid://bl2f58nvo6jdc" path="res://Art/Heroes/Pippin.png" id="2_tt40o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hryap"]
-atlas = ExtResource("1_cfeiv")
+atlas = ExtResource("2_tt40o")
 region = Rect2(0, 896, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_myq3t"]
-atlas = ExtResource("1_cfeiv")
+atlas = ExtResource("2_tt40o")
 region = Rect2(64, 896, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t0jwm"]
-atlas = ExtResource("1_cfeiv")
+atlas = ExtResource("2_tt40o")
 region = Rect2(128, 896, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_op46t"]
-atlas = ExtResource("1_cfeiv")
+atlas = ExtResource("2_tt40o")
 region = Rect2(192, 896, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8mknr"]
-atlas = ExtResource("1_cfeiv")
+atlas = ExtResource("2_tt40o")
 region = Rect2(256, 896, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xdkcv"]
-atlas = ExtResource("1_cfeiv")
+atlas = ExtResource("2_tt40o")
 region = Rect2(320, 896, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
@@ -52,8 +53,15 @@ animations = [{
 "speed": 2.0
 }]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k0s31"]
+radius = 16.0
+height = 56.0
+
+[node name="Pippin" instance=ExtResource("1_j557l")]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_chxth")
 animation = &"idle"
-frame_progress = 0.6712236
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_k0s31")

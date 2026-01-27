@@ -1,33 +1,34 @@
-[gd_scene load_steps=10 format=3 uid="uid://cgur7at6owf1s"]
+[gd_scene load_steps=12 format=3 uid="uid://ddohyifhg7pkf"]
 
-[ext_resource type="Texture2D" uid="uid://5731pytr7lip" path="res://Art/Heroes/Boromir.png" id="1_aw7xy"]
+[ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_8a4dp"]
+[ext_resource type="Texture2D" uid="uid://5731pytr7lip" path="res://Art/Heroes/Boromir.png" id="2_5y4kf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v354i"]
-atlas = ExtResource("1_aw7xy")
+atlas = ExtResource("2_5y4kf")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pawyf"]
-atlas = ExtResource("1_aw7xy")
+atlas = ExtResource("2_5y4kf")
 region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u6iak"]
-atlas = ExtResource("1_aw7xy")
+atlas = ExtResource("2_5y4kf")
 region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3v2kf"]
-atlas = ExtResource("1_aw7xy")
+atlas = ExtResource("2_5y4kf")
 region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wbd06"]
-atlas = ExtResource("1_aw7xy")
+atlas = ExtResource("2_5y4kf")
 region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1j67i"]
-atlas = ExtResource("1_aw7xy")
+atlas = ExtResource("2_5y4kf")
 region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3gfrq"]
-atlas = ExtResource("1_aw7xy")
+atlas = ExtResource("2_5y4kf")
 region = Rect2(384, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
@@ -59,9 +60,15 @@ animations = [{
 "speed": 2.0
 }]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_82wka"]
+radius = 16.0
+height = 52.0
+
+[node name="Boromir" instance=ExtResource("1_8a4dp")]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_chxth")
 animation = &"idle"
-frame = 1
-frame_progress = 0.092774555
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_82wka")

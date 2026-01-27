@@ -1,69 +1,70 @@
-[gd_scene load_steps=19 format=3 uid="uid://dk3gfamg5ouk4"]
+[gd_scene load_steps=21 format=3 uid="uid://by3v2tslvmqwr"]
 
-[ext_resource type="Texture2D" uid="uid://bnxkhosfu3nv6" path="res://Art/Heroes/Aragorn.png" id="1_wt2xv"]
+[ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_03bwf"]
+[ext_resource type="Texture2D" uid="uid://bnxkhosfu3nv6" path="res://Art/Heroes/Aragorn.png" id="2_am563"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ct1q"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(128, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_83n25"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(64, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aymcs"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(256, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_763tg"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(0, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wgr7y"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(320, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mvr60"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(0, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_chvjc"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(0, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wt2xv"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(0, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2cvnj"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(64, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hfwr2"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(128, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jl6is"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(192, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2ump6"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(256, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jt03g"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(320, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_empt1"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(384, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mxypa"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(448, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rjfie"]
-atlas = ExtResource("1_wt2xv")
+atlas = ExtResource("2_am563")
 region = Rect2(512, 64, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wt2xv"]
@@ -141,8 +142,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_srad1"]
+radius = 16.0
+height = 52.0
+
+[node name="Aragorn" instance=ExtResource("1_03bwf")]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_wt2xv")
 animation = &"walking_down"
-frame_progress = 0.9887915
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_srad1")

@@ -1,7 +1,6 @@
 [gd_scene load_steps=29 format=4 uid="uid://bh7bd75p67acy"]
 
-[ext_resource type="Script" uid="uid://dnttn430tx1qb" path="res://Grid.cs" id="1_tyu4g"]
-[ext_resource type="Texture2D" uid="uid://b36u4koh0cyhc" path="res://GameBackground/GameBackground_v2.png" id="2_qpqai"]
+[ext_resource type="Script" uid="uid://cyu6dhui3oonw" path="res://Game Scripts/Grid.cs" id="1_tyu4g"]
 [ext_resource type="Texture2D" uid="uid://djms4xij1g142" path="res://Art/Tiles/New Neutral Tile Sprite.png" id="2_xrsif"]
 [ext_resource type="Texture2D" uid="uid://byp26q4if8fd" path="res://Art/Tiles/New Rock Tile Sprite.png" id="3_aiw0r"]
 [ext_resource type="Texture2D" uid="uid://d3dnkksyhmh70" path="res://Art/Tiles/New Grass Tile Sprite (1).png" id="4_tyu4g"]
@@ -33,21 +32,16 @@ texture_region_size = Vector2i(96, 96)
 texture = ExtResource("3_aiw0r")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
-0:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hg3fi"]
 texture = ExtResource("4_tyu4g")
 texture_region_size = Vector2i(96, 96)
 0:0/0 = 0
-0:1/0 = 0
-0:2/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bsa5o"]
 texture = ExtResource("5_gk1wl")
 texture_region_size = Vector2i(96, 96)
 0:0/0 = 0
-0:1/0 = 0
-0:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_mel50"]
 tile_shape = 1
@@ -66,64 +60,78 @@ position = Vector2(512, 320)
 texture = ExtResource("2_qpqai")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-position = Vector2(216, 152)
-tile_map_data = PackedByteArray("AAAKAAEABQAAAAAAAAAJAAAABQAAAAAAAAAJAP//BAAAAAAAAAAHAP3/BAAAAAAAAAAGAP3/BQAAAAAAAAAGAPz/BAAAAAAAAAAGAPv/BQAAAAAAAAAEAPv/BQAAAAAAAAAEAPz/BAAAAAAAAAAFAPz/BQAAAAAAAAAFAP3/BAAAAAAAAAAHAP7/BQAAAAAAAAAIAP//BQAAAAAAAAAJAAEABAAAAAAAAAAHAPz/BQAAAAAAAAAKAP//BQAAAAAAAAAIAAEABQAAAAAAAAAIAAAABAAAAAAAAAAHAAAABQAAAAAAAAAHAP//BAAAAAAAAAAGAP//BQAAAAAAAAAGAP7/BAAAAAAAAAAFAP7/BQAAAAAAAAAEAP3/BQAAAAAAAAADAPz/BQAAAAAAAAADAP3/BAAAAAAAAAAEAP7/BAAAAAAAAAAFAP//BAAAAAAAAAAGAAAABAAAAAAAAAAHAAEABAAAAAAAAAAIAAIABAAAAAAAAAAJAAIABQAAAAAAAAAGAAEABQAAAAAAAAAFAAAABQAAAAAAAAAEAAAABAAAAAAAAAAEAP//BQAAAAAAAAADAP//BAAAAAAAAAADAP7/BQAAAAAAAAACAP7/BAAAAAAAAAACAP3/BQAAAAAAAAAHAAIABQAAAAAAAAAIAAMABQAAAAAAAAAHAAMABAAAAAAAAAAGAAIABAAAAAAAAAAFAAEABAAAAAAAAAAEAAEABQAAAAAAAAADAAAABQAAAAAAAAACAP//BQAAAAAAAAABAP7/BQAAAAAAAAABAP//BAAAAAAAAAAFAAIABQAAAAAAAAAGAAMABQAAAAAAAAAHAAQABQAAAAAAAAAGAAQABAAAAAAAAAAFAAMABAAAAAAAAAAEAAIABAAAAAAAAAADAAEABAAAAAAAAAACAAAABAAAAAAAAAAAAP//BQAAAAAAAAABAAAABQAAAAAAAAACAAEABQAAAAAAAAADAAIABQAAAAAAAAAEAAMABQAAAAAAAAAEAAQABAAAAAAAAAAFAAQABQAAAAAAAAAGAAUABQAAAAAAAAAEAAUABQAAAAAAAAADAAQABQAAAAAAAAADAAMABAAAAAAAAAACAAMABQAAAAAAAAACAAIABAAAAAAAAAABAAIABQAAAAAAAAABAAEABAAAAAAAAAAAAAEABQAAAAAAAAAAAAAABgAAAAAAAAD//wEABgAAAAAAAAD//wAABgAAAAAAAAD+/wEABgAAAAAAAAD+/wAABgAAAAAAAAAKAAAABgAAAAAAAAALAP//BgAAAAAAAAALAAAABgAAAAAAAAAMAP//BgAAAAAAAAAMAAAABgAAAAAAAAAFAAUABwAAAAAAAAAEAAYABwAAAAAAAAAFAAYABwAAAAAAAAAEAAcABwAAAAAAAAAFAAcABwAAAAAAAAAFAPv/BwAAAAAAAAAFAPr/BwAAAAAAAAAGAPr/BwAAAAAAAAAFAPn/BwAAAAAAAAAGAPn/BwAAAAAAAAAIAP3/BQAAAAAAAAAIAP7/BAAAAAAAAAAJAP7/BQAAAAAAAAA=")
+position = Vector2(210, 161)
+tile_map_data = PackedByteArray("AAAKAAEABQAAAAAAAAAJAAAABQAAAAAAAAAJAP//BAAAAAAAAAAJAP7/BQAAAAAAAAAIAP7/BAAAAAAAAAAIAP3/BQAAAAAAAAAHAP3/BAAAAAAAAAAGAP3/BQAAAAAAAAAGAPz/BAAAAAAAAAAGAPv/BQAAAAAAAAAEAPv/BQAAAAAAAAAEAPz/BAAAAAAAAAAFAPz/BQAAAAAAAAAFAP3/BAAAAAAAAAAHAP7/BQAAAAAAAAAIAP//BQAAAAAAAAAJAAEABAAAAAAAAAAHAPz/BQAAAAAAAAAKAP//BQAAAAAAAAAIAAEABQAAAAAAAAAIAAAABAAAAAAAAAAHAAAABQAAAAAAAAAHAP//BAAAAAAAAAAGAP//BQAAAAAAAAAGAP7/BAAAAAAAAAAFAP7/BQAAAAAAAAAEAP3/BQAAAAAAAAADAPz/BQAAAAAAAAADAP3/BAAAAAAAAAAEAP7/BAAAAAAAAAAFAP//BAAAAAAAAAAGAAAABAAAAAAAAAAHAAEABAAAAAAAAAAIAAIABAAAAAAAAAAJAAIABQAAAAAAAAAGAAEABQAAAAAAAAAFAAAABQAAAAAAAAAEAAAABAAAAAAAAAAEAP//BQAAAAAAAAADAP//BAAAAAAAAAADAP7/BQAAAAAAAAACAP7/BAAAAAAAAAACAP3/BQAAAAAAAAAHAAIABQAAAAAAAAAIAAMABQAAAAAAAAAHAAMABAAAAAAAAAAGAAIABAAAAAAAAAAFAAEABAAAAAAAAAAEAAEABQAAAAAAAAADAAAABQAAAAAAAAACAP//BQAAAAAAAAABAP7/BQAAAAAAAAABAP//BAAAAAAAAAAFAAIABQAAAAAAAAAGAAMABQAAAAAAAAAHAAQABQAAAAAAAAAGAAQABAAAAAAAAAAFAAMABAAAAAAAAAAEAAIABAAAAAAAAAADAAEABAAAAAAAAAACAAAABAAAAAAAAAAAAP//BQAAAAAAAAABAAAABQAAAAAAAAACAAEABQAAAAAAAAADAAIABQAAAAAAAAAEAAMABQAAAAAAAAAEAAQABAAAAAAAAAAFAAQABQAAAAAAAAAGAAUABQAAAAAAAAAEAAUABQAAAAAAAAADAAQABQAAAAAAAAADAAMABAAAAAAAAAACAAMABQAAAAAAAAACAAIABAAAAAAAAAABAAIABQAAAAAAAAABAAEABAAAAAAAAAAAAAEABQAAAAAAAAAAAAAABgAAAAAAAAD//wEABgAAAAAAAAD//wAABgAAAAAAAAD+/wEABgAAAAAAAAD+/wAABgAAAAAAAAAKAAAABgAAAAAAAAALAP//BgAAAAAAAAALAAAABgAAAAAAAAAMAP//BgAAAAAAAAAMAAAABgAAAAAAAAAFAAUABwAAAAAAAAAEAAYABwAAAAAAAAAFAAYABwAAAAAAAAAEAAcABwAAAAAAAAAFAAcABwAAAAAAAAAFAPv/BwAAAAAAAAAFAPr/BwAAAAAAAAAGAPr/BwAAAAAAAAAFAPn/BwAAAAAAAAAGAPn/BwAAAAAAAAA=")
 tile_set = SubResource("TileSet_mel50")
 
 [node name="Characters" type="Node2D" parent="TileMapLayer"]
-scale = Vector2(2, 2)
 
 [node name="Boromir" parent="TileMapLayer/Characters" instance=ExtResource("7_aiw0r")]
-position = Vector2(288, 130)
+position = Vector2(576, 260)
+scale = Vector2(1, 1)
 
 [node name="Sam" parent="TileMapLayer/Characters" instance=ExtResource("13_gk1wl")]
-position = Vector2(96, -20)
+position = Vector2(192, -40)
+scale = Vector2(1, 1)
 
 [node name="Heavy Orc" parent="TileMapLayer/Characters" instance=ExtResource("15_qpqai")]
-position = Vector2(240, -20)
+position = Vector2(480, -40)
+scale = Vector2(1, 1)
 
 [node name="Heavy Orc2" parent="TileMapLayer/Characters" instance=ExtResource("15_qpqai")]
-position = Vector2(0, 130)
+position = Vector2(0, 260)
+scale = Vector2(1, 1)
 
 [node name="Sauron" parent="TileMapLayer/Characters" instance=ExtResource("16_hg3fi")]
-position = Vector2(288, 40)
+position = Vector2(576, 80)
+scale = Vector2(1, 1)
 
 [node name="Saruman" parent="TileMapLayer/Characters" instance=ExtResource("17_bsa5o")]
-position = Vector2(48, 160)
+position = Vector2(96, 320)
+scale = Vector2(1, 1)
 
 [node name="Aragorn" parent="TileMapLayer/Characters" instance=ExtResource("19_aiw0r")]
-position = Vector2(192, 160)
+position = Vector2(384, 320)
+scale = Vector2(1, 1)
 
 [node name="Frodo" parent="TileMapLayer/Characters" instance=ExtResource("19_tyu4g")]
-position = Vector2(48, -20)
+position = Vector2(96, -40)
+scale = Vector2(1, 1)
 
 [node name="Gandalf" parent="TileMapLayer/Characters" instance=ExtResource("19_gk1wl")]
-position = Vector2(288, 100)
+position = Vector2(576, 200)
+scale = Vector2(1, 1)
 frame = 0
 frame_progress = 0.0
 
 [node name="King of the Dead" parent="TileMapLayer/Characters" instance=ExtResource("19_kfiik")]
-position = Vector2(192, -20)
+position = Vector2(384, -40)
+scale = Vector2(1, 1)
 
 [node name="Legolas" parent="TileMapLayer/Characters" instance=ExtResource("19_qpqai")]
-position = Vector2(240, 160)
-frame = 2
-frame_progress = 0.010946148
+position = Vector2(480, 320)
+scale = Vector2(1, 1)
+frame = 5
 
 [node name="Light Orc" parent="TileMapLayer/Characters" instance=ExtResource("20_tyu4g")]
-position = Vector2(96, 160)
+position = Vector2(192, 320)
+scale = Vector2(1, 1)
 
 [node name="Light Orc2" parent="TileMapLayer/Characters" instance=ExtResource("20_tyu4g")]
-position = Vector2(288, 10)
+position = Vector2(576, 20)
+scale = Vector2(1, 1)
 
 [node name="Light Orc3" parent="TileMapLayer/Characters" instance=ExtResource("20_tyu4g")]
-position = Vector2(0, 100)
+position = Vector2(0, 200)
+scale = Vector2(1, 1)
 
 [node name="Merry" parent="TileMapLayer/Characters" instance=ExtResource("19_hg3fi")]
-position = Vector2(0, 10)
+position = Vector2(0, 20)
+scale = Vector2(1, 1)
 
 [node name="Pippin" parent="TileMapLayer/Characters" instance=ExtResource("19_bsa5o")]
-position = Vector2(0, 40)
+position = Vector2(0, 80)
+scale = Vector2(1, 1)
 
 [node name="Bases" type="Node2D" parent="TileMapLayer"]
 

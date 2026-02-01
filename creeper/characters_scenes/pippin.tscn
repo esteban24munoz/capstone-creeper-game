@@ -1,52 +1,34 @@
-[gd_scene load_steps=11 format=3 uid="uid://dnu4c6bt62sqe"]
+[gd_scene load_steps=9 format=3 uid="uid://dnu4c6bt62sqe"]
 
 [ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_j557l"]
-[ext_resource type="Texture2D" uid="uid://bl2f58nvo6jdc" path="res://Art/Heroes/Pippin.png" id="2_tt40o"]
+[ext_resource type="Texture2D" uid="uid://bnwqp3mjyc4er" path="res://Art/Heroes/IDLE/Pippin Idle.png" id="2_j557l"]
+[ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="2_tt40o"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hryap"]
-atlas = ExtResource("2_tt40o")
-region = Rect2(0, 896, 64, 64)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k0s31"]
+shader = ExtResource("2_tt40o")
+shader_parameter/color = Color(0.4, 0.6627451, 0.2509804, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_myq3t"]
-atlas = ExtResource("2_tt40o")
-region = Rect2(64, 896, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_tt40o"]
+atlas = ExtResource("2_j557l")
+region = Rect2(0, 0, 64, 60)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t0jwm"]
-atlas = ExtResource("2_tt40o")
-region = Rect2(128, 896, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_op46t"]
-atlas = ExtResource("2_tt40o")
-region = Rect2(192, 896, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8mknr"]
-atlas = ExtResource("2_tt40o")
-region = Rect2(256, 896, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xdkcv"]
-atlas = ExtResource("2_tt40o")
-region = Rect2(320, 896, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0s31"]
+atlas = ExtResource("2_j557l")
+region = Rect2(64, 0, 64, 60)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hryap")
+"texture": SubResource("AtlasTexture_tt40o")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_myq3t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t0jwm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_op46t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8mknr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xdkcv")
+"texture": SubResource("AtlasTexture_k0s31")
 }],
 "loop": true,
 "name": &"idle",
@@ -58,6 +40,7 @@ radius = 16.0
 height = 56.0
 
 [node name="Pippin" instance=ExtResource("1_j557l")]
+material = SubResource("ShaderMaterial_k0s31")
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_chxth")
 animation = &"idle"

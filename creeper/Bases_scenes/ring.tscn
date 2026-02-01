@@ -1,30 +1,40 @@
-[gd_scene load_steps=6 format=3 uid="uid://duklysfm6g8yo"]
+[gd_scene load_steps=8 format=3 uid="uid://duklysfm6g8yo"]
 
-[ext_resource type="Texture2D" uid="uid://dsehp0jdq86rb" path="res://Bases/The One Ring Sprite.png" id="1_ipv2j"]
+[ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="1_0qbnp"]
+[ext_resource type="Texture2D" uid="uid://cdh5gnijd8acy" path="res://Bases/The One Ring Sprite_frame_1.png" id="2_v3wj0"]
 [ext_resource type="Script" uid="uid://cqt6emwthjpfl" path="res://Base Scripts/Base.cs" id="2_yabeh"]
+[ext_resource type="Texture2D" uid="uid://bhnvu86d127d6" path="res://Bases/The One Ring Sprite_2.png" id="3_0h8jf"]
+[ext_resource type="Texture2D" uid="uid://csdw4cjqhty78" path="res://Bases/The One Ring Sprite_3.png" id="4_pnhew"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8y6a0"]
-atlas = ExtResource("1_ipv2j")
-region = Rect2(0, 0, 80, 100)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8d7em"]
-atlas = ExtResource("1_ipv2j")
-region = Rect2(160, 0, 80, 100)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kf3vw"]
+shader = ExtResource("1_0qbnp")
+shader_parameter/color = Color(0.4, 0.6627451, 0.2509804, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8y6a0")
+"texture": ExtResource("2_v3wj0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8y6a0")
+"texture": ExtResource("2_v3wj0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8d7em")
+"texture": ExtResource("3_0h8jf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8d7em")
+"texture": ExtResource("3_0h8jf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pnhew")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pnhew")
 }],
 "loop": true,
 "name": &"idle",
@@ -32,8 +42,9 @@ animations = [{
 }]
 
 [node name="Ring" type="AnimatedSprite2D"]
+material = SubResource("ShaderMaterial_kf3vw")
 sprite_frames = SubResource("SpriteFrames_chxth")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.09025239
+frame_progress = 0.042299077
 script = ExtResource("2_yabeh")

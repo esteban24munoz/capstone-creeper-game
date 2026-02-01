@@ -1,59 +1,34 @@
-[gd_scene load_steps=12 format=3 uid="uid://d2nplcigroap8"]
+[gd_scene load_steps=9 format=3 uid="uid://d2nplcigroap8"]
 
 [ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_4hqc2"]
-[ext_resource type="Texture2D" uid="uid://ccxi7cfeyfu5r" path="res://Art/Enemies/Heavy Orc.png" id="2_8vcyi"]
+[ext_resource type="Texture2D" uid="uid://nvfyhut4gk0c" path="res://Art/Enemies/IDLE/Heavy Orc Idle.png" id="2_4hqc2"]
+[ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="2_8vcyi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dxx38"]
+shader = ExtResource("2_8vcyi")
+shader_parameter/color = Color(0.84313726, 0.28627452, 0.18431373, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vcyi"]
+atlas = ExtResource("2_4hqc2")
+region = Rect2(0, 0, 64, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dxx38"]
-atlas = ExtResource("2_8vcyi")
-region = Rect2(0, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wmgjw"]
-atlas = ExtResource("2_8vcyi")
-region = Rect2(64, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y1khy"]
-atlas = ExtResource("2_8vcyi")
-region = Rect2(128, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e212i"]
-atlas = ExtResource("2_8vcyi")
-region = Rect2(192, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_akogf"]
-atlas = ExtResource("2_8vcyi")
-region = Rect2(256, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qcfxs"]
-atlas = ExtResource("2_8vcyi")
-region = Rect2(320, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y4faj"]
-atlas = ExtResource("2_8vcyi")
-region = Rect2(384, 128, 64, 64)
+atlas = ExtResource("2_4hqc2")
+region = Rect2(64, 0, 64, 60)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2wbdn"]
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_8vcyi")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_dxx38")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wmgjw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y1khy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e212i")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_akogf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qcfxs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y4faj")
 }],
 "loop": true,
 "name": &"idle",
@@ -65,11 +40,12 @@ radius = 16.0
 height = 56.0
 
 [node name="Heavy Orc" instance=ExtResource("1_4hqc2")]
+material = SubResource("ShaderMaterial_dxx38")
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_2wbdn")
 animation = &"idle"
 frame = 1
-frame_progress = 0.092878684
+frame_progress = 0.81423855
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2(0, 8)

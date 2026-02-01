@@ -1,35 +1,17 @@
-[gd_scene load_steps=21 format=3 uid="uid://by3v2tslvmqwr"]
+[gd_scene load_steps=18 format=3 uid="uid://by3v2tslvmqwr"]
 
 [ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_03bwf"]
 [ext_resource type="Texture2D" uid="uid://bnxkhosfu3nv6" path="res://Art/Heroes/Aragorn.png" id="2_am563"]
+[ext_resource type="Material" uid="uid://cobdcjcbl01x2" path="res://Art/Heroes/OutlineShaders/aragorn.tres" id="2_cnimj"]
+[ext_resource type="Texture2D" uid="uid://cmjej06npn70j" path="res://Art/Heroes/IDLE/Aragorn Idle.png" id="2_srad1"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1ct1q"]
-atlas = ExtResource("2_am563")
-region = Rect2(128, 320, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnimj"]
+atlas = ExtResource("2_srad1")
+region = Rect2(0, 0, 64, 80)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_83n25"]
-atlas = ExtResource("2_am563")
-region = Rect2(64, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aymcs"]
-atlas = ExtResource("2_am563")
-region = Rect2(256, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_763tg"]
-atlas = ExtResource("2_am563")
-region = Rect2(0, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wgr7y"]
-atlas = ExtResource("2_am563")
-region = Rect2(320, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mvr60"]
-atlas = ExtResource("2_am563")
-region = Rect2(0, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_chvjc"]
-atlas = ExtResource("2_am563")
-region = Rect2(0, 64, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_op6xb"]
+atlas = ExtResource("2_srad1")
+region = Rect2(64, 0, 64, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wt2xv"]
 atlas = ExtResource("2_am563")
@@ -71,43 +53,14 @@ region = Rect2(512, 64, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1ct1q")
+"texture": SubResource("AtlasTexture_cnimj")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_83n25")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aymcs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_763tg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wgr7y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mvr60")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_chvjc")
+"texture": SubResource("AtlasTexture_op6xb")
 }],
 "loop": true,
 "name": &"idle",
 "speed": 2.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wgr7y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mvr60")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_chvjc")
-}],
-"loop": true,
-"name": &"idle_1",
-"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -147,9 +100,12 @@ radius = 16.0
 height = 52.0
 
 [node name="Aragorn" instance=ExtResource("1_03bwf")]
+material = ExtResource("2_cnimj")
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_wt2xv")
-animation = &"walking_down"
+animation = &"idle"
+frame = 1
+frame_progress = 0.24941045
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2(0, 4)

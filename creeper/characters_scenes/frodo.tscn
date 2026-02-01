@@ -1,66 +1,34 @@
-[gd_scene load_steps=13 format=3 uid="uid://ckb1etmea5n10"]
+[gd_scene load_steps=9 format=3 uid="uid://ckb1etmea5n10"]
 
 [ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_wwymi"]
-[ext_resource type="Texture2D" uid="uid://08hq6pwdbr3u" path="res://Art/Heroes/Frodo.png" id="2_2su0g"]
+[ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="2_2su0g"]
+[ext_resource type="Texture2D" uid="uid://ggf77eeo142r" path="res://Art/Heroes/IDLE/Frodo Idle.png" id="2_wwymi"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_psv4s"]
-atlas = ExtResource("2_2su0g")
-region = Rect2(0, 384, 64, 64)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_62qfa"]
+shader = ExtResource("2_2su0g")
+shader_parameter/color = Color(0.4, 0.6627451, 0.2509804, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_il6ss"]
-atlas = ExtResource("2_2su0g")
-region = Rect2(64, 384, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_2su0g"]
+atlas = ExtResource("2_wwymi")
+region = Rect2(0, 0, 64, 60)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4fxtm"]
-atlas = ExtResource("2_2su0g")
-region = Rect2(128, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8hthl"]
-atlas = ExtResource("2_2su0g")
-region = Rect2(192, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hph6a"]
-atlas = ExtResource("2_2su0g")
-region = Rect2(256, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0rp8f"]
-atlas = ExtResource("2_2su0g")
-region = Rect2(320, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n0eia"]
-atlas = ExtResource("2_2su0g")
-region = Rect2(384, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eo788"]
-atlas = ExtResource("2_2su0g")
-region = Rect2(448, 384, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_62qfa"]
+atlas = ExtResource("2_wwymi")
+region = Rect2(64, 0, 64, 60)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_psv4s")
+"texture": SubResource("AtlasTexture_2su0g")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_il6ss")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4fxtm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8hthl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hph6a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0rp8f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n0eia")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_eo788")
+"texture": SubResource("AtlasTexture_62qfa")
 }],
 "loop": true,
 "name": &"idle",
@@ -72,10 +40,12 @@ radius = 12.0
 height = 52.0
 
 [node name="Frodo" instance=ExtResource("1_wwymi")]
+material = SubResource("ShaderMaterial_62qfa")
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_chxth")
 animation = &"idle"
-frame = 2
+frame = 1
+frame_progress = 0.45749894
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2(0, 6)

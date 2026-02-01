@@ -4,146 +4,146 @@ using System.Collections.Generic;
 
 public partial class Grid : Node2D
 {
-    [Signal] public delegate void CharacterClickEventHandler(Vector2I pos);
-    [Signal] public delegate void CharacterMouseEnteredEventHandler(Vector2I pos);
-    [Signal] public delegate void CharacterMouseExitedEventHandler(Vector2I pos);
+	[Signal] public delegate void CharacterClickEventHandler(Vector2I pos);
+	[Signal] public delegate void CharacterMouseEnteredEventHandler(Vector2I pos);
+	[Signal] public delegate void CharacterMouseExitedEventHandler(Vector2I pos);
 
-    public const int GRID_X_DISTANCE = 96;
-    public const int GRID_Y_DISTANCE = 60;
-    public const int GRID_Y_OFFSET = 50;
-
-
-    TileMapLayer TileMap;
-    Godot.Collections.Array<Node> characters;
-    public override void _Ready()
-    {
-        TileMap = GetNode<TileMapLayer>("TileMapLayer");
-        characters = TileMap.GetChild(0).GetChildren();
-        foreach(CharacterBase c in characters)
-        {
-            c.OnClick += OnClick;
-            c.MouseEntered += MouseEntered;
-            c.MouseExited += MouseExited;
-        }
-    }
-
-    void OnClick(CharacterBase character)
-    {
-        EmitSignal(SignalName.CharacterClick, ConvertPixeltoGrid((Vector2I)character.Position));
-    }
-
-    void MouseEntered(CharacterBase character)
-    {
-       EmitSignal(SignalName.CharacterMouseEntered, ConvertPixeltoGrid((Vector2I)character.Position));
-    }
-
-    void MouseExited(CharacterBase character)
-    {
-        EmitSignal(SignalName.CharacterMouseExited, ConvertPixeltoGrid((Vector2I)character.Position));
-    }
-
-    public void Hover(Vector2I pos)
-    {
-        FindCharacteratGridPos(pos).Hover();
-    }
-
-    public void StopHover(Vector2I pos)
-    {
-        FindCharacteratGridPos(pos).StopHover();
-    }
+	public const int GRID_X_DISTANCE = 96;
+	public const int GRID_Y_DISTANCE = 60;
+	public const int GRID_Y_OFFSET = 50;
 
 
-    public void CreateGhosts(Vector2I characterPos, List<Vector2I> positions)
-    {
-        CharacterBase character = FindCharacteratGridPos(characterPos);
+	TileMapLayer TileMap;
+	Godot.Collections.Array<Node> characters;
+	public override void _Ready()
+	{
+		TileMap = GetNode<TileMapLayer>("TileMapLayer");
+		characters = TileMap.GetChild(0).GetChildren();
+		foreach(CharacterBase c in characters)
+		{
+			c.OnClick += OnClick;
+			c.MouseEntered += MouseEntered;
+			c.MouseExited += MouseExited;
+		}
+	}
 
-        if (character == null) return;
+	void OnClick(CharacterBase character)
+	{
+		EmitSignal(SignalName.CharacterClick, ConvertPixeltoGrid((Vector2I)character.Position));
+	}
 
-        foreach (var pos in positions)
-        {
-            CharacterBase Ghost = (CharacterBase)character.Duplicate();
-            TileMap.AddChild(Ghost);
+	void MouseEntered(CharacterBase character)
+	{
+	   EmitSignal(SignalName.CharacterMouseEntered, ConvertPixeltoGrid((Vector2I)character.Position));
+	}
 
-            var NewPos = ConvertGridtoPixel(pos);
-            NewPos.Y += 10;
-            Ghost.Position = NewPos;
+	void MouseExited(CharacterBase character)
+	{
+		EmitSignal(SignalName.CharacterMouseExited, ConvertPixeltoGrid((Vector2I)character.Position));
+	}
 
-            Ghost.OnClick += OnClick;
-            Ghost.MouseEntered += MouseEntered;
-            Ghost.MouseExited += MouseExited;
-            Ghost.IsGhost = true;
+	public void Hover(Vector2I pos)
+	{
+		FindCharacteratGridPos(pos).Hover();
+	}
 
-            characters.Add(Ghost);
-        }
-    }
+	public void StopHover(Vector2I pos)
+	{
+		FindCharacteratGridPos(pos).StopHover();
+	}
 
-    public void DeleteGhosts()
-    {
-        foreach(var child in TileMap.GetChildren())
-        {
-            if (child is CharacterBase)
-            {
-                characters.Remove(child);
-                TileMap.RemoveChild(child);
-                child.QueueFree();
-            }
-        }  
-    }
 
-    public void MoveCharacter(Vector2I from, Vector2I to)
-    {
-        CharacterBase CharacterFrom = FindCharacteratGridPos(from);
-        CharacterBase CharacterTo = FindCharacteratGridPos(to);
+	public void CreateGhosts(Vector2I characterPos, List<Vector2I> positions)
+	{
+		CharacterBase character = FindCharacteratGridPos(characterPos);
 
-        CharacterFrom.StopHover();
-        CharacterTo.StopHover();
+		if (character == null) return;
 
-        if (CharacterFrom == null || (CharacterTo != null && !CharacterTo.IsGhost)) return;
+		foreach (var pos in positions)
+		{
+			CharacterBase Ghost = (CharacterBase)character.Duplicate();
+			TileMap.AddChild(Ghost);
 
-        CharacterFrom.Position = CharacterTo.Position;
+			var NewPos = ConvertGridtoPixel(pos);
+			NewPos.Y += 10;
+			Ghost.Position = NewPos;
 
-        if (Math.Abs(from.X - to.X) == 2)
-        {
-            DeleteCharacter(new(from.X + (to.X - from.X)/2, from.Y));
-        }
+			Ghost.OnClick += OnClick;
+			Ghost.MouseEntered += MouseEntered;
+			Ghost.MouseExited += MouseExited;
+			Ghost.IsGhost = true;
 
-        if (Math.Abs(from.Y - to.Y) == 2)
-        {
-            DeleteCharacter(new(from.X, from.Y + (to.Y - from.Y)/2));
-        }
-    }
-    public void DeleteCharacter(Vector2I pos)
-    {
-        CharacterBase ToDelete = FindCharacteratGridPos(pos);
+			characters.Add(Ghost);
+		}
+	}
 
-        if (ToDelete == null) return;
+	public void DeleteGhosts()
+	{
+		foreach(var child in TileMap.GetChildren())
+		{
+			if (child is CharacterBase)
+			{
+				characters.Remove(child);
+				TileMap.RemoveChild(child);
+				child.QueueFree();
+			}
+		}  
+	}
 
-        ToDelete.GetParent().RemoveChild(ToDelete);
-        ToDelete.QueueFree();
-        characters.Remove(ToDelete);
-    }
+	public void MoveCharacter(Vector2I from, Vector2I to)
+	{
+		CharacterBase CharacterFrom = FindCharacteratGridPos(from);
+		CharacterBase CharacterTo = FindCharacteratGridPos(to);
 
-    private Vector2I ConvertGridtoPixel(Vector2I pos)
-    {
-        return new Vector2I(pos.X * GRID_X_DISTANCE, (pos.Y * GRID_Y_DISTANCE) - GRID_Y_OFFSET);
-    }
+		CharacterFrom.StopHover();
+		CharacterTo.StopHover();
 
-    private Vector2I ConvertPixeltoGrid(Vector2I pos)
-    {
-        return new Vector2I(pos.X / GRID_X_DISTANCE, (pos.Y + GRID_Y_OFFSET) / GRID_Y_DISTANCE);
-    }
+		if (CharacterFrom == null || (CharacterTo != null && !CharacterTo.IsGhost)) return;
 
-    private CharacterBase FindCharacteratGridPos(Vector2I pos)
-    {
-        foreach(CharacterBase c in characters)
-        {
-            if (ConvertPixeltoGrid((Vector2I)c.Position) == pos) return c;
-        }
-        return null;
-    }
+		CharacterFrom.Position = CharacterTo.Position;
 
-    public bool IsGhost(Vector2I pos)
-    {
-        return FindCharacteratGridPos(pos).IsGhost;
-    } 
+		if (Math.Abs(from.X - to.X) == 2)
+		{
+			DeleteCharacter(new(from.X + (to.X - from.X)/2, from.Y));
+		}
+
+		if (Math.Abs(from.Y - to.Y) == 2)
+		{
+			DeleteCharacter(new(from.X, from.Y + (to.Y - from.Y)/2));
+		}
+	}
+	public void DeleteCharacter(Vector2I pos)
+	{
+		CharacterBase ToDelete = FindCharacteratGridPos(pos);
+
+		if (ToDelete == null) return;
+
+		ToDelete.GetParent().RemoveChild(ToDelete);
+		ToDelete.QueueFree();
+		characters.Remove(ToDelete);
+	}
+
+	private Vector2I ConvertGridtoPixel(Vector2I pos)
+	{
+		return new Vector2I(pos.X * GRID_X_DISTANCE, (pos.Y * GRID_Y_DISTANCE) - GRID_Y_OFFSET);
+	}
+
+	private Vector2I ConvertPixeltoGrid(Vector2I pos)
+	{
+		return new Vector2I(pos.X / GRID_X_DISTANCE, (pos.Y + GRID_Y_OFFSET) / GRID_Y_DISTANCE);
+	}
+
+	private CharacterBase FindCharacteratGridPos(Vector2I pos)
+	{
+		foreach(CharacterBase c in characters)
+		{
+			if (ConvertPixeltoGrid((Vector2I)c.Position) == pos) return c;
+		}
+		return null;
+	}
+
+	public bool IsGhost(Vector2I pos)
+	{
+		return FindCharacteratGridPos(pos).IsGhost;
+	} 
 }

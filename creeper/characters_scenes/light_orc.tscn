@@ -1,52 +1,34 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1750db4ehttj"]
+[gd_scene load_steps=9 format=3 uid="uid://c1750db4ehttj"]
 
 [ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_cgjq0"]
-[ext_resource type="Texture2D" uid="uid://cx2xaxbe7i35q" path="res://Art/Enemies/Light Orc.png" id="2_drk08"]
+[ext_resource type="Texture2D" uid="uid://cown4in5f3nty" path="res://Art/Enemies/IDLE/Light Orc Idle.png" id="2_cgjq0"]
+[ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="2_drk08"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uixot"]
-atlas = ExtResource("2_drk08")
-region = Rect2(0, 896, 64, 64)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ehvro"]
+shader = ExtResource("2_drk08")
+shader_parameter/color = Color(0.84313726, 0.28627452, 0.18431373, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hdgvf"]
-atlas = ExtResource("2_drk08")
-region = Rect2(64, 896, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_drk08"]
+atlas = ExtResource("2_cgjq0")
+region = Rect2(0, 0, 64, 60)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hcy8s"]
-atlas = ExtResource("2_drk08")
-region = Rect2(128, 896, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jw68d"]
-atlas = ExtResource("2_drk08")
-region = Rect2(192, 896, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6xonu"]
-atlas = ExtResource("2_drk08")
-region = Rect2(256, 896, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c8ij8"]
-atlas = ExtResource("2_drk08")
-region = Rect2(320, 896, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ehvro"]
+atlas = ExtResource("2_cgjq0")
+region = Rect2(64, 0, 64, 60)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_uixot")
+"texture": SubResource("AtlasTexture_drk08")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hdgvf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hcy8s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jw68d")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6xonu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c8ij8")
+"texture": SubResource("AtlasTexture_ehvro")
 }],
 "loop": true,
 "name": &"idle",
@@ -58,9 +40,11 @@ radius = 14.0
 height = 52.0
 
 [node name="Light Orc" instance=ExtResource("1_cgjq0")]
+material = SubResource("ShaderMaterial_ehvro")
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_chxth")
 animation = &"idle"
+frame_progress = 0.6685736
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2(0, 8)

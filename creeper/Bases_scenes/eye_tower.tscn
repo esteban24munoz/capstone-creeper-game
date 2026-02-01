@@ -1,7 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsf28pp43orbx"]
+[gd_scene load_steps=9 format=3 uid="uid://dsf28pp43orbx"]
 
 [ext_resource type="Texture2D" uid="uid://do201musryjjj" path="res://Bases/Sauron Tower Spritesheet.png" id="1_exkk2"]
+[ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="1_pvwm0"]
 [ext_resource type="Script" uid="uid://cqt6emwthjpfl" path="res://Base Scripts/Base.cs" id="2_ndgnf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_by6wi"]
+shader = ExtResource("1_pvwm0")
+shader_parameter/color = Color(0.84313726, 0.28627452, 0.18431373, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jnjdg"]
 atlas = ExtResource("1_exkk2")
@@ -42,6 +52,7 @@ animations = [{
 }]
 
 [node name="Eye Tower" type="AnimatedSprite2D"]
+material = SubResource("ShaderMaterial_by6wi")
 sprite_frames = SubResource("SpriteFrames_chxth")
 animation = &"idle"
 frame_progress = 0.74165213

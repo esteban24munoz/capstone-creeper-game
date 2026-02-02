@@ -24,7 +24,6 @@ public partial class CharacterBase : AnimatedSprite2D
             }
             else
             {
-            //Code to make the character transparent comes from Gemini
             Color GhostColor = Modulate;
             GhostColor.A = 1;
             SelfModulate = GhostColor;
@@ -48,6 +47,7 @@ public partial class CharacterBase : AnimatedSprite2D
 
     public void Hover()
     {
+        //move the entire sprite up then move the collision shape back down
         if (Hovering) return;
         Position = new Vector2(Position.X, Position.Y - HoverOffset);
         area.Position = new Vector2(area.Position.X, area.Position.Y + HoverOffset);
@@ -56,6 +56,7 @@ public partial class CharacterBase : AnimatedSprite2D
 
     public void StopHover()
     {
+        //move the entire sprite down then move the collision shape back up
         if (!Hovering) return;
         Position = new Vector2(Position.X, Position.Y + HoverOffset);
         area.Position = new Vector2(area.Position.X, area.Position.Y - HoverOffset);

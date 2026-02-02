@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public partial class Controller : Node2D
 {
     Constants.Player ActivePlayer = Constants.Player.Hero;
+    Constants.Player Winner = Constants.Player.None;
     Vector2I? SelectedCharacter = null;
     Grid ViewInstance;
     readonly Model ModelInstance = new();
@@ -17,8 +18,12 @@ public partial class Controller : Node2D
         ViewInstance.CharacterMouseExited += MouseExited;
     }
 
+    //This is the main game loop
+    //This method is called every time a character is clicked
     void OnClick(Vector2I pos)
     {
+        //If there is no selected character and the clicked character matches the active player,
+        //make the clicked character selected and instantiate ghosts on the valid spaces
         if (SelectedCharacter == null)
         {
             if (ModelInstance.PlayerAt(pos) != ActivePlayer) return;
@@ -32,16 +37,38 @@ public partial class Controller : Node2D
         {
             if (pos == SelectedCharacter)
             {
+                //unselect the selected character
                 ViewInstance.DeleteGhosts();
                 SelectedCharacter = null;
             }
             else if (ViewInstance.IsGhost(pos))
             {
-                ModelInstance.MoveCharacter((Vector2I)SelectedCharacter, pos);
-                ViewInstance.MoveCharacter((Vector2I)SelectedCharacter, pos);
+                //move the character in both the model and the view
+                ModelInstance.MoveCharacter(SelectedCharacter.Value, pos);
+
+                ViewInstance.MoveCharacter(SelectedCharacter.Value, pos);
+                Vector2I? jumped = ModelInstance.FindJumpedCharacter(SelectedCharacter.Value, pos);
+                if (jumped != null)
+                {
+                    ViewInstance.DeleteCharacter(jumped.Value);
+                }
+
+                jumped = ModelInstance.FindJumpedHex(SelectedCharacter.Value, pos);
+                if (jumped != null)
+                {
+                    ViewInstance.ChangeTile(jumped.Value, ActivePlayer);
+                    Winner = ModelInstance.FindWinner();
+                }
+
                 ViewInstance.DeleteGhosts();
                 SelectedCharacter = null;
                 NewTurn();
+            }
+
+            if (Winner != Constants.Player.None)
+            {
+                GD.Print("Winner: ", Winner);
+                ActivePlayer = Constants.Player.None;
             }
         }
     }

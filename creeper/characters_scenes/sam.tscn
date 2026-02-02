@@ -1,39 +1,25 @@
-[gd_scene load_steps=13 format=3 uid="uid://b2np60la80is1"]
+[gd_scene load_steps=9 format=3 uid="uid://b2np60la80is1"]
 
 [ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_73exb"]
-[ext_resource type="Texture2D" uid="uid://sn5etng55m8n" path="res://Art/Heroes/Sam.png" id="2_73exb"]
+[ext_resource type="Texture2D" uid="uid://cnli6u5c8v31p" path="res://Art/Heroes/Sam Idle.png" id="2_73exb"]
+[ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="2_uhp8p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2free"]
+shader = ExtResource("2_uhp8p")
+shader_parameter/color = Color(0.4, 0.6627451, 0.2509804, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uhp8p"]
 atlas = ExtResource("2_73exb")
-region = Rect2(0, 384, 64, 64)
+region = Rect2(0, 0, 64, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2free"]
 atlas = ExtResource("2_73exb")
-region = Rect2(64, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_16vx7"]
-atlas = ExtResource("2_73exb")
-region = Rect2(128, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8hucu"]
-atlas = ExtResource("2_73exb")
-region = Rect2(192, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5ycsj"]
-atlas = ExtResource("2_73exb")
-region = Rect2(256, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hn2l7"]
-atlas = ExtResource("2_73exb")
-region = Rect2(320, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_82ncu"]
-atlas = ExtResource("2_73exb")
-region = Rect2(384, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1o4y4"]
-atlas = ExtResource("2_73exb")
-region = Rect2(448, 384, 64, 64)
+region = Rect2(64, 0, 64, 60)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
 animations = [{
@@ -43,24 +29,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2free")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_16vx7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8hucu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ycsj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hn2l7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_82ncu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1o4y4")
 }],
 "loop": true,
 "name": &"idle",
@@ -72,10 +40,12 @@ radius = 14.0
 height = 52.0
 
 [node name="Sam" instance=ExtResource("1_73exb")]
+material = SubResource("ShaderMaterial_2free")
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_chxth")
 animation = &"idle"
-frame_progress = 0.32463062
+frame = 1
+frame_progress = 0.5944441
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2(0, 6)

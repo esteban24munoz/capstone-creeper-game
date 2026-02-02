@@ -1,52 +1,34 @@
-[gd_scene load_steps=11 format=3 uid="uid://pfnsyjsyvlmr"]
+[gd_scene load_steps=9 format=3 uid="uid://pfnsyjsyvlmr"]
 
 [ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_xmn78"]
-[ext_resource type="Texture2D" uid="uid://cdho0aw4aud17" path="res://Art/Enemies/The King of The Dead.png" id="2_u4tex"]
+[ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="2_u4tex"]
+[ext_resource type="Texture2D" uid="uid://b6rpocyrp2clf" path="res://Art/Enemies/IDLE/Dead King Idle.png" id="2_xmn78"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d3ltq"]
-atlas = ExtResource("2_u4tex")
-region = Rect2(0, 896, 64, 64)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_be421"]
+shader = ExtResource("2_u4tex")
+shader_parameter/color = Color(0.84313726, 0.28627452, 0.18431373, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h6piw"]
-atlas = ExtResource("2_u4tex")
-region = Rect2(64, 896, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_u4tex"]
+atlas = ExtResource("2_xmn78")
+region = Rect2(0, 0, 64, 80)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_81fuu"]
-atlas = ExtResource("2_u4tex")
-region = Rect2(128, 896, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jg4os"]
-atlas = ExtResource("2_u4tex")
-region = Rect2(192, 896, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ya6k2"]
-atlas = ExtResource("2_u4tex")
-region = Rect2(256, 896, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o21sl"]
-atlas = ExtResource("2_u4tex")
-region = Rect2(320, 896, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_be421"]
+atlas = ExtResource("2_xmn78")
+region = Rect2(64, 0, 64, 80)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d3ltq")
+"texture": SubResource("AtlasTexture_u4tex")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h6piw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_81fuu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jg4os")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ya6k2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o21sl")
+"texture": SubResource("AtlasTexture_be421")
 }],
 "loop": true,
 "name": &"idle",
@@ -58,9 +40,12 @@ radius = 16.0
 height = 68.0
 
 [node name="King of the Dead" instance=ExtResource("1_xmn78")]
+material = SubResource("ShaderMaterial_be421")
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_chxth")
 animation = &"idle"
+frame = 1
+frame_progress = 0.41608465
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2(0, 2)

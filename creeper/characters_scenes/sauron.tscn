@@ -1,52 +1,34 @@
-[gd_scene load_steps=11 format=3 uid="uid://cpdpv0t1t7qk7"]
+[gd_scene load_steps=9 format=3 uid="uid://cpdpv0t1t7qk7"]
 
-[ext_resource type="Texture2D" uid="uid://y1qcxt168xiu" path="res://Art/Enemies/Sauron.png" id="1_kcj35"]
 [ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_ocn03"]
+[ext_resource type="Texture2D" uid="uid://cgvdxeypndyxe" path="res://Art/Enemies/IDLE/Sauron Idle.png" id="2_ocn03"]
+[ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="2_pags0"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gqwqp"]
-atlas = ExtResource("1_kcj35")
-region = Rect2(0, 896, 64, 64)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m8n1r"]
+shader = ExtResource("2_pags0")
+shader_parameter/color = Color(0.84313726, 0.28627452, 0.18431373, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x4po6"]
-atlas = ExtResource("1_kcj35")
-region = Rect2(64, 896, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_pags0"]
+atlas = ExtResource("2_ocn03")
+region = Rect2(0, 0, 64, 60)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g5ttt"]
-atlas = ExtResource("1_kcj35")
-region = Rect2(128, 896, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mqyy1"]
-atlas = ExtResource("1_kcj35")
-region = Rect2(192, 896, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ebjvb"]
-atlas = ExtResource("1_kcj35")
-region = Rect2(256, 896, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y6vqg"]
-atlas = ExtResource("1_kcj35")
-region = Rect2(320, 896, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8n1r"]
+atlas = ExtResource("2_ocn03")
+region = Rect2(64, 0, 64, 60)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gqwqp")
+"texture": SubResource("AtlasTexture_pags0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x4po6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g5ttt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mqyy1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ebjvb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y6vqg")
+"texture": SubResource("AtlasTexture_m8n1r")
 }],
 "loop": true,
 "name": &"idle",
@@ -58,9 +40,11 @@ radius = 16.0
 height = 60.0
 
 [node name="Sauron" instance=ExtResource("1_ocn03")]
+material = SubResource("ShaderMaterial_m8n1r")
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_chxth")
 animation = &"idle"
+frame_progress = 0.9372837
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2(2, 6)

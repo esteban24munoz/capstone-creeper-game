@@ -1,84 +1,38 @@
-[gd_scene load_steps=13 format=3 uid="uid://05gtou4jwd2y"]
+[gd_scene load_steps=9 format=3 uid="uid://05gtou4jwd2y"]
 
 [ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_n44jj"]
-[ext_resource type="Texture2D" uid="uid://ckgd62qpq6i0i" path="res://Art/Heroes/Legolas.png" id="2_56vms"]
+[ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="2_56vms"]
+[ext_resource type="Texture2D" uid="uid://bdqxvxsnvj7mg" path="res://Art/Heroes/IDLE/Legolas Idle.png" id="2_n44jj"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kmcx5"]
-atlas = ExtResource("2_56vms")
-region = Rect2(0, 896, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n44jj"]
-atlas = ExtResource("2_56vms")
-region = Rect2(64, 128, 64, 64)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ytf6"]
+shader = ExtResource("2_56vms")
+shader_parameter/color = Color(0.4, 0.6627451, 0.2509804, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_56vms"]
-atlas = ExtResource("2_56vms")
-region = Rect2(0, 128, 64, 64)
+atlas = ExtResource("2_n44jj")
+region = Rect2(0, 0, 64, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ytf6"]
-atlas = ExtResource("2_56vms")
-region = Rect2(128, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3ngyc"]
-atlas = ExtResource("2_56vms")
-region = Rect2(192, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c6812"]
-atlas = ExtResource("2_56vms")
-region = Rect2(256, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bhkrx"]
-atlas = ExtResource("2_56vms")
-region = Rect2(320, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_chcxt"]
-atlas = ExtResource("2_56vms")
-region = Rect2(384, 128, 64, 64)
+atlas = ExtResource("2_n44jj")
+region = Rect2(64, 0, 64, 60)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chxth"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kmcx5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n44jj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n44jj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kmcx5")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_56vms")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n44jj")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_4ytf6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3ngyc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c6812")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bhkrx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_chcxt")
 }],
 "loop": true,
-"name": &"idle_2",
-"speed": 5.0
+"name": &"idle",
+"speed": 2.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ytf6"]
@@ -86,9 +40,10 @@ radius = 16.0
 height = 56.0
 
 [node name="Legolas" instance=ExtResource("1_n44jj")]
+material = SubResource("ShaderMaterial_4ytf6")
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_chxth")
-animation = &"idle_2"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2(2, 8)

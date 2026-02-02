@@ -4,9 +4,9 @@ using System;
 public partial class CharacterBase : AnimatedSprite2D
 {
 
-    [Signal] public delegate void OnClickEventHandler(CharacterBase character);
-    [Signal] public delegate void MouseEnteredEventHandler(CharacterBase character);
-    [Signal] public delegate void MouseExitedEventHandler(CharacterBase character);
+	[Signal] public delegate void OnClickEventHandler(CharacterBase character);
+	[Signal] public delegate void MouseEnteredEventHandler(CharacterBase character);
+	[Signal] public delegate void MouseExitedEventHandler(CharacterBase character);
 
     private bool _isGhost = false;
     public bool IsGhost
@@ -32,18 +32,18 @@ public partial class CharacterBase : AnimatedSprite2D
         }
     }
 
-    Area2D area;
-    private int HoverOffset = 10;
-    public bool Hovering = false;
-    private bool MouseOver = false;
-    
-    public override void _Ready()
-    {
-        Play("idle");
-        area = GetNode<Area2D>("Area2D");
-        area.MouseEntered += () => {EmitSignal(SignalName.MouseEntered, this); MouseOver = true;};
-        area.MouseExited += () => {EmitSignal(SignalName.MouseExited, this); MouseOver = false;};
-    }
+	Area2D area;
+	private int HoverOffset = 10;
+	public bool Hovering = false;
+	private bool MouseOver = false;
+	
+	public override void _Ready()
+	{
+		Play("idle");
+		area = GetNode<Area2D>("Area2D");
+		area.MouseEntered += () => {EmitSignal(SignalName.MouseEntered, this); MouseOver = true;};
+		area.MouseExited += () => {EmitSignal(SignalName.MouseExited, this); MouseOver = false;};
+	}
 
     public void Hover()
     {
@@ -63,12 +63,12 @@ public partial class CharacterBase : AnimatedSprite2D
         Hovering = false;
     }
 
-    public override void _Input(InputEvent @event)
-    {
-        if (@event.IsActionPressed("mouse_click") && MouseOver)
-        {
-            EmitSignal(SignalName.OnClick, this);
-        }
-    }
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("mouse_click") && MouseOver)
+		{
+			EmitSignal(SignalName.OnClick, this);
+		}
+	}
 
 }

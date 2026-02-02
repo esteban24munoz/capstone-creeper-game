@@ -1,7 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://rus8obsl870u"]
+[gd_scene load_steps=9 format=3 uid="uid://rus8obsl870u"]
 
+[ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="1_f8ykl"]
 [ext_resource type="Texture2D" uid="uid://dgydy5l0ixd2b" path="res://Bases/Mt Doom Spritesheet.png" id="1_pvvmr"]
 [ext_resource type="Script" uid="uid://cqt6emwthjpfl" path="res://Base Scripts/Base.cs" id="2_c7rma"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xsk4f"]
+shader = ExtResource("1_f8ykl")
+shader_parameter/color = Color(0.4, 0.6627451, 0.2509804, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kobrf"]
 atlas = ExtResource("1_pvvmr")
@@ -44,10 +54,11 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 1.0
+"speed": 2.0
 }]
 
 [node name="Volcano" type="AnimatedSprite2D"]
+material = SubResource("ShaderMaterial_xsk4f")
 sprite_frames = SubResource("SpriteFrames_chxth")
 animation = &"idle"
 frame = 5

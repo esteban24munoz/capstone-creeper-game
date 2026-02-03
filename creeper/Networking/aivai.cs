@@ -19,7 +19,6 @@ public partial class AIvAI : Node2D
 	
 	//Called when the node enters scene tree for first time
 	public async override void _Ready()
-	//static async Task Main()
 	{
 		string playStateUrl = $"{SOFTSERVE_URL}/aivai/play-state";
 		//while (true)
@@ -96,5 +95,11 @@ public partial class AIvAI : Node2D
 			var submitResponse = await client.PostAsJsonAsync($"{SOFTSERVE_URL}/aivai/submit-action", submitActionObj);
 			submitResponse.EnsureSuccessStatusCode();
 		}
+		
+	}
+	
+	private void _on_back_btn_pressed()
+	{
+		GetTree().ChangeSceneToFile("res://game.tscn");
 	}
 }

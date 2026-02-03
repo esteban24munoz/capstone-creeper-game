@@ -52,6 +52,11 @@ public partial class AIvAI : Node2D
 
 			GD.Print($"state:\t{state}");
 
+			/***************************************************************************************
+			Starting here, AI should take over. The code below is just a placeholder
+			to test the Network functionality. The state of the game is still just a string.
+			***************************************************************************************/
+			
 			//Get a list of possible actions based on the state from the API
 			var actionsResponse = await client.GetAsync($"{SOFTSERVE_URL}/state/{state}/actions");
 			actionsResponse.EnsureSuccessStatusCode();
@@ -75,7 +80,11 @@ public partial class AIvAI : Node2D
 			await Task.Delay(2000);
 
 			GD.Print($"action chosen:\t{action}");
-
+			
+			/************************************************************
+			End of placeholder AI
+			************************************************************/
+			
 			var submitActionObj = new
 			{
 				action = action,

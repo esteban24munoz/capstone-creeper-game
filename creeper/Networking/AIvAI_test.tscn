@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cf0kvbohqlhdm"]
 
-[ext_resource type="Script" uid="uid://kxe8lq283ddn" path="res://Networking/AIvAI.cs" id="1_3ong3"]
+[ext_resource type="Script" uid="uid://cl8nlqqwy883" path="res://Networking/AIvAI.cs" id="1_3ong3"]
 
 [node name="AIvAiTest" type="Node2D"]
 script = ExtResource("1_3ong3")

@@ -22,7 +22,7 @@ public partial class AIvAI : Node2D
 	{
 		string playStateUrl = $"{SOFTSERVE_URL}/aivai/play-state";
 		//while (true)
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 1; i++)
 		{
 			var playStateObj = new
 			{
@@ -56,6 +56,9 @@ public partial class AIvAI : Node2D
 			to test the Network functionality. The state of the game is still just a string.
 			***************************************************************************************/
 			
+			GD.Print("Testing Parse Function");
+			ParseState(state);
+			
 			//Get a list of possible actions based on the state from the API
 			var actionsResponse = await client.GetAsync($"{SOFTSERVE_URL}/state/{state}/actions");
 			actionsResponse.EnsureSuccessStatusCode();
@@ -80,6 +83,11 @@ public partial class AIvAI : Node2D
 
 			GD.Print($"action chosen:\t{action}");
 			
+			GD.Print("Testing Action Parsing");
+			Vector2I from = new Vector2I(6,7);
+			Vector2I to = new Vector2I(5,6);
+			ParseAction(from, to);
+			
 			/************************************************************
 			End of placeholder AI
 			************************************************************/
@@ -101,5 +109,110 @@ public partial class AIvAI : Node2D
 	private void _on_back_btn_pressed()
 	{
 		GetTree().ChangeSceneToFile("res://game.tscn");
+	}
+	
+	public void ParseState(string state) 
+	{
+		int PINS = 49;
+		
+		Constants.Player[,] pinsGrid = {
+			{Constants.Player.None, Constants.Player.Hero, Constants.Player.Hero, Constants.Player.None, Constants.Player.Enemy, Constants.Player.Enemy, Constants.Player.None},
+			{Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
+			{Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
+			{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
+			{Constants.Player.Enemy, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Hero},
+			{Constants.Player.Enemy, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Hero},
+			{Constants.Player.None, Constants.Player.Enemy, Constants.Player.Enemy, Constants.Player.None, Constants.Player.Hero, Constants.Player.Hero, Constants.Player.None},
+		};
+		Constants.Player[,] tilesGrid =
+		{
+			{Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
+			{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
+			{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
+			{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
+			{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
+			{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
+		};
+		Constants.Player activePlayer;
+		
+		//Start with the pins
+		GD.Print("Pin Grid");
+		int c = 0;
+		for (int row = 0; row < 7; row ++)
+		{
+			//GD.Print("Row " + row);
+			for (int col = 0; col < 7; col ++)
+			{
+				if (state[c] == 'x') //pin is white
+				{
+					pinsGrid[row,col] = Constants.Player.Hero;
+				}
+				else if (state[c] == 'o') //pin is black
+				{
+					pinsGrid[row,col] = Constants.Player.Enemy;
+				}
+				else //spot is empty
+				{
+					pinsGrid[row,col] = Constants.Player.None;
+				}
+				c++;
+				//GD.Print(pinsGrid[row,col]);
+			}
+		}
+		
+		if (c < PINS)
+		{
+			GD.Print("Did not parse all the pins");
+		}
+		
+		c = 49;
+		GD.Print("Tile Grid");
+		for (int row = 0; row < 6; row ++)
+		{
+			//GD.Print("Row " + row);
+			for (int col = 0; col < 6; col ++)
+			{
+				if (state[c] == 'x') //tile is white
+				{
+					tilesGrid[row,col] = Constants.Player.Hero;
+				}
+				else if (state[c] == 'o') //tile is black
+				{
+					tilesGrid[row,col] = Constants.Player.Enemy;
+				}
+				else //spot is empty
+				{
+					tilesGrid[row,col] = Constants.Player.None;
+				}
+				c++;
+				//GD.Print(tilesGrid[row,col]);
+			}
+		}
+		
+		if (state[85] == 'x')
+		{
+			activePlayer = Constants.Player.Hero;
+		}
+		else if (state[85] == 'o')
+		{
+			activePlayer = Constants.Player.Enemy;
+		}
+		else
+		{
+			activePlayer = Constants.Player.None;
+		}
+		GD.Print("Active player: " + activePlayer);
+	}
+	
+	public void ParseAction(Vector2I from, Vector2I to)
+	{
+		//convert the x to letters
+		//convert the y to numbers
+		//format should look like f7e6
+		
+		int intValue = 96;
+		char charValue = (char)(intValue+from.X);
+		GD.Print(from.X);
+		GD.Print(charValue);
 	}
 }

@@ -8,9 +8,9 @@ public partial class Grid : Node2D
 	[Signal] public delegate void CharacterMouseEnteredEventHandler(Vector2I pos);
 	[Signal] public delegate void CharacterMouseExitedEventHandler(Vector2I pos);
 
-    private const int GRID_X_DISTANCE = 96;
-    private const int GRID_Y_DISTANCE = 60;
-    private const int GRID_Y_OFFSET = 50;
+	private const int GRID_X_DISTANCE = 96;
+	private const int GRID_Y_DISTANCE = 60;
+	private const int GRID_Y_OFFSET = 50;
 	private readonly Dictionary<Constants.Player, int> TileType = new()
 	{
 		{Constants.Player.None, 4},
@@ -96,17 +96,17 @@ public partial class Grid : Node2D
 		}  
 	}
 
-    //moves the appropriate character as well deletes jumped characters and updates jumped hexes
-    public void MoveCharacter(Vector2I from, Vector2I to)
-    {
-        CharacterBase CharacterFrom = FindCharacteratGridPos(from);
-        CharacterBase CharacterTo = FindCharacteratGridPos(to);
+	//moves the appropriate character as well deletes jumped characters and updates jumped hexes
+	public void MoveCharacter(Vector2I from, Vector2I to)
+	{
+		CharacterBase CharacterFrom = FindCharacteratGridPos(from);
+		CharacterBase CharacterTo = FindCharacteratGridPos(to);
 
 		CharacterFrom.StopHover();
 		CharacterTo.StopHover();
 
 		//ensure the character to move is valid and that the target space is either empty or contains a ghost.
-        if (CharacterFrom == null || (CharacterTo != null && !CharacterTo.IsGhost)) return;
+		if (CharacterFrom == null || (CharacterTo != null && !CharacterTo.IsGhost)) return;
 
 		CharacterFrom.Position = CharacterTo.Position;
 
@@ -126,15 +126,15 @@ public partial class Grid : Node2D
 
 		if (ToDelete == null) return;
 
-        ToDelete.GetParent().RemoveChild(ToDelete);
-        ToDelete.QueueFree();
-        characters.Remove(ToDelete);
-    }
-    public void ChangeTile(Vector2I pos, Constants.Player player)
-    {
+		ToDelete.GetParent().RemoveChild(ToDelete);
+		ToDelete.QueueFree();
+		characters.Remove(ToDelete);
+	}
+	public void ChangeTile(Vector2I pos, Constants.Player player)
+	{
 		//converts from standard grid coordinates to isometric
-        TileMap.SetCell(new(pos.Y + pos.X, pos.Y - pos.X), TileType[player], new(0,0));
-    }
+		TileMap.SetCell(new(pos.Y + pos.X, pos.Y - pos.X), TileType[player], new(0,0));
+	}
 
 	private Vector2I ConvertGridtoPixel(Vector2I pos)
 	{

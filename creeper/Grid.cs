@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 public partial class Grid : Node2D
 {
@@ -201,14 +202,15 @@ public partial class Grid : Node2D
 		{
 			killer.Play("attack_down");
 		}
-		
-		//when attack animation is finished start killer's idle animation and toKill's die animation
-		killer.AnimationFinished += () => 
-		{
+
+        //when attack animation is finished start killer's idle animation and toKill's die animation
+        void killerAnimationFinished()
+        {
 			killer.Play("idle");
-			
+
 			toKill.Play("die");
-			//when toKill's die animation finishes, fade out
+
+			//when toKill's die animation is finished, begin fadeout
 			toKill.AnimationFinished += () =>
 			{
 				Tween tween = CreateTween();
@@ -220,10 +222,17 @@ public partial class Grid : Node2D
 					AnimateMove(killer, moveTo, 2);
 					toKill.GetParent().RemoveChild(toKill);
 					toKill.QueueFree();
-					characters.Remove(toKill);				
-				};
+					characters.Remove(toKill);
+				};		
 			};
-		};
+        }
+
+		//ensure the function connect to animation finished is one shot to avoid conflicts
+		//the code within the connect method comes from gemini
+        killer.Connect(
+			AnimationMixer.SignalName.AnimationFinished, 
+			Callable.From(killerAnimationFinished), 
+			(uint)ConnectFlags.OneShot);
     }
     public void ChangeTile(Vector2I pos, Constants.Player player)
     {
@@ -231,12 +240,12 @@ public partial class Grid : Node2D
         TileMap.SetCell(new(pos.Y + pos.X, pos.Y - pos.X), TileType[player], new(0,0));
     }
 
-	private Vector2I ConvertGridtoPixel(Vector2I pos)
+	private static Vector2I ConvertGridtoPixel(Vector2I pos)
 	{
 		return new Vector2I(pos.X * GRID_X_DISTANCE, (pos.Y * GRID_Y_DISTANCE) - GRID_Y_OFFSET);
 	}
 
-	private Vector2I ConvertPixeltoGrid(Vector2I pos)
+	private static Vector2I ConvertPixeltoGrid(Vector2I pos)
 	{
 		return new Vector2I(pos.X / GRID_X_DISTANCE, (pos.Y + GRID_Y_OFFSET) / GRID_Y_DISTANCE);
 	}

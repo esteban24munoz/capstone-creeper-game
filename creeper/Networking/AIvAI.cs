@@ -122,8 +122,6 @@ public partial class AIvAI : Node2D
 	
 	public Constants.Player ParseState(string state) 
 	{
-		int PINS = 49;
-		
 		Constants.Player[,] pinsGrid = {
 			{Constants.Player.None, Constants.Player.Hero, Constants.Player.Hero, Constants.Player.None, Constants.Player.Enemy, Constants.Player.Enemy, Constants.Player.None},
 			{Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},

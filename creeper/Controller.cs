@@ -27,19 +27,23 @@ public partial class Controller : Node2D
         if (SelectedCharacter == null)
         {
             if (ModelInstance.PlayerAt(pos) != ActivePlayer) return;
-
-            List<Vector2I> moves = ModelInstance.FindValidMoves(pos, ActivePlayer);
-            ViewInstance.CreateGhosts(pos, moves);
-
-            SelectedCharacter = pos;
+            SelectCharacter(pos);
         }
         else
         {
-            if (pos == SelectedCharacter)
+            if (ModelInstance.PlayerAt(pos) == ActivePlayer)
             {
                 //unselect the selected character
                 ViewInstance.RemoveGhosts();
-                SelectedCharacter = null;
+
+                if (pos == SelectedCharacter)
+                {
+                    SelectedCharacter = null;
+                }
+                else
+                {
+                    SelectCharacter(pos);
+                }
             }
             else if (ViewInstance.IsGhost(pos))
             {
@@ -76,9 +80,17 @@ public partial class Controller : Node2D
         }
     }
 
+    private void SelectCharacter(Vector2I pos)
+    {
+        List<Vector2I> moves = ModelInstance.FindValidMoves(pos, ActivePlayer);
+        ViewInstance.CreateGhosts(pos, moves);
+
+        SelectedCharacter = pos;
+    }
+
     void MouseEntered(Vector2I pos)
     {
-        if ((SelectedCharacter == null && ModelInstance.PlayerAt(pos) == ActivePlayer) || 
+        if ((ModelInstance.PlayerAt(pos) == ActivePlayer) || 
         (SelectedCharacter != null && ViewInstance.IsGhost(pos)))
         {
             ViewInstance.Hover(pos);
@@ -87,7 +99,7 @@ public partial class Controller : Node2D
 
     void MouseExited(Vector2I pos)
     {
-       if ((SelectedCharacter == null && ModelInstance.PlayerAt(pos) == ActivePlayer) || 
+       if ((ModelInstance.PlayerAt(pos) == ActivePlayer) || 
         (SelectedCharacter != null && ViewInstance.IsGhost(pos)))
         {
             ViewInstance.StopHover(pos);

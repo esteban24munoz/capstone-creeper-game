@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_ocn03"]
 [ext_resource type="Texture2D" uid="uid://cgvdxeypndyxe" path="res://Art/Enemies/IDLE/Sauron Idle.png" id="2_ocn03"]
-[ext_resource type="Shader" path="res://outline.gdshader" id="2_pags0"]
+[ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="2_pags0"]
 [ext_resource type="Texture2D" uid="uid://y1qcxt168xiu" path="res://Art/Enemies/Sauron.png" id="3_m8n1r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m8n1r"]
@@ -549,11 +549,11 @@ height = 60.0
 
 [node name="Sauron" instance=ExtResource("1_ocn03")]
 material = SubResource("ShaderMaterial_m8n1r")
+position = Vector2(2, 0)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_chxth")
-animation = &"walk_up"
-frame_progress = 0.8488458
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
-position = Vector2(2, 6)
+position = Vector2(-6, 2)
 shape = SubResource("CapsuleShape2D_pags0")

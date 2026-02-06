@@ -92,6 +92,19 @@ public class Model
         else return hex;
     }
 
+    public bool IsDraw(Constants.Player activePlayer)
+    {
+        for (int i = 0; i < Grid.GetLength(0); i++)
+        {
+            for (int j = 0; j < Grid.GetLength(0); j++)
+            {
+                if (Grid[i,j] == activePlayer && FindValidMoves(new(i,j), activePlayer).Count != 0)
+                    return false;          
+            }
+        }
+        return true;
+    }
+
     //idea to use hash set instead of list from Gemini
     private readonly HashSet<Vector2I> visited = [];
     public Constants.Player FindWinner()

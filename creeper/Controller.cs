@@ -38,7 +38,7 @@ public partial class Controller : Node2D
             if (pos == SelectedCharacter)
             {
                 //unselect the selected character
-                ViewInstance.DeleteGhosts();
+                ViewInstance.RemoveGhosts();
                 SelectedCharacter = null;
             }
             else if (ViewInstance.IsGhost(pos))
@@ -48,10 +48,6 @@ public partial class Controller : Node2D
 
                 ViewInstance.MoveCharacter(SelectedCharacter.Value, pos);
                 Vector2I? jumped = ModelInstance.FindJumpedCharacter(SelectedCharacter.Value, pos);
-                if (jumped != null)
-                {
-                    ViewInstance.DeleteCharacter(jumped.Value);
-                }
 
                 jumped = ModelInstance.FindJumpedHex(SelectedCharacter.Value, pos);
                 if (jumped != null)
@@ -60,16 +56,23 @@ public partial class Controller : Node2D
                     Winner = ModelInstance.FindWinner();
                 }
 
-                ViewInstance.DeleteGhosts();
+                ViewInstance.RemoveGhosts();
                 SelectedCharacter = null;
                 NewTurn();
+
+                if (ModelInstance.IsDraw(ActivePlayer))
+                {
+                    GD.Print("Draw");
+                    ActivePlayer = Constants.Player.None;
+                }
+
+                if (Winner != Constants.Player.None)
+                {
+                    GD.Print("Winner: ", Winner);
+                    ActivePlayer = Constants.Player.None;
+                }
             }
 
-            if (Winner != Constants.Player.None)
-            {
-                GD.Print("Winner: ", Winner);
-                ActivePlayer = Constants.Player.None;
-            }
         }
     }
 

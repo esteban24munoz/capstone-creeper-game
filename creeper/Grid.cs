@@ -11,6 +11,7 @@ public partial class Grid : Node2D
     private const int GRID_X_DISTANCE = 96;
     private const int GRID_Y_DISTANCE = 60;
     private const int GRID_Y_OFFSET = 50;
+	private bool moving = false;
 	private readonly Dictionary<Constants.Player, int> TileType = new()
 	{
 		{Constants.Player.None, 4},
@@ -35,17 +36,17 @@ public partial class Grid : Node2D
 
 	void OnClick(CharacterBase character)
 	{
-		EmitSignal(SignalName.CharacterClick, ConvertPixeltoGrid((Vector2I)character.Position));
+		if (!moving) EmitSignal(SignalName.CharacterClick, ConvertPixeltoGrid((Vector2I)character.Position));
 	}
 
 	void MouseEntered(CharacterBase character)
 	{
-	   EmitSignal(SignalName.CharacterMouseEntered, ConvertPixeltoGrid((Vector2I)character.Position));
+	   if (!moving) EmitSignal(SignalName.CharacterMouseEntered, ConvertPixeltoGrid((Vector2I)character.Position));
 	}
 
 	void MouseExited(CharacterBase character)
 	{
-		EmitSignal(SignalName.CharacterMouseExited, ConvertPixeltoGrid((Vector2I)character.Position));
+		if (!moving) EmitSignal(SignalName.CharacterMouseExited, ConvertPixeltoGrid((Vector2I)character.Position));
 	}
 
 	public void Hover(Vector2I pos)
@@ -83,7 +84,19 @@ public partial class Grid : Node2D
 		}
 	}
 
-	public void DeleteGhosts()
+	public void RemoveGhosts()
+	{
+		foreach(var child in TileMap.GetChildren())
+		{
+			if (child is CharacterBase)
+			{
+				if (!moving) DeleteGhosts();
+				else ((CharacterBase)child).Visible = false;
+			}
+		}  
+	}
+
+	private void DeleteGhosts()
 	{
 		foreach(var child in TileMap.GetChildren())
 		{
@@ -96,7 +109,7 @@ public partial class Grid : Node2D
 		}  
 	}
 
-    //moves the appropriate character as well deletes jumped characters and updates jumped hexes
+    //moves the appropriate character as well deletes jumped characters
     public void MoveCharacter(Vector2I from, Vector2I to)
     {
         CharacterBase CharacterFrom = FindCharacteratGridPos(from);
@@ -108,27 +121,109 @@ public partial class Grid : Node2D
 		//ensure the character to move is valid and that the target space is either empty or contains a ghost.
         if (CharacterFrom == null || (CharacterTo != null && !CharacterTo.IsGhost)) return;
 
-		CharacterFrom.Position = CharacterTo.Position;
+		moving = true;
 
 		if (Math.Abs(from.X - to.X) == 2)
 		{
-			DeleteCharacter(new(from.X + (to.X - from.X)/2, from.Y));
+			KillCharacterAndMove(CharacterFrom, FindCharacteratGridPos(new(from.X + (to.X - from.X)/2, from.Y)), CharacterTo);
 		}
-
-		if (Math.Abs(from.Y - to.Y) == 2)
+		else if (Math.Abs(from.Y - to.Y) == 2)
 		{
-			DeleteCharacter(new(from.X, from.Y + (to.Y - from.Y)/2));
+			KillCharacterAndMove(CharacterFrom, FindCharacteratGridPos(new(from.X, from.Y + (to.Y - from.Y)/2)), CharacterTo);
+		}
+		else
+		{
+			AnimateMove(CharacterFrom, CharacterTo, 1);
 		}
 	}
-	public void DeleteCharacter(Vector2I pos)
+
+	private void AnimateMove(CharacterBase from, CharacterBase to, double duration)
 	{
-		CharacterBase ToDelete = FindCharacteratGridPos(pos);
+		//find the direction of movement
+		Vector2 direction = (to.Position - from.Position).Normalized().Snapped(1);
+		if (direction == Vector2.Left)
+		{
+			from.Play("walk_left");
+		}
+		else if (direction == Vector2.Right)
+		{
+			from.Play("walk_right");
+		}
+		else if (direction == Vector2.Up)
+		{
+			from.Play("walk_up");
+		}
+		else if (direction == Vector2.Down)
+		{
+			from.Play("walk_down");
+		}
+		else if (direction.X == 1)
+		{
+			from.Play("walk_right");
+			duration = Math.Sqrt(2);
+		}
+		else if (direction.X == -1)
+		{
+			from.Play("walk_left");
+			duration = Math.Sqrt(2);
+		}
 
-		if (ToDelete == null) return;
+		Tween tween = CreateTween();
+		tween.TweenProperty(from, "position", to.Position, duration);
+		tween.Finished += () => 
+		{
+			from.Play("idle");
+			moving = false;
+		};
 
-        ToDelete.GetParent().RemoveChild(ToDelete);
-        ToDelete.QueueFree();
-        characters.Remove(ToDelete);
+		DeleteGhosts();
+	}
+
+	public void KillCharacterAndMove(CharacterBase killer, CharacterBase toKill, CharacterBase moveTo)
+	{
+		if (toKill == null || killer == null) return;
+
+		//find attack direction and start attack animation
+		Vector2 direction = (toKill.Position - killer.Position).Normalized().Snapped(1);
+		if (direction == Vector2.Left)
+		{
+			killer.Play("attack_left");
+		}
+		else if (direction == Vector2.Right)
+		{
+			killer.Play("attack_right");
+		}
+		else if (direction == Vector2.Up)
+		{
+			killer.Play("attack_up");
+		}
+		else if (direction == Vector2.Down)
+		{
+			killer.Play("attack_down");
+		}
+		
+		//when attack animation is finished start killer's idle animation and toKill's die animation
+		killer.AnimationFinished += () => 
+		{
+			killer.Play("idle");
+			
+			toKill.Play("die");
+			//when toKill's die animation finishes, fade out
+			toKill.AnimationFinished += () =>
+			{
+				Tween tween = CreateTween();
+				tween.TweenProperty(toKill, "modulate:a", 0.0f, 1);
+
+				//when toKill is done fading out, move killer and delete toKill
+				tween.Finished += () =>
+				{
+					AnimateMove(killer, moveTo, 2);
+					toKill.GetParent().RemoveChild(toKill);
+					toKill.QueueFree();
+					characters.Remove(toKill);				
+				};
+			};
+		};
     }
     public void ChangeTile(Vector2I pos, Constants.Player player)
     {

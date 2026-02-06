@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hdwc4d2jkf5m"
-path="res://.godot/imported/TeamSelection.png-9a53d8424b25d0c2d6abd2243ce3d4e1.ctex"
+uid="uid://drksn8vyup10s"
+path="res://.godot/imported/gollum.png-c3478eeca378e45ffee9867c3169ade1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Screens/TeamSelection/TeamSelection.png"
-dest_files=["res://.godot/imported/TeamSelection.png-9a53d8424b25d0c2d6abd2243ce3d4e1.ctex"]
+source_file="res://UI_assets/Tutorial/gollum.png"
+dest_files=["res://.godot/imported/gollum.png-c3478eeca378e45ffee9867c3169ade1.ctex"]
 
 [params]
 

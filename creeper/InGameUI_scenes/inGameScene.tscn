@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3 uid="uid://c2yve67u2a0ei"]
+
+[ext_resource type="Texture2D" uid="uid://bsepq3b3h3ns5" path="res://UI_assets/UI_Buttons/Arrows and Start Button (2).png" id="1_21r1s"]
+[ext_resource type="Script" uid="uid://bmu7bkd3femsq" path="res://InGameUI_scripts/InGameScene.cs" id="1_hr6wx"]
+[ext_resource type="PackedScene" uid="uid://c31vp4cqio8ov" path="res://InGameUI_scenes/helpMenu.tscn" id="2_21r1s"]
+[ext_resource type="Texture2D" uid="uid://c47p6flmbfrun" path="res://UI_assets/UI_Buttons/Buttons_states.png" id="2_45nnk"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hr6wx"]
+texture = ExtResource("2_45nnk")
+region_rect = Rect2(144, 91, 70, 54)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nn33a"]
+texture = ExtResource("2_45nnk")
+region_rect = Rect2(143, 20, 71, 52)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_45nnk"]
+texture = ExtResource("1_21r1s")
+texture_margin_right = 19.0
+region_rect = Rect2(42, 287, 71, 54)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_usav5"]
+texture = ExtResource("2_45nnk")
+region_rect = Rect2(140, 211, 70, 53)
+
+[node name="GameUI" type="CanvasLayer"]
+script = ExtResource("1_hr6wx")
+
+[node name="optionsContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 864.0
+offset_bottom = -568.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="optionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="optionsContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Help" type="Button" parent="optionsContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(62, 46.5)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_hr6wx")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_nn33a")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nn33a")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_nn33a")
+
+[node name="Menu" type="Button" parent="optionsContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(62, 46.5)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_45nnk")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_usav5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_usav5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_usav5")
+
+[node name="HelpUI" parent="." instance=ExtResource("2_21r1s")]
+visible = false

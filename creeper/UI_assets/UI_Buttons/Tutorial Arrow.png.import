@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsq04cef8m8a1"
-path="res://.godot/imported/Gameboard background_v3.png-08ba17cc9de795a8a59dbde1fbdd4c17.ctex"
+uid="uid://b72xvivoiivrg"
+path="res://.godot/imported/Tutorial Arrow.png-c50aeb23a235e987d5bd2c8966a7ece8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GameBackground/Gameboard background_v3.png"
-dest_files=["res://.godot/imported/Gameboard background_v3.png-08ba17cc9de795a8a59dbde1fbdd4c17.ctex"]
+source_file="res://UI_assets/UI_Buttons/Tutorial Arrow.png"
+dest_files=["res://.godot/imported/Tutorial Arrow.png-c50aeb23a235e987d5bd2c8966a7ece8.ctex"]
 
 [params]
 

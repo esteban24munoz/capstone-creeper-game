@@ -7,7 +7,7 @@ public partial class MultiplayerTest : Node2D
 	[Export]
 	private int port = 9999;
 	[Export]
-	private string address = "127.0.0.1";
+	private string address = "127.0.0.1"; //Need to double check address
 	private ENetMultiplayerPeer peer;
 	
 	public override void _Ready()
@@ -97,6 +97,8 @@ public partial class MultiplayerTest : Node2D
 			GD.Print("Server created");
 		}
 		
+		peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
+		
 		Multiplayer.MultiplayerPeer = peer;
 		GD.Print("Waiting for players");
 	}
@@ -104,5 +106,11 @@ public partial class MultiplayerTest : Node2D
 	private void _on_join_btn_pressed()
 	{
 		GD.Print("Joining game");
+		peer = new ENetMultiplayerPeer();
+		peer.CreateClient(address, port, 0, 0, 2);
+		
+		peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
+		
+		Multiplayer.MultiplayerPeer = peer;
 	}
 }

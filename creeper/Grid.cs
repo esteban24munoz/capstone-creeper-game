@@ -9,9 +9,9 @@ public partial class Grid : Node2D
 	[Signal] public delegate void CharacterMouseEnteredEventHandler(Vector2I pos);
 	[Signal] public delegate void CharacterMouseExitedEventHandler(Vector2I pos);
 
-    private const int GRID_X_DISTANCE = 96;
-    private const int GRID_Y_DISTANCE = 60;
-    private const int GRID_Y_OFFSET = 50;
+	private const int GRID_X_DISTANCE = 96;
+	private const int GRID_Y_DISTANCE = 60;
+	private const int GRID_Y_OFFSET = 50;
 	private bool moving = false;
 	private readonly Dictionary<Constants.Player, int> TileType = new()
 	{
@@ -110,17 +110,17 @@ public partial class Grid : Node2D
 		}  
 	}
 
-    //moves the appropriate character as well deletes jumped characters
-    public void MoveCharacter(Vector2I from, Vector2I to)
-    {
-        CharacterBase CharacterFrom = FindCharacteratGridPos(from);
-        CharacterBase CharacterTo = FindCharacteratGridPos(to);
+	//moves the appropriate character as well deletes jumped characters
+	public void MoveCharacter(Vector2I from, Vector2I to)
+	{
+		CharacterBase CharacterFrom = FindCharacteratGridPos(from);
+		CharacterBase CharacterTo = FindCharacteratGridPos(to);
 
 		CharacterFrom.StopHover();
 		CharacterTo.StopHover();
 
 		//ensure the character to move is valid and that the target space is either empty or contains a ghost.
-        if (CharacterFrom == null || (CharacterTo != null && !CharacterTo.IsGhost)) return;
+		if (CharacterFrom == null || (CharacterTo != null && !CharacterTo.IsGhost)) return;
 
 		moving = true;
 
@@ -203,9 +203,9 @@ public partial class Grid : Node2D
 			killer.Play("attack_down");
 		}
 
-        //when attack animation is finished start killer's idle animation and toKill's die animation
-        void killerAnimationFinished()
-        {
+		//when attack animation is finished start killer's idle animation and toKill's die animation
+		void killerAnimationFinished()
+		{
 			killer.Play("idle");
 
 			toKill.Play("die");

@@ -1,9 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2yve67u2a0ei"]
+[gd_scene load_steps=12 format=3 uid="uid://c2yve67u2a0ei"]
 
 [ext_resource type="Texture2D" uid="uid://bsepq3b3h3ns5" path="res://UI_assets/UI_Buttons/Arrows and Start Button (2).png" id="1_21r1s"]
 [ext_resource type="Script" uid="uid://bmu7bkd3femsq" path="res://InGameUI_scripts/InGameScene.cs" id="1_hr6wx"]
 [ext_resource type="PackedScene" uid="uid://c31vp4cqio8ov" path="res://InGameUI_scenes/helpMenu.tscn" id="2_21r1s"]
 [ext_resource type="Texture2D" uid="uid://c47p6flmbfrun" path="res://UI_assets/UI_Buttons/Buttons_states.png" id="2_45nnk"]
+[ext_resource type="PackedScene" uid="uid://bsxynqvoiqkjd" path="res://InGameUI_scenes/frodoWins.tscn" id="5_nn33a"]
+[ext_resource type="PackedScene" uid="uid://chl4xq7eeugro" path="res://InGameUI_scenes/drawScreen.tscn" id="6_ci3c6"]
+[ext_resource type="PackedScene" uid="uid://dgaogpp1g1ybe" path="res://InGameUI_scenes/sauronWins.tscn" id="7_s2tgd"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hr6wx"]
 texture = ExtResource("2_45nnk")
@@ -66,4 +69,12 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_usav5")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_usav5")
 
 [node name="HelpUI" parent="." instance=ExtResource("2_21r1s")]
+visible = false
+
+[node name="FrodoWins" parent="." instance=ExtResource("5_nn33a")]
+
+[node name="FrodoWins2" parent="." instance=ExtResource("6_ci3c6")]
+visible = false
+
+[node name="FrodoWins3" parent="." instance=ExtResource("7_s2tgd")]
 visible = false

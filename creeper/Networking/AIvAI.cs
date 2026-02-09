@@ -117,7 +117,7 @@ public partial class AIvAI : Node2D
 	
 	private void _on_back_btn_pressed()
 	{
-		GetTree().ChangeSceneToFile("res://game.tscn");
+		GetTree().ChangeSceneToFile("res://Networking/multiplayer_test.tscn");
 	}
 	
 	public Constants.Player ParseState(string state) 

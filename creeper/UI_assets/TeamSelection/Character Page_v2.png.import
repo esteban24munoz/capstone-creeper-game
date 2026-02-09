@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rct7yi1il6gy"
-path="res://.godot/imported/Gameboard background.png-c58e268359f8eb60286f0cd44ab5e8e0.ctex"
+uid="uid://l5wj8tu0qufs"
+path="res://.godot/imported/Character Page_v2.png-5ba271d3edab0984d1ddd4fcc460a0b4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GameBackground/Gameboard background.png"
-dest_files=["res://.godot/imported/Gameboard background.png-c58e268359f8eb60286f0cd44ab5e8e0.ctex"]
+source_file="res://UI_assets/TeamSelection/Character Page_v2.png"
+dest_files=["res://.godot/imported/Character Page_v2.png-5ba271d3edab0984d1ddd4fcc460a0b4.ctex"]
 
 [params]
 

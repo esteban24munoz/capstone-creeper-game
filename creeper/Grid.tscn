@@ -1,9 +1,9 @@
-[gd_scene load_steps=30 format=4 uid="uid://bqbatuerquopu"]
+[gd_scene load_steps=30 format=4 uid="uid://b2orflvid4e7g"]
 
 [ext_resource type="Script" uid="uid://dnttn430tx1qb" path="res://Grid.cs" id="1_u6jcp"]
 [ext_resource type="Texture2D" uid="uid://djms4xij1g142" path="res://Art/Tiles/New Neutral Tile Sprite.png" id="2_xrsif"]
 [ext_resource type="Texture2D" uid="uid://byp26q4if8fd" path="res://Art/Tiles/New Rock Tile Sprite.png" id="3_aiw0r"]
-[ext_resource type="Texture2D" uid="uid://dsq04cef8m8a1" path="res://GameBackground/Gameboard background_v3.png" id="3_fh4re"]
+[ext_resource type="Texture2D" uid="uid://dsq04cef8m8a1" path="res://UI_assets/GameBackground/Gameboard background_v3.png" id="3_fh4re"]
 [ext_resource type="Texture2D" uid="uid://d3dnkksyhmh70" path="res://Art/Tiles/New Grass Tile Sprite (1).png" id="4_tyu4g"]
 [ext_resource type="Texture2D" uid="uid://dnmnmrymbvad6" path="res://Art/Tiles/New Lava Tile Sprite.png" id="5_gk1wl"]
 [ext_resource type="PackedScene" uid="uid://ddohyifhg7pkf" path="res://characters_scenes/boromir.tscn" id="7_aiw0r"]
@@ -23,7 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://c1750db4ehttj" path="res://characters_scenes/light_orc.tscn" id="20_tyu4g"]
 [ext_resource type="PackedScene" uid="uid://duklysfm6g8yo" path="res://Bases_scenes/ring.tscn" id="21_kfiik"]
 [ext_resource type="PackedScene" uid="uid://rus8obsl870u" path="res://Bases_scenes/volcano.tscn" id="22_kfiik"]
-[ext_resource type="Texture2D" uid="uid://b36u4koh0cyhc" path="res://GameBackground/GameBackground_v2.png" id="30_1l2id"]
+[ext_resource type="Texture2D" uid="uid://b36u4koh0cyhc" path="res://UI_assets/GameBackground/GameBackground_v2.png" id="30_1l2id"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kfiik"]
 texture = ExtResource("2_xrsif")
@@ -83,13 +83,11 @@ scale = Vector2(1, 1)
 [node name="Heavy Orc" parent="TileMapLayer/Characters" instance=ExtResource("15_qpqai")]
 position = Vector2(480, -40)
 scale = Vector2(1, 1)
-frame = 0
 frame_progress = 0.0
 
 [node name="Heavy Orc2" parent="TileMapLayer/Characters" instance=ExtResource("15_qpqai")]
 position = Vector2(0, 260)
 scale = Vector2(1, 1)
-frame = 0
 frame_progress = 0.0
 
 [node name="Sauron" parent="TileMapLayer/Characters" instance=ExtResource("16_hg3fi")]
@@ -107,13 +105,10 @@ scale = Vector2(1, 1)
 [node name="Frodo" parent="TileMapLayer/Characters" instance=ExtResource("19_tyu4g")]
 position = Vector2(96, -40)
 scale = Vector2(1, 1)
-frame = 0
-frame_progress = 0.0
 
 [node name="Gandalf" parent="TileMapLayer/Characters" instance=ExtResource("19_gk1wl")]
 position = Vector2(576, 200)
 scale = Vector2(1, 1)
-frame_progress = 0.0
 
 [node name="King of the Dead" parent="TileMapLayer/Characters" instance=ExtResource("19_kfiik")]
 position = Vector2(384, -40)

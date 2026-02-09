@@ -8,30 +8,29 @@ public partial class CharacterBase : AnimatedSprite2D
 	[Signal] public delegate void MouseEnteredEventHandler(CharacterBase character);
 	[Signal] public delegate void MouseExitedEventHandler(CharacterBase character);
 
-	private bool _isGhost = false;
-	public bool IsGhost
-	{
-		get {return _isGhost;}
-		set
-		{
-			if (value)
-			{
-			//Code to make the character transparent comes from Gemini
-			Color GhostColor = Modulate;
-			GhostColor.A = 0.6f;
-			SelfModulate = GhostColor;
-			_isGhost = value;
-			}
-			else
-			{
-			//Code to make the character transparent comes from Gemini
-			Color GhostColor = Modulate;
-			GhostColor.A = 1;
-			SelfModulate = GhostColor;
-			_isGhost = value;
-			}
-		}
-	}
+    private bool _isGhost = false;
+    public bool IsGhost
+    {
+        get {return _isGhost;}
+        set
+        {
+            if (value)
+            {
+            //Code to make the character transparent comes from Gemini
+            Color GhostColor = Modulate;
+            GhostColor.A = 0.6f;
+            SelfModulate = GhostColor;
+            _isGhost = value;
+            }
+            else
+            {
+            Color GhostColor = Modulate;
+            GhostColor.A = 1;
+            SelfModulate = GhostColor;
+            _isGhost = value;
+            }
+        }
+    }
 
 	Area2D area;
 	private int HoverOffset = 10;
@@ -46,21 +45,23 @@ public partial class CharacterBase : AnimatedSprite2D
 		area.MouseExited += () => {EmitSignal(SignalName.MouseExited, this); MouseOver = false;};
 	}
 
-	public void Hover()
-	{
-		if (Hovering) return;
-		Position = new Vector2(Position.X, Position.Y - HoverOffset);
-		area.Position = new Vector2(area.Position.X, area.Position.Y + HoverOffset);
-		Hovering = true;
-	}
+    public void Hover()
+    {
+        //move the entire sprite up then move the collision shape back down
+        if (Hovering) return;
+        Position = new Vector2(Position.X, Position.Y - HoverOffset);
+        area.Position = new Vector2(area.Position.X, area.Position.Y + HoverOffset);
+        Hovering = true;
+    }
 
-	public void StopHover()
-	{
-		if (!Hovering) return;
-		Position = new Vector2(Position.X, Position.Y + HoverOffset);
-		area.Position = new Vector2(area.Position.X, area.Position.Y - HoverOffset);
-		Hovering = false;
-	}
+    public void StopHover()
+    {
+        //move the entire sprite down then move the collision shape back up
+        if (!Hovering) return;
+        Position = new Vector2(Position.X, Position.Y + HoverOffset);
+        area.Position = new Vector2(area.Position.X, area.Position.Y - HoverOffset);
+        Hovering = false;
+    }
 
 	public override void _Input(InputEvent @event)
 	{

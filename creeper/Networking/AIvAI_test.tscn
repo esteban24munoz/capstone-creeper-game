@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cf0kvbohqlhdm"]
+[gd_scene load_steps=2 format=3 uid="uid://cje8sk6adumrw"]
 
-[ext_resource type="Script" uid="uid://cl8nlqqwy883" path="res://Networking/AIvAI.cs" id="1_3ong3"]
+[ext_resource type="Script" uid="uid://coahomi8ypsg" path="res://Networking/AIvAI.cs" id="1_3ong3"]
 
 [node name="AIvAiTest" type="Node2D"]
 script = ExtResource("1_3ong3")
@@ -13,10 +13,10 @@ offset_bottom = 96.0
 text = "AI v AI Tournament "
 
 [node name="BackBtn" type="Button" parent="."]
-offset_left = 87.0
-offset_top = 28.0
-offset_right = 281.0
-offset_bottom = 71.0
+offset_left = 73.0
+offset_top = 25.0
+offset_right = 267.0
+offset_bottom = 68.0
 text = "Back to Main Menu"
 
 [connection signal="pressed" from="BackBtn" to="." method="_on_back_btn_pressed"]

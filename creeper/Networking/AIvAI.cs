@@ -16,9 +16,18 @@ public partial class AIvAI : Node2D
 	private const string PLAYER_EMAIL = "hconner@harding.edu";
 	private const string EVENT = "mirror";
 	private static System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
+	AI ai = new AI();
 	
 	//Called when the node enters scene tree for first time
-	public async override void _Ready()
+	public override void _Ready()
+	{
+		GD.Print("Testing Action Parsing");
+		Vector2I from = new Vector2I(6,7);
+		Vector2I to = new Vector2I(5,6);
+		ParseAction(from, to);
+	}
+	
+	public async void PlayAiVsAi()
 	{
 		string playStateUrl = $"{SOFTSERVE_URL}/aivai/play-state";
 		//while (true)
@@ -83,10 +92,11 @@ public partial class AIvAI : Node2D
 
 			GD.Print($"action chosen:\t{action}");
 			
+			//Get move from AI here
 			GD.Print("Testing Action Parsing");
 			Vector2I from = new Vector2I(6,7);
 			Vector2I to = new Vector2I(5,6);
-			ParseAction(from, to);
+			string parsedAction = ParseAction(from, to);
 			
 			/************************************************************
 			End of placeholder AI
@@ -103,7 +113,6 @@ public partial class AIvAI : Node2D
 			var submitResponse = await client.PostAsJsonAsync($"{SOFTSERVE_URL}/aivai/submit-action", submitActionObj);
 			submitResponse.EnsureSuccessStatusCode();
 		}
-		
 	}
 	
 	private void _on_back_btn_pressed()
@@ -111,10 +120,8 @@ public partial class AIvAI : Node2D
 		GetTree().ChangeSceneToFile("res://game.tscn");
 	}
 	
-	public void ParseState(string state) 
+	public Constants.Player ParseState(string state) 
 	{
-		int PINS = 49;
-		
 		Constants.Player[,] pinsGrid = {
 			{Constants.Player.None, Constants.Player.Hero, Constants.Player.Hero, Constants.Player.None, Constants.Player.Enemy, Constants.Player.Enemy, Constants.Player.None},
 			{Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
@@ -160,11 +167,6 @@ public partial class AIvAI : Node2D
 			}
 		}
 		
-		if (c < PINS)
-		{
-			GD.Print("Did not parse all the pins");
-		}
-		
 		c = 49;
 		GD.Print("Tile Grid");
 		for (int row = 0; row < 6; row ++)
@@ -202,17 +204,18 @@ public partial class AIvAI : Node2D
 			activePlayer = Constants.Player.None;
 		}
 		GD.Print("Active player: " + activePlayer);
+		return activePlayer;
 	}
 	
-	public void ParseAction(Vector2I from, Vector2I to)
+	public string ParseAction(Vector2I from, Vector2I to)
 	{
-		//convert the x to letters
-		//convert the y to numbers
-		//format should look like f7e6
+		//Convert the X to letters. Format should look like f7e6
+		int asciiValue = 96;
+		char fromCol = (char)(asciiValue+from.X);
+		char toCol = (char)(asciiValue+to.X);
 		
-		int intValue = 96;
-		char charValue = (char)(intValue+from.X);
-		GD.Print(from.X);
-		GD.Print(charValue);
+		string action = $"{fromCol}{from.Y}{toCol}{to.Y}";
+		GD.Print(action);
+		return action;
 	}
 }

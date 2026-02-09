@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w7ffkonpqlmt"
-path="res://.godot/imported/Character Page.png-53ed9a1ecee3ccf6b307484909bdb193.ctex"
+uid="uid://dn1ra2m8au2kx"
+path="res://.godot/imported/gradient-bkg.png-5a5f7ea918acd06d11689bbd74a0982d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Screens/TeamSelection/Character Page.png"
-dest_files=["res://.godot/imported/Character Page.png-53ed9a1ecee3ccf6b307484909bdb193.ctex"]
+source_file="res://UI_assets/TeamSelection/gradient-bkg.png"
+dest_files=["res://.godot/imported/gradient-bkg.png-5a5f7ea918acd06d11689bbd74a0982d.ctex"]
 
 [params]
 

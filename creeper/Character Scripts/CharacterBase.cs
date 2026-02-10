@@ -39,7 +39,6 @@ public partial class CharacterBase : AnimatedSprite2D
 	
 	public override void _Ready()
 	{
-		Play("idle");
 		area = GetNode<Area2D>("Area2D");
 		area.MouseEntered += () => {EmitSignal(SignalName.MouseEntered, this); MouseOver = true;};
 		area.MouseExited += () => {EmitSignal(SignalName.MouseExited, this); MouseOver = false;};

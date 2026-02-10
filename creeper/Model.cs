@@ -53,7 +53,21 @@ public class Model
             return Grid[pos.X, pos.Y];
     }
 
-    public Vector2I? FindJumpedCharacter(Vector2I from, Vector2I to)
+    //find the position of every character of the given player
+    public List<Vector2I> GetAllCharacters(Constants.Player player)
+    {
+        List<Vector2I> players = [];
+        for (int i  = 0; i < Grid.GetLength(0); i++)
+        {
+            for (int j = 0; j < Grid.GetLength(0); j++)
+            {
+                if (Grid[i,j] == player) players.Add(new(i,j));
+            }
+        }
+        return players;
+    }
+
+    public static Vector2I? FindJumpedCharacter(Vector2I from, Vector2I to)
     {
         if (Math.Abs(from.X - to.X) == 2)
         {
@@ -85,7 +99,9 @@ public class Model
             hex = new(higher.X - 1, higher.Y);
         }
 
-        if (hex == new Vector2I(0,0) || hex == new Vector2I(0,Tiles.GetLength(0) - 1) || hex == new Vector2I(Tiles.GetLength(0) - 1,0) || hex == new Vector2I(Tiles.GetLength(0), Tiles.GetLength(0) - 1))
+
+        //return null if jumped hex is one of the four corners
+        if (hex == new Vector2I(0,0) || hex == new Vector2I(0,Tiles.GetLength(0) - 1) || hex == new Vector2I(Tiles.GetLength(0) - 1,0) || hex == new Vector2I(Tiles.GetLength(0) - 1, Tiles.GetLength(0) - 1))
         {
             return null;
         }

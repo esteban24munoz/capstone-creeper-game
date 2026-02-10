@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 public partial class Grid : Node2D
@@ -67,6 +68,7 @@ public partial class Grid : Node2D
 
 		if (character == null) return;
 
+		//at each position, duplicate the character and make the duplicate a ghost
 		foreach (var pos in positions)
 		{
 			CharacterBase Ghost = (CharacterBase)character.Duplicate();
@@ -82,6 +84,8 @@ public partial class Grid : Node2D
 			Ghost.IsGhost = true;
 
 			characters.Add(Ghost);
+
+			Ghost.Play("idle");
 		}
 	}
 
@@ -175,6 +179,8 @@ public partial class Grid : Node2D
 		{
 			from.Play("idle");
 			moving = false;
+
+			ToggleCharacterAnimations();
 		};
 
 		DeleteGhosts();
@@ -232,8 +238,35 @@ public partial class Grid : Node2D
         killer.Connect(
 			AnimationMixer.SignalName.AnimationFinished, 
 			Callable.From(killerAnimationFinished), 
-			(uint)ConnectFlags.OneShot);
+			(uint)ConnectFlags.OneShot
+		);
     }
+
+	public void StopCharacterAnimations(List<Vector2I> positions)
+	{
+		foreach (Vector2I character in positions)
+		{
+			FindCharacteratGridPos(character)?.Stop();
+		} 
+	}
+
+	public void StartCharacterAnimations(List<Vector2I> positions)
+	{
+		foreach (Vector2I character in positions)
+		{
+			FindCharacteratGridPos(character)?.Play("idle");
+		} 
+	}
+
+	public void ToggleCharacterAnimations()
+	{
+		foreach (CharacterBase character in characters.Cast<CharacterBase>())
+		{
+			if (character.IsPlaying()) character.Stop();
+			else character.Play();
+		}
+	}
+
     public void ChangeTile(Vector2I pos, Constants.Player player)
     {
 		//converts from standard grid coordinates to isometric

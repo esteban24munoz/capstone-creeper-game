@@ -16,6 +16,7 @@ public partial class Controller : Node2D
         ViewInstance.CharacterClick += OnClick;
         ViewInstance.CharacterMouseEntered += MouseEntered;
         ViewInstance.CharacterMouseExited += MouseExited;
+        ViewInstance.StartCharacterAnimations(ModelInstance.GetAllCharacters(ActivePlayer));
     }
 
     //This is the main game loop
@@ -51,7 +52,7 @@ public partial class Controller : Node2D
                 ModelInstance.MoveCharacter(SelectedCharacter.Value, pos);
 
                 ViewInstance.MoveCharacter(SelectedCharacter.Value, pos);
-                Vector2I? jumped = ModelInstance.FindJumpedCharacter(SelectedCharacter.Value, pos);
+                Vector2I? jumped = Model.FindJumpedCharacter(SelectedCharacter.Value, pos);
 
                 jumped = ModelInstance.FindJumpedHex(SelectedCharacter.Value, pos);
                 if (jumped != null)

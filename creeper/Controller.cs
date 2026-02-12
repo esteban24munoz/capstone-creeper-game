@@ -9,6 +9,7 @@ public partial class Controller : Node2D
     Vector2I? SelectedCharacter = null;
     Grid ViewInstance;
     readonly Model ModelInstance = new();
+    InGameScene GameUI;
 
     public override void _Ready()
     {
@@ -16,6 +17,9 @@ public partial class Controller : Node2D
         ViewInstance.CharacterClick += OnClick;
         ViewInstance.CharacterMouseEntered += MouseEntered;
         ViewInstance.CharacterMouseExited += MouseExited;
+        ViewInstance.MoveFinished += CharacterMoveFinished;
+
+        GameUI = GetNode<InGameScene>("GameUI");
     }
 
     //This is the main game loop
@@ -59,20 +63,7 @@ public partial class Controller : Node2D
                 ViewInstance.RemoveGhosts();
                 SelectedCharacter = null;
                 NewTurn();
-
-                if (ModelInstance.IsDraw(ActivePlayer))
-                {
-                    GD.Print("Draw");
-                    ActivePlayer = Constants.Player.None;
-                }
-
-                if (Winner != Constants.Player.None)
-                {
-                    GD.Print("Winner: ", Winner);
-                    ActivePlayer = Constants.Player.None;
-                }
             }
-
         }
     }
 
@@ -91,6 +82,21 @@ public partial class Controller : Node2D
         (SelectedCharacter != null && ViewInstance.IsGhost(pos)))
         {
             ViewInstance.StopHover(pos);
+        }
+    }
+
+    void CharacterMoveFinished()
+    {
+        if (ModelInstance.IsDraw(ActivePlayer))
+        {
+            GameUI.ShowWinScreen(Constants.Player.None);
+            ActivePlayer = Constants.Player.None;
+        }
+
+        if (Winner != Constants.Player.None)
+        {
+            GameUI.ShowWinScreen(Winner);
+            ActivePlayer = Constants.Player.None;
         }
     }
 

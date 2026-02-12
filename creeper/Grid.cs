@@ -8,6 +8,7 @@ public partial class Grid : Node2D
 	[Signal] public delegate void CharacterClickEventHandler(Vector2I pos);
 	[Signal] public delegate void CharacterMouseEnteredEventHandler(Vector2I pos);
 	[Signal] public delegate void CharacterMouseExitedEventHandler(Vector2I pos);
+	[Signal] public delegate void MoveFinishedEventHandler();
 
     private const int GRID_X_DISTANCE = 96;
     private const int GRID_Y_DISTANCE = 60;
@@ -175,6 +176,7 @@ public partial class Grid : Node2D
 		{
 			from.Play("idle");
 			moving = false;
+			EmitSignal(SignalName.MoveFinished);
 		};
 
 		DeleteGhosts();

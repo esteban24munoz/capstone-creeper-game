@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djr1qvedj24l3"
-path="res://.godot/imported/BUTTON.png-5a43665535978606023aa2556e472bb7.ctex"
+uid="uid://guby48e31ivk"
+path="res://.godot/imported/Character Trees.png-cb260f91aec3e38f7173f21ad541999a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Screens/TeamSelection/BUTTON.png"
-dest_files=["res://.godot/imported/BUTTON.png-5a43665535978606023aa2556e472bb7.ctex"]
+source_file="res://UI_assets/TeamSelection/Character Trees.png"
+dest_files=["res://.godot/imported/Character Trees.png-cb260f91aec3e38f7173f21ad541999a.ctex"]
 
 [params]
 

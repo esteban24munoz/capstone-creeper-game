@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcghh163kcurn"
-path="res://.godot/imported/arrows.png-70035c7cef8564a9e3727534fa4fab33.ctex"
+uid="uid://bf3md45gw7a4"
+path="res://.godot/imported/exitButton.png-4d5e46bb6cf328750a2ac8e17df73b32.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Screens/TeamSelection/arrows.png"
-dest_files=["res://.godot/imported/arrows.png-70035c7cef8564a9e3727534fa4fab33.ctex"]
+source_file="res://UI_assets/UI_Buttons/exitButton.png"
+dest_files=["res://.godot/imported/exitButton.png-4d5e46bb6cf328750a2ac8e17df73b32.ctex"]
 
 [params]
 

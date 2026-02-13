@@ -1,11 +1,13 @@
-[gd_scene load_steps=30 format=4 uid="uid://b2orflvid4e7g"]
+[gd_scene load_steps=34 format=4 uid="uid://b2orflvid4e7g"]
 
 [ext_resource type="Script" uid="uid://dnttn430tx1qb" path="res://Grid.cs" id="1_u6jcp"]
 [ext_resource type="Texture2D" uid="uid://djms4xij1g142" path="res://Art/Tiles/New Neutral Tile Sprite.png" id="2_xrsif"]
 [ext_resource type="Texture2D" uid="uid://byp26q4if8fd" path="res://Art/Tiles/New Rock Tile Sprite.png" id="3_aiw0r"]
 [ext_resource type="Texture2D" uid="uid://dsq04cef8m8a1" path="res://UI_assets/GameBackground/Gameboard background_v3.png" id="3_fh4re"]
+[ext_resource type="Texture2D" uid="uid://ckcqfdxouy3cu" path="res://Art/Tiles/special_lava_tile.png" id="4_mp7ew"]
 [ext_resource type="Texture2D" uid="uid://d3dnkksyhmh70" path="res://Art/Tiles/New Grass Tile Sprite (1).png" id="4_tyu4g"]
 [ext_resource type="Texture2D" uid="uid://dnmnmrymbvad6" path="res://Art/Tiles/New Lava Tile Sprite.png" id="5_gk1wl"]
+[ext_resource type="Texture2D" uid="uid://cpmkuleak3jp8" path="res://Art/Tiles/special_grass_tile.png" id="5_s5c1x"]
 [ext_resource type="PackedScene" uid="uid://ddohyifhg7pkf" path="res://characters_scenes/boromir.tscn" id="7_aiw0r"]
 [ext_resource type="PackedScene" uid="uid://b2np60la80is1" path="res://characters_scenes/sam.tscn" id="13_gk1wl"]
 [ext_resource type="PackedScene" uid="uid://d2nplcigroap8" path="res://characters_scenes/heavy_orc.tscn" id="15_qpqai"]
@@ -24,6 +26,16 @@
 [ext_resource type="PackedScene" uid="uid://duklysfm6g8yo" path="res://Bases_scenes/ring.tscn" id="21_kfiik"]
 [ext_resource type="PackedScene" uid="uid://rus8obsl870u" path="res://Bases_scenes/volcano.tscn" id="22_kfiik"]
 [ext_resource type="Texture2D" uid="uid://b36u4koh0cyhc" path="res://UI_assets/GameBackground/GameBackground_v2.png" id="30_1l2id"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g32va"]
+texture = ExtResource("4_mp7ew")
+texture_region_size = Vector2i(96, 96)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sr26l"]
+texture = ExtResource("5_s5c1x")
+texture_region_size = Vector2i(96, 96)
+0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kfiik"]
 texture = ExtResource("2_xrsif")
@@ -53,6 +65,8 @@ sources/4 = SubResource("TileSetAtlasSource_kfiik")
 sources/5 = SubResource("TileSetAtlasSource_qpqai")
 sources/6 = SubResource("TileSetAtlasSource_hg3fi")
 sources/7 = SubResource("TileSetAtlasSource_bsa5o")
+sources/0 = SubResource("TileSetAtlasSource_g32va")
+sources/1 = SubResource("TileSetAtlasSource_sr26l")
 
 [node name="Grid" type="Node2D"]
 script = ExtResource("1_u6jcp")
@@ -67,88 +81,88 @@ texture = ExtResource("3_fh4re")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(210, 161)
-tile_map_data = PackedByteArray("AAAKAAEABQAAAAAAAAAJAAAABQAAAAAAAAAJAP//BAAAAAAAAAAJAP7/BQAAAAAAAAAIAP7/BAAAAAAAAAAIAP3/BQAAAAAAAAAHAP3/BAAAAAAAAAAGAP3/BQAAAAAAAAAGAPz/BAAAAAAAAAAGAPv/BQAAAAAAAAAEAPv/BQAAAAAAAAAEAPz/BAAAAAAAAAAFAPz/BQAAAAAAAAAFAP3/BAAAAAAAAAAHAP7/BQAAAAAAAAAIAP//BQAAAAAAAAAJAAEABAAAAAAAAAAHAPz/BQAAAAAAAAAKAP//BQAAAAAAAAAIAAEABQAAAAAAAAAIAAAABAAAAAAAAAAHAAAABQAAAAAAAAAHAP//BAAAAAAAAAAGAP//BQAAAAAAAAAGAP7/BAAAAAAAAAAFAP7/BQAAAAAAAAAEAP3/BQAAAAAAAAADAPz/BQAAAAAAAAADAP3/BAAAAAAAAAAEAP7/BAAAAAAAAAAFAP//BAAAAAAAAAAGAAAABAAAAAAAAAAHAAEABAAAAAAAAAAIAAIABAAAAAAAAAAJAAIABQAAAAAAAAAGAAEABQAAAAAAAAAFAAAABQAAAAAAAAAEAAAABAAAAAAAAAAEAP//BQAAAAAAAAADAP//BAAAAAAAAAADAP7/BQAAAAAAAAACAP7/BAAAAAAAAAACAP3/BQAAAAAAAAAHAAIABQAAAAAAAAAIAAMABQAAAAAAAAAHAAMABAAAAAAAAAAGAAIABAAAAAAAAAAFAAEABAAAAAAAAAAEAAEABQAAAAAAAAADAAAABQAAAAAAAAACAP//BQAAAAAAAAABAP7/BQAAAAAAAAABAP//BAAAAAAAAAAFAAIABQAAAAAAAAAGAAMABQAAAAAAAAAHAAQABQAAAAAAAAAGAAQABAAAAAAAAAAFAAMABAAAAAAAAAAEAAIABAAAAAAAAAADAAEABAAAAAAAAAACAAAABAAAAAAAAAAAAP//BQAAAAAAAAABAAAABQAAAAAAAAACAAEABQAAAAAAAAADAAIABQAAAAAAAAAEAAMABQAAAAAAAAAEAAQABAAAAAAAAAAFAAQABQAAAAAAAAAGAAUABQAAAAAAAAAEAAUABQAAAAAAAAADAAQABQAAAAAAAAADAAMABAAAAAAAAAACAAMABQAAAAAAAAACAAIABAAAAAAAAAABAAIABQAAAAAAAAABAAEABAAAAAAAAAAAAAEABQAAAAAAAAAAAAAABgAAAAAAAAD//wEABgAAAAAAAAD//wAABgAAAAAAAAD+/wEABgAAAAAAAAD+/wAABgAAAAAAAAAKAAAABgAAAAAAAAALAP//BgAAAAAAAAALAAAABgAAAAAAAAAMAP//BgAAAAAAAAAMAAAABgAAAAAAAAAFAAUABwAAAAAAAAAEAAYABwAAAAAAAAAFAAYABwAAAAAAAAAEAAcABwAAAAAAAAAFAAcABwAAAAAAAAAFAPv/BwAAAAAAAAAFAPr/BwAAAAAAAAAGAPr/BwAAAAAAAAAFAPn/BwAAAAAAAAAGAPn/BwAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAKAAEABQAAAAAAAAAJAAAABQAAAAAAAAAJAP//BAAAAAAAAAAJAP7/BQAAAAAAAAAIAP7/BAAAAAAAAAAIAP3/BQAAAAAAAAAHAP3/BAAAAAAAAAAGAP3/BQAAAAAAAAAGAPz/BAAAAAAAAAAGAPv/BQAAAAAAAAAEAPv/BQAAAAAAAAAEAPz/BAAAAAAAAAAFAPz/BQAAAAAAAAAFAP3/BAAAAAAAAAAHAP7/BQAAAAAAAAAIAP//BQAAAAAAAAAJAAEABAAAAAAAAAAHAPz/BQAAAAAAAAAKAP//BQAAAAAAAAAIAAEABQAAAAAAAAAIAAAABAAAAAAAAAAHAAAABQAAAAAAAAAHAP//BAAAAAAAAAAGAP//BQAAAAAAAAAGAP7/BAAAAAAAAAAFAP7/BQAAAAAAAAAEAP3/BQAAAAAAAAADAPz/BQAAAAAAAAADAP3/BAAAAAAAAAAEAP7/BAAAAAAAAAAFAP//BAAAAAAAAAAGAAAABAAAAAAAAAAHAAEABAAAAAAAAAAIAAIABAAAAAAAAAAJAAIABQAAAAAAAAAGAAEABQAAAAAAAAAFAAAABQAAAAAAAAAEAAAABAAAAAAAAAAEAP//BQAAAAAAAAADAP//BAAAAAAAAAADAP7/BQAAAAAAAAACAP7/BAAAAAAAAAACAP3/BQAAAAAAAAAHAAIABQAAAAAAAAAIAAMABQAAAAAAAAAHAAMABAAAAAAAAAAGAAIABAAAAAAAAAAFAAEABAAAAAAAAAAEAAEABQAAAAAAAAADAAAABQAAAAAAAAACAP//BQAAAAAAAAABAP7/BQAAAAAAAAABAP//BAAAAAAAAAAFAAIABQAAAAAAAAAGAAMABQAAAAAAAAAHAAQABQAAAAAAAAAGAAQABAAAAAAAAAAFAAMABAAAAAAAAAAEAAIABAAAAAAAAAADAAEABAAAAAAAAAACAAAABAAAAAAAAAAAAP//BQAAAAAAAAABAAAABQAAAAAAAAACAAEABQAAAAAAAAADAAIABQAAAAAAAAAEAAMABQAAAAAAAAAEAAQABAAAAAAAAAAFAAQABQAAAAAAAAAGAAUABQAAAAAAAAAEAAUABQAAAAAAAAADAAQABQAAAAAAAAADAAMABAAAAAAAAAACAAMABQAAAAAAAAACAAIABAAAAAAAAAABAAIABQAAAAAAAAABAAEABAAAAAAAAAAAAAEABQAAAAAAAAAAAAAAAAAAAAAAAAD//wAABwAAAAAAAAD+/wEABwAAAAAAAAD+/wAABwAAAAAAAAAKAAAAAAAAAAAAAAALAP//BwAAAAAAAAALAAAABwAAAAAAAAAMAP//BwAAAAAAAAAMAAAABwAAAAAAAAAFAAUAAQAAAAAAAAAEAAYABgAAAAAAAAAFAAYABgAAAAAAAAAEAAcABgAAAAAAAAAFAAcABgAAAAAAAAAFAPv/AQAAAAAAAAAFAPr/BgAAAAAAAAAGAPr/BgAAAAAAAAAFAPn/BgAAAAAAAAAGAPn/BgAAAAAAAAD//wEABwAAAAAAAAA=")
 tile_set = SubResource("TileSet_mel50")
 
 [node name="Characters" type="Node2D" parent="TileMapLayer"]
 
 [node name="Boromir" parent="TileMapLayer/Characters" instance=ExtResource("7_aiw0r")]
-position = Vector2(576, 260)
+position = Vector2(480, -40)
 scale = Vector2(1, 1)
 
 [node name="Sam" parent="TileMapLayer/Characters" instance=ExtResource("13_gk1wl")]
-position = Vector2(192, -40)
+position = Vector2(192, 320)
 scale = Vector2(1, 1)
 
 [node name="Heavy Orc" parent="TileMapLayer/Characters" instance=ExtResource("15_qpqai")]
-position = Vector2(480, -40)
+position = Vector2(96, -40)
 scale = Vector2(1, 1)
 frame_progress = 0.0
 
 [node name="Heavy Orc2" parent="TileMapLayer/Characters" instance=ExtResource("15_qpqai")]
-position = Vector2(0, 260)
+position = Vector2(576, 200)
 scale = Vector2(1, 1)
 frame_progress = 0.0
 
 [node name="Sauron" parent="TileMapLayer/Characters" instance=ExtResource("16_hg3fi")]
-position = Vector2(576, 80)
+position = Vector2(0, 20)
 scale = Vector2(1, 1)
 
 [node name="Saruman" parent="TileMapLayer/Characters" instance=ExtResource("17_bsa5o")]
-position = Vector2(96, 320)
-scale = Vector2(1, 1)
-
-[node name="Aragorn" parent="TileMapLayer/Characters" instance=ExtResource("19_aiw0r")]
-position = Vector2(384, 320)
-scale = Vector2(1, 1)
-
-[node name="Frodo" parent="TileMapLayer/Characters" instance=ExtResource("19_tyu4g")]
-position = Vector2(96, -40)
-scale = Vector2(1, 1)
-
-[node name="Gandalf" parent="TileMapLayer/Characters" instance=ExtResource("19_gk1wl")]
-position = Vector2(576, 200)
-scale = Vector2(1, 1)
-
-[node name="King of the Dead" parent="TileMapLayer/Characters" instance=ExtResource("19_kfiik")]
-position = Vector2(384, -40)
-scale = Vector2(1, 1)
-
-[node name="Legolas" parent="TileMapLayer/Characters" instance=ExtResource("19_qpqai")]
 position = Vector2(480, 320)
 scale = Vector2(1, 1)
 
-[node name="Light Orc" parent="TileMapLayer/Characters" instance=ExtResource("20_tyu4g")]
-position = Vector2(192, 320)
+[node name="Aragorn" parent="TileMapLayer/Characters" instance=ExtResource("19_aiw0r")]
+position = Vector2(576, 80)
 scale = Vector2(1, 1)
 
-[node name="Light Orc2" parent="TileMapLayer/Characters" instance=ExtResource("20_tyu4g")]
+[node name="Frodo" parent="TileMapLayer/Characters" instance=ExtResource("19_tyu4g")]
+position = Vector2(96, 320)
+scale = Vector2(1, 1)
+
+[node name="Gandalf" parent="TileMapLayer/Characters" instance=ExtResource("19_gk1wl")]
+position = Vector2(384, -40)
+scale = Vector2(1, 1)
+
+[node name="King of the Dead" parent="TileMapLayer/Characters" instance=ExtResource("19_kfiik")]
+position = Vector2(192, -40)
+scale = Vector2(1, 1)
+
+[node name="Legolas" parent="TileMapLayer/Characters" instance=ExtResource("19_qpqai")]
 position = Vector2(576, 20)
 scale = Vector2(1, 1)
 
+[node name="Light Orc" parent="TileMapLayer/Characters" instance=ExtResource("20_tyu4g")]
+position = Vector2(384, 320)
+scale = Vector2(1, 1)
+
+[node name="Light Orc2" parent="TileMapLayer/Characters" instance=ExtResource("20_tyu4g")]
+position = Vector2(0, 80)
+scale = Vector2(1, 1)
+
 [node name="Light Orc3" parent="TileMapLayer/Characters" instance=ExtResource("20_tyu4g")]
-position = Vector2(0, 200)
+position = Vector2(576, 260)
 scale = Vector2(1, 1)
 
 [node name="Merry" parent="TileMapLayer/Characters" instance=ExtResource("19_hg3fi")]
-position = Vector2(0, 20)
+position = Vector2(0, 260)
 scale = Vector2(1, 1)
 autoplay = "idle"
 
 [node name="Pippin" parent="TileMapLayer/Characters" instance=ExtResource("19_bsa5o")]
-position = Vector2(0, 80)
+position = Vector2(0, 200)
 scale = Vector2(1, 1)
 
 [node name="Bases" type="Node2D" parent="TileMapLayer"]
 
 [node name="Eye Tower" parent="TileMapLayer/Bases" instance=ExtResource("19_mp7ew")]
-position = Vector2(-49, 296)
+position = Vector2(-50, -57)
 
 [node name="Isengard Tower" parent="TileMapLayer/Bases" instance=ExtResource("20_gk1wl")]
-position = Vector2(617, -52)
+position = Vector2(622, 311)
 
 [node name="Ring" parent="TileMapLayer/Bases" instance=ExtResource("21_kfiik")]
-position = Vector2(-48, -25)
+position = Vector2(-50, 335)
 
 [node name="Volcano" parent="TileMapLayer/Bases" instance=ExtResource("22_kfiik")]
-position = Vector2(614, 320)
+position = Vector2(622, -49)

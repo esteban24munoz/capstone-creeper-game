@@ -6,23 +6,23 @@ using System.Collections.Generic;
 public class Model
 {
     Constants.Player[,] Grid {get;} = {
-        {Constants.Player.None, Constants.Player.Hero, Constants.Player.Hero, Constants.Player.None, Constants.Player.Enemy, Constants.Player.Enemy, Constants.Player.None},
-        {Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
-        {Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
-        {Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-        {Constants.Player.Enemy, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Hero},
-        {Constants.Player.Enemy, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Hero},
         {Constants.Player.None, Constants.Player.Enemy, Constants.Player.Enemy, Constants.Player.None, Constants.Player.Hero, Constants.Player.Hero, Constants.Player.None},
+        {Constants.Player.Enemy, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Hero},
+        {Constants.Player.Enemy, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Hero},
+        {Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
+        {Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
+        {Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
+        {Constants.Player.None, Constants.Player.Hero, Constants.Player.Hero, Constants.Player.None, Constants.Player.Enemy, Constants.Player.Enemy, Constants.Player.None},
     };
 
     Constants.Player[,] Tiles {get;} =
     {
+        {Constants.Player.Enemy, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Hero},
+        {Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
+        {Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
+        {Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
+        {Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
         {Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
-        {Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-        {Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-        {Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-        {Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-        {Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
     };
 
     //moves the appropriate character as well deletes jumped characters and updates jumped hexes
@@ -126,9 +126,9 @@ public class Model
     public Constants.Player FindWinner()
     {
         visited.Clear();
-        if(FindWinner(new(0,0), Constants.Player.Hero)) return Constants.Player.Hero;
+        if(FindWinner(new(0,0), Constants.Player.Enemy)) return Constants.Player.Enemy;
         visited.Clear();
-        if(FindWinner(new(0,Tiles.GetLength(0) - 1), Constants.Player.Enemy)) return Constants.Player.Enemy;
+        if(FindWinner(new(0,Tiles.GetLength(0) - 1), Constants.Player.Hero)) return Constants.Player.Hero;
         return Constants.Player.None;
     }
 
@@ -136,8 +136,8 @@ public class Model
     private bool FindWinner(Vector2I tile, Constants.Player player)
     {
         //if we found the target tile return true
-        if (player == Constants.Player.Hero && tile == new Vector2I(Tiles.GetLength(0) - 1, Tiles.GetLength(0) - 1) ||
-        player == Constants.Player.Enemy && tile == new Vector2I(Tiles.GetLength(0) - 1, 0))
+        if (player == Constants.Player.Enemy && tile == new Vector2I(Tiles.GetLength(0) - 1, Tiles.GetLength(0) - 1) ||
+        player == Constants.Player.Hero && tile == new Vector2I(Tiles.GetLength(0) - 1, 0))
         {
             return true;
         }

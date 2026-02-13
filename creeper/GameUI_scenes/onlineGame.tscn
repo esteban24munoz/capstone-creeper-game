@@ -1,0 +1,140 @@
+[gd_scene load_steps=8 format=3 uid="uid://dmr64q0nbwba0"]
+
+[ext_resource type="Texture2D" uid="uid://dn1ra2m8au2kx" path="res://UI_assets/TeamSelection/gradient-bkg.png" id="1_2dac5"]
+[ext_resource type="Texture2D" uid="uid://guby48e31ivk" path="res://UI_assets/TeamSelection/Character Trees.png" id="2_wwr7m"]
+[ext_resource type="Texture2D" uid="uid://bl73um72w5ddo" path="res://UI_assets/TeamSelection/Moria Gate.png" id="3_lq64o"]
+[ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="4_ihkni"]
+[ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="5_w71yy"]
+[ext_resource type="StyleBox" uid="uid://cxalsunrvb4jg" path="res://UI_assets/UI_Buttons/styled_button_texture.tres" id="6_ymnuw"]
+[ext_resource type="StyleBox" uid="uid://lv2pdg5qvcwu" path="res://UI_assets/UI_Buttons/styled_button_hover_texture.tres" id="7_ju0vd"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="gradientBkg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_2dac5")
+
+[node name="gradientBkg2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_wwr7m")
+
+[node name="gradientBkg4" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -225.0
+offset_top = -600.0
+offset_right = 225.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("3_lq64o")
+stretch_mode = 2
+
+[node name="gradientBkg3" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_ihkni")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = -301.0
+offset_right = 540.0
+offset_bottom = 301.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+
+[node name="UIContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 32
+
+[node name="buttonsContainer" type="HBoxContainer" parent="MarginContainer/UIContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 179
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/UIContainer/buttonsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8627451, 0.2901961, 1)
+theme_override_fonts/font = ExtResource("5_w71yy")
+theme_override_font_sizes/font_size = 72
+text = "THERE AND BACK
+AGAIN"
+horizontal_alignment = 1
+
+[node name="teamsContainer" type="HBoxContainer" parent="MarginContainer/UIContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/UIContainer/teamsContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 24
+
+[node name="StartGame" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 70)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("6_ymnuw")
+theme_override_styles/hover = ExtResource("7_ju0vd")
+theme_override_styles/hover_pressed = ExtResource("7_ju0vd")
+text = "Play"
+
+[node name="StartGame2" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 70)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("6_ymnuw")
+theme_override_styles/hover = ExtResource("7_ju0vd")
+theme_override_styles/hover_pressed = ExtResource("7_ju0vd")
+text = "Tutorial"
+
+[node name="StartGame3" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 70)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("6_ymnuw")
+theme_override_styles/hover = ExtResource("7_ju0vd")
+theme_override_styles/hover_pressed = ExtResource("7_ju0vd")
+text = "Settings"
+
+[node name="StartGame4" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 70)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("6_ymnuw")
+theme_override_styles/hover = ExtResource("7_ju0vd")
+theme_override_styles/hover_pressed = ExtResource("7_ju0vd")
+text = "Quit"

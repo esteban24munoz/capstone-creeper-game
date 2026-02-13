@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bskcrihd33k5i"]
+[gd_scene load_steps=7 format=3 uid="uid://bskcrihd33k5i"]
 
 [ext_resource type="Script" uid="uid://cvpxne745inii" path="res://Controller.cs" id="1_vwcep"]
-[ext_resource type="PackedScene" uid="uid://b2orflvid4e7g" path="res://Grid.tscn" id="2_b6q5f"]
+[ext_resource type="PackedScene" uid="uid://4h0xfo1evrve" path="res://Grid.tscn" id="2_b6q5f"]
 [ext_resource type="PackedScene" uid="uid://c2yve67u2a0ei" path="res://InGameUI_scenes/inGameScene.tscn" id="3_feb5d"]
+[ext_resource type="AudioStream" uid="uid://c7a5ud5pisce0" path="res://Music/The Shadow of the Past.wav" id="4_fc0e3"]
+[ext_resource type="AudioStream" uid="uid://dmi6k2rj03doa" path="res://Music/The Ring Goes South.wav" id="5_7jktm"]
+[ext_resource type="AudioStream" uid="uid://dkwoua3cemi1b" path="res://Music/The Fighting Uruk-hai.wav" id="6_ryrav"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_vwcep")
@@ -10,3 +13,18 @@ script = ExtResource("1_vwcep")
 [node name="Grid" parent="." instance=ExtResource("2_b6q5f")]
 
 [node name="GameUI" parent="." instance=ExtResource("3_feb5d")]
+
+[node name="Music" type="Node2D" parent="."]
+
+[node name="Battle" type="AudioStreamPlayer2D" parent="Music"]
+stream = ExtResource("4_fc0e3")
+autoplay = true
+panning_strength = 0.0
+
+[node name="FrodoWin" type="AudioStreamPlayer2D" parent="Music"]
+stream = ExtResource("5_7jktm")
+panning_strength = 0.0
+
+[node name="SauronWin" type="AudioStreamPlayer2D" parent="Music"]
+stream = ExtResource("6_ryrav")
+panning_strength = 0.0

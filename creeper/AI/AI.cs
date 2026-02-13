@@ -5,22 +5,23 @@ using System.Diagnostics.Tracing;
 
 public partial class AI : Node2D
 {
-	Model AIGame = new Model();
-	Constants.Player currentPlayer = Constants.Player.Hero;
+	public Model AIGame = new Model();
+	public Constants.Player currentPlayer = Constants.Player.Hero;
 	
 	public override void _Ready()
 	{
 		GD.Print("Starting test");
-		
-		for (int i = 0; i < 2000; i++)
+		int i;
+		for (i = 0; i < 4999; i++)
 		{
 			//GD.Print($"Game: {i+1}");
 			bool isGameDone = PlayGame();
-			GD.Print($"Game: {i+1} is done");
+			//GD.Print($"Game: {i+1} is done");
 			//Need to reset the game to a fresh game and save old game data for stragey
 			AIGame = new Model();
 			currentPlayer = Constants.Player.Hero; 
 		}
+		GD.Print($"Game {i+1} done");
 	}
 	
 	Vector2I SelectRandomPiece()
@@ -59,7 +60,7 @@ public partial class AI : Node2D
 		Random randomMove = new Random();
 		if (validMoves.Count == 0)
 		{
-			GD.Print("No Valid Moves for piece: ", pieceToMove);
+			//GD.Print("No Valid Moves for piece: ", pieceToMove);
 			return false;
 		}
 		else

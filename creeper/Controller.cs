@@ -74,18 +74,6 @@ public partial class Controller : Node2D
 				ViewInstance.RemoveGhosts();
 				SelectedCharacter = null;
 				NewTurn();
-
-				if (ModelInstance.IsDraw(ActivePlayer))
-				{
-					GD.Print("Draw");
-					ActivePlayer = Constants.Player.None;
-				}
-
-				if (Winner != Constants.Player.None)
-				{
-					GD.Print("Winner: ", Winner);
-					ActivePlayer = Constants.Player.None;
-				}
 			}
 		}
 	}

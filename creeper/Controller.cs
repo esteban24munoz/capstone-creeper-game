@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public partial class Controller : Node2D
@@ -10,6 +11,7 @@ public partial class Controller : Node2D
     Grid ViewInstance;
     readonly Model ModelInstance = new();
     InGameScene GameUI;
+    AudioStreamPlayer2D Music, FrodoWin, SauronWin;
 
     public override void _Ready()
     {
@@ -20,6 +22,10 @@ public partial class Controller : Node2D
         ViewInstance.MoveFinished += CharacterMoveFinished;
 
         GameUI = GetNode<InGameScene>("GameUI");
+
+        Music = GetNode<AudioStreamPlayer2D>("Music/Battle");
+        FrodoWin = GetNode<AudioStreamPlayer2D>("Music/FrodoWin");
+        SauronWin = GetNode<AudioStreamPlayer2D>("Music/SauronWin");
     }
 
     //This is the main game loop
@@ -97,6 +103,17 @@ public partial class Controller : Node2D
         {
             GameUI.ShowWinScreen(Winner);
             ActivePlayer = Constants.Player.None;
+
+            Music.Stop();
+            switch (Winner)
+            {
+                case Constants.Player.Hero:
+                    FrodoWin.Play();
+                    break;
+			    case Constants.Player.Enemy:
+                    SauronWin.Play();
+                    break;
+            }
         }
     }
 

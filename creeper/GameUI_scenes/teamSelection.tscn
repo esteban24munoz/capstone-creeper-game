@@ -1,14 +1,18 @@
-[gd_scene load_steps=14 format=3 uid="uid://clmgesswav3k3"]
+[gd_scene load_steps=17 format=3 uid="uid://clmgesswav3k3"]
 
 [ext_resource type="Texture2D" uid="uid://dn1ra2m8au2kx" path="res://UI_assets/TeamSelection/gradient-bkg.png" id="1_a2mj6"]
 [ext_resource type="Texture2D" uid="uid://guby48e31ivk" path="res://UI_assets/TeamSelection/Character Trees.png" id="2_r0k66"]
 [ext_resource type="Texture2D" uid="uid://bl73um72w5ddo" path="res://UI_assets/TeamSelection/Moria Gate.png" id="3_lx2cq"]
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="4_ol5qf"]
 [ext_resource type="Texture2D" uid="uid://fiu2mgen58wi" path="res://UI_assets/UI_Buttons/Buttons_states_v2.png" id="5_g0xv1"]
+[ext_resource type="StyleBox" uid="uid://dlpn6pyq67rah" path="res://UI_assets/UI_Buttons/backButton_hover.tres" id="6_g0xv1"]
 [ext_resource type="Texture2D" uid="uid://bb44daipxpaba" path="res://UI_assets/TeamSelection/frodoTeam.png" id="6_hblw2"]
+[ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="6_r0k66"]
 [ext_resource type="StyleBox" uid="uid://cxalsunrvb4jg" path="res://UI_assets/UI_Buttons/styled_button_texture.tres" id="7_40n7o"]
+[ext_resource type="StyleBox" uid="uid://2nvh4x3dxlp7" path="res://UI_assets/UI_Buttons/menuButton_hover.tres" id="8_hblw2"]
 [ext_resource type="StyleBox" uid="uid://lv2pdg5qvcwu" path="res://UI_assets/UI_Buttons/styled_button_hover_texture.tres" id="8_po8d8"]
 [ext_resource type="Texture2D" uid="uid://csl7k1cruf8ej" path="res://UI_assets/TeamSelection/sauronTeam.png" id="9_0mmc1"]
+[ext_resource type="StyleBox" uid="uid://wd4262upgeng" path="res://UI_assets/UI_Buttons/arrowButton_hover.tres" id="10_40n7o"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fyg3s"]
 texture = ExtResource("5_g0xv1")
@@ -17,10 +21,6 @@ region_rect = Rect2(38, 92, 70, 52)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_85nmy"]
 texture = ExtResource("5_g0xv1")
 region_rect = Rect2(46, 270, 70, 52)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_roq32"]
-texture = ExtResource("5_g0xv1")
-region_rect = Rect2(281, 103, 61, 52)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4xrc8"]
 texture = ExtResource("5_g0xv1")
@@ -43,7 +43,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_a2mj6")
 
-[node name="gradientBkg2" type="TextureRect" parent="."]
+[node name="treesBkg" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -78,24 +78,15 @@ texture = ExtResource("4_ol5qf")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -540.0
-offset_top = -602.0
-offset_right = 540.0
 grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
+grow_vertical = 2
 
 [node name="UIContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 8
 
 [node name="buttonsContainer" type="HBoxContainer" parent="MarginContainer/UIContainer"]
 layout_mode = 2
@@ -107,17 +98,22 @@ alignment = 1
 custom_minimum_size = Vector2(70, 52)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_fyg3s")
+theme_override_styles/hover = ExtResource("6_g0xv1")
+theme_override_styles/hover_pressed = ExtResource("6_g0xv1")
 
 [node name="Label" type="Label" parent="MarginContainer/UIContainer/buttonsContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.8627451, 0.2901961, 1)
-theme_override_font_sizes/font_size = 42
+theme_override_fonts/font = ExtResource("6_r0k66")
+theme_override_font_sizes/font_size = 56
 text = "CHOOSE YOUR TEAM"
 
 [node name="Button2" type="Button" parent="MarginContainer/UIContainer/buttonsContainer"]
 custom_minimum_size = Vector2(70, 52)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_85nmy")
+theme_override_styles/hover = ExtResource("8_hblw2")
+theme_override_styles/hover_pressed = ExtResource("8_hblw2")
 
 [node name="teamsContainer" type="HBoxContainer" parent="MarginContainer/UIContainer"]
 layout_mode = 2
@@ -144,12 +140,14 @@ alignment = 1
 [node name="Button" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer"]
 custom_minimum_size = Vector2(61, 52)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_roq32")
+theme_override_styles/normal = ExtResource("10_40n7o")
 
 [node name="Button2" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer"]
 custom_minimum_size = Vector2(61, 52)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_4xrc8")
+theme_override_styles/hover = ExtResource("10_40n7o")
+theme_override_styles/hover_pressed = ExtResource("10_40n7o")
 
 [node name="StartGame" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer"]
 custom_minimum_size = Vector2(120, 70)

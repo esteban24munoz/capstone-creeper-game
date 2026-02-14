@@ -5,15 +5,15 @@ using System.Diagnostics.Tracing;
 
 public partial class AI : Node2D
 {
-	Model AIGame = new Model();
-	Constants.Player currentPlayer = Constants.Player.Hero;
+	public Model AIGame = new Model();
+	public Constants.Player currentPlayer = Constants.Player.Hero;
 	string gameState = "";
 	int gameNumber = 1;
 
 	public override void _Ready()
 	{
 		GD.Print("Starting test");
-		for (i = 0; i < 4999; i++)
+		for (gameNumber = 0; gameNumber < 10; gameNumber++)
 		{
 			//GD.Print($"Game: {i+1}");
 			bool isGameDone = PlayGame();
@@ -22,7 +22,7 @@ public partial class AI : Node2D
 			AIGame = new Model();
 			currentPlayer = Constants.Player.Hero; 
 		}
-		GD.Print($"Game {i+1} done");
+		GD.Print($"Game {gameNumber+1} done");
 	}
 	
 	Vector2I SelectRandomPiece()

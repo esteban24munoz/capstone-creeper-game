@@ -1,0 +1,98 @@
+[gd_scene load_steps=8 format=3 uid="uid://pa8lcpg162do"]
+
+[ext_resource type="Script" uid="uid://cwvu5pmcl356o" path="res://InGameUI_scripts/Help.cs" id="1_ig73d"]
+[ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="2_ypmps"]
+[ext_resource type="StyleBox" uid="uid://cxalsunrvb4jg" path="res://UI_assets/UI_Buttons/styled_button_texture.tres" id="3_d61tk"]
+[ext_resource type="StyleBox" uid="uid://lv2pdg5qvcwu" path="res://UI_assets/UI_Buttons/styled_button_hover_texture.tres" id="4_ig73d"]
+[ext_resource type="Texture2D" uid="uid://bf3md45gw7a4" path="res://UI_assets/UI_Buttons/exitButton.png" id="5_j7ham"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i40w7"]
+texture = ExtResource("5_j7ham")
+region_rect = Rect2(25, 7, 28, 28)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ylhll"]
+texture = ExtResource("5_j7ham")
+region_rect = Rect2(25, 45, 28, 28)
+
+[node name="MenuOptions" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ig73d")
+
+[node name="darkBackgroundOverlay" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1024.0
+offset_bottom = 640.0
+texture = ExtResource("2_ypmps")
+
+[node name="MenuScreen" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuContainer" type="VBoxContainer" parent="MenuScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Button" type="Button" parent="MenuScreen/MenuContainer"]
+custom_minimum_size = Vector2(120, 90)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_d61tk")
+theme_override_styles/hover = ExtResource("4_ig73d")
+text = "RESUME"
+
+[node name="Button2" type="Button" parent="MenuScreen/MenuContainer"]
+custom_minimum_size = Vector2(120, 90)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_d61tk")
+theme_override_styles/hover = ExtResource("4_ig73d")
+text = "RESTART"
+
+[node name="Button3" type="Button" parent="MenuScreen/MenuContainer"]
+custom_minimum_size = Vector2(120, 90)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_d61tk")
+theme_override_styles/hover = ExtResource("4_ig73d")
+text = "SOUND"
+
+[node name="Button4" type="Button" parent="MenuScreen/MenuContainer"]
+custom_minimum_size = Vector2(220, 90)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = ExtResource("3_d61tk")
+theme_override_styles/hover = ExtResource("4_ig73d")
+text = "BACK TO MAIN MENU"
+
+[node name="exitButtonContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 960.0
+offset_bottom = -576.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+
+[node name="exitButton" type="VBoxContainer" parent="exitButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Exit" type="Button" parent="exitButtonContainer/exitButton"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_i40w7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ylhll")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_ylhll")

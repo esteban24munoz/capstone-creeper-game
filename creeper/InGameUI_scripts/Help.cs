@@ -18,18 +18,17 @@ public partial class Help : Control
 
 		// Page 1
 		"[b]The Game Goal:[/b]\n\n" + 
-		"Your goal is to create a [b]continuous path of tiles (connected horizontally or vertically) linking your home bases[/b]" +
+		"Your goal is to create a [b]continuous path of tiles, not including gray tiles, linking your home bases[/b]" +
 		" before your opponent does.\n\n",
 		
 	  // Page 2 — Character Moves
 		"[b]Characters can only move on adjacent gray tiles[/b]\n\n" +
-		"To build your path:\n\n" +
-		"[b]1.Move diagonally using a character[/b] over a [b]blue tile[/b] to claim it\n",
+		"To build your path, [b]cross directly over a tile[/b] using one of your characters to claim it\n",
 	
 	// Page 3 — Flipping and Capturing
 		"[b]Flipping and Capturing:[/b]\n\n" +
 		"1. You can [b]conquer an opponent’s tile[/b] by moving diagonally over it\n" +
-		"2. You can also [b]jump over an opponent’s character[/b] to remove it from the board.\n\n",
+		"2. You can also [b]jump horizontally or vertically over an opponent’s character[/b] to remove it from the board.\n\n",
 		
 		//// Page 5 — Home Bases
 		//"**Home bases.**\n\n" +
@@ -39,7 +38,7 @@ public partial class Help : Control
 		// Page 4 — Draws
 		"[b]Draws:[/b]\n\n" +
 		"The game is a [b]draw[/b] if:\n" +
-		"1. You remove all the opponent's character from the board\n" +
+		"1. You remove all the opponent's characters from the board\n" +
 		"2. No moves remain\n",
 		
 		// Page 5 — Winning

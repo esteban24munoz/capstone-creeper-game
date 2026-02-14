@@ -275,4 +275,71 @@ public class Model
 		return ValidMoves;
 	}
 
+	//Needed to read in a state for the AI
+	public void UpdateGrids(Constants.Player[,] pins, Constants.Player[,] tiles)
+	{
+		//Update pins
+		for (int row = 0; row < 7; row ++)
+		{
+			for (int col = 0; col < 7; col ++)
+			{
+				GD.Print("Before: ",Grid[row,col]);
+				Grid[row,col] = pins[row,col];
+				GD.Print("After: ",Grid[row,col]);
+			}
+		}
+		
+		//Update tiles
+		for (int row = 0; row < 6; row ++)
+		{
+			for (int col = 0; col < 6; col ++)
+			{
+				Grid[row,col] = tiles[row,col];
+			}
+		}
+	}
+	
+	public string StringifyState()
+	{
+		string state = "";
+		
+		for (int row = 0; row < 7; row ++)
+		{
+			for (int col = 0; col < 7; col ++)
+			{
+				if (Grid[row, col] == Constants.Player.Hero) //pin is white
+				{
+					state = state + 'x';
+				}
+				else if (Grid[row, col] == Constants.Player.Enemy) //pin is black
+				{
+					state = state + 'o';
+				}
+				else //spot is empty
+				{
+					state = state + '.';
+				}
+			}
+		}
+		
+		for (int row = 0; row < 6; row ++)
+		{
+			for (int col = 0; col < 6; col ++)
+			{
+				if (Tiles[row,col] == Constants.Player.Hero) //pin is white
+				{
+					state = state + 'x';
+				}
+				else if (Tiles[row,col] == Constants.Player.Enemy) //pin is black
+				{
+					state = state + 'o';
+				}
+				else //spot is empty
+				{
+					state = state + '.';
+				}
+			}
+		}
+		return state;
+	}
 }

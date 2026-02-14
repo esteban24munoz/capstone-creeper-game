@@ -7,12 +7,14 @@ public partial class AI : Node2D
 {
 	Model AIGame = new Model();
 	Constants.Player currentPlayer = Constants.Player.Hero;
-	
+	string gameState = "";
+	int gameNumber = 1;
+
 	public override void _Ready()
 	{
 		GD.Print("Starting test");
 		
-		for (int i = 0; i < 2000; i++)
+		for (int i = 0; i < 10; i++)
 		{
 			//GD.Print($"Game: {i+1}");
 			bool isGameDone = PlayGame();
@@ -81,6 +83,9 @@ public partial class AI : Node2D
 			Vector2I piece = SelectRandomPiece();
 			bool moveMade = MakeRandomMove(piece);
 			Constants.Player checkWin = AIGame.FindWinner();
+			gameState = "asdfghf";
+			var gdNode = GetNode("Node");
+			gdNode.Call("save_game_state", gameState);
 			
 			if (currentPlayer == checkWin || !moveMade)
 			{

@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bowknoyl2bl0l"]
+[gd_scene load_steps=2 format=3 uid="uid://c54qtjpsk8am8"]
 
-[ext_resource type="Script" uid="uid://c7yx0p7xjj8rp" path="res://Networking/MultiplayerTest.cs" id="1_yj2l8"]
+[ext_resource type="Script" path="res://Networking/MultiplayerTest.cs" id="1_yj2l8"]
 
 [node name="MultiplayerTest" type="Node2D"]
 script = ExtResource("1_yj2l8")

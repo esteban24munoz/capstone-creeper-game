@@ -21,10 +21,16 @@ public partial class AIvAI : Node2D
 	//Called when the node enters scene tree for first time
 	public override void _Ready()
 	{
-		GD.Print("Testing Action Parsing");
-		Vector2I from = new Vector2I(6,7);
-		Vector2I to = new Vector2I(5,6);
-		ParseAction(from, to);
+		//GD.Print("Testing Action Parsing");
+		//Vector2I from = new Vector2I(6,7);
+		//Vector2I to = new Vector2I(5,6);
+		//ParseAction(from, to);
+		//string state = ".o..x..o.....xoo....x....x..x.....oxx..o....x.oo.o...xx.o.x.....x............oox....ox";
+		//GD.Print("Testing Parse Function");
+		//ParseState(state, ai.AIGame);
+		//PlayAiVsAi();
+		GD.Print("Testing stringify");
+		StringifyState();
 	}
 	
 	public async void PlayAiVsAi()
@@ -66,7 +72,7 @@ public partial class AIvAI : Node2D
 			***************************************************************************************/
 			
 			GD.Print("Testing Parse Function");
-			ParseState(state);
+			ParseState(state, ai.AIGame);
 			
 			//Get a list of possible actions based on the state from the API
 			var actionsResponse = await client.GetAsync($"{SOFTSERVE_URL}/state/{state}/actions");
@@ -120,7 +126,7 @@ public partial class AIvAI : Node2D
 		GetTree().ChangeSceneToFile("res://Networking/multiplayer_test.tscn");
 	}
 	
-	public Constants.Player ParseState(string state) 
+	public Constants.Player ParseState(string state, Model game) 
 	{
 		Constants.Player[,] pinsGrid = {
 			{Constants.Player.None, Constants.Player.Hero, Constants.Player.Hero, Constants.Player.None, Constants.Player.Enemy, Constants.Player.Enemy, Constants.Player.None},
@@ -147,7 +153,6 @@ public partial class AIvAI : Node2D
 		int c = 0;
 		for (int row = 0; row < 7; row ++)
 		{
-			//GD.Print("Row " + row);
 			for (int col = 0; col < 7; col ++)
 			{
 				if (state[c] == 'x') //pin is white
@@ -163,7 +168,6 @@ public partial class AIvAI : Node2D
 					pinsGrid[row,col] = Constants.Player.None;
 				}
 				c++;
-				//GD.Print(pinsGrid[row,col]);
 			}
 		}
 		
@@ -171,7 +175,6 @@ public partial class AIvAI : Node2D
 		GD.Print("Tile Grid");
 		for (int row = 0; row < 6; row ++)
 		{
-			//GD.Print("Row " + row);
 			for (int col = 0; col < 6; col ++)
 			{
 				if (state[c] == 'x') //tile is white
@@ -187,9 +190,10 @@ public partial class AIvAI : Node2D
 					tilesGrid[row,col] = Constants.Player.None;
 				}
 				c++;
-				//GD.Print(tilesGrid[row,col]);
 			}
 		}
+		
+		ai.AIGame.UpdateGrids(pinsGrid, tilesGrid);
 		
 		if (state[85] == 'x')
 		{
@@ -204,6 +208,7 @@ public partial class AIvAI : Node2D
 			activePlayer = Constants.Player.None;
 		}
 		GD.Print("Active player: " + activePlayer);
+		ai.currentPlayer = activePlayer;
 		return activePlayer;
 	}
 	
@@ -217,5 +222,21 @@ public partial class AIvAI : Node2D
 		string action = $"{fromCol}{from.Y}{toCol}{to.Y}";
 		GD.Print(action);
 		return action;
+	}
+	
+	public string StringifyState()
+	{
+		string state = ai.AIGame.StringifyState();
+		
+		if (ai.currentPlayer == Constants.Player.Hero)
+		{
+			state = state + 'x';
+		}
+		else
+		{
+			state = state + 'o';
+		}
+		GD.Print(state);
+		return state;
 	}
 }

@@ -5,32 +5,29 @@ using System.Diagnostics.Tracing;
 
 public partial class AI : Node2D
 {
-	Model AIGame = new Model();
-	Constants.Player currentPlayer = Constants.Player.Hero;
+	public Model AIGame = new Model();
+	public Constants.Player currentPlayer = Constants.Player.Hero;
 	
 	public override void _Ready()
 	{
 		GD.Print("Starting test");
-		
-		for (int i = 0; i < 5; i++)
+		int i;
+		for (i = 0; i < 4999; i++)
 		{
-			//Vector2I selectedPiece = SelectRandomPiece();
-			//GD.Print($"selected piece is {selectedPiece.X}, {selectedPiece.Y}");
-			//MakeRandomMove(selectedPiece);
-			//GD.Print("Move made, run again");
-			GD.Print("Game #" + i);
+			//GD.Print($"Game: {i+1}");
 			bool isGameDone = PlayGame();
-			GD.Print("Game is over: "+isGameDone);
+			//GD.Print($"Game: {i+1} is done");
 			//Need to reset the game to a fresh game and save old game data for stragey
 			AIGame = new Model();
 			currentPlayer = Constants.Player.Hero; 
 		}
+		GD.Print($"Game {i+1} done");
 	}
 	
 	Vector2I SelectRandomPiece()
 	{
 		List<Vector2I> playersPieces = new();
-		//int playersPiecesIterator = 0;
+		
 		//gemini prompt "c # grid number of cells"
 		for (int r = 0; r < 7; r++) 
 		{
@@ -42,29 +39,37 @@ public partial class AI : Node2D
 				
 				if (AIGame.PlayerAt(pos) == currentPlayer)
 				{
-					//playersPieces[playersPiecesIterator].X = r;
-					//playersPieces[playersPiecesIterator].Y = c;
 					playersPieces.Add(pos);
-					//playersPiecesIterator++;
 				}
 			}
 		}
 		//GD.Print("Number of pins: "+playersPieces.Count);
 		Random randomPiece = new Random();
-		//int piecesArrayPoint = randomPiece(playersPiecesIterator);
-		//Vector2I pieceToMove = playersPieces[piecesArrayPoint];
-		Vector2I pieceToMove = playersPieces[randomPiece.Next(playersPieces.Count)];
-		GD.Print("Pin selected: " + pieceToMove);
+		int rPiece = randomPiece.Next(playersPieces.Count);
+		if (playersPieces.Count < rPiece || rPiece == 0)
+		{
+			//GD.Print($"Count: {playersPieces.Count} index: {rPiece}");
+		}
+		Vector2I pieceToMove = playersPieces[rPiece];
 		return pieceToMove;
 	}
 	
-	void MakeRandomMove(Vector2I pieceToMove)
+	bool MakeRandomMove(Vector2I pieceToMove)
 	{
 		List<Vector2I> validMoves = AIGame.FindValidMoves(pieceToMove, currentPlayer);
 		Random randomMove = new Random();
-		Vector2I moveToMake = validMoves[randomMove.Next(validMoves.Count)];
-		GD.Print("Move picked: " + moveToMake);
-		AIGame.MoveCharacter(pieceToMove, moveToMake);
+		if (validMoves.Count == 0)
+		{
+			//GD.Print("No Valid Moves for piece: ", pieceToMove);
+			return false;
+		}
+		else
+		{
+			Vector2I moveToMake = validMoves[randomMove.Next(validMoves.Count)];
+			AIGame.MoveCharacter(pieceToMove, moveToMake);
+			return true;
+		}
+		//GD.Print("Move picked: " + moveToMake);
 		//GD.Print("Move made");
 	}
 	
@@ -75,10 +80,10 @@ public partial class AI : Node2D
 		while (!isGameOver)
 		{
 			Vector2I piece = SelectRandomPiece();
-			MakeRandomMove(piece);
+			bool moveMade = MakeRandomMove(piece);
 			Constants.Player checkWin = AIGame.FindWinner();
 			
-			if (currentPlayer == checkWin)
+			if (currentPlayer == checkWin || !moveMade)
 			{
 				isGameOver = true;
 			}
@@ -91,6 +96,10 @@ public partial class AI : Node2D
 				{
 					currentPlayer = Constants.Player.Hero;
 				}
+			}
+			if (AIGame.IsDraw(currentPlayer))
+			{
+				isGameOver = true;
 			}
 		}
 		return isGameOver;

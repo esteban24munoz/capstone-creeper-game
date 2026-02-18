@@ -5,25 +5,33 @@ using System.Collections.Generic;
 
 public class Model
 {
+	private const int REPEATS_UNTIL_DRAW = 2;
 	Constants.Player[,] Grid {get;} = {
-		{Constants.Player.None, Constants.Player.Hero, Constants.Player.Hero, Constants.Player.None, Constants.Player.Enemy, Constants.Player.Enemy, Constants.Player.None},
-		{Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
-		{Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
-		{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-		{Constants.Player.Enemy, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Hero},
-		{Constants.Player.Enemy, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Hero},
 		{Constants.Player.None, Constants.Player.Enemy, Constants.Player.Enemy, Constants.Player.None, Constants.Player.Hero, Constants.Player.Hero, Constants.Player.None},
+		{Constants.Player.Enemy, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Hero},
+		{Constants.Player.Enemy, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Hero},
+		{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
+		{Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
+		{Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
+		{Constants.Player.None, Constants.Player.Hero, Constants.Player.Hero, Constants.Player.None, Constants.Player.Enemy, Constants.Player.Enemy, Constants.Player.None},
 	};
 
 	Constants.Player[,] Tiles {get;} =
 	{
+		{Constants.Player.Enemy, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Hero},
+		{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
+		{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
+		{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
+		{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
 		{Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
-		{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-		{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-		{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-		{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-		{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
 	};
+
+	private Queue<string> pastStates = [];
+
+	public Model()
+	{
+		pastStates.Enqueue(StringifyState());
+	}
 
 	//moves the appropriate character as well deletes jumped characters and updates jumped hexes
 	public void MoveCharacter(Vector2I from, Vector2I to)
@@ -43,6 +51,9 @@ public class Model
 		{
 			Tiles[jumped.Value.X, jumped.Value.Y] = player;
 		}
+
+		pastStates.Enqueue(StringifyState());
+		if (pastStates.Count > (REPEATS_UNTIL_DRAW * 4) + 1) pastStates.Dequeue();
 	}
 
 	public Constants.Player PlayerAt(Vector2I pos)
@@ -53,7 +64,21 @@ public class Model
 			return Grid[pos.X, pos.Y];
 	}
 
-	public Vector2I? FindJumpedCharacter(Vector2I from, Vector2I to)
+	//find the position of every character of the given player
+	public List<Vector2I> GetAllCharacters(Constants.Player player)
+	{
+		List<Vector2I> players = [];
+		for (int i  = 0; i < Grid.GetLength(0); i++)
+		{
+			for (int j = 0; j < Grid.GetLength(0); j++)
+			{
+				if (Grid[i,j] == player) players.Add(new(i,j));
+			}
+		}
+		return players;
+	}
+
+	public static Vector2I? FindJumpedCharacter(Vector2I from, Vector2I to)
 	{
 		if (Math.Abs(from.X - to.X) == 2)
 		{
@@ -85,7 +110,9 @@ public class Model
 			hex = new(higher.X - 1, higher.Y);
 		}
 
-		if (hex == new Vector2I(0,0) || hex == new Vector2I(0,Tiles.GetLength(0) - 1) || hex == new Vector2I(Tiles.GetLength(0) - 1,0) || hex == new Vector2I(Tiles.GetLength(0), Tiles.GetLength(0) - 1))
+
+		//return null if jumped hex is one of the four corners
+		if (hex == new Vector2I(0,0) || hex == new Vector2I(0,Tiles.GetLength(0) - 1) || hex == new Vector2I(Tiles.GetLength(0) - 1,0) || hex == new Vector2I(Tiles.GetLength(0) - 1, Tiles.GetLength(0) - 1))
 		{
 			return null;
 		}
@@ -94,6 +121,34 @@ public class Model
 
 	public bool IsDraw(Constants.Player activePlayer)
 	{
+		//check if the same 4 states have been repeated REPEATS_UNTIL_DRAW times
+		string[] statesArray = pastStates.ToArray();
+		if (statesArray.Length == (REPEATS_UNTIL_DRAW * 4) + 1)
+		{
+            bool draw = true;
+            for (int i = 4; i < statesArray.Length; i += 4)
+			{
+				if (statesArray[i] != statesArray[0])
+				{
+					draw = false;
+					break;
+				}
+			}
+			
+
+			for (int i = 6; i < statesArray.Length; i += 4)
+			{
+				if (statesArray[i] != statesArray[2])
+				{
+					draw = false;
+					break;
+				}
+			}
+
+			if (draw) return draw;
+		} 
+
+		//Check if any valid moves are available
 		for (int i = 0; i < Grid.GetLength(0); i++)
 		{
 			for (int j = 0; j < Grid.GetLength(0); j++)
@@ -110,9 +165,9 @@ public class Model
 	public Constants.Player FindWinner()
 	{
 		visited.Clear();
-		if(FindWinner(new(0,0), Constants.Player.Hero)) return Constants.Player.Hero;
+		if(FindWinner(new(0,0), Constants.Player.Enemy)) return Constants.Player.Enemy;
 		visited.Clear();
-		if(FindWinner(new(0,Tiles.GetLength(0) - 1), Constants.Player.Enemy)) return Constants.Player.Enemy;
+		if(FindWinner(new(0,Tiles.GetLength(0) - 1), Constants.Player.Hero)) return Constants.Player.Hero;
 		return Constants.Player.None;
 	}
 
@@ -120,8 +175,8 @@ public class Model
 	private bool FindWinner(Vector2I tile, Constants.Player player)
 	{
 		//if we found the target tile return true
-		if (player == Constants.Player.Hero && tile == new Vector2I(Tiles.GetLength(0) - 1, Tiles.GetLength(0) - 1) ||
-		player == Constants.Player.Enemy && tile == new Vector2I(Tiles.GetLength(0) - 1, 0))
+		if (player == Constants.Player.Enemy && tile == new Vector2I(Tiles.GetLength(0) - 1, Tiles.GetLength(0) - 1) ||
+		player == Constants.Player.Hero && tile == new Vector2I(Tiles.GetLength(0) - 1, 0))
 		{
 			return true;
 		}
@@ -259,4 +314,71 @@ public class Model
 		return ValidMoves;
 	}
 
+	//Needed to read in a state for the AI
+	public void UpdateGrids(Constants.Player[,] pins, Constants.Player[,] tiles)
+	{
+		//Update pins
+		for (int row = 0; row < 7; row ++)
+		{
+			for (int col = 0; col < 7; col ++)
+			{
+				GD.Print("Before: ",Grid[row,col]);
+				Grid[row,col] = pins[row,col];
+				GD.Print("After: ",Grid[row,col]);
+			}
+		}
+		
+		//Update tiles
+		for (int row = 0; row < 6; row ++)
+		{
+			for (int col = 0; col < 6; col ++)
+			{
+				Grid[row,col] = tiles[row,col];
+			}
+		}
+	}
+	
+	public string StringifyState()
+	{
+		string state = "";
+		
+		for (int row = 0; row < 7; row ++)
+		{
+			for (int col = 0; col < 7; col ++)
+			{
+				if (Grid[row, col] == Constants.Player.Hero) //pin is white
+				{
+					state = state + 'x';
+				}
+				else if (Grid[row, col] == Constants.Player.Enemy) //pin is black
+				{
+					state = state + 'o';
+				}
+				else //spot is empty
+				{
+					state = state + '.';
+				}
+			}
+		}
+		
+		for (int row = 0; row < 6; row ++)
+		{
+			for (int col = 0; col < 6; col ++)
+			{
+				if (Tiles[row,col] == Constants.Player.Hero) //pin is white
+				{
+					state = state + 'x';
+				}
+				else if (Tiles[row,col] == Constants.Player.Enemy) //pin is black
+				{
+					state = state + 'o';
+				}
+				else //spot is empty
+				{
+					state = state + '.';
+				}
+			}
+		}
+		return state;
+	}
 }

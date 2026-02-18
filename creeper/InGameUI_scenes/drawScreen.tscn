@@ -1,0 +1,115 @@
+[gd_scene load_steps=9 format=3 uid="uid://chl4xq7eeugro"]
+
+[ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="1_fm1ng"]
+[ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="2_gvxga"]
+[ext_resource type="Texture2D" uid="uid://dlfry5i1lh687" path="res://UI_assets/UI_Buttons/dark-bluet-bkg_v2.png" id="3_j2l05"]
+[ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="4_3ga1v"]
+[ext_resource type="StyleBox" uid="uid://cxalsunrvb4jg" path="res://UI_assets/UI_Buttons/styled_button_texture.tres" id="5_wmnlf"]
+[ext_resource type="StyleBox" uid="uid://lv2pdg5qvcwu" path="res://UI_assets/UI_Buttons/styled_button_hover_texture.tres" id="6_o5bxp"]
+[ext_resource type="Texture2D" uid="uid://cc340a6pxpjcu" path="res://UI_assets/TeamSelection/Tie Character Gollum.png" id="7_fm1ng"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_moukq"]
+shader = ExtResource("2_gvxga")
+shader_parameter/color = Color(1, 0.8627451, 0.2901961, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="FrodoWins" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="darkBkg" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_fm1ng")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MenuContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="TextureMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer/MenuContainer"]
+custom_minimum_size = Vector2(400, 550)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin"]
+material = SubResource("ShaderMaterial_moukq")
+layout_mode = 2
+texture = ExtResource("3_j2l05")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin/VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8627451, 0.2901961, 1)
+theme_override_fonts/font = ExtResource("4_3ga1v")
+theme_override_font_sizes/font_size = 72
+text = "DRAW"
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/default_color = Color(0.8153955, 0.70215756, 0.22979347, 1)
+text = "Gollum has stolen the ring"
+autowrap_mode = 2
+horizontal_alignment = 1
+
+[node name="buttonsContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 16
+
+[node name="PlayAgain" type="Button" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin/VBoxContainer/buttonsContainer"]
+custom_minimum_size = Vector2(180, 101.25)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("5_wmnlf")
+theme_override_styles/hover = ExtResource("6_o5bxp")
+theme_override_styles/hover_pressed = ExtResource("6_o5bxp")
+text = "Play Again"
+
+[node name="ReturnMenu" type="Button" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin/VBoxContainer/buttonsContainer"]
+custom_minimum_size = Vector2(180, 101.25)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("5_wmnlf")
+theme_override_styles/hover = ExtResource("6_o5bxp")
+theme_override_styles/hover_pressed = ExtResource("6_o5bxp")
+text = "Return to Menu"
+
+[node name="IlustrationContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/IlustrationContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("7_fm1ng")
+stretch_mode = 2

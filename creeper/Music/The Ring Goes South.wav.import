@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dmi6k2rj03doa"
+path="res://.godot/imported/The Ring Goes South.wav-4627d568894735f2ca51fd1a8807c0bf.sample"
+
+[deps]
+
+source_file="res://Music/The Ring Goes South.wav"
+dest_files=["res://.godot/imported/The Ring Goes South.wav-4627d568894735f2ca51fd1a8807c0bf.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

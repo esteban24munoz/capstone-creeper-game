@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://biyhbqq5knnvw"]
+
+[ext_resource type="Script" uid="uid://dtsyvrdkt11p7" path="res://Networking/Host.cs" id="1_xhhxm"]
+
+[node name="HostTest" type="Node2D"]
+script = ExtResource("1_xhhxm")
+
+[node name="BackBtn" type="Button" parent="."]
+offset_left = 73.0
+offset_top = 25.0
+offset_right = 267.0
+offset_bottom = 68.0
+text = "Back"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 414.0
+offset_top = 80.0
+offset_right = 503.0
+offset_bottom = 103.0
+text = "Lobby"
+
+[node name="GameID" type="Label" parent="."]
+offset_left = 206.0
+offset_top = 135.0
+offset_right = 295.0
+offset_bottom = 158.0
+text = "Room code"
+
+[node name="ID" type="Label" parent="GameID"]
+layout_mode = 0
+offset_left = 142.0
+offset_top = -1.0
+offset_right = 231.0
+offset_bottom = 22.0
+text = "Room code"
+
+[node name="P1" type="Label" parent="."]
+offset_left = 203.0
+offset_top = 182.0
+offset_right = 292.0
+offset_bottom = 205.0
+text = "Player 1"
+
+[node name="P1name" type="Label" parent="P1"]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 1.0
+offset_right = 234.0
+offset_bottom = 24.0
+text = "Player 1"
+
+[node name="P2" type="Label" parent="."]
+offset_left = 204.0
+offset_top = 228.0
+offset_right = 293.0
+offset_bottom = 251.0
+text = "Player 2"
+
+[node name="P2name" type="Label" parent="P2"]
+layout_mode = 0
+offset_left = 143.0
+offset_top = -1.0
+offset_right = 232.0
+offset_bottom = 22.0
+text = "Waiting for player"

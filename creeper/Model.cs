@@ -125,8 +125,8 @@ public class Model
 		string[] statesArray = pastStates.ToArray();
 		if (statesArray.Length == (REPEATS_UNTIL_DRAW * 4) + 1)
 		{
-            bool draw = true;
-            for (int i = 4; i < statesArray.Length; i += 4)
+			bool draw = true;
+			for (int i = 4; i < statesArray.Length; i += 4)
 			{
 				if (statesArray[i] != statesArray[0])
 				{

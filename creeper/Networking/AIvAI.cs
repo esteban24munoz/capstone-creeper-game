@@ -216,10 +216,10 @@ public partial class AIvAI : Node2D
 	{
 		//Convert the X to letters. Format should look like f7e6
 		int asciiValue = 96;
-		char fromCol = (char)(asciiValue+from.X);
-		char toCol = (char)(asciiValue+to.X);
+		char fromCol = (char)(asciiValue+from.Y);
+		char toCol = (char)(asciiValue+to.Y);
 		
-		string action = $"{fromCol}{from.Y}{toCol}{to.Y}";
+		string action = $"{fromCol}{from.X}{toCol}{to.X}";
 		GD.Print(action);
 		return action;
 	}

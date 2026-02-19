@@ -32,7 +32,7 @@ offset_left = 142.0
 offset_top = -1.0
 offset_right = 231.0
 offset_bottom = 22.0
-text = "Room code"
+text = "Generating..."
 
 [node name="P1" type="Label" parent="."]
 offset_left = 203.0

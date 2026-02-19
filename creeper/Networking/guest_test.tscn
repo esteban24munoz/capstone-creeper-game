@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcm7uea0iovle"]
+
+[ext_resource type="Script" uid="uid://c2ds11rrpmwad" path="res://Networking/Guest.cs" id="1_3ehw5"]
+
+[node name="GuestTest" type="Node2D"]
+script = ExtResource("1_3ehw5")
+
+[node name="BackBtn" type="Button" parent="."]
+offset_left = 73.0
+offset_top = 25.0
+offset_right = 267.0
+offset_bottom = 68.0
+text = "Back"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 414.0
+offset_top = 80.0
+offset_right = 503.0
+offset_bottom = 103.0
+text = "Lobby"
+
+[node name="GameIDLabel" type="Label" parent="."]
+offset_left = 206.0
+offset_top = 135.0
+offset_right = 295.0
+offset_bottom = 158.0
+text = "Enter Room code"
+
+[node name="GameID" type="LineEdit" parent="."]
+offset_left = 395.0
+offset_top = 130.0
+offset_right = 557.0
+offset_bottom = 161.0
+placeholder_text = "Code"
+
+[node name="JoinBtn" type="Button" parent="."]
+offset_left = 304.0
+offset_top = 200.0
+offset_right = 498.0
+offset_bottom = 243.0
+text = "Join"
+
+[connection signal="text_changed" from="GameID" to="." method="_on_game_id_text_changed"]
+[connection signal="pressed" from="JoinBtn" to="." method="_on_join_btn_pressed"]

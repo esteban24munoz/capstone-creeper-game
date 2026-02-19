@@ -41,4 +41,16 @@ public partial class MultiplayerTest : Node2D
 		GD.Print(Globals.username);
 		GetTree().ChangeSceneToFile("res://Networking/host_test.tscn");
 	}
+	
+	private void _on_join_btn_pressed()
+	{
+		//Check for a username.
+		if (username == "" || username == null) {
+			return;
+		}
+		
+		Globals.username = username;
+		GD.Print(Globals.username);
+		GetTree().ChangeSceneToFile("res://Networking/guest_test.tscn");
+	}
 }

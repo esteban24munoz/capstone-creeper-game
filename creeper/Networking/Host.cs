@@ -31,6 +31,38 @@ namespace Client {
 			var body = await resp.Content.ReadAsStringAsync(ct);
 			return JsonSerializer.Deserialize<GameCreatedResponse>(body, _jsonOptions)!;
 		}
+		
+		public async Task HeartbeatAsync(string gameId, string playerToken, CancellationToken ct = default)
+		{
+			var payload = new { player_token = playerToken };
+			var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+			var resp = await _http.PostAsync($"/games/{gameId}/heartbeat", content, ct).ConfigureAwait(false);
+			resp.EnsureSuccessStatusCode();
+		}
+
+		public async Task MakeMoveAsync(string gameId, string playerToken, string state, CancellationToken ct = default)
+		{
+			var payload = new { player_token = playerToken, state = state };
+			var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+			var resp = await _http.PostAsync($"/games/{gameId}/move", content, ct).ConfigureAwait(false);
+			resp.EnsureSuccessStatusCode();
+		}
+
+		public async Task<GameStateResponse> GetGameStateAsync(string gameId, CancellationToken ct = default)
+		{
+			var resp = await _http.GetAsync($"/games/{gameId}", ct).ConfigureAwait(false);
+			resp.EnsureSuccessStatusCode();
+			var body = await resp.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
+			return JsonSerializer.Deserialize<GameStateResponse>(body, _jsonOptions)!;
+		}
+
+		public async Task<List<GameListItem>> ListGamesAsync(CancellationToken ct = default)
+		{
+			var resp = await _http.GetAsync("/games", ct).ConfigureAwait(false);
+			resp.EnsureSuccessStatusCode();
+			var body = await resp.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
+			return JsonSerializer.Deserialize<List<GameListItem>>(body, _jsonOptions)!;
+		}
 	}
 	
 	public class GameCreatedResponse
@@ -45,10 +77,55 @@ namespace Client {
 		public string Status { get; set; } = default!;
 	}
 	
+	public class GameStateResponse
+	{
+		[JsonPropertyName("game_id")]
+		public string GameId { get; set; } = default!;
+
+		[JsonPropertyName("host_display_name")]
+		public string? HostDisplayName { get; set; }
+
+		[JsonPropertyName("status")]
+		public string Status { get; set; } = default!;
+
+		[JsonPropertyName("turn")]
+		public string? Turn { get; set; }
+
+		[JsonPropertyName("state")]
+		public string State { get; set; } = default!;
+
+		[JsonPropertyName("moves")]
+		public List<Dictionary<string, object>> Moves { get; set; } = new();
+
+		[JsonPropertyName("created_at")]
+		public DateTime CreatedAt { get; set; }
+
+		[JsonPropertyName("last_active")]
+		public DateTime LastActive { get; set; }
+	}
+
+	public class GameListItem
+	{
+		[JsonPropertyName("game_id")]
+		public string GameId { get; set; } = default!;
+
+		[JsonPropertyName("host_display_name")]
+		public string? HostDisplayName { get; set; }
+
+		[JsonPropertyName("status")]
+		public string Status { get; set; } = default!;
+
+		[JsonPropertyName("created_at")]
+		public DateTime CreatedAt { get; set; }
+
+		[JsonPropertyName("last_active")]
+		public DateTime LastActive { get; set; }
+	}
+	
 	public partial class Host : Node
 	{
 		[Export] public string ServerBaseUrl { get; set; } = "http://localhost:8000";
-		[Export] public string HostDisplayName { get; set; } = "GodotHost";
+		[Export] public string HostDisplayName { get; set; } = Globals.username;
 		private HostClient _client = null!;
 		private CancellationTokenSource _cts = null!;
 		private GameCreatedResponse? _created;
@@ -62,8 +139,8 @@ namespace Client {
 			
 			SetUpInfo();
 			
-			// Start background flow without blocking Godot main thread.
-			//_ = StartHostFlowAsync();
+			 //Start background flow without blocking Godot main thread.
+			_ = StartHostFlowAsync();
 		}
 		
 		private void SetUpInfo()
@@ -86,7 +163,7 @@ namespace Client {
 
 				//// 2) Start heartbeat loop (run concurrently)
 				//_ = HeartbeatLoopAsync(_created, _cts.Token);
-//
+
 				//// Example: poll state periodically and optionally make a move.
 				//while (!_cts.Token.IsCancellationRequested)
 				//{
@@ -94,7 +171,7 @@ namespace Client {
 					//{
 						//var state = await _client.GetGameStateAsync(_created.GameId, _cts.Token);
 						//GD.Print($"[Host] Game status: {state.Status}, turn: {state.Turn}, lastActive: {state.LastActive}");
-//
+
 						//// Example: make a sample move when it's host's turn.
 						//if (state.Status == "in_progress" && state.Turn == "host")
 						//{
@@ -108,7 +185,7 @@ namespace Client {
 					//{
 						//GD.PrintErr($"[Host] Poll error: {ex.Message}");
 					//}
-//
+
 					//await Task.Delay(TimeSpan.FromSeconds(5), _cts.Token);
 				//}
 			}
@@ -116,6 +193,40 @@ namespace Client {
 			{
 				GD.PrintErr($"[Host] Initialization error: {ex.Message}");
 			}
+		}
+		
+		private async Task HeartbeatLoopAsync(GameCreatedResponse created, CancellationToken ct)
+		{
+			// Heartbeat interval should be well under server PLAYER_TIMEOUT (server default 120s).
+			var interval = TimeSpan.FromSeconds(20);
+
+			while (!ct.IsCancellationRequested)
+			{
+				try
+				{
+					await _client.HeartbeatAsync(created.GameId, created.HostToken, ct);
+				}
+				catch (Exception ex)
+				{
+					GD.PrintErr($"[HostClientNode] Heartbeat error: {ex.Message}");
+				}
+
+				try
+				{
+					await Task.Delay(interval, ct);
+				}
+				catch (TaskCanceledException)
+				{
+					break;
+				}
+			}
+		}
+
+		// Optional helper to expose current game id/token to other nodes
+		public (string GameId, string HostToken)? GetCreatedInfo()
+		{
+			if (_created == null) return null;
+			return (_created.GameId, _created.HostToken);
 		}
 	}
 }

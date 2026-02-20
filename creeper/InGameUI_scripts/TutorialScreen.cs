@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Help : Control
+public partial class TutorialScreen : Control
 {
 	// 1. Structure now supports Text, Animation, AND Video
 	public struct PageData

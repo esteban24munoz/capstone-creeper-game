@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://bmu7bkd3femsq" path="res://InGameUI_scripts/InGameScene.cs" id="1_hr6wx"]
 [ext_resource type="PackedScene" uid="uid://c31vp4cqio8ov" path="res://InGameUI_scenes/helpMenu.tscn" id="2_21r1s"]
 [ext_resource type="Texture2D" uid="uid://c47p6flmbfrun" path="res://UI_assets/UI_Buttons/Buttons_states.png" id="2_45nnk"]
-[ext_resource type="PackedScene" path="res://InGameUI_scenes/frodoWins.tscn" id="5_nn33a"]
-[ext_resource type="PackedScene" path="res://InGameUI_scenes/drawScreen.tscn" id="6_ci3c6"]
-[ext_resource type="PackedScene" path="res://InGameUI_scenes/sauronWins.tscn" id="7_s2tgd"]
-[ext_resource type="PackedScene" path="res://InGameUI_scenes/menuOptions.tscn" id="8_s2tgd"]
+[ext_resource type="PackedScene" uid="uid://bsxynqvoiqkjd" path="res://InGameUI_scenes/frodoWins.tscn" id="5_nn33a"]
+[ext_resource type="PackedScene" uid="uid://chl4xq7eeugro" path="res://InGameUI_scenes/drawScreen.tscn" id="6_ci3c6"]
+[ext_resource type="PackedScene" uid="uid://dgaogpp1g1ybe" path="res://InGameUI_scenes/sauronWins.tscn" id="7_s2tgd"]
+[ext_resource type="PackedScene" uid="uid://pa8lcpg162do" path="res://InGameUI_scenes/menuOptions.tscn" id="8_s2tgd"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hr6wx"]
 texture = ExtResource("2_45nnk")

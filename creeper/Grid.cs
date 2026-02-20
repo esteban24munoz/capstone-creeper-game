@@ -11,9 +11,9 @@ public partial class Grid : Node2D
 	[Signal] public delegate void CharacterMouseExitedEventHandler(Vector2I pos);
 	[Signal] public delegate void MoveFinishedEventHandler();
 
-    private const int GRID_X_DISTANCE = 96;
-    private const int GRID_Y_DISTANCE = 60;
-    private const int GRID_Y_OFFSET = 50;
+	private const int GRID_X_DISTANCE = 96;
+	private const int GRID_Y_DISTANCE = 60;
+	private const int GRID_Y_OFFSET = 50;
 	private bool moving = false;
 	private readonly Dictionary<Constants.Player, int> TileType = new()
 	{
@@ -115,17 +115,17 @@ public partial class Grid : Node2D
 		}  
 	}
 
-    //moves the appropriate character as well deletes jumped characters
-    public void MoveCharacter(Vector2I from, Vector2I to)
-    {
-        CharacterBase CharacterFrom = FindCharacteratGridPos(from);
-        CharacterBase CharacterTo = FindCharacteratGridPos(to);
+	//moves the appropriate character as well deletes jumped characters
+	public void MoveCharacter(Vector2I from, Vector2I to)
+	{
+		CharacterBase CharacterFrom = FindCharacteratGridPos(from);
+		CharacterBase CharacterTo = FindCharacteratGridPos(to);
 
 		CharacterFrom.StopHover();
 		CharacterTo.StopHover();
 
 		//ensure the character to move is valid and that the target space is either empty or contains a ghost.
-        if (CharacterFrom == null || (CharacterTo != null && !CharacterTo.IsGhost)) return;
+		if (CharacterFrom == null || (CharacterTo != null && !CharacterTo.IsGhost)) return;
 
 		moving = true;
 
@@ -211,9 +211,9 @@ public partial class Grid : Node2D
 			killer.Play("attack_down");
 		}
 
-        //when attack animation is finished start killer's idle animation and toKill's die animation
-        void killerAnimationFinished()
-        {
+		//when attack animation is finished start killer's idle animation and toKill's die animation
+		void killerAnimationFinished()
+		{
 			killer.Play("idle");
 
 			toKill.Play("die");
@@ -233,16 +233,16 @@ public partial class Grid : Node2D
 					characters.Remove(toKill);
 				};		
 			};
-        }
+		}
 
 		//ensure the function connect to animation finished is one shot to avoid conflicts
 		//the code within the connect method comes from gemini
-        killer.Connect(
+		killer.Connect(
 			AnimationMixer.SignalName.AnimationFinished, 
 			Callable.From(killerAnimationFinished), 
 			(uint)ConnectFlags.OneShot
 		);
-    }
+	}
 
 	public void StopCharacterAnimations(List<Vector2I> positions)
 	{
@@ -269,11 +269,11 @@ public partial class Grid : Node2D
 		}
 	}
 
-    public void ChangeTile(Vector2I pos, Constants.Player player)
-    {
+	public void ChangeTile(Vector2I pos, Constants.Player player)
+	{
 		//converts from standard grid coordinates to isometric
-        TileMap.SetCell(new(pos.Y + pos.X, pos.Y - pos.X), TileType[player], new(0,0));
-    }
+		TileMap.SetCell(new(pos.Y + pos.X, pos.Y - pos.X), TileType[player], new(0,0));
+	}
 
 	private static Vector2I ConvertGridtoPixel(Vector2I pos)
 	{

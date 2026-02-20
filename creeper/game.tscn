@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bskcrihd33k5i"]
 
 [ext_resource type="Script" uid="uid://cvpxne745inii" path="res://Controller.cs" id="1_vwcep"]
-[ext_resource type="PackedScene" uid="uid://4h0xfo1evrve" path="res://Grid.tscn" id="2_b6q5f"]
+[ext_resource type="PackedScene" uid="uid://b2orflvid4e7g" path="res://Grid.tscn" id="2_b6q5f"]
 [ext_resource type="PackedScene" uid="uid://c2yve67u2a0ei" path="res://InGameUI_scenes/inGameScene.tscn" id="3_feb5d"]
 [ext_resource type="AudioStream" uid="uid://c7a5ud5pisce0" path="res://Music/The Shadow of the Past.wav" id="4_fc0e3"]
 [ext_resource type="AudioStream" uid="uid://dmi6k2rj03doa" path="res://Music/The Ring Goes South.wav" id="5_7jktm"]

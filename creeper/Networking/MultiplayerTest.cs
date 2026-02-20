@@ -9,7 +9,7 @@ public partial class MultiplayerTest : Node2D
 	
 	public override void _Ready()
 	{
-		
+		Globals.gameType = "Network";
 	}
 	
 	private void _on_username_text_changed(string text)

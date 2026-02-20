@@ -23,7 +23,7 @@ namespace Client {
 		}
 
 		// Join an existing game. displayName is sent as a query parameter.
-		public async Task<JoinResponse> JoinGameAsync(string gameId, string displayName = Globals.username, CancellationToken ct = default)
+		public async Task<JoinResponse> JoinGameAsync(string gameId, string displayName = null, CancellationToken ct = default)
 		{
 			var url = $"/games/{Uri.EscapeDataString(gameId)}/join";
 			if (!string.IsNullOrEmpty(displayName))
@@ -124,6 +124,7 @@ namespace Client {
 
 		 [JsonPropertyName("last_active")]
 		 public DateTime LastActive { get; set; }
+	}
 	
 	public partial class Guest : Node
 	{
@@ -148,6 +149,8 @@ namespace Client {
 			var http = new System.Net.Http.HttpClient { BaseAddress = new Uri(ServerBaseUrl) };
 			_api = new GuestClient(http);
 			_cts = new CancellationTokenSource();
+			Globals.p1Type = "Network";
+			Globals.p2Type = "Person";
 		}
 		
 		private void _on_join_btn_pressed()
@@ -172,18 +175,18 @@ namespace Client {
 		{
 			if (_joinInfo == null)
 			{
-				GD.PrintErr("[GuestClientNode] Not joined yet.");
+				GD.PrintErr("[Guest] Not joined yet.");
 				return;
 			}
 
 			try
 			{
 				await _api.MakeMoveAsync(_joinInfo.GameId, _joinInfo.GuestToken, state, _cts.Token).ConfigureAwait(false);
-				GD.Print("[GuestClientNode] Move submitted.");
+				GD.Print("[Guest] Move submitted.");
 			}
 			catch (Exception ex)
 			{
-				GD.PrintErr($"[GuestClientNode] SubmitMove error: {ex.Message}");
+				GD.PrintErr($"[Guest] SubmitMove error: {ex.Message}");
 				OnError?.Invoke(ex.Message);
 			}
 		}
@@ -199,8 +202,10 @@ namespace Client {
 			try
 			{
 				_joinInfo = await _api.JoinGameAsync(gameId, username, ct).ConfigureAwait(false);
-				GD.Print($"[GuestClientNode] Joined game {_joinInfo.GameId} token={_joinInfo.GuestToken} status={_joinInfo.Status}");
+				GD.Print($"[Guest] Joined game {_joinInfo.GameId} token={_joinInfo.GuestToken} status={_joinInfo.Status}");
 				OnJoined?.Invoke(_joinInfo);
+				Globals.guestToken = _joinInfo.GuestToken;
+				Globals.status = _joinInfo.Status;
 
 				// start heartbeat and polling
 				//_ = HeartbeatLoopAsync(_joinInfo, ct);
@@ -208,7 +213,7 @@ namespace Client {
 			}
 			catch (Exception ex)
 			{
-				GD.PrintErr($"[GuestClientNode] Join error: {ex.Message}");
+				GD.PrintErr($"[Guest] Join error: {ex.Message}");
 				OnError?.Invoke(ex.Message);
 			}
 		}
@@ -224,7 +229,7 @@ namespace Client {
 				}
 				catch (Exception ex)
 				{
-					GD.PrintErr($"[GuestClientNode] Heartbeat error: {ex.Message}");
+					GD.PrintErr($"[Guest] Heartbeat error: {ex.Message}");
 					OnError?.Invoke(ex.Message);
 				}
 
@@ -248,11 +253,11 @@ namespace Client {
 				{
 					var state = await _api.GetGameStateAsync(gameId, ct).ConfigureAwait(false);
 					// Use CallDeferred to safely interact with Godot main thread if needed
-					CallDeferred(nameof(EmitStateUpdated), state);
+					//CallDeferred(nameof(EmitStateUpdated), state);
 				}
 				catch (Exception ex)
 				{
-					GD.PrintErr($"[GuestClientNode] Poll error: {ex.Message}");
+					GD.PrintErr($"[Guest] Poll error: {ex.Message}");
 					OnError?.Invoke(ex.Message);
 				}
 
@@ -270,8 +275,8 @@ namespace Client {
 		// Invoked on the main thread via CallDeferred
 		private void EmitStateUpdated(GameStateResponse state)
 		{
-			GD.Print($"[GuestClientNode] State update: status={state.Status}, turn={state.Turn}, lastActive={state.LastActive}");
-			OnStateUpdated?.Invoke(state);
+			GD.Print($"[Guest] State update: status={state.Status}, turn={state.Turn}, lastActive={state.LastActive}");
+			//OnStateUpdated?.Invoke(state);
 		}
 	}
 }

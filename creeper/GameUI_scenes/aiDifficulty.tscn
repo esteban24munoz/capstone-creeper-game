@@ -1,152 +1,215 @@
-[gd_scene load_steps=13 format=3 uid="uid://df1jen5mych1d"]
+[gd_scene load_steps=17 format=3 uid="uid://df1jen5mych1d"]
 
-[ext_resource type="Texture2D" uid="uid://dn1ra2m8au2kx" path="res://UI_assets/TeamSelection/gradient-bkg.png" id="1_411wj"]
-[ext_resource type="Texture2D" uid="uid://guby48e31ivk" path="res://UI_assets/TeamSelection/Character Trees.png" id="2_gsfm2"]
-[ext_resource type="Texture2D" uid="uid://bl73um72w5ddo" path="res://UI_assets/TeamSelection/Moria Gate.png" id="3_lympu"]
+[ext_resource type="Script" uid="uid://b3q5g4vjci3ed" path="res://GameUI_scripts/AiDifficulty.cs" id="1_411wj"]
+[ext_resource type="Texture2D" uid="uid://drksn8vyup10s" path="res://UI_assets/Tutorial/gollum.png" id="2_mk2gf"]
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="4_3dae8"]
 [ext_resource type="Texture2D" uid="uid://fiu2mgen58wi" path="res://UI_assets/UI_Buttons/Buttons_states_v2.png" id="5_xmim4"]
+[ext_resource type="Texture2D" uid="uid://b72xvivoiivrg" path="res://UI_assets/UI_Buttons/Tutorial Arrow.png" id="6_lympu"]
 [ext_resource type="StyleBox" uid="uid://dlpn6pyq67rah" path="res://UI_assets/UI_Buttons/backButton_hover.tres" id="6_xpdm2"]
+[ext_resource type="StyleBox" uid="uid://buyitcrqna1ux" path="res://UI_assets/UI_Buttons/normal_button_texture.tres" id="7_3dae8"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="7_7xdnq"]
 [ext_resource type="StyleBox" uid="uid://2nvh4x3dxlp7" path="res://UI_assets/UI_Buttons/menuButton_hover.tres" id="8_5s625"]
-[ext_resource type="StyleBox" uid="uid://cxalsunrvb4jg" path="res://UI_assets/UI_Buttons/styled_button_texture.tres" id="9_rwr1x"]
-[ext_resource type="StyleBox" uid="uid://lv2pdg5qvcwu" path="res://UI_assets/UI_Buttons/styled_button_hover_texture.tres" id="10_pvmyu"]
+[ext_resource type="StyleBox" uid="uid://dclx2cpxac0q0" path="res://UI_assets/UI_Buttons/normal_button_hover_texture.tres" id="8_xmim4"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_up7wc"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lympu"]
 texture = ExtResource("5_xmim4")
 region_rect = Rect2(38, 92, 70, 52)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wddeh"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3dae8"]
 texture = ExtResource("5_xmim4")
 region_rect = Rect2(46, 270, 70, 52)
 
-[node name="MainMenu" type="Control"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5s625"]
+texture = ExtResource("6_lympu")
+region_rect = Rect2(169, 16, 125, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rwr1x"]
+texture = ExtResource("6_lympu")
+region_rect = Rect2(170, 92, 124, 65)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pvmyu"]
+content_margin_bottom = 6.0
+texture = ExtResource("6_lympu")
+region_rect = Rect2(19, 16, 123, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m22gp"]
+texture = ExtResource("6_lympu")
+region_rect = Rect2(18, 93, 124, 64)
+
+[node name="AiDifficulty" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_411wj")
 
-[node name="gradientBkg" type="TextureRect" parent="."]
+[node name="darkBackgroundOverlay" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1024.0
+offset_bottom = 640.0
+texture = ExtResource("4_3dae8")
+
+[node name="tutorialScreen" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_411wj")
+theme_override_constants/margin_top = 56
 
-[node name="treesBkg" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_gsfm2")
+[node name="VBoxContainer" type="VBoxContainer" parent="tutorialScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="doorMoria" type="TextureRect" parent="."]
+[node name="titleContainer" type="HBoxContainer" parent="tutorialScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 179
+alignment = 1
+
+[node name="Back" type="Button" parent="tutorialScreen/VBoxContainer/titleContainer"]
+visible = false
+custom_minimum_size = Vector2(70, 52)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_lympu")
+theme_override_styles/hover = ExtResource("6_xpdm2")
+theme_override_styles/hover_pressed = ExtResource("6_xpdm2")
+
+[node name="Label" type="Label" parent="tutorialScreen/VBoxContainer/titleContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8627451, 0.2901961, 1)
+theme_override_fonts/font = ExtResource("7_7xdnq")
+theme_override_font_sizes/font_size = 56
+text = "CHOOSE AI DIFFICULTY"
+
+[node name="Button2" type="Button" parent="tutorialScreen/VBoxContainer/titleContainer"]
+visible = false
+custom_minimum_size = Vector2(70, 52)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_3dae8")
+theme_override_styles/hover = ExtResource("8_5s625")
+theme_override_styles/hover_pressed = ExtResource("8_5s625")
+
+[node name="tutorialMenuContainer" type="VBoxContainer" parent="tutorialScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="backgroundGolum" type="TextureRect" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_mk2gf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -225.0
-offset_top = -600.0
-offset_right = 225.0
+offset_left = -192.0
+offset_top = -252.0
+offset_right = 192.0
+offset_bottom = -54.0
 grow_horizontal = 2
 grow_vertical = 0
-texture = ExtResource("3_lympu")
-stretch_mode = 2
-
-[node name="darkBkgOverlay" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_3dae8")
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 56
-theme_override_constants/margin_right = 16
-
-[node name="UIContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
 theme_override_constants/separation = 32
 
-[node name="titleContainer" type="HBoxContainer" parent="MarginContainer/UIContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_constants/separation = 179
-alignment = 1
-
-[node name="Button" type="Button" parent="MarginContainer/UIContainer/titleContainer"]
-custom_minimum_size = Vector2(70, 52)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_up7wc")
-theme_override_styles/hover = ExtResource("6_xpdm2")
-theme_override_styles/hover_pressed = ExtResource("6_xpdm2")
-
-[node name="Label" type="Label" parent="MarginContainer/UIContainer/titleContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.8627451, 0.2901961, 1)
-theme_override_fonts/font = ExtResource("7_7xdnq")
-theme_override_font_sizes/font_size = 56
-text = "SELECT GAME MODE"
-
-[node name="Button2" type="Button" parent="MarginContainer/UIContainer/titleContainer"]
-custom_minimum_size = Vector2(70, 52)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_wddeh")
-theme_override_styles/hover = ExtResource("8_5s625")
-theme_override_styles/hover_pressed = ExtResource("8_5s625")
-
-[node name="separator" type="Control" parent="MarginContainer/UIContainer"]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-
-[node name="optionsContainer" type="HBoxContainer" parent="MarginContainer/UIContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/UIContainer/optionsContainer"]
+[node name="TutorialText" type="RichTextLabel" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/separation = 24
+theme_override_colors/default_color = Color(1, 0.8627451, 0.2901961, 1)
+bbcode_enabled = true
+text = "Choose wisely precious....yes.."
+fit_content = true
+autowrap_mode = 2
+horizontal_alignment = 1
 
-[node name="StartGame" type="Button" parent="MarginContainer/UIContainer/optionsContainer/VBoxContainer"]
-custom_minimum_size = Vector2(140, 70)
+[node name="optionsButton" type="HBoxContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/normal = ExtResource("9_rwr1x")
-theme_override_styles/hover = ExtResource("10_pvmyu")
-theme_override_styles/hover_pressed = ExtResource("10_pvmyu")
-text = "Single Player"
 
-[node name="StartGame2" type="Button" parent="MarginContainer/UIContainer/optionsContainer/VBoxContainer"]
-custom_minimum_size = Vector2(120, 70)
+[node name="CloseButton" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 51)
 layout_mode = 2
-theme_override_styles/normal = ExtResource("9_rwr1x")
-theme_override_styles/hover = ExtResource("10_pvmyu")
-theme_override_styles/hover_pressed = ExtResource("10_pvmyu")
-text = "Multiplayer"
+theme_override_styles/normal = ExtResource("7_3dae8")
+theme_override_styles/hover = ExtResource("8_xmim4")
+theme_override_styles/hover_pressed = ExtResource("8_xmim4")
+text = "Easy"
 
-[node name="StartGame3" type="Button" parent="MarginContainer/UIContainer/optionsContainer/VBoxContainer"]
-custom_minimum_size = Vector2(120, 70)
+[node name="CloseButton3" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 51)
 layout_mode = 2
-theme_override_styles/normal = ExtResource("9_rwr1x")
-theme_override_styles/hover = ExtResource("10_pvmyu")
-theme_override_styles/hover_pressed = ExtResource("10_pvmyu")
-text = "Online Game"
+theme_override_styles/normal = ExtResource("7_3dae8")
+theme_override_styles/hover = ExtResource("8_xmim4")
+theme_override_styles/hover_pressed = ExtResource("8_xmim4")
+text = "Medium"
+
+[node name="CloseButton2" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 51)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("7_3dae8")
+theme_override_styles/hover = ExtResource("8_xmim4")
+theme_override_styles/hover_pressed = ExtResource("8_xmim4")
+text = "Expert
+"
+
+[node name="buttonContainer" type="MarginContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 60
+
+[node name="HBoxContainer" type="HBoxContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/buttonContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="BackSlot" type="Control" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/buttonContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Back" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/buttonContainer/HBoxContainer/BackSlot"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 52)
+layout_mode = 0
+offset_left = 4.0
+offset_right = 76.0
+offset_bottom = 52.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_5s625")
+theme_override_styles/hover = SubResource("StyleBoxTexture_rwr1x")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_rwr1x")
+
+[node name="Separator" type="Control" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/buttonContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="NextSlot" type="Control" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/buttonContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Next" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/buttonContainer/HBoxContainer/NextSlot"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 52)
+layout_mode = 0
+offset_left = 7.0
+offset_right = 79.0
+offset_bottom = 52.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_pvmyu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_m22gp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_m22gp")

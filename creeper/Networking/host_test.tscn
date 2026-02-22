@@ -1,32 +1,120 @@
-[gd_scene load_steps=2 format=3 uid="uid://biyhbqq5knnvw"]
+[gd_scene load_steps=10 format=3 uid="uid://cpw23key46sdo"]
 
 [ext_resource type="Script" uid="uid://dtsyvrdkt11p7" path="res://Networking/Host.cs" id="1_xhhxm"]
+[ext_resource type="Texture2D" uid="uid://dn1ra2m8au2kx" path="res://UI_assets/TeamSelection/gradient-bkg.png" id="2_mkcn1"]
+[ext_resource type="Texture2D" uid="uid://guby48e31ivk" path="res://UI_assets/TeamSelection/Character Trees.png" id="3_g0vd8"]
+[ext_resource type="Texture2D" uid="uid://bl73um72w5ddo" path="res://UI_assets/TeamSelection/Moria Gate.png" id="4_ogta6"]
+[ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="5_ss7qm"]
+[ext_resource type="Texture2D" uid="uid://fiu2mgen58wi" path="res://UI_assets/UI_Buttons/Buttons_states_v2.png" id="6_ijil7"]
+[ext_resource type="StyleBox" uid="uid://dlpn6pyq67rah" path="res://UI_assets/UI_Buttons/backButton_hover.tres" id="7_rp0je"]
+[ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="8_5764j"]
 
-[node name="HostTest" type="Node2D"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2ebxi"]
+texture = ExtResource("6_ijil7")
+region_rect = Rect2(38, 92, 70, 52)
+
+[node name="Host" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1025.0
+offset_bottom = 639.0
 script = ExtResource("1_xhhxm")
 
-[node name="BackBtn" type="Button" parent="."]
-offset_left = 73.0
-offset_top = 25.0
-offset_right = 267.0
-offset_bottom = 68.0
-text = "Back"
+[node name="gradientBkg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.5
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_mkcn1")
+
+[node name="gradientBkg2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.5
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_g0vd8")
+
+[node name="gradientBkg4" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -225.0
+offset_top = -600.0
+offset_right = 225.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("4_ogta6")
+stretch_mode = 2
+
+[node name="gradientBkg3" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.5
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_ss7qm")
+
+[node name="BackButton" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 52)
+layout_mode = 0
+offset_left = 75.0
+offset_top = 58.0
+offset_right = 145.0
+offset_bottom = 110.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_2ebxi")
+theme_override_styles/hover = ExtResource("7_rp0je")
+theme_override_styles/hover_pressed = ExtResource("7_rp0je")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 414.0
-offset_top = 80.0
-offset_right = 503.0
-offset_bottom = 103.0
-text = "Lobby"
-
-[node name="GameID" type="Label" parent="."]
-offset_left = 206.0
-offset_top = 135.0
-offset_right = 295.0
+layout_mode = 0
+offset_left = 297.0
+offset_top = 78.0
+offset_right = 731.0
 offset_bottom = 158.0
+theme_override_colors/font_color = Color(1, 0.8627451, 0.2901961, 1)
+theme_override_fonts/font = ExtResource("8_5764j")
+theme_override_font_sizes/font_size = 72
+text = "Lobby"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.5
+offset_top = -100.5
+offset_right = 175.5
+offset_bottom = 38.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="GameID" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
 text = "Room code"
 
-[node name="ID" type="Label" parent="GameID"]
+[node name="ID" type="Label" parent="VBoxContainer/HBoxContainer/GameID"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 142.0
 offset_top = -1.0
@@ -34,14 +122,15 @@ offset_right = 231.0
 offset_bottom = 22.0
 text = "Generating..."
 
-[node name="P1" type="Label" parent="."]
-offset_left = 203.0
-offset_top = 182.0
-offset_right = 292.0
-offset_bottom = 205.0
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="P1" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
 text = "Player 1"
 
-[node name="P1name" type="Label" parent="P1"]
+[node name="P1name" type="Label" parent="VBoxContainer/HBoxContainer2/P1"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 145.0
 offset_top = 1.0
@@ -49,17 +138,20 @@ offset_right = 234.0
 offset_bottom = 24.0
 text = "Player 1"
 
-[node name="P2" type="Label" parent="."]
-offset_left = 204.0
-offset_top = 228.0
-offset_right = 293.0
-offset_bottom = 251.0
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="P2" type="Label" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
 text = "Player 2"
 
-[node name="P2name" type="Label" parent="P2"]
+[node name="P2name" type="Label" parent="VBoxContainer/HBoxContainer3/P2"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 143.0
 offset_top = -1.0
 offset_right = 232.0
 offset_bottom = 22.0
 text = "Waiting for player"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_btn_pressed"]

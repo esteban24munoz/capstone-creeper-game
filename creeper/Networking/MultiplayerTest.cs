@@ -3,25 +3,31 @@ using System;
 using System.Threading.Tasks;
 using System.Text;
 
-public partial class MultiplayerTest : Node2D
+public partial class MultiplayerTest : Control
 {
 	private string username = "";
+	private UIManager _ui;
 	
 	public override void _Ready()
 	{
 		Globals.gameType = "Network";
+		_ui = UIManager.Instance;
+
+		if (_ui == null)
+		{
+			GD.PrintErr("GameMode: UIManager Instance is null! Is MainUI.tscn loaded?");
+			return;
+		}
 	}
 	
 	private void _on_username_text_changed(string text)
 	{
-		Label usernameLabel = GetNode<Label>("Control/UserLabel");
-		usernameLabel.Text = text;
 		username = text;
 	}
 	
 	private void _on_back_btn_pressed()
 	{
-		GetTree().ChangeSceneToFile("res://game.tscn");
+		_ui.ShowScreen("res://GameUI_scenes/gameMode.tscn");
 	}
 	
 	private void _on_ai_btn_pressed()

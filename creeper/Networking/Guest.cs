@@ -81,13 +81,16 @@ namespace Client {
 		public string Status { get; set; } = default!;
 	}
 	
-	 public class GameStateResponse
-	 {
+	public class GameStateResponse
+	{
 		 [JsonPropertyName("game_id")]
 		 public string GameId { get; set; } = default!;
 
 		 [JsonPropertyName("host_display_name")]
-		 public string? HostDisplayName { get; set; }
+		 public string? HostName { get; set; }
+		
+		[JsonPropertyName("guest_display_name")]
+		 public string? GuestName { get; set; }
 
 		 [JsonPropertyName("status")]
 		 public string Status { get; set; } = default!;
@@ -106,10 +109,10 @@ namespace Client {
 
 		 [JsonPropertyName("last_active")]
 		 public DateTime LastActive { get; set; }
-	 }
+	}
 
-	 public class GameListItem
-	 {
+	public class GameListItem
+	{
 		 [JsonPropertyName("game_id")]
 		 public string GameId { get; set; } = default!;
 
@@ -126,48 +129,41 @@ namespace Client {
 		 public DateTime LastActive { get; set; }
 	}
 	
-	public partial class Guest : Node
+	public partial class Guest : Control
 	{
-		[Export] public string ServerBaseUrl { get; set; } = "http://localhost:8000";
-
-		private GuestClient _api = null!;
-		private CancellationTokenSource _cts = null!;
 		private JoinResponse? _joinInfo;
 
 		// Events other nodes can subscribe to
 		public event Action<JoinResponse>? OnJoined;
-		//public event Action<GameStateResponse>? OnStateUpdated;
+		public event Action<GameStateResponse>? OnStateUpdated;
 		public event Action<string>? OnError;
 		
 		private void _on_game_id_text_changed(string gameId)
 		{
 			Globals.gameId = gameId;
 		}
+		
+		private void _on_back_btn_pressed()
+		{
+			GetTree().ChangeSceneToFile("res://Networking/multiplayer_test.tscn");
+		}
 
 		public override void _Ready()
 		{
-			var http = new System.Net.Http.HttpClient { BaseAddress = new Uri(ServerBaseUrl) };
-			_api = new GuestClient(http);
-			_cts = new CancellationTokenSource();
 			Globals.p1Type = "Network";
 			Globals.p2Type = "Person";
 		}
 		
-		private void _on_join_btn_pressed()
+		private async void _on_join_btn_pressed()
 		{
-			_ = StartGuestFlowAsync(Globals.gameId, Globals.username, _cts.Token);
+			await StartGuestFlowAsync(Globals.gameId, Globals.username, Globals.cts.Token);
+			GetTree().ChangeSceneToFile("res://game.tscn");
 		}
 		
 		public override void _ExitTree()
 		{
-			_cts?.Cancel();
-			_cts?.Dispose();
-		}
-
-		// Programmatic join that UI can call (non-blocking)
-		public void JoinGame(string gameId, string username)
-		{
-			_ = StartGuestFlowAsync(gameId, username, _cts.Token);
+			Globals.cts?.Cancel();
+			Globals.cts?.Dispose();
 		}
 		
 		// Submit a move from UI/game logic
@@ -181,7 +177,7 @@ namespace Client {
 
 			try
 			{
-				await _api.MakeMoveAsync(_joinInfo.GameId, _joinInfo.GuestToken, state, _cts.Token).ConfigureAwait(false);
+				await Globals.guestClient.MakeMoveAsync(_joinInfo.GameId, _joinInfo.GuestToken, state, Globals.cts.Token).ConfigureAwait(false);
 				GD.Print("[Guest] Move submitted.");
 			}
 			catch (Exception ex)
@@ -190,25 +186,20 @@ namespace Client {
 				OnError?.Invoke(ex.Message);
 			}
 		}
-		
-		public (string GameId, string GuestToken)? GetJoinInfo()
-		{
-			if (_joinInfo == null) return null;
-			return (_joinInfo.GameId, _joinInfo.GuestToken);
-		}
 
 		private async Task StartGuestFlowAsync(string gameId, string username, CancellationToken ct)
 		{
 			try
 			{
-				_joinInfo = await _api.JoinGameAsync(gameId, username, ct).ConfigureAwait(false);
+				_joinInfo = await Globals.guestClient.JoinGameAsync(gameId, username, ct).ConfigureAwait(false);
 				GD.Print($"[Guest] Joined game {_joinInfo.GameId} token={_joinInfo.GuestToken} status={_joinInfo.Status}");
 				OnJoined?.Invoke(_joinInfo);
 				Globals.guestToken = _joinInfo.GuestToken;
 				Globals.status = _joinInfo.Status;
-
+				
+				//GetTree().ChangeSceneToFile("res://game.tscn");
 				// start heartbeat and polling
-				//_ = HeartbeatLoopAsync(_joinInfo, ct);
+				_ = HeartbeatLoopAsync(_joinInfo, ct);
 				//_ = PollStateLoopAsync(_joinInfo.GameId, ct);
 			}
 			catch (Exception ex)
@@ -225,7 +216,7 @@ namespace Client {
 			{
 				try
 				{
-					await _api.HeartbeatAsync(join.GameId, join.GuestToken, ct).ConfigureAwait(false);
+					await Globals.guestClient.HeartbeatAsync(join.GameId, join.GuestToken, ct).ConfigureAwait(false);
 				}
 				catch (Exception ex)
 				{
@@ -251,7 +242,7 @@ namespace Client {
 			{
 				try
 				{
-					var state = await _api.GetGameStateAsync(gameId, ct).ConfigureAwait(false);
+					var state = await Globals.guestClient.GetGameStateAsync(gameId, ct).ConfigureAwait(false);
 					// Use CallDeferred to safely interact with Godot main thread if needed
 					//CallDeferred(nameof(EmitStateUpdated), state);
 				}

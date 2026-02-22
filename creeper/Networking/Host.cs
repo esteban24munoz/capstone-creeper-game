@@ -77,21 +77,12 @@ namespace Client {
 		public string Status { get; set; } = default!;
 	}
 	
-	public partial class Host : Node
+	public partial class Host : Control
 	{
-		[Export] public string ServerBaseUrl { get; set; } = "http://localhost:8000";
-		[Export] public string HostDisplayName { get; set; } = Globals.username;
-		private HostClient _client = null!;
-		private CancellationTokenSource _cts = null!;
 		private GameCreatedResponse? _created;
 
 		public override void _Ready()
 		{
-			// Create HttpClient with base address. Keep a single instance.
-			var http = new System.Net.Http.HttpClient { BaseAddress = new Uri(ServerBaseUrl) };
-			_client = new HostClient(http);
-			_cts = new CancellationTokenSource();
-			
 			SetUpInfo();
 			
 			 //Start background flow without blocking Godot main thread.
@@ -100,7 +91,7 @@ namespace Client {
 		
 		private void SetUpInfo()
 		{
-			Label p1Name = GetNode<Label>("P1/P1name");
+			Label p1Name = GetNode<Label>("%P1name");
 			GD.Print(Globals.username);
 			p1Name.Text = Globals.username;
 			Globals.p1Type = "Person";
@@ -112,41 +103,50 @@ namespace Client {
 			try
 			{
 				// 1) Create game
-				_created = await _client.CreateGameAsync(HostDisplayName, _cts.Token);
+				_created = await Globals.hostClient.CreateGameAsync(Globals.username, Globals.cts.Token);
 				GD.Print($"[Host] Created game {_created.GameId} token={_created.HostToken} status={_created.Status}");
-				Label id = GetNode<Label>("GameID/ID");
+				Label id = GetNode<Label>("%ID");
 				id.Text = _created.GameId;
 				Globals.gameId = _created.GameId;
 				Globals.hostToken = _created.HostToken;
 				Globals.status = _created.Status;
 
 				// 2) Start heartbeat loop (run concurrently)
-				//_ = HeartbeatLoopAsync(_created, _cts.Token);
+				_ = HeartbeatLoopAsync(_created, Globals.cts.Token);
 
 				// Example: poll state periodically and optionally make a move.
-				//while (!_cts.Token.IsCancellationRequested)
-				//{
-					//try
-					//{
-						//var state = await _client.GetGameStateAsync(_created.GameId, _cts.Token);
-						//GD.Print($"[Host] Game status: {state.Status}, turn: {state.Turn}, lastActive: {state.LastActive}");
-
+				while (!Globals.cts.Token.IsCancellationRequested)
+				{
+					try
+					{
+						var state = await Globals.hostClient.GetGameStateAsync(_created.GameId, Globals.cts.Token);
+						GD.Print($"[Host] Game status: {state.Status}, turn: {state.Turn}, lastActive: {state.LastActive}");
+						
+						//Update p2 name and start game
+						if (state.Status == "in_progress")
+						{
+							Label p2Name = GetNode<Label>("%P2name");
+							p2Name.Text = state.GuestName;
+							GD.Print($"[Host]: {state.GuestName} joined game");
+							GetTree().ChangeSceneToFile("res://game.tscn");
+						}
+						
 						// Example: make a sample move when it's host's turn.
 						//if (state.Status == "in_progress" && state.Turn == "host")
 						//{
 							// Replace with your real state string
 							//var exampleState = ".oo.xx...";
-							//await _client.MakeMoveAsync(_created.GameId, _created.HostToken, exampleState, _cts.Token);
+							//await _client.MakeMoveAsync(_created.GameId, _created.HostToken, exampleState, Globals.cts.Token);
 							//GD.Print("[Host] Submitted a move.");
 						//}
-					//}
-					//catch (Exception ex)
-					//{
+					}
+					catch (Exception ex)
+					{
 						//GD.PrintErr($"[Host] Poll error: {ex.Message}");
-					//}
+					}
 
-					//await Task.Delay(TimeSpan.FromSeconds(5), _cts.Token);
-				//}
+					await Task.Delay(TimeSpan.FromSeconds(2), Globals.cts.Token);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -163,7 +163,7 @@ namespace Client {
 			{
 				try
 				{
-					await _client.HeartbeatAsync(created.GameId, created.HostToken, ct);
+					await Globals.hostClient.HeartbeatAsync(created.GameId, created.HostToken, ct);
 				}
 				catch (Exception ex)
 				{
@@ -180,12 +180,10 @@ namespace Client {
 				}
 			}
 		}
-
-		// Optional helper to expose current game id/token to other nodes
-		public (string GameId, string HostToken)? GetCreatedInfo()
+		
+		private void _on_back_btn_pressed()
 		{
-			if (_created == null) return null;
-			return (_created.GameId, _created.HostToken);
+			GetTree().ChangeSceneToFile("res://Networking/multiplayer_test.tscn");
 		}
 	}
 }

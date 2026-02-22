@@ -338,6 +338,27 @@ public class Model
 		return activePlayer;
 	}
 	
+	public void UpdateGrids(Constants.Player[,] pins, Constants.Player[,] tiles)
+	{
+		//Update pins
+		for (int row = 0; row < 7; row ++)
+		{
+			for (int col = 0; col < 7; col ++)
+			{
+				Grid[row,col] = pins[row,col];
+			}
+		}
+		
+		//Update tiles
+		for (int row = 0; row < 6; row ++)
+		{
+			for (int col = 0; col < 6; col ++)
+			{
+				Grid[row,col] = tiles[row,col];
+			}
+		}
+	}
+	
 	public string StringifyState()
 	{
 		string state = "";

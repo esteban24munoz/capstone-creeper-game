@@ -275,28 +275,67 @@ public class Model
 		return ValidMoves;
 	}
 
-	//Needed to read in a state for the AI
-	public void UpdateGrids(Constants.Player[,] pins, Constants.Player[,] tiles)
+	//Needed to read in a state for the AI - state string in softserve format
+	public Constants.Player UpdateState(string state) 
 	{
-		//Update pins
+		Constants.Player activePlayer;
+		
+		//Start with the pins
+		int c = 0;
 		for (int row = 0; row < 7; row ++)
 		{
 			for (int col = 0; col < 7; col ++)
 			{
-				GD.Print("Before: ",Grid[row,col]);
-				Grid[row,col] = pins[row,col];
-				GD.Print("After: ",Grid[row,col]);
+				if (state[c] == 'x') //pin is white
+				{
+					Grid[row,col] = Constants.Player.Hero;
+				}
+				else if (state[c] == 'o') //pin is black
+				{
+					Grid[row,col] = Constants.Player.Enemy;
+				}
+				else //spot is empty
+				{
+					Grid[row,col] = Constants.Player.None;
+				}
+				c++;
 			}
 		}
 		
-		//Update tiles
+		c = 49;
 		for (int row = 0; row < 6; row ++)
 		{
 			for (int col = 0; col < 6; col ++)
 			{
-				Grid[row,col] = tiles[row,col];
+				if (state[c] == 'x') //tile is white
+				{
+					Tiles[row,col] = Constants.Player.Hero;
+				}
+				else if (state[c] == 'o') //tile is black
+				{
+					Tiles[row,col] = Constants.Player.Enemy;
+				}
+				else //spot is empty
+				{
+					Tiles[row,col] = Constants.Player.None;
+				}
+				c++;
 			}
 		}
+		
+		if (state[85] == 'x')
+		{
+			activePlayer = Constants.Player.Hero;
+		}
+		else if (state[85] == 'o')
+		{
+			activePlayer = Constants.Player.Enemy;
+		}
+		else
+		{
+			activePlayer = Constants.Player.None;
+		}
+		return activePlayer;
 	}
 	
 	public string StringifyState()

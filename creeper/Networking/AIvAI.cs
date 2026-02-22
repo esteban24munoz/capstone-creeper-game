@@ -72,7 +72,7 @@ public partial class AIvAI : Node2D
 			***************************************************************************************/
 			
 			GD.Print("Testing Parse Function");
-			ParseState(state, ai.AIGame);
+			ai.currentPlayer = ai.AIGame.UpdateState(state);
 			
 			//Get a list of possible actions based on the state from the API
 			var actionsResponse = await client.GetAsync($"{SOFTSERVE_URL}/state/{state}/actions");
@@ -124,92 +124,6 @@ public partial class AIvAI : Node2D
 	private void _on_back_btn_pressed()
 	{
 		GetTree().ChangeSceneToFile("res://game.tscn");
-	}
-	
-	public Constants.Player ParseState(string state, Model game) 
-	{
-		Constants.Player[,] pinsGrid = {
-			{Constants.Player.None, Constants.Player.Hero, Constants.Player.Hero, Constants.Player.None, Constants.Player.Enemy, Constants.Player.Enemy, Constants.Player.None},
-			{Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
-			{Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
-			{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-			{Constants.Player.Enemy, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Hero},
-			{Constants.Player.Enemy, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Hero},
-			{Constants.Player.None, Constants.Player.Enemy, Constants.Player.Enemy, Constants.Player.None, Constants.Player.Hero, Constants.Player.Hero, Constants.Player.None},
-		};
-		Constants.Player[,] tilesGrid =
-		{
-			{Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
-			{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-			{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-			{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-			{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-			{Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None},
-		};
-		Constants.Player activePlayer;
-		
-		//Start with the pins
-		GD.Print("Pin Grid");
-		int c = 0;
-		for (int row = 0; row < 7; row ++)
-		{
-			for (int col = 0; col < 7; col ++)
-			{
-				if (state[c] == 'x') //pin is white
-				{
-					pinsGrid[row,col] = Constants.Player.Hero;
-				}
-				else if (state[c] == 'o') //pin is black
-				{
-					pinsGrid[row,col] = Constants.Player.Enemy;
-				}
-				else //spot is empty
-				{
-					pinsGrid[row,col] = Constants.Player.None;
-				}
-				c++;
-			}
-		}
-		
-		c = 49;
-		GD.Print("Tile Grid");
-		for (int row = 0; row < 6; row ++)
-		{
-			for (int col = 0; col < 6; col ++)
-			{
-				if (state[c] == 'x') //tile is white
-				{
-					tilesGrid[row,col] = Constants.Player.Hero;
-				}
-				else if (state[c] == 'o') //tile is black
-				{
-					tilesGrid[row,col] = Constants.Player.Enemy;
-				}
-				else //spot is empty
-				{
-					tilesGrid[row,col] = Constants.Player.None;
-				}
-				c++;
-			}
-		}
-		
-		ai.AIGame.UpdateGrids(pinsGrid, tilesGrid);
-		
-		if (state[85] == 'x')
-		{
-			activePlayer = Constants.Player.Hero;
-		}
-		else if (state[85] == 'o')
-		{
-			activePlayer = Constants.Player.Enemy;
-		}
-		else
-		{
-			activePlayer = Constants.Player.None;
-		}
-		GD.Print("Active player: " + activePlayer);
-		ai.currentPlayer = activePlayer;
-		return activePlayer;
 	}
 	
 	public string ParseAction(Vector2I from, Vector2I to)

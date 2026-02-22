@@ -233,16 +233,16 @@ public partial class Grid : Node2D
 					characters.Remove(toKill);
 				};		
 			};
-        }
+		}
 
 		//ensure the function connect to animation finished is one shot to avoid conflicts
 		//the code within the connect method comes from gemini
-        killer.Connect(
+		killer.Connect(
 			AnimationMixer.SignalName.AnimationFinished, 
 			Callable.From(killerAnimationFinished), 
 			(uint)ConnectFlags.OneShot
 		);
-    }
+	}
 
 	public void StopCharacterAnimations(List<Vector2I> positions)
 	{
@@ -269,11 +269,11 @@ public partial class Grid : Node2D
 		}
 	}
 
-    public void ChangeTile(Vector2I pos, Constants.Player player)
-    {
+	public void ChangeTile(Vector2I pos, Constants.Player player)
+	{
 		//converts from standard grid coordinates to isometric
-        TileMap.SetCell(new(pos.Y + pos.X, pos.Y - pos.X), TileType[player], new(0,0));
-    }
+		TileMap.SetCell(new(pos.Y + pos.X, pos.Y - pos.X), TileType[player], new(0,0));
+	}
 
 	private static Vector2I ConvertGridtoPixel(Vector2I pos)
 	{

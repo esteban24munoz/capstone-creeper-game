@@ -11,7 +11,7 @@ public partial class Controller : Node2D
 	Grid ViewInstance;
 	readonly Model ModelInstance = new();
 	InGameScene GameUI;
-	AudioStreamPlayer2D Music, FrodoWin, SauronWin;
+	AudioStreamPlayer2D Music, FrodoWin, SauronWin, DrawMusic;
 
 	public override void _Ready()
 	{
@@ -26,6 +26,7 @@ public partial class Controller : Node2D
 		Music = GetNode<AudioStreamPlayer2D>("Music/Battle");
 		FrodoWin = GetNode<AudioStreamPlayer2D>("Music/FrodoWin");
 		SauronWin = GetNode<AudioStreamPlayer2D>("Music/SauronWin");
+		DrawMusic = GetNode<AudioStreamPlayer2D>("Music/DrawMusic");
 		ViewInstance.StartCharacterAnimations(ModelInstance.GetAllCharacters(ActivePlayer));
 	}
 
@@ -110,6 +111,9 @@ public partial class Controller : Node2D
 		{
 			GameUI.ShowWinScreen(Constants.Player.None);
 			ActivePlayer = Constants.Player.None;
+
+			Music.Stop();
+			DrawMusic.Play();
 		}
 
 		if (Winner != Constants.Player.None)

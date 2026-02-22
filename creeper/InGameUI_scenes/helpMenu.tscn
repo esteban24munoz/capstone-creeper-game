@@ -1,10 +1,86 @@
-[gd_scene load_steps=12 format=3 uid="uid://c31vp4cqio8ov"]
+[gd_scene load_steps=24 format=3 uid="uid://c31vp4cqio8ov"]
 
 [ext_resource type="Script" uid="uid://cwvu5pmcl356o" path="res://InGameUI_scripts/Help.cs" id="1_4kiry"]
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="2_2vtip"]
 [ext_resource type="Texture2D" uid="uid://drksn8vyup10s" path="res://UI_assets/Tutorial/gollum.png" id="3_ibc1t"]
 [ext_resource type="Texture2D" uid="uid://b72xvivoiivrg" path="res://UI_assets/UI_Buttons/Tutorial Arrow.png" id="4_ylhll"]
+[ext_resource type="Texture2D" uid="uid://d28dovjdgakqx" path="res://UI_assets/Tutorial/Movement Example_v2.png" id="5_2vtip"]
 [ext_resource type="Texture2D" uid="uid://bf3md45gw7a4" path="res://UI_assets/UI_Buttons/exitButton.png" id="5_i40w7"]
+[ext_resource type="Texture2D" uid="uid://10h8t00hoopk" path="res://UI_assets/Tutorial/completed_path_checked.png" id="5_ylhll"]
+[ext_resource type="Texture2D" uid="uid://clt2nw2g1801j" path="res://UI_assets/Tutorial/uncompleted_path_wrong.png" id="6_i40w7"]
+[ext_resource type="StyleBox" uid="uid://buyitcrqna1ux" path="res://UI_assets/UI_Buttons/normal_button_texture.tres" id="7_udlho"]
+[ext_resource type="StyleBox" uid="uid://dclx2cpxac0q0" path="res://UI_assets/UI_Buttons/normal_button_hover_texture.tres" id="8_50bbc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibc1t"]
+atlas = ExtResource("5_2vtip")
+region = Rect2(0, 0, 224, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylhll"]
+atlas = ExtResource("5_2vtip")
+region = Rect2(224, 0, 224, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i40w7"]
+atlas = ExtResource("5_2vtip")
+region = Rect2(448, 0, 224, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udlho"]
+atlas = ExtResource("5_2vtip")
+region = Rect2(672, 0, 224, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50bbc"]
+atlas = ExtResource("5_2vtip")
+region = Rect2(896, 0, 224, 170)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_udlho"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"correct_path",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibc1t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylhll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i40w7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i40w7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udlho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50bbc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50bbc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50bbc")
+}],
+"loop": true,
+"name": &"move_example",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ylhll"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_ylhll")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_i40w7")
+}],
+"loop": true,
+"name": &"path_anim",
+"speed": 0.5
+}]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4kiry"]
 texture = ExtResource("4_ylhll")
@@ -88,6 +164,32 @@ bbcode_enabled = true
 fit_content = true
 autowrap_mode = 2
 
+[node name="TutorialSprite" type="AnimatedSprite2D" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum"]
+unique_name_in_owner = true
+position = Vector2(310, 400.00003)
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_udlho")
+animation = &"correct_path"
+
+[node name="AnimatedPathSprite" type="AnimatedSprite2D" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum"]
+unique_name_in_owner = true
+position = Vector2(318, 344)
+sprite_frames = SubResource("SpriteFrames_ylhll")
+animation = &"path_anim"
+frame_progress = 0.34152266
+
+[node name="TutorialVideo" type="VideoStreamPlayer" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 230.0
+offset_top = 352.0
+offset_right = 270.0
+offset_bottom = 392.0
+scale = Vector2(0.5, 0.5)
+volume_db = -80.0
+autoplay = true
+loop = true
+
 [node name="buttonContainer" type="MarginContainer" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum"]
 layout_mode = 1
 anchors_preset = 15
@@ -139,6 +241,20 @@ offset_bottom = 52.0
 theme_override_styles/normal = SubResource("StyleBoxTexture_tfjnu")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ibc1t")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_ibc1t")
+
+[node name="CloseButton" type="Button" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(120, 51)
+layout_mode = 0
+offset_left = 422.0
+offset_top = 400.0
+offset_right = 542.0
+offset_bottom = 451.0
+theme_override_styles/normal = ExtResource("7_udlho")
+theme_override_styles/hover = ExtResource("8_50bbc")
+theme_override_styles/hover_pressed = ExtResource("8_50bbc")
+text = "Close"
 
 [node name="exitButtonContainer" type="MarginContainer" parent="."]
 layout_mode = 1

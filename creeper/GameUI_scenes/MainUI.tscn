@@ -1,0 +1,130 @@
+[gd_scene load_steps=11 format=3 uid="uid://dnfdgphcwnnaq"]
+
+[ext_resource type="Script" uid="uid://ce33asv8yj453" path="res://GameUI_scripts/UIManager.cs" id="1_stm4m"]
+[ext_resource type="Texture2D" uid="uid://dn1ra2m8au2kx" path="res://UI_assets/TeamSelection/gradient-bkg.png" id="2_ecmct"]
+[ext_resource type="Texture2D" uid="uid://guby48e31ivk" path="res://UI_assets/TeamSelection/Character Trees.png" id="3_tcq21"]
+[ext_resource type="Texture2D" uid="uid://bl73um72w5ddo" path="res://UI_assets/TeamSelection/Moria Gate.png" id="4_ktaii"]
+[ext_resource type="Texture2D" uid="uid://fiu2mgen58wi" path="res://UI_assets/UI_Buttons/Buttons_states_v2.png" id="4_tcq21"]
+[ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="5_6545i"]
+[ext_resource type="StyleBox" uid="uid://dlpn6pyq67rah" path="res://UI_assets/UI_Buttons/backButton_hover.tres" id="5_ktaii"]
+[ext_resource type="StyleBox" uid="uid://2nvh4x3dxlp7" path="res://UI_assets/UI_Buttons/menuButton_hover.tres" id="6_6545i"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u1f4g"]
+texture = ExtResource("4_tcq21")
+region_rect = Rect2(38, 92, 70, 52)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4vg6m"]
+texture = ExtResource("4_tcq21")
+region_rect = Rect2(46, 270, 70, 52)
+
+[node name="MainUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_stm4m")
+
+[node name="gradientBkg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ecmct")
+
+[node name="treeBkg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_tcq21")
+
+[node name="doorBkg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -225.0
+offset_top = -600.0
+offset_right = 225.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("4_ktaii")
+stretch_mode = 2
+
+[node name="darkOverlayBkg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_6545i")
+
+[node name="ScreenContainer" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="buttonsMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -506.0
+offset_right = 506.0
+offset_bottom = 116.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 56
+theme_override_constants/margin_right = 32
+
+[node name="StillButtonsContainer" type="HBoxContainer" parent="buttonsMargin"]
+layout_mode = 2
+size_flags_vertical = 0
+alignment = 1
+
+[node name="BackButton" type="Button" parent="buttonsMargin/StillButtonsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 52)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_u1f4g")
+theme_override_styles/hover = ExtResource("5_ktaii")
+theme_override_styles/hover_pressed = ExtResource("5_ktaii")
+
+[node name="separator" type="Control" parent="buttonsMargin/StillButtonsContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+
+[node name="MenuButton" type="Button" parent="buttonsMargin/StillButtonsContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(70, 52)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_4vg6m")
+theme_override_styles/hover = ExtResource("6_6545i")
+theme_override_styles/hover_pressed = ExtResource("6_6545i")
+
+[node name="TransitionLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="TransitionLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.11764706, 0.11764706, 0.11764706, 1)

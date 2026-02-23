@@ -33,7 +33,7 @@ public partial class MultiplayerTest : Control
 	private void _on_ai_btn_pressed()
 	{
 		GD.Print("AI Tournament");
-		GetTree().ChangeSceneToFile("res://Networking/AIvAI_test.tscn");
+		GetTree().ChangeSceneToFile("res://AI/AI_test.tscn");
 	}
 	
 	private void _on_host_btn_pressed()

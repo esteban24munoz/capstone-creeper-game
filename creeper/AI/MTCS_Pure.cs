@@ -24,7 +24,7 @@ public partial class MTCS_Pure : Node
 		string playStateUrl = $"{SOFTSERVE_URL}/aivai/play-state";
 		Model currentGame = new();
 		//while (true)
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 1; i++)
 		{
 			var playStateObj = new
 			{
@@ -54,8 +54,7 @@ public partial class MTCS_Pure : Node
 			GD.Print($"state:\t{state}");
 
 			/***************************************************************************************
-			Starting here, AI should take over. The code below is just a placeholder
-			to test the Network functionality. The state of the game is still just a string.
+			Starting here, AI should take over. The state of the game is still just a string.
 			***************************************************************************************/
 			
 			Constants.Player activePlayer = currentGame.UpdateState(state);
@@ -67,9 +66,9 @@ public partial class MTCS_Pure : Node
 			//GD.Print("Testing Action Parsing");
 			string parsedAction = ParseAction(bestMove._from, bestMove.to);
 			
-			/************************************************************
-			End of placeholder AI
-			************************************************************/
+			/***************************************************************************************
+			End of AI
+			***************************************************************************************/
 			
 			var submitActionObj = new
 			{
@@ -87,12 +86,10 @@ public partial class MTCS_Pure : Node
 	public string ParseAction(Vector2I from, Vector2I to)
 	{
 		//Convert the X to letters. Format should look like f7e6
-		//int asciiValue = 97;
 		char fromCol = (char)('a' + from.Y);
 		char toCol = (char)('a' + to.Y);
 		
 		string action = $"{fromCol}{from.X + 1}{toCol}{to.X + 1}";
-		//string action = $"{fromCol}{from.Y + 1}{toCol}{to.Y + 1}";
 		GD.Print(action);
 		return action;
 	}

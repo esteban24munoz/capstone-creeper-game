@@ -5,16 +5,18 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Linq;
 
-public partial class MTCS_Pure : Node2D
+public partial class MTCS_Pure : Node
 {	
 	public override void _Ready()
 	{
 		MCTSNode currentNode = new MCTSNode(currentGame);
 		Move bestMove = currentNode.GetBestMove(currentGame);
+		GD.Print($"Move {bestMove} chosen");
 	}
 	public string boardState = ".oo.x..o....xxo.....x.......x.....ox.....o.xx.oo.o....x........................x....o"; 
 	public Model currentGame;
-	//public Constants.Player currentPlayer = Constants.Player.Enemy;
+	private const double c = 1.41421356;
+	public Constants.Player currentPlayer = Constants.Player.Enemy;
 	//currentPlayer = currentGame.UpdateState(boardState);
 	
 	public class Move
@@ -27,6 +29,11 @@ public partial class MTCS_Pure : Node2D
 		{
 			this._from = other._from;
 			this.to = other.to;
+		}
+		public Move()
+		{
+			this._from = new();
+			this.to = new();
 		}
 	}
 	
@@ -81,6 +88,7 @@ public partial class MTCS_Pure : Node2D
 		
 		public Move GetBestMove(Model rootState, int maxTimeMs = 4000)
 		{
+			MCTSNode root = new MCTSNode(this);
 			Stopwatch sw = Stopwatch.StartNew();
 			while(sw.ElapsedMilliseconds < maxTimeMs)
 			{
@@ -89,7 +97,7 @@ public partial class MTCS_Pure : Node2D
 				{
 					selected = Expand(selected);
 				}
-				Model clone = new Model( );
+				Model clone = new Model(root.State);
 				float result = Simulate(clone);
 				Backpropagate(selected, result);
 			}
@@ -133,7 +141,7 @@ public partial class MTCS_Pure : Node2D
 			if (untriedMoves.Count == 0) return node;
 
 			Move move = untriedMoves[new Random().Next(untriedMoves.Count)];
-			Model newState = node.State.Clone();
+			Model newState = new Model(node.State);
 			newState.MoveCharacter(move._from,move.to);
 			
 			MCTSNode newNode = new MCTSNode(newState, node, move);

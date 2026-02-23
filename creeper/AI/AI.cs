@@ -13,18 +13,18 @@ public partial class AI : Node2D
 
 	public override void _Ready()
 	{
-		GD.Print("Starting test");
-		for (int i = 0; i < 15000; i++)
-		{
+		//GD.Print("Starting test");
+		//for (int i = 0; i < 15000; i++)
+		//{
 			//GD.Print($"Game: {i+1}");
-			bool isGameDone = PlayGame();
+			//bool isGameDone = PlayGame();
 			//GD.Print($"Game: {i+1} is done");
 			//Need to reset the game to a fresh game and save old game data for stragey
-			gameNo++;
-			AIGame = new Model();
-			currentPlayer = Constants.Player.Hero; 
-		}
-		GD.Print($"Game {gameNo} done");
+			//gameNo++;
+			//AIGame = new Model();
+			//currentPlayer = Constants.Player.Hero; 
+		//}
+		//GD.Print($"Game {gameNo} done");
 	}
 	
 	Vector2I SelectRandomPiece()

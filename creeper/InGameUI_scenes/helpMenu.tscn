@@ -256,6 +256,21 @@ theme_override_styles/hover = ExtResource("8_50bbc")
 theme_override_styles/hover_pressed = ExtResource("8_50bbc")
 text = "Close"
 
+[node name="SkipButton" type="Button" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(140, 51)
+layout_mode = 0
+offset_left = 78.0
+offset_top = 408.0
+offset_right = 218.0
+offset_bottom = 459.0
+scale = Vector2(0.8, 0.8)
+theme_override_styles/normal = ExtResource("7_udlho")
+theme_override_styles/hover = ExtResource("8_50bbc")
+theme_override_styles/hover_pressed = ExtResource("8_50bbc")
+text = "Skip Tutorial"
+
 [node name="exitButtonContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bv0f4lsofp6e2"]
+[gd_scene load_steps=21 format=3 uid="uid://bv0f4lsofp6e2"]
 
 [ext_resource type="Script" uid="uid://dgnovwq5tacle" path="res://InGameUI_scripts/TutorialScreen.cs" id="1_b1l10"]
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="2_yxf4c"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://b72xvivoiivrg" path="res://UI_assets/UI_Buttons/Tutorial Arrow.png" id="7_55goi"]
 [ext_resource type="StyleBox" uid="uid://buyitcrqna1ux" path="res://UI_assets/UI_Buttons/normal_button_texture.tres" id="8_krh7m"]
 [ext_resource type="StyleBox" uid="uid://dclx2cpxac0q0" path="res://UI_assets/UI_Buttons/normal_button_hover_texture.tres" id="9_t2ev5"]
-[ext_resource type="Texture2D" uid="uid://bf3md45gw7a4" path="res://UI_assets/UI_Buttons/exitButton.png" id="10_yxf4c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ibc1t"]
 atlas = ExtResource("4_winlv")
@@ -98,14 +97,6 @@ region_rect = Rect2(19, 16, 123, 64)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e3i4o"]
 texture = ExtResource("7_55goi")
 region_rect = Rect2(18, 93, 124, 64)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qvx7c"]
-texture = ExtResource("10_yxf4c")
-region_rect = Rect2(25, 7, 28, 28)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_winlv"]
-texture = ExtResource("10_yxf4c")
-region_rect = Rect2(25, 45, 28, 28)
 
 [node name="TutorialScreen" type="Control"]
 layout_mode = 3
@@ -243,7 +234,6 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_e3i4o")
 
 [node name="CloseButton" type="Button" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(120, 51)
 layout_mode = 0
 offset_left = 422.0
@@ -253,29 +243,4 @@ offset_bottom = 451.0
 theme_override_styles/normal = ExtResource("8_krh7m")
 theme_override_styles/hover = ExtResource("9_t2ev5")
 theme_override_styles/hover_pressed = ExtResource("9_t2ev5")
-text = "Close"
-
-[node name="exitButtonContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 960.0
-offset_bottom = -576.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-
-[node name="exitButton" type="VBoxContainer" parent="exitButtonContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-
-[node name="Exit" type="Button" parent="exitButtonContainer/exitButton"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_qvx7c")
-theme_override_styles/hover = SubResource("StyleBoxTexture_winlv")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_winlv")
+text = "Main Menu"

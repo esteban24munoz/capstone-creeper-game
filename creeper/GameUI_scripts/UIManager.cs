@@ -10,23 +10,24 @@ public partial class UIManager : Control
 	private Stack<Control> _screenStack = new();
 	private Control _container;
 	private Button _backButton;
+	private Button _menuButton;
 	private ColorRect _overlay;
 	private bool _isTransitioning = false;
 
 	public override void _Ready()
 	{
 		Instance = this; //global reference
-		_container = GetNode<Control>("ScreenContainer");
 		
-		_backButton = GetNode<Button>("buttonsMargin/StillButtonsContainer/BackButton");
-
+		_container = GetNode<Control>("%ScreenContainer");
+		_backButton = GetNode<Button>("%BackButton");
+		_menuButton = GetNode<Button>("%MenuButton");
 		_overlay = GetNode<ColorRect>("TransitionLayer/ColorRect");
-
 		_overlay.Visible = false;
 		_overlay.Modulate = new Color(1, 1, 1, 0);
 
 		_backButton.Pressed += GoBack;
-
+		_menuButton.Pressed += ShowSettingsMenu;
+		
 		CallDeferred(MethodName.ShowScreen, "res://GameUI_scenes/mainMenu.tscn", true);
 	}
 
@@ -77,6 +78,18 @@ public partial class UIManager : Control
 		await FadeIn();
 		_isTransitioning = false;
 	}
+	
+	public async Task ChangeSceneWithTransition(string path) { 
+		if (_isTransitioning) return; 
+		_isTransitioning = true; 
+		await FadeOut(); 
+		Error result = GetTree().ChangeSceneToFile(path); 
+		if (result != Error.Ok) { 
+			GD.PrintErr($"Failed to change scene: {result}"); 
+			await FadeIn(); 
+			}
+			 _isTransitioning = false;
+		}
 
 	private async Task FadeOut()
 	{
@@ -97,7 +110,7 @@ public partial class UIManager : Control
 		_overlay.Visible = false;
 	}
 
-	private async void GoBack()
+	public async void GoBack()
 	{
 		if (_screenStack.Count <= 1 || _isTransitioning) return;
 
@@ -115,9 +128,15 @@ public partial class UIManager : Control
 		await FadeIn();
 		_isTransitioning = false;
 	}
+	
+	private void ShowSettingsMenu(){
+		GD.Print("Settings menu has been opened!");
+		GetNode<Control>("%SettingsMenu").Visible = true;
+	}
 
 	private void UpdateBackButton()
 	{
 		_backButton.Visible = _screenStack.Count > 1;
+		_menuButton.Visible = _screenStack.Count > 1;
 	}
 }

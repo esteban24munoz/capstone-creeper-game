@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3vkuupj07kn8"]
+[gd_scene load_steps=5 format=3 uid="uid://b3vkuupj07kn8"]
 
 [ext_resource type="Script" uid="uid://crrvnyx6vanh8" path="res://GameUI_scripts/MainMenu.cs" id="1_d5b4s"]
-[ext_resource type="Texture2D" uid="uid://dgtlxxj8an2uw" path="res://UI_assets/GameBackground/Capstone Menu Background.png" id="2_pa66l"]
+[ext_resource type="Texture2D" uid="uid://bg36yicl118iy" path="res://UI_assets/GameBackground/main_menu_bkg_v2.png" id="2_pa66l"]
+[ext_resource type="PackedScene" uid="uid://brrhcweyj3tc2" path="res://GameUI_scenes/settingsMenu.tscn" id="4_va3xh"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="5_65ijf"]
-[ext_resource type="StyleBox" uid="uid://cxalsunrvb4jg" path="res://UI_assets/UI_Buttons/styled_button_texture.tres" id="7_7vqnn"]
-[ext_resource type="StyleBox" uid="uid://lv2pdg5qvcwu" path="res://UI_assets/UI_Buttons/styled_button_hover_texture.tres" id="8_cdtku"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -47,6 +46,7 @@ size_flags_vertical = 4
 theme_override_constants/separation = 32
 
 [node name="Label" type="Label" parent="MarginContainer/TitleMargin/TitleContiainer"]
+visible = false
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.8627451, 0.2901961, 1)
@@ -63,38 +63,63 @@ size_flags_vertical = 8
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ButtonsMargin"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 240
+theme_override_constants/separation = 72
 
-[node name="TutorialButton" type="Button" parent="MarginContainer/ButtonsMargin/HBoxContainer"]
+[node name="CreditsButton" type="Button" parent="MarginContainer/ButtonsMargin/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.34108266, 0.45029777, 0.46851754, 1)
+theme_override_colors/font_hover_color = Color(1, 0.8627451, 0.2901961, 1)
 theme_override_fonts/font = ExtResource("5_65ijf")
 theme_override_font_sizes/font_size = 24
-text = "Tutorial"
+text = "Credits"
+flat = true
+
+[node name="SettingsButton" type="Button" parent="MarginContainer/ButtonsMargin/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 70)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.34108266, 0.45029777, 0.46851754, 1)
+theme_override_colors/font_hover_color = Color(1, 0.8627451, 0.2901961, 1)
+theme_override_fonts/font = ExtResource("5_65ijf")
+theme_override_font_sizes/font_size = 24
+text = "Settings"
+flat = true
 
 [node name="StartButton" type="Button" parent="MarginContainer/ButtonsMargin/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.8980392, 0.40784314, 0.11764706, 1)
+theme_override_colors/font_hover_color = Color(1, 0.8627451, 0.2901961, 1)
 theme_override_fonts/font = ExtResource("5_65ijf")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 46
 text = "Play"
+flat = true
 
-[node name="Settings" type="Button" parent="MarginContainer/ButtonsMargin/HBoxContainer"]
+[node name="TutorialButton" type="Button" parent="MarginContainer/ButtonsMargin/HBoxContainer"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2
-theme_override_styles/normal = ExtResource("7_7vqnn")
-theme_override_styles/hover = ExtResource("8_cdtku")
-theme_override_styles/hover_pressed = ExtResource("8_cdtku")
-text = "Settings"
+theme_override_colors/font_color = Color(0.34108266, 0.45029777, 0.46851754, 1)
+theme_override_colors/font_hover_color = Color(1, 0.8627451, 0.2901961, 1)
+theme_override_fonts/font = ExtResource("5_65ijf")
+theme_override_font_sizes/font_size = 24
+text = "Tutorial"
+flat = true
 
 [node name="QuitButton" type="Button" parent="MarginContainer/ButtonsMargin/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.34108266, 0.45029777, 0.46851754, 1)
+theme_override_colors/font_hover_color = Color(1, 0.8627451, 0.2901961, 1)
 theme_override_fonts/font = ExtResource("5_65ijf")
 theme_override_font_sizes/font_size = 24
 text = "Quit"
+flat = true
+
+[node name="SettingsMenu" parent="." instance=ExtResource("4_va3xh")]
+visible = false
+layout_mode = 1

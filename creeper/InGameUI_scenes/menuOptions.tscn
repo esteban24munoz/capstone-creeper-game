@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://pa8lcpg162do"]
 
-[ext_resource type="Script" uid="uid://cwvu5pmcl356o" path="res://InGameUI_scripts/Help.cs" id="1_ig73d"]
+[ext_resource type="Script" uid="uid://vhbthbwedu0x" path="res://InGameUI_scripts/MenuOptions.cs" id="1_ig73d"]
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="2_ypmps"]
 [ext_resource type="StyleBox" uid="uid://cxalsunrvb4jg" path="res://UI_assets/UI_Buttons/styled_button_texture.tres" id="3_d61tk"]
 [ext_resource type="StyleBox" uid="uid://lv2pdg5qvcwu" path="res://UI_assets/UI_Buttons/styled_button_hover_texture.tres" id="4_ig73d"]
@@ -43,34 +43,38 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="Button" type="Button" parent="MenuScreen/MenuContainer"]
+[node name="ResumeGame" type="Button" parent="MenuScreen/MenuContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 90)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("3_d61tk")
 theme_override_styles/hover = ExtResource("4_ig73d")
 text = "RESUME"
 
-[node name="Button2" type="Button" parent="MenuScreen/MenuContainer"]
+[node name="RestartGame" type="Button" parent="MenuScreen/MenuContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 90)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("3_d61tk")
 theme_override_styles/hover = ExtResource("4_ig73d")
 text = "RESTART"
 
-[node name="Button3" type="Button" parent="MenuScreen/MenuContainer"]
+[node name="SettingsMenu" type="Button" parent="MenuScreen/MenuContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 90)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("3_d61tk")
 theme_override_styles/hover = ExtResource("4_ig73d")
 text = "SOUND"
 
-[node name="Button4" type="Button" parent="MenuScreen/MenuContainer"]
-custom_minimum_size = Vector2(220, 90)
+[node name="MainMenu" type="Button" parent="MenuScreen/MenuContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 90)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = ExtResource("3_d61tk")
 theme_override_styles/hover = ExtResource("4_ig73d")
-text = "BACK TO MAIN MENU"
+text = "MAIN MENU"
 
 [node name="exitButtonContainer" type="MarginContainer" parent="."]
 layout_mode = 1

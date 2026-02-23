@@ -4,21 +4,114 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Linq;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading;
+using System.Text.Json;
 
 public partial class MTCS_Pure : Node
 {	
+	private static string SOFTSERVE_URL = "https://softserve.harding.edu";
+	private const string PLAYER_NAME = "LOTRAI";
+	private const string PLAYER_TOKEN = "yV73X6Wtg_4rAnHEI2UP1Iw53F9XkuQ4Gr-tbfWo1-M";
+	private const string PLAYER_EMAIL = "hconner@harding.edu";
+	private const string EVENT = "mirror";
+	private static System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
+	
+	public async void PlayAiVsAi()
+	{
+		string playStateUrl = $"{SOFTSERVE_URL}/aivai/play-state";
+		Model currentGame = new();
+		//while (true)
+		for (int i = 0; i < 1; i++)
+		{
+			var playStateObj = new
+			{
+				@event = EVENT,
+				player = PLAYER_NAME,
+				token = PLAYER_TOKEN
+			};
+			
+			GD.Print("Getting the state");
+			var playStateResponse = await client.PostAsJsonAsync(playStateUrl, playStateObj);
+			GD.Print(playStateResponse.StatusCode);
+			playStateResponse.EnsureSuccessStatusCode();
+
+			if (playStateResponse.StatusCode == System.Net.HttpStatusCode.NoContent)
+			{
+				// No games waiting for move, wait and continue
+				GD.Print("204: Sleep 5 seconds and try again");
+				await Task.Delay(5000);
+				continue;
+			}
+
+			var playStateJson = await playStateResponse.Content.ReadFromJsonAsync<JsonElement>();
+			//GD.Print(playStateJson);
+			string state = playStateJson.GetProperty("state").GetString();
+			string action_id = playStateJson.GetProperty("action_id").ToString();
+
+			GD.Print($"state:\t{state}");
+
+			/***************************************************************************************
+			Starting here, AI should take over. The code below is just a placeholder
+			to test the Network functionality. The state of the game is still just a string.
+			***************************************************************************************/
+			
+			//GD.Print("Testing Parse Function");
+			//ai.currentPlayer = ai.AIGame.UpdateState(state);
+			
+			Constants.Player activePlayer = currentGame.UpdateState(boardState);
+			MCTSNode currentNode = new MCTSNode(currentGame);
+			currentNode.currentPlayer = activePlayer;
+			Move bestMove = currentNode.GetBestMove(currentGame);
+			GD.Print($"Move {bestMove._from} {bestMove.to} chosen");
+			
+			//GD.Print("Testing Action Parsing");
+			string parsedAction = ParseAction(bestMove._from, bestMove.to);
+			
+			/************************************************************
+			End of placeholder AI
+			************************************************************/
+			
+			var submitActionObj = new
+			{
+				action = parsedAction,
+				action_id = action_id,
+				player = PLAYER_NAME,
+				token = PLAYER_TOKEN
+			};
+
+			var submitResponse = await client.PostAsJsonAsync($"{SOFTSERVE_URL}/aivai/submit-action", submitActionObj);
+			submitResponse.EnsureSuccessStatusCode();
+		}
+	}
+	
+	public string ParseAction(Vector2I from, Vector2I to)
+	{
+		//Convert the X to letters. Format should look like f7e6
+		int asciiValue = 96;
+		char fromCol = (char)(asciiValue+from.Y);
+		char toCol = (char)(asciiValue+to.Y);
+		
+		string action = $"{fromCol}{from.X}{toCol}{to.X}";
+		GD.Print(action);
+		return action;
+	}
+	
 	public override void _Ready()
 	{
-		string boardState = ".o..x..o.....xoo....x....x..x.....oxx..o....x.oo.o...xx.o.x.....x............oox....ox";
-		Model currentGame = new();
-		currentGame.UpdateState(boardState);
-		MCTSNode currentNode = new MCTSNode(currentGame);
-		Move bestMove = currentNode.GetBestMove(currentGame);
-		GD.Print($"Move {bestMove._from} {bestMove.to} chosen");
+		//string boardState = ".o..x..o.....xoo....x....x..x.....oxx..o....x.oo.o...xx.o.x.....x............oox....ox";
+		//Model currentGame = new();
+		//currentGame.UpdateState(boardState);
+		//MCTSNode currentNode = new MCTSNode(currentGame);
+		//Move bestMove = currentNode.GetBestMove(currentGame);
+		//GD.Print($"Move {bestMove._from} {bestMove.to} chosen");
+		PlayAiVsAi();
 	}
 	public string boardState = ".o..x..o.....xoo....x....x..x.....oxx..o....x.oo.o...xx.o.x.....x............oox....ox"; 
 	public Model currentGame;
-	public Constants.Player currentPlayer = Constants.Player.Enemy;
+	//public Constants.Player currentPlayer = Constants.Player.Hero;
 	//currentPlayer = currentGame.UpdateState(boardState);
 	
 	public class Move
@@ -49,7 +142,7 @@ public partial class MTCS_Pure : Node
 		public double Wins = 0;
 		public int Visits = 0;
 		public Move LastMove;
-		public Constants.Player currentPlayer = Constants.Player.Enemy;
+		public Constants.Player currentPlayer;
 
 		//Copy Constructor
 		public MCTSNode(MCTSNode other)

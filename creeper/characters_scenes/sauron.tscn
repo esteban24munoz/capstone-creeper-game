@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://cpdpv0t1t7qk7"]
+[gd_scene load_steps=68 format=3 uid="uid://cpdpv0t1t7qk7"]
 
 [ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_ocn03"]
 [ext_resource type="Texture2D" uid="uid://cgvdxeypndyxe" path="res://Art/Enemies/IDLE/Sauron Idle.png" id="2_ocn03"]
@@ -142,14 +142,6 @@ region = Rect2(0, 0, 64, 60)
 atlas = ExtResource("2_ocn03")
 region = Rect2(64, 0, 64, 60)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3d1gi"]
-atlas = ExtResource("3_m8n1r")
-region = Rect2(3, 643, 64, 63)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_82pai"]
-atlas = ExtResource("3_m8n1r")
-region = Rect2(67, 643, 64, 63)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_c6ify"]
 atlas = ExtResource("3_m8n1r")
 region = Rect2(131, 643, 64, 63)
@@ -206,14 +198,6 @@ region = Rect2(323, 580, 64, 63)
 atlas = ExtResource("3_m8n1r")
 region = Rect2(387, 580, 64, 63)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vlxbv"]
-atlas = ExtResource("3_m8n1r")
-region = Rect2(451, 580, 64, 63)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ftwmu"]
-atlas = ExtResource("3_m8n1r")
-region = Rect2(515, 580, 64, 63)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_6i3vm"]
 atlas = ExtResource("3_m8n1r")
 region = Rect2(3, 706, 64, 63)
@@ -241,22 +225,6 @@ region = Rect2(323, 706, 64, 63)
 [sub_resource type="AtlasTexture" id="AtlasTexture_btay1"]
 atlas = ExtResource("3_m8n1r")
 region = Rect2(387, 706, 64, 63)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rmbfo"]
-atlas = ExtResource("3_m8n1r")
-region = Rect2(451, 706, 64, 63)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2xwp2"]
-atlas = ExtResource("3_m8n1r")
-region = Rect2(515, 706, 64, 63)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5874n"]
-atlas = ExtResource("3_m8n1r")
-region = Rect2(5, 517, 64, 63)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4dtm1"]
-atlas = ExtResource("3_m8n1r")
-region = Rect2(69, 517, 64, 63)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cloql"]
 atlas = ExtResource("3_m8n1r")
@@ -416,12 +384,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3d1gi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_82pai")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_c6ify")
 }, {
 "duration": 1.0,
@@ -467,12 +429,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_430w1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vlxbv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ftwmu")
 }],
 "loop": true,
 "name": &"walk_left",
@@ -499,24 +455,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_btay1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rmbfo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2xwp2")
 }],
 "loop": true,
 "name": &"walk_right",
 "speed": 8.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5874n")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4dtm1")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cloql")
 }, {

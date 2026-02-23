@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://b2orflvid4e7g"]
+[gd_scene load_steps=36 format=4 uid="uid://v8rtqn5ipqng"]
 
 [ext_resource type="Script" uid="uid://dnttn430tx1qb" path="res://Grid.cs" id="1_u6jcp"]
 [ext_resource type="Texture2D" uid="uid://djms4xij1g142" path="res://Art/Tiles/New Neutral Tile Sprite.png" id="2_xrsif"]
@@ -25,6 +25,8 @@
 [ext_resource type="PackedScene" uid="uid://c1750db4ehttj" path="res://characters_scenes/light_orc.tscn" id="20_tyu4g"]
 [ext_resource type="PackedScene" uid="uid://duklysfm6g8yo" path="res://Bases_scenes/ring.tscn" id="21_kfiik"]
 [ext_resource type="PackedScene" uid="uid://rus8obsl870u" path="res://Bases_scenes/volcano.tscn" id="22_kfiik"]
+[ext_resource type="AudioStream" uid="uid://cmxqyp2yo4x1d" path="res://Sounds/Fire.wav" id="27_pisw8"]
+[ext_resource type="AudioStream" uid="uid://dhq2qppo5p54t" path="res://Sounds/Grass.wav" id="28_jpp3n"]
 [ext_resource type="Texture2D" uid="uid://b36u4koh0cyhc" path="res://UI_assets/GameBackground/GameBackground_v2.png" id="30_1l2id"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g32va"]
@@ -166,3 +168,14 @@ position = Vector2(-50, 335)
 
 [node name="Volcano" parent="TileMapLayer/Bases" instance=ExtResource("22_kfiik")]
 position = Vector2(622, -49)
+
+[node name="Fire" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("27_pisw8")
+volume_db = 5.0
+panning_strength = 0.0
+
+[node name="Grass" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("28_jpp3n")
+volume_db = 2.0
+pitch_scale = 0.5
+panning_strength = 0.0

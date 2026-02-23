@@ -33,6 +33,7 @@ public partial class CharacterBase : AnimatedSprite2D
 	}
 
 	Area2D area;
+	public AudioStreamPlayer2D Hit, Fade;
 	private int HoverOffset = 10;
 	public bool Hovering = false;
 	private bool MouseOver = false;
@@ -42,6 +43,9 @@ public partial class CharacterBase : AnimatedSprite2D
 		area = GetNode<Area2D>("Area2D");
 		area.MouseEntered += () => {EmitSignal(SignalName.MouseEntered, this); MouseOver = true;};
 		area.MouseExited += () => {EmitSignal(SignalName.MouseExited, this); MouseOver = false;};
+
+		Hit = GetNode<AudioStreamPlayer2D>("Hit");
+		Fade = GetNode<AudioStreamPlayer2D>("Fade");
 	}
 
 	public void Hover()

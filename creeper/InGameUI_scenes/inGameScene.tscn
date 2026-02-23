@@ -51,7 +51,7 @@ size_flags_vertical = 0
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Help" type="Button" parent="optionsContainer/VBoxContainer/HBoxContainer"]
+[node name="Help" type="Button" parent="optionsContainer/VBoxContainer/HBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(62, 46.5)
 layout_mode = 2
@@ -60,7 +60,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_nn33a")
 theme_override_styles/hover = SubResource("StyleBoxTexture_nn33a")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_nn33a")
 
-[node name="Menu" type="Button" parent="optionsContainer/VBoxContainer/HBoxContainer"]
+[node name="Menu" type="Button" parent="optionsContainer/VBoxContainer/HBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(62, 46.5)
 layout_mode = 2

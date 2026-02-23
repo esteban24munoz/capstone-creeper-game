@@ -47,7 +47,7 @@ size_flags_vertical = 0
 theme_override_constants/separation = 179
 alignment = 1
 
-[node name="Back" type="Button" parent="MarginContainer/UIContainer/titleContainer"]
+[node name="Back" type="Button" parent="MarginContainer/UIContainer/titleContainer" groups=["UIButton"]]
 visible = false
 custom_minimum_size = Vector2(70, 52)
 layout_mode = 2
@@ -62,7 +62,7 @@ theme_override_fonts/font = ExtResource("5_3kd8d")
 theme_override_font_sizes/font_size = 56
 text = "SELECT GAME MODE"
 
-[node name="Button2" type="Button" parent="MarginContainer/UIContainer/titleContainer"]
+[node name="Button2" type="Button" parent="MarginContainer/UIContainer/titleContainer" groups=["UIButton"]]
 visible = false
 custom_minimum_size = Vector2(70, 52)
 layout_mode = 2
@@ -85,7 +85,7 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 24
 
-[node name="SinglePlayer" type="Button" parent="MarginContainer/UIContainer/optionsContainer/VBoxContainer"]
+[node name="SinglePlayer" type="Button" parent="MarginContainer/UIContainer/optionsContainer/VBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(140, 70)
 layout_mode = 2
@@ -94,7 +94,7 @@ theme_override_styles/hover = ExtResource("8_q1ipb")
 theme_override_styles/hover_pressed = ExtResource("8_q1ipb")
 text = "Single Player"
 
-[node name="Multiplayer" type="Button" parent="MarginContainer/UIContainer/optionsContainer/VBoxContainer"]
+[node name="Multiplayer" type="Button" parent="MarginContainer/UIContainer/optionsContainer/VBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2
@@ -103,7 +103,7 @@ theme_override_styles/hover = ExtResource("8_q1ipb")
 theme_override_styles/hover_pressed = ExtResource("8_q1ipb")
 text = "Multiplayer"
 
-[node name="OnlineGame" type="Button" parent="MarginContainer/UIContainer/optionsContainer/VBoxContainer"]
+[node name="OnlineGame" type="Button" parent="MarginContainer/UIContainer/optionsContainer/VBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2

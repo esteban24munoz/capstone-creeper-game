@@ -71,7 +71,7 @@ size_flags_vertical = 0
 theme_override_constants/separation = 179
 alignment = 1
 
-[node name="Back" type="Button" parent="tutorialScreen/VBoxContainer/titleContainer"]
+[node name="Back" type="Button" parent="tutorialScreen/VBoxContainer/titleContainer" groups=["UIButton"]]
 visible = false
 custom_minimum_size = Vector2(70, 52)
 layout_mode = 2
@@ -86,7 +86,7 @@ theme_override_fonts/font = ExtResource("7_7xdnq")
 theme_override_font_sizes/font_size = 56
 text = "CHOOSE AI DIFFICULTY"
 
-[node name="Button2" type="Button" parent="tutorialScreen/VBoxContainer/titleContainer"]
+[node name="Button2" type="Button" parent="tutorialScreen/VBoxContainer/titleContainer" groups=["UIButton"]]
 visible = false
 custom_minimum_size = Vector2(70, 52)
 layout_mode = 2
@@ -138,7 +138,7 @@ horizontal_alignment = 1
 [node name="optionsButton" type="HBoxContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer"]
 layout_mode = 2
 
-[node name="CloseButton" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton"]
+[node name="CloseButton" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 51)
 layout_mode = 2
@@ -147,7 +147,7 @@ theme_override_styles/hover = ExtResource("8_xmim4")
 theme_override_styles/hover_pressed = ExtResource("8_xmim4")
 text = "Easy"
 
-[node name="CloseButton3" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton"]
+[node name="CloseButton3" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 51)
 layout_mode = 2
@@ -156,7 +156,7 @@ theme_override_styles/hover = ExtResource("8_xmim4")
 theme_override_styles/hover_pressed = ExtResource("8_xmim4")
 text = "Medium"
 
-[node name="CloseButton2" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton"]
+[node name="CloseButton2" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 51)
 layout_mode = 2
@@ -182,7 +182,7 @@ custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="Back" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/buttonContainer/HBoxContainer/BackSlot"]
+[node name="Back" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/buttonContainer/HBoxContainer/BackSlot" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(72, 52)
 layout_mode = 0
@@ -203,7 +203,7 @@ custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="Next" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/buttonContainer/HBoxContainer/NextSlot"]
+[node name="Next" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/buttonContainer/HBoxContainer/NextSlot" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(72, 52)
 layout_mode = 0

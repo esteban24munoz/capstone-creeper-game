@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -24,6 +25,7 @@ public partial class Grid : Node2D
 
 
 	TileMapLayer TileMap;
+	AudioStreamPlayer2D Fire, Grass;
 	Godot.Collections.Array<Node> characters;
 	public override void _Ready()
 	{
@@ -35,6 +37,9 @@ public partial class Grid : Node2D
 			c.MouseEntered += MouseEntered;
 			c.MouseExited += MouseExited;
 		}
+		
+		Fire = GetNode<AudioStreamPlayer2D>("Fire");
+		Grass = GetNode<AudioStreamPlayer2D>("Grass");
 	}
 
 	void OnClick(CharacterBase character)
@@ -210,6 +215,7 @@ public partial class Grid : Node2D
 		{
 			killer.Play("attack_down");
 		}
+		killer.Hit.Play();
 
 		//when attack animation is finished start killer's idle animation and toKill's die animation
 		void killerAnimationFinished()
@@ -223,6 +229,7 @@ public partial class Grid : Node2D
 			{
 				Tween tween = CreateTween();
 				tween.TweenProperty(toKill, "modulate:a", 0.0f, 1);
+				toKill.Fade.Play();
 
 				//when toKill is done fading out, move killer and delete toKill
 				tween.Finished += () =>
@@ -273,6 +280,16 @@ public partial class Grid : Node2D
 	{
 		//converts from standard grid coordinates to isometric
 		TileMap.SetCell(new(pos.Y + pos.X, pos.Y - pos.X), TileType[player], new(0,0));
+
+		switch (player)
+		{
+			case Constants.Player.Enemy:
+				Fire.Play();
+				break;
+			case Constants.Player.Hero:
+				Grass.Play();
+				break;
+		}
 	}
 
 	private static Vector2I ConvertGridtoPixel(Vector2I pos)

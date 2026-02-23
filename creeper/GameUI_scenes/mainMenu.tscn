@@ -65,7 +65,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 240
 
-[node name="TutorialButton" type="Button" parent="MarginContainer/ButtonsMargin/HBoxContainer"]
+[node name="TutorialButton" type="Button" parent="MarginContainer/ButtonsMargin/HBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2
@@ -73,7 +73,7 @@ theme_override_fonts/font = ExtResource("5_65ijf")
 theme_override_font_sizes/font_size = 24
 text = "Tutorial"
 
-[node name="StartButton" type="Button" parent="MarginContainer/ButtonsMargin/HBoxContainer"]
+[node name="StartButton" type="Button" parent="MarginContainer/ButtonsMargin/HBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2
@@ -81,7 +81,7 @@ theme_override_fonts/font = ExtResource("5_65ijf")
 theme_override_font_sizes/font_size = 30
 text = "Play"
 
-[node name="Settings" type="Button" parent="MarginContainer/ButtonsMargin/HBoxContainer"]
+[node name="Settings" type="Button" parent="MarginContainer/ButtonsMargin/HBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(120, 70)
@@ -91,7 +91,7 @@ theme_override_styles/hover = ExtResource("8_cdtku")
 theme_override_styles/hover_pressed = ExtResource("8_cdtku")
 text = "Settings"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/ButtonsMargin/HBoxContainer"]
+[node name="QuitButton" type="Button" parent="MarginContainer/ButtonsMargin/HBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2

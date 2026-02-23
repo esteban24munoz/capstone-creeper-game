@@ -11,9 +11,15 @@ config_version=5
 [application]
 
 config/name="Creeper"
-run/main_scene="uid://dnfdgphcwnnaq"
+run/main_scene="uid://cy75bjujm7j78"
+run/disable_stdout=true
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://cdh5gnijd8acy"
+config/windows_native_icon="res://Bases/The One Ring Sprite_frame_1.ico"
+
+[autoload]
+
+ButtonSoundManager="*res://GameUI_scenes/button_sound_manager.tscn"
 
 [display]
 
@@ -24,6 +30,10 @@ window/stretch/mode="viewport"
 [dotnet]
 
 project/assembly_name="Creeper"
+
+[global_group]
+
+UIButton=""
 
 [input]
 

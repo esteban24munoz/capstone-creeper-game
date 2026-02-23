@@ -210,7 +210,7 @@ custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="Back" type="Button" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum/buttonContainer/HBoxContainer/BackSlot"]
+[node name="Back" type="Button" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum/buttonContainer/HBoxContainer/BackSlot" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(72, 52)
 layout_mode = 0
@@ -230,7 +230,7 @@ custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="Next" type="Button" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum/buttonContainer/HBoxContainer/NextSlot"]
+[node name="Next" type="Button" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum/buttonContainer/HBoxContainer/NextSlot" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(72, 52)
 layout_mode = 0
@@ -241,7 +241,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_mmsdo")
 theme_override_styles/hover = SubResource("StyleBoxTexture_e3i4o")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_e3i4o")
 
-[node name="CloseButton" type="Button" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum"]
+[node name="CloseButton" type="Button" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum" groups=["UIButton"]]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(120, 51)
@@ -272,7 +272,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="Exit" type="Button" parent="exitButtonContainer/exitButton"]
+[node name="Exit" type="Button" parent="exitButtonContainer/exitButton" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2

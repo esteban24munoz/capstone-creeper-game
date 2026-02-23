@@ -59,7 +59,7 @@ size_flags_vertical = 0
 theme_override_constants/separation = 179
 alignment = 1
 
-[node name="Button" type="Button" parent="MarginContainer/UIContainer/buttonsContainer"]
+[node name="Button" type="Button" parent="MarginContainer/UIContainer/buttonsContainer" groups=["UIButton"]]
 visible = false
 custom_minimum_size = Vector2(70, 52)
 layout_mode = 2
@@ -74,7 +74,7 @@ theme_override_fonts/font = ExtResource("6_r0k66")
 theme_override_font_sizes/font_size = 56
 text = "CHOOSE YOUR TEAM"
 
-[node name="Button2" type="Button" parent="MarginContainer/UIContainer/buttonsContainer"]
+[node name="Button2" type="Button" parent="MarginContainer/UIContainer/buttonsContainer" groups=["UIButton"]]
 visible = false
 custom_minimum_size = Vector2(70, 52)
 layout_mode = 2
@@ -112,20 +112,20 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="Button" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer"]
+[node name="Button" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer" groups=["UIButton"]]
 custom_minimum_size = Vector2(61, 52)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("10_40n7o")
 theme_override_styles/hover = SubResource("StyleBoxTexture_lx2cq")
 
-[node name="Button2" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer"]
+[node name="Button2" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer" groups=["UIButton"]]
 custom_minimum_size = Vector2(61, 52)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_4xrc8")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ol5qf")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_ol5qf")
 
-[node name="StartGame" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer"]
+[node name="StartGame" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2

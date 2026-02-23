@@ -88,7 +88,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_constants/separation = 16
 
-[node name="PlayAgain" type="Button" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin/VBoxContainer/buttonsContainer"]
+[node name="PlayAgain" type="Button" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin/VBoxContainer/buttonsContainer" groups=["UIButton"]]
 custom_minimum_size = Vector2(180, 101.25)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("5_2y7rk")
@@ -96,7 +96,7 @@ theme_override_styles/hover = ExtResource("6_qx3c2")
 theme_override_styles/hover_pressed = ExtResource("6_qx3c2")
 text = "Play Again"
 
-[node name="ReturnMenu" type="Button" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin/VBoxContainer/buttonsContainer"]
+[node name="ReturnMenu" type="Button" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin/VBoxContainer/buttonsContainer" groups=["UIButton"]]
 custom_minimum_size = Vector2(180, 101.25)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("5_2y7rk")

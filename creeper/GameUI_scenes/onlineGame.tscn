@@ -107,7 +107,7 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 24
 
-[node name="StartGame" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer"]
+[node name="StartGame" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer" groups=["UIButton"]]
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("6_ymnuw")
@@ -115,7 +115,7 @@ theme_override_styles/hover = ExtResource("7_ju0vd")
 theme_override_styles/hover_pressed = ExtResource("7_ju0vd")
 text = "Play"
 
-[node name="StartGame2" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer"]
+[node name="StartGame2" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer" groups=["UIButton"]]
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("6_ymnuw")
@@ -123,7 +123,7 @@ theme_override_styles/hover = ExtResource("7_ju0vd")
 theme_override_styles/hover_pressed = ExtResource("7_ju0vd")
 text = "Tutorial"
 
-[node name="StartGame3" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer"]
+[node name="StartGame3" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer" groups=["UIButton"]]
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("6_ymnuw")
@@ -131,7 +131,7 @@ theme_override_styles/hover = ExtResource("7_ju0vd")
 theme_override_styles/hover_pressed = ExtResource("7_ju0vd")
 text = "Settings"
 
-[node name="StartGame4" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer"]
+[node name="StartGame4" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer" groups=["UIButton"]]
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("6_ymnuw")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cy75bjujm7j78"]
+[gd_scene load_steps=13 format=3 uid="uid://cy75bjujm7j78"]
 
 [ext_resource type="Script" uid="uid://ce33asv8yj453" path="res://GameUI_scripts/UIManager.cs" id="1_stm4m"]
 [ext_resource type="Texture2D" uid="uid://dn1ra2m8au2kx" path="res://UI_assets/TeamSelection/gradient-bkg.png" id="2_ecmct"]
@@ -8,8 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="5_6545i"]
 [ext_resource type="StyleBox" uid="uid://dlpn6pyq67rah" path="res://UI_assets/UI_Buttons/backButton_hover.tres" id="5_ktaii"]
 [ext_resource type="StyleBox" uid="uid://2nvh4x3dxlp7" path="res://UI_assets/UI_Buttons/menuButton_hover.tres" id="6_6545i"]
-[ext_resource type="AudioStream" uid="uid://cj6dcj6rdybfg" path="res://Music/Concerning Hobbits.wav" id="9_tcq21"]
-[ext_resource type="PackedScene" uid="uid://brrhcweyj3tc2" path="res://GameUI_scenes/settingsMenu.tscn" id="9_tcq21"]
+[ext_resource type="PackedScene" path="res://GameUI_scenes/settingsMenu.tscn" id="9_tcq21"]
+[ext_resource type="AudioStream" uid="uid://cj6dcj6rdybfg" path="res://Music/Concerning Hobbits.wav" id="10_ktaii"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u1f4g"]
 texture = ExtResource("4_tcq21")
@@ -136,7 +136,7 @@ mouse_filter = 1
 color = Color(0.11764706, 0.11764706, 0.11764706, 1)
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("9_tcq21")
+stream = ExtResource("10_ktaii")
 volume_db = -10.0
 autoplay = true
 panning_strength = 0.0

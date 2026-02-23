@@ -21,6 +21,13 @@ public partial class MTCS_Pure : Node2D
 	{
 		public Vector2I _from;
 		public Vector2I to;
+		
+		//Copy Constructor
+		public Move(Move other)
+		{
+			this._from = other._from;
+			this.to = other.to;
+		}
 	}
 	
 	//usage of a node came from gemini prompt "Generate a c# Monte Carlo Strategy"
@@ -35,6 +42,31 @@ public partial class MTCS_Pure : Node2D
 		public Move LastMove;
 		public Constants.Player currentPlayer = Constants.Player.Enemy;
 
+		//Copy Constructor
+		public MCTSNode(MCTSNode other)
+		{
+			//Primitive and value types
+			this.Wins = other.Wins;
+			this.Visits = other.Visits;
+			this.currentPlayer = other.currentPlayer;
+			
+			// Immutable or simple reference types
+			this.Action = other.Action != null ? new Move(other.Action) : null;
+			this.LastMove = other.LastMove != null ? new Move(other.LastMove) : null;
+			this.State = other.State != null ? new Model(other.State) : null;
+			this.Parent = other.Parent;
+			
+			if (other.Children != null)
+			{
+				this.Children = other.Children
+					.Select(child => new MCTSNode(child) {Parent = this }).ToList();
+			}
+			else
+			{
+				this.Children = new List<MCTSNode>();
+			}
+		}
+		
 		public MCTSNode(Model state, MCTSNode parent = null, Move action = null) 
 		{
 			State = state;

@@ -7,22 +7,24 @@ public partial class AI : Node2D
 {
 	public Model AIGame = new Model();
 	public Constants.Player currentPlayer = Constants.Player.Hero;
-	string gameState = "";
-	int gameNumber = 1;
+	public Constants.Player otherPlayer = Constants.Player.Enemy;
+	string boardState = "";
+	int gameNo = 11031;
 
 	public override void _Ready()
 	{
 		GD.Print("Starting test");
-		for (gameNumber = 0; gameNumber < 10; gameNumber++)
+		for (int i = 0; i < 15000; i++)
 		{
 			//GD.Print($"Game: {i+1}");
 			bool isGameDone = PlayGame();
 			//GD.Print($"Game: {i+1} is done");
 			//Need to reset the game to a fresh game and save old game data for stragey
+			gameNo++;
 			AIGame = new Model();
 			currentPlayer = Constants.Player.Hero; 
 		}
-		GD.Print($"Game {gameNumber+1} done");
+		GD.Print($"Game {gameNo} done");
 	}
 	
 	Vector2I SelectRandomPiece()
@@ -77,34 +79,45 @@ public partial class AI : Node2D
 	bool PlayGame()
 	{
 		bool isGameOver = false;
+		int turnNo = 0;
 		
 		while (!isGameOver)
 		{
+			turnNo++;
 			Vector2I piece = SelectRandomPiece();
 			bool moveMade = MakeRandomMove(piece);
 			Constants.Player checkWin = AIGame.FindWinner();
-			gameState = "asdfghf";
-			var gdNode = GetNode("Node");
-			gdNode.Call("save_game_state", gameState);
+			boardState = AIGame.StringifyState();
 			
 			if (currentPlayer == checkWin || !moveMade)
 			{
 				isGameOver = true;
+				var gdNode = GetNode("Node");
+				gdNode.Call("save_game_state", gameNo, turnNo, boardState, checkWin.ToString());
+				
+			}
+			else if (AIGame.IsDraw(otherPlayer))
+			{
+				isGameOver = true;
+				checkWin = Constants.Player.Draw;
+				var gdNode = GetNode("Node");
+				gdNode.Call("save_game_state", gameNo, turnNo, boardState, checkWin.ToString());
 			}
 			else {
+				var gdNode = GetNode("Node");
+				gdNode.Call("save_game_state", gameNo, turnNo, boardState, checkWin.ToString());
 				if (currentPlayer == Constants.Player.Hero)
 				{
 					currentPlayer = Constants.Player.Enemy;
+					otherPlayer = Constants.Player.Hero;
 				}
 				else
 				{
 					currentPlayer = Constants.Player.Hero;
+					otherPlayer = Constants.Player.Enemy;
 				}
 			}
-			if (AIGame.IsDraw(currentPlayer))
-			{
-				isGameOver = true;
-			}
+			
 		}
 		return isGameOver;
 	}

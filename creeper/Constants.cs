@@ -3,6 +3,7 @@ public static class Constants {
 	{
 		Hero,
 		Enemy,
+		Draw,
 		None
 	}
 }

@@ -24,7 +24,7 @@ public partial class GameMode : Control
 			_ui.ShowScreen("res://GameUI_scenes/teamSelection.tscn");
 		
 		GetNode<Button>("%OnlineGame").Pressed += () => 
-			_ui.ShowScreen("res://GameUI_scenes/tutorialScreen.tscn");
+			_ui.ShowScreen("res://Networking/multiplayer_test.tscn");
 
 	}
 }

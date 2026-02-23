@@ -112,7 +112,7 @@ namespace Client {
 				Globals.status = _created.Status;
 
 				// 2) Start heartbeat loop (run concurrently)
-				_ = HeartbeatLoopAsync(_created, Globals.cts.Token);
+				_ = HeartbeatLoopAsync(Globals.cts.Token);
 
 				// Example: poll state periodically and optionally make a move.
 				while (!Globals.cts.Token.IsCancellationRequested)
@@ -142,7 +142,7 @@ namespace Client {
 					}
 					catch (Exception ex)
 					{
-						//GD.PrintErr($"[Host] Poll error: {ex.Message}");
+						GD.PrintErr($"[Host] Poll error: {ex.Message}");
 					}
 
 					await Task.Delay(TimeSpan.FromSeconds(2), Globals.cts.Token);
@@ -154,7 +154,7 @@ namespace Client {
 			}
 		}
 		
-		private async Task HeartbeatLoopAsync(GameCreatedResponse created, CancellationToken ct)
+		private async Task HeartbeatLoopAsync(CancellationToken ct)
 		{
 			// Heartbeat interval should be well under server PLAYER_TIMEOUT (server default 120s).
 			var interval = TimeSpan.FromSeconds(20);
@@ -163,7 +163,7 @@ namespace Client {
 			{
 				try
 				{
-					await Globals.hostClient.HeartbeatAsync(created.GameId, created.HostToken, ct);
+					await Globals.hostClient.HeartbeatAsync(Globals.gameId, Globals.hostToken, ct);
 				}
 				catch (Exception ex)
 				{

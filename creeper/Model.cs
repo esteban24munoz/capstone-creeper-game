@@ -322,9 +322,7 @@ public class Model
 		{
 			for (int col = 0; col < 7; col ++)
 			{
-				GD.Print("Before: ",Grid[row,col]);
 				Grid[row,col] = pins[row,col];
-				GD.Print("After: ",Grid[row,col]);
 			}
 		}
 		

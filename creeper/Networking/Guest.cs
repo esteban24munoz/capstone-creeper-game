@@ -135,7 +135,7 @@ namespace Client {
 
 		// Events other nodes can subscribe to
 		public event Action<JoinResponse>? OnJoined;
-		public event Action<GameStateResponse>? OnStateUpdated;
+		//public event Action<GameStateResponse>? OnStateUpdated;
 		public event Action<string>? OnError;
 		
 		private void _on_game_id_text_changed(string gameId)
@@ -157,6 +157,7 @@ namespace Client {
 		private async void _on_join_btn_pressed()
 		{
 			await StartGuestFlowAsync(Globals.gameId, Globals.username, Globals.cts.Token);
+			_ = HeartbeatLoopAsync(Globals.cts.Token);
 			GetTree().ChangeSceneToFile("res://game.tscn");
 		}
 		
@@ -199,7 +200,7 @@ namespace Client {
 				
 				//GetTree().ChangeSceneToFile("res://game.tscn");
 				// start heartbeat and polling
-				_ = HeartbeatLoopAsync(_joinInfo, ct);
+				//_ = HeartbeatLoopAsync(ct);
 				//_ = PollStateLoopAsync(_joinInfo.GameId, ct);
 			}
 			catch (Exception ex)
@@ -209,14 +210,14 @@ namespace Client {
 			}
 		}
 		
-		private async Task HeartbeatLoopAsync(JoinResponse join, CancellationToken ct)
+		private async Task HeartbeatLoopAsync(CancellationToken ct)
 		{
 			var interval = TimeSpan.FromSeconds(20); // keep < server PLAYER_TIMEOUT
 			while (!ct.IsCancellationRequested)
 			{
 				try
 				{
-					await Globals.guestClient.HeartbeatAsync(join.GameId, join.GuestToken, ct).ConfigureAwait(false);
+					await Globals.guestClient.HeartbeatAsync(Globals.gameId, Globals.guestToken, ct).ConfigureAwait(false);
 				}
 				catch (Exception ex)
 				{

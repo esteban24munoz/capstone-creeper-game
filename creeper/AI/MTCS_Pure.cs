@@ -9,13 +9,15 @@ public partial class MTCS_Pure : Node
 {	
 	public override void _Ready()
 	{
+		string boardState = ".o..x..o.....xoo....x....x..x.....oxx..o....x.oo.o...xx.o.x.....x............oox....ox";
+		Model currentGame = new();
+		currentGame.UpdateState(boardState);
 		MCTSNode currentNode = new MCTSNode(currentGame);
 		Move bestMove = currentNode.GetBestMove(currentGame);
-		GD.Print($"Move {bestMove} chosen");
+		GD.Print($"Move {bestMove._from} {bestMove.to} chosen");
 	}
-	public string boardState = ".oo.x..o....xxo.....x.......x.....ox.....o.xx.oo.o....x........................x....o"; 
+	public string boardState = ".o..x..o.....xoo....x....x..x.....oxx..o....x.oo.o...xx.o.x.....x............oox....ox"; 
 	public Model currentGame;
-	private const double c = 1.41421356;
 	public Constants.Player currentPlayer = Constants.Player.Enemy;
 	//currentPlayer = currentGame.UpdateState(boardState);
 	
@@ -78,7 +80,7 @@ public partial class MTCS_Pure : Node
 		{
 			State = state;
 			Parent = parent;
-			Action = action;
+			LastMove = action;
 		}
 		public double GetUCB1(double explorationConstant = 1.41)
 		{
@@ -101,6 +103,8 @@ public partial class MTCS_Pure : Node
 				float result = Simulate(clone);
 				Backpropagate(selected, result);
 			}
+			GD.Print(root.Children.Count);
+			GD.Print("Move "+root.Children.OrderByDescending(c => c.Visits).FirstOrDefault());
 			return root.Children.OrderByDescending(c => c.Visits).FirstOrDefault()?.LastMove;
 		}
 		private MCTSNode Select(MCTSNode node)

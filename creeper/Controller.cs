@@ -87,14 +87,15 @@ public partial class Controller : Node2D
 					{
 						GD.PrintErr($"[Host] Poll error: {ex.Message}");
 					}
+					//TODO:: Toggle turn and wait for other player. Update Game State and UI according to move
 				}
-				else if (Globals.gameType == "Local")
+				else if (Globals.gameType == "AI")
+				{
+					//TODO:: AI game handling
+				}
+				else //gameType is Local
 				{
 					NewTurn();
-				}
-				else //gameType is AI
-				{
-					
 				}
 			}
 		}

@@ -32,6 +32,13 @@ public class Model
 	{
 		pastStates.Enqueue(StringifyState());
 	}
+	
+	//Copy Constructor needed for AI
+	public Model(Model existingModel)
+	{
+		this.Grid = (Constants.Player[,])existingModel.Grid.Clone();
+		this.Tiles = (Constants.Player[,])existingModel.Tiles.Clone();
+	}
 
 	//moves the appropriate character as well deletes jumped characters and updates jumped hexes
 	public void MoveCharacter(Vector2I from, Vector2I to)
@@ -125,8 +132,8 @@ public class Model
 		string[] statesArray = pastStates.ToArray();
 		if (statesArray.Length == (REPEATS_UNTIL_DRAW * 4) + 1)
 		{
-            bool draw = true;
-            for (int i = 4; i < statesArray.Length; i += 4)
+			bool draw = true;
+			for (int i = 4; i < statesArray.Length; i += 4)
 			{
 				if (statesArray[i] != statesArray[0])
 				{

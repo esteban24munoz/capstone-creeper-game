@@ -7,7 +7,7 @@ public partial class MainMenu : Control
 
 	public override void _Ready()
 	{
-		// Get the global reference we just created
+		// Get the global reference
 		_ui = UIManager.Instance;
 
 		if (_ui == null)
@@ -22,6 +22,13 @@ public partial class MainMenu : Control
 
 		GetNode<Button>("%TutorialButton").Pressed += () => 
 			_ui.ShowScreen("res://GameUI_scenes/tutorialScreen.tscn");
+			
+		GetNode<Button>("%SettingsButton").Pressed += () => 
+			GetNode<Control>("SettingsMenu").Visible = true;
+			
+		GetNode<Button>("%CreditsButton").Pressed += () => 
+		_ui.ShowScreen("res://GameUI_scenes/creditsScreen.tscn");
+
 
 		GetNode<Button>("%QuitButton").Pressed += () => GetTree().Quit();
 	}

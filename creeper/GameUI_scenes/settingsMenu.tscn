@@ -1,0 +1,131 @@
+[gd_scene load_steps=8 format=3 uid="uid://brrhcweyj3tc2"]
+
+[ext_resource type="Script" uid="uid://cb8c7v03nq7x" path="res://GameUI_scripts/SettingsMenu.cs" id="1_xcfh5"]
+[ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="2_qhr54"]
+[ext_resource type="Texture2D" uid="uid://cytitecbkq37w" path="res://UI_assets/Tutorial/settings_modal.png" id="3_xcfh5"]
+[ext_resource type="StyleBox" uid="uid://buyitcrqna1ux" path="res://UI_assets/UI_Buttons/normal_button_texture.tres" id="8_ihoti"]
+[ext_resource type="StyleBox" uid="uid://dclx2cpxac0q0" path="res://UI_assets/UI_Buttons/normal_button_hover_texture.tres" id="9_xvjkf"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_5u4q0"]
+color = Color(0.2715445, 0.3629551, 0.3798641, 1)
+thickness = 8
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_1wofd"]
+color = Color(1, 0.8627451, 0.2901961, 1)
+thickness = 8
+
+[node name="SettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xcfh5")
+
+[node name="darkBackgroundOverlay" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1024.0
+offset_bottom = 640.0
+texture = ExtResource("2_qhr54")
+
+[node name="tutorialScreen" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 56
+
+[node name="VBoxContainer" type="VBoxContainer" parent="tutorialScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="tutorialMenuContainer" type="VBoxContainer" parent="tutorialScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="backgroundGolum" type="TextureRect" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_xcfh5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -67.442505
+offset_right = 192.0
+offset_bottom = 67.442505
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="TutorialText" type="RichTextLabel" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(1, 0.8627451, 0.2901961, 1)
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "OPTIONS "
+fit_content = true
+autowrap_mode = 2
+horizontal_alignment = 1
+
+[node name="MusicContainer" type="HBoxContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Label" type="Label" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/MusicContainer"]
+layout_mode = 2
+text = "Music"
+
+[node name="HSlider" type="HSlider" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/MusicContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/slider = SubResource("StyleBoxLine_5u4q0")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_1wofd")
+value = 50.0
+
+[node name="SoundEffecContainer" type="HBoxContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 42
+
+[node name="Label" type="Label" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/SoundEffecContainer"]
+layout_mode = 2
+text = "SFX"
+
+[node name="HSlider" type="HSlider" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/SoundEffecContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/slider = SubResource("StyleBoxLine_5u4q0")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_1wofd")
+value = 50.0
+
+[node name="optionsButton" type="HBoxContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CloseButton" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 51)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("8_ihoti")
+theme_override_styles/hover = ExtResource("9_xvjkf")
+theme_override_styles/hover_pressed = ExtResource("9_xvjkf")
+text = "Close"

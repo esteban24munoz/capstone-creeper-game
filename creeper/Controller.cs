@@ -32,7 +32,7 @@ public partial class Controller : Node2D
 
 	//This is the main game loop
 	//This method is called every time a character is clicked
-	void OnClick(Vector2I pos)
+	async void OnClick(Vector2I pos)
 	{
 		//If there is no selected character and the clicked character matches the active player,
 		//make the clicked character selected and instantiate ghosts on the valid spaces
@@ -74,7 +74,29 @@ public partial class Controller : Node2D
 
 				ViewInstance.RemoveGhosts();
 				SelectedCharacter = null;
-				NewTurn();
+				if (Globals.gameType == "Network")
+				{
+					try
+					{
+						string state = ModelInstance.StringifyState();
+						await Globals.hostClient.MakeMoveAsync(Globals.gameId, Globals.hostToken, state, Globals.cts.Token);
+						GD.Print("[Host] Submitted a move.");
+						
+					}
+					catch (Exception ex)
+					{
+						GD.PrintErr($"[Host] Poll error: {ex.Message}");
+					}
+					//TODO:: Toggle turn and wait for other player. Update Game State and UI according to move
+				}
+				else if (Globals.gameType == "AI")
+				{
+					//TODO:: AI game handling
+				}
+				else //gameType is Local
+				{
+					NewTurn();
+				}
 			}
 		}
 	}

@@ -1,0 +1,130 @@
+[gd_scene load_steps=11 format=3 uid="uid://diytp2fq38kpo"]
+
+[ext_resource type="Script" uid="uid://c2ds11rrpmwad" path="res://Networking/Guest.cs" id="1_3ehw5"]
+[ext_resource type="Texture2D" uid="uid://dn1ra2m8au2kx" path="res://UI_assets/TeamSelection/gradient-bkg.png" id="2_emlmw"]
+[ext_resource type="Texture2D" uid="uid://guby48e31ivk" path="res://UI_assets/TeamSelection/Character Trees.png" id="3_upaj8"]
+[ext_resource type="Texture2D" uid="uid://bl73um72w5ddo" path="res://UI_assets/TeamSelection/Moria Gate.png" id="4_8lbxw"]
+[ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="5_t8hsa"]
+[ext_resource type="Texture2D" uid="uid://fiu2mgen58wi" path="res://UI_assets/UI_Buttons/Buttons_states_v2.png" id="6_t3pyp"]
+[ext_resource type="StyleBox" uid="uid://dlpn6pyq67rah" path="res://UI_assets/UI_Buttons/backButton_hover.tres" id="7_mwc38"]
+[ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="8_wdlxe"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dl61h"]
+texture = ExtResource("6_t3pyp")
+region_rect = Rect2(172, 178, 120, 70)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yi5od"]
+texture = ExtResource("6_t3pyp")
+region_rect = Rect2(38, 92, 70, 52)
+
+[node name="GuestTest" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_3ehw5")
+
+[node name="Background" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 1025.0
+offset_bottom = 642.0
+
+[node name="gradientBkg" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.5
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_emlmw")
+
+[node name="gradientBkg2" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.5
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_upaj8")
+
+[node name="gradientBkg4" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -225.0
+offset_top = -600.0
+offset_right = 225.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("4_8lbxw")
+stretch_mode = 2
+
+[node name="gradientBkg3" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.5
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_t8hsa")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 354.0
+offset_top = 212.0
+offset_right = 690.0
+offset_bottom = 243.0
+
+[node name="GameIDLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Enter Room code"
+
+[node name="GameID" type="LineEdit" parent="HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+placeholder_text = "Code"
+
+[node name="JoinBtn" type="Button" parent="."]
+custom_minimum_size = Vector2(120, 70)
+layout_mode = 0
+offset_left = 441.0
+offset_top = 258.0
+offset_right = 561.0
+offset_bottom = 328.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_dl61h")
+text = "Join"
+
+[node name="BackButton" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 52)
+layout_mode = 0
+offset_left = 75.0
+offset_top = 58.0
+offset_right = 145.0
+offset_bottom = 110.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_yi5od")
+theme_override_styles/hover = ExtResource("7_mwc38")
+theme_override_styles/hover_pressed = ExtResource("7_mwc38")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 297.0
+offset_top = 78.0
+offset_right = 731.0
+offset_bottom = 158.0
+theme_override_colors/font_color = Color(1, 0.8627451, 0.2901961, 1)
+theme_override_fonts/font = ExtResource("8_wdlxe")
+theme_override_font_sizes/font_size = 72
+text = "Lobby"
+horizontal_alignment = 1
+
+[connection signal="text_changed" from="HBoxContainer/GameID" to="." method="_on_game_id_text_changed"]
+[connection signal="pressed" from="JoinBtn" to="." method="_on_join_btn_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_btn_pressed"]

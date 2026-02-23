@@ -24,7 +24,7 @@ public partial class MTCS_Pure : Node
 		string playStateUrl = $"{SOFTSERVE_URL}/aivai/play-state";
 		Model currentGame = new();
 		//while (true)
-		for (int i = 0; i < 1; i++)
+		for (int i = 0; i < 10; i++)
 		{
 			var playStateObj = new
 			{
@@ -35,7 +35,7 @@ public partial class MTCS_Pure : Node
 			
 			GD.Print("Getting the state");
 			var playStateResponse = await client.PostAsJsonAsync(playStateUrl, playStateObj);
-			GD.Print(playStateResponse.StatusCode);
+			//GD.Print(playStateResponse.StatusCode);
 			playStateResponse.EnsureSuccessStatusCode();
 
 			if (playStateResponse.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -58,10 +58,7 @@ public partial class MTCS_Pure : Node
 			to test the Network functionality. The state of the game is still just a string.
 			***************************************************************************************/
 			
-			//GD.Print("Testing Parse Function");
-			//ai.currentPlayer = ai.AIGame.UpdateState(state);
-			
-			Constants.Player activePlayer = currentGame.UpdateState(boardState);
+			Constants.Player activePlayer = currentGame.UpdateState(state);
 			MCTSNode currentNode = new MCTSNode(currentGame);
 			currentNode.currentPlayer = activePlayer;
 			Move bestMove = currentNode.GetBestMove(currentGame);
@@ -90,11 +87,12 @@ public partial class MTCS_Pure : Node
 	public string ParseAction(Vector2I from, Vector2I to)
 	{
 		//Convert the X to letters. Format should look like f7e6
-		int asciiValue = 96;
-		char fromCol = (char)(asciiValue+from.Y);
-		char toCol = (char)(asciiValue+to.Y);
+		//int asciiValue = 97;
+		char fromCol = (char)('a' + from.Y);
+		char toCol = (char)('a' + to.Y);
 		
-		string action = $"{fromCol}{from.X}{toCol}{to.X}";
+		string action = $"{fromCol}{from.X + 1}{toCol}{to.X + 1}";
+		//string action = $"{fromCol}{from.Y + 1}{toCol}{to.Y + 1}";
 		GD.Print(action);
 		return action;
 	}
@@ -196,8 +194,8 @@ public partial class MTCS_Pure : Node
 				float result = Simulate(clone);
 				Backpropagate(selected, result);
 			}
-			GD.Print(root.Children.Count);
-			GD.Print("Move "+root.Children.OrderByDescending(c => c.Visits).FirstOrDefault());
+			//GD.Print(root.Children.Count);
+			//GD.Print("Move "+root.Children.OrderByDescending(c => c.Visits).FirstOrDefault());
 			return root.Children.OrderByDescending(c => c.Visits).FirstOrDefault()?.LastMove;
 		}
 		private MCTSNode Select(MCTSNode node)

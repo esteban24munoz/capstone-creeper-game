@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c54qtjpsk8am8"]
+[gd_scene load_steps=19 format=3 uid="uid://c54qtjpsk8am8"]
 
 [ext_resource type="Script" uid="uid://c7yx0p7xjj8rp" path="res://Networking/MultiplayerTest.cs" id="1_yj2l8"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="3_n2hxb"]
@@ -17,13 +17,37 @@ region_rect = Rect2(38, 92, 70, 52)
 texture = ExtResource("8_gs1pn")
 region_rect = Rect2(172, 178, 120, 70)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_frxoa"]
+texture = ExtResource("8_gs1pn")
+region_rect = Rect2(334, 178, 120, 70)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x2hub"]
+texture = ExtResource("8_gs1pn")
+region_rect = Rect2(334, 178, 120, 70)
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m22bh"]
 texture = ExtResource("8_gs1pn")
 region_rect = Rect2(172, 178, 120, 70)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n2hxb"]
+texture = ExtResource("8_gs1pn")
+region_rect = Rect2(334, 178, 120, 70)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_13txr"]
+texture = ExtResource("8_gs1pn")
+region_rect = Rect2(334, 178, 120, 70)
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_upmrr"]
 texture = ExtResource("8_gs1pn")
 region_rect = Rect2(172, 178, 120, 70)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q7b8u"]
+texture = ExtResource("8_gs1pn")
+region_rect = Rect2(334, 178, 120, 70)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n0188"]
+texture = ExtResource("8_gs1pn")
+region_rect = Rect2(334, 178, 120, 70)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -138,20 +162,27 @@ grow_vertical = 2
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_ssc5p")
+theme_override_styles/hover = SubResource("StyleBoxTexture_frxoa")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_x2hub")
 text = "AI vs AI"
 
 [node name="HostBtn" type="Button" parent="HBoxContainer"]
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_m22bh")
+theme_override_styles/hover = SubResource("StyleBoxTexture_n2hxb")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_13txr")
 text = "Host Game"
 
 [node name="JoinBtn" type="Button" parent="HBoxContainer"]
 custom_minimum_size = Vector2(120, 70)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_upmrr")
+theme_override_styles/hover = SubResource("StyleBoxTexture_q7b8u")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_n0188")
 text = "Join Game"
 
+[connection signal="pressed" from="BackButton" to="." method="_on_back_btn_pressed"]
 [connection signal="text_changed" from="Username" to="." method="_on_username_text_changed"]
 [connection signal="pressed" from="HBoxContainer/AIvAIBtn" to="." method="_on_ai_btn_pressed"]
 [connection signal="pressed" from="HBoxContainer/HostBtn" to="." method="_on_host_btn_pressed"]

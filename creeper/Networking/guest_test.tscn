@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://diytp2fq38kpo"]
+[gd_scene load_steps=13 format=3 uid="uid://diytp2fq38kpo"]
 
 [ext_resource type="Script" uid="uid://c2ds11rrpmwad" path="res://Networking/Guest.cs" id="1_3ehw5"]
 [ext_resource type="Texture2D" uid="uid://dn1ra2m8au2kx" path="res://UI_assets/TeamSelection/gradient-bkg.png" id="2_emlmw"]
@@ -12,6 +12,14 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dl61h"]
 texture = ExtResource("6_t3pyp")
 region_rect = Rect2(172, 178, 120, 70)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_emlmw"]
+texture = ExtResource("6_t3pyp")
+region_rect = Rect2(334, 178, 120, 70)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_upaj8"]
+texture = ExtResource("6_t3pyp")
+region_rect = Rect2(334, 178, 120, 70)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yi5od"]
 texture = ExtResource("6_t3pyp")
@@ -99,6 +107,8 @@ offset_top = 258.0
 offset_right = 561.0
 offset_bottom = 328.0
 theme_override_styles/normal = SubResource("StyleBoxTexture_dl61h")
+theme_override_styles/hover = SubResource("StyleBoxTexture_emlmw")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_upaj8")
 text = "Join"
 
 [node name="BackButton" type="Button" parent="."]

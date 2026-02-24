@@ -138,7 +138,7 @@ horizontal_alignment = 1
 [node name="optionsButton" type="HBoxContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer"]
 layout_mode = 2
 
-[node name="CloseButton" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton" groups=["UIButton"]]
+[node name="EasyButton" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 51)
 layout_mode = 2
@@ -147,7 +147,7 @@ theme_override_styles/hover = ExtResource("8_xmim4")
 theme_override_styles/hover_pressed = ExtResource("8_xmim4")
 text = "Easy"
 
-[node name="CloseButton3" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton" groups=["UIButton"]]
+[node name="MediumButton" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 51)
 layout_mode = 2
@@ -156,7 +156,7 @@ theme_override_styles/hover = ExtResource("8_xmim4")
 theme_override_styles/hover_pressed = ExtResource("8_xmim4")
 text = "Medium"
 
-[node name="CloseButton2" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton" groups=["UIButton"]]
+[node name="ExpertButton" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton" groups=["UIButton"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 51)
 layout_mode = 2

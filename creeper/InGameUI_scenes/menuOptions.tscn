@@ -43,28 +43,32 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="Button" type="Button" parent="MenuScreen/MenuContainer" groups=["UIButton"]]
+[node name="ResumeGame" type="Button" parent="MenuScreen/MenuContainer" groups=["UIButton"]]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 90)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("3_d61tk")
 theme_override_styles/hover = ExtResource("4_ig73d")
 text = "RESUME"
 
-[node name="Button2" type="Button" parent="MenuScreen/MenuContainer" groups=["UIButton"]]
+[node name="RestartGame" type="Button" parent="MenuScreen/MenuContainer" groups=["UIButton"]]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 90)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("3_d61tk")
 theme_override_styles/hover = ExtResource("4_ig73d")
 text = "RESTART"
 
-[node name="Button3" type="Button" parent="MenuScreen/MenuContainer" groups=["UIButton"]]
+[node name="SettingsMenu" type="Button" parent="MenuScreen/MenuContainer" groups=["UIButton"]]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 90)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("3_d61tk")
 theme_override_styles/hover = ExtResource("4_ig73d")
 text = "SOUND"
 
-[node name="Button4" type="Button" parent="MenuScreen/MenuContainer" groups=["UIButton"]]
+[node name="MainMenu" type="Button" parent="MenuScreen/MenuContainer" groups=["UIButton"]]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(220, 90)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16

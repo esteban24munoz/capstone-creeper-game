@@ -71,7 +71,7 @@ size_flags_vertical = 4
 theme_override_colors/default_color = Color(1, 0.8627451, 0.2901961, 1)
 bbcode_enabled = true
 text = "TEAM LEAD: Esteban Munoz
-DEVELOPER: Andrew Richardson
+DEVELOPER LEAD: Andrew Richardson
 AI LEAD: Craig Dodson
 NETWORKING LEAD: Hannah Dodson
 GRAPHICS: Naomi McNaughton"

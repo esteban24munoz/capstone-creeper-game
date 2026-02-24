@@ -1,36 +1,36 @@
-[gd_scene load_steps=21 format=3 uid="uid://bv0f4lsofp6e2"]
+[gd_scene load_steps=21 format=3 uid="uid://c5omwcqa00kij"]
 
-[ext_resource type="Script" uid="uid://dgnovwq5tacle" path="res://InGameUI_scripts/TutorialScreen.cs" id="1_b1l10"]
-[ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="2_yxf4c"]
-[ext_resource type="Texture2D" uid="uid://drksn8vyup10s" path="res://UI_assets/Tutorial/gollum.png" id="3_qvx7c"]
-[ext_resource type="Texture2D" uid="uid://d28dovjdgakqx" path="res://UI_assets/Tutorial/Movement Example_v2.png" id="4_winlv"]
-[ext_resource type="Texture2D" uid="uid://10h8t00hoopk" path="res://UI_assets/Tutorial/completed_path_checked.png" id="5_310n0"]
-[ext_resource type="Texture2D" uid="uid://clt2nw2g1801j" path="res://UI_assets/Tutorial/uncompleted_path_wrong.png" id="6_vxlmh"]
-[ext_resource type="Texture2D" uid="uid://b72xvivoiivrg" path="res://UI_assets/UI_Buttons/Tutorial Arrow.png" id="7_55goi"]
-[ext_resource type="StyleBox" uid="uid://buyitcrqna1ux" path="res://UI_assets/UI_Buttons/normal_button_texture.tres" id="8_krh7m"]
-[ext_resource type="StyleBox" uid="uid://dclx2cpxac0q0" path="res://UI_assets/UI_Buttons/normal_button_hover_texture.tres" id="9_t2ev5"]
+[ext_resource type="Script" uid="uid://dgnovwq5tacle" path="res://InGameUI_scripts/TutorialScreen.cs" id="1_1phf8"]
+[ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="2_0hpwb"]
+[ext_resource type="Texture2D" uid="uid://drksn8vyup10s" path="res://UI_assets/Tutorial/gollum.png" id="3_o0yym"]
+[ext_resource type="Texture2D" uid="uid://d28dovjdgakqx" path="res://UI_assets/Tutorial/Movement Example_v2.png" id="4_52naf"]
+[ext_resource type="Texture2D" uid="uid://10h8t00hoopk" path="res://UI_assets/Tutorial/completed_path_checked.png" id="5_xu54j"]
+[ext_resource type="Texture2D" uid="uid://clt2nw2g1801j" path="res://UI_assets/Tutorial/uncompleted_path_wrong.png" id="6_ykhmn"]
+[ext_resource type="Texture2D" uid="uid://b72xvivoiivrg" path="res://UI_assets/UI_Buttons/Tutorial Arrow.png" id="7_6ihru"]
+[ext_resource type="StyleBox" uid="uid://buyitcrqna1ux" path="res://UI_assets/UI_Buttons/normal_button_texture.tres" id="8_e3h3t"]
+[ext_resource type="StyleBox" uid="uid://dclx2cpxac0q0" path="res://UI_assets/UI_Buttons/normal_button_hover_texture.tres" id="9_utsle"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ibc1t"]
-atlas = ExtResource("4_winlv")
+atlas = ExtResource("4_52naf")
 region = Rect2(0, 0, 224, 170)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ylhll"]
-atlas = ExtResource("4_winlv")
+atlas = ExtResource("4_52naf")
 region = Rect2(224, 0, 224, 170)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i40w7"]
-atlas = ExtResource("4_winlv")
+atlas = ExtResource("4_52naf")
 region = Rect2(448, 0, 224, 170)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_udlho"]
-atlas = ExtResource("4_winlv")
+atlas = ExtResource("4_52naf")
 region = Rect2(672, 0, 224, 170)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_50bbc"]
-atlas = ExtResource("4_winlv")
+atlas = ExtResource("4_52naf")
 region = Rect2(896, 0, 224, 170)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_vi7mq"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_udlho"]
 animations = [{
 "frames": [],
 "loop": true,
@@ -67,35 +67,35 @@ animations = [{
 "speed": 1.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_o1uk3"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_ylhll"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_310n0")
+"texture": ExtResource("5_xu54j")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_vxlmh")
+"texture": ExtResource("6_ykhmn")
 }],
 "loop": true,
 "name": &"path_anim",
 "speed": 0.5
 }]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_63uly"]
-texture = ExtResource("7_55goi")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4kiry"]
+texture = ExtResource("7_6ihru")
 region_rect = Rect2(169, 16, 125, 64)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sf51c"]
-texture = ExtResource("7_55goi")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2vtip"]
+texture = ExtResource("7_6ihru")
 region_rect = Rect2(170, 92, 124, 65)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mmsdo"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tfjnu"]
 content_margin_bottom = 6.0
-texture = ExtResource("7_55goi")
+texture = ExtResource("7_6ihru")
 region_rect = Rect2(19, 16, 123, 64)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e3i4o"]
-texture = ExtResource("7_55goi")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ibc1t"]
+texture = ExtResource("7_6ihru")
 region_rect = Rect2(18, 93, 124, 64)
 
 [node name="TutorialScreen" type="Control"]
@@ -105,13 +105,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_b1l10")
+script = ExtResource("1_1phf8")
 
 [node name="darkBackgroundOverlay" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 1024.0
 offset_bottom = 640.0
-texture = ExtResource("2_yxf4c")
+texture = ExtResource("2_0hpwb")
 
 [node name="tutorialScreen" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -133,7 +133,7 @@ size_flags_vertical = 4
 
 [node name="backgroundGolum" type="TextureRect" parent="tutorialScreen/tutorialMenuContainer/MarginContainer"]
 layout_mode = 2
-texture = ExtResource("3_qvx7c")
+texture = ExtResource("3_o0yym")
 
 [node name="MarginContainer" type="MarginContainer" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum"]
 layout_mode = 1
@@ -159,14 +159,15 @@ autowrap_mode = 2
 unique_name_in_owner = true
 position = Vector2(310, 400.00003)
 scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_vi7mq")
+sprite_frames = SubResource("SpriteFrames_udlho")
 animation = &"correct_path"
 
 [node name="AnimatedPathSprite" type="AnimatedSprite2D" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum"]
 unique_name_in_owner = true
 position = Vector2(318, 344)
-sprite_frames = SubResource("SpriteFrames_o1uk3")
+sprite_frames = SubResource("SpriteFrames_ylhll")
 animation = &"path_anim"
+frame_progress = 0.34152266
 
 [node name="TutorialVideo" type="VideoStreamPlayer" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum"]
 unique_name_in_owner = true
@@ -208,9 +209,9 @@ layout_mode = 0
 offset_left = 4.0
 offset_right = 76.0
 offset_bottom = 52.0
-theme_override_styles/normal = SubResource("StyleBoxTexture_63uly")
-theme_override_styles/hover = SubResource("StyleBoxTexture_sf51c")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_sf51c")
+theme_override_styles/normal = SubResource("StyleBoxTexture_4kiry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2vtip")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_2vtip")
 
 [node name="Separator" type="Control" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum/buttonContainer/HBoxContainer"]
 custom_minimum_size = Vector2(300, 0)
@@ -228,44 +229,35 @@ layout_mode = 0
 offset_left = 7.0
 offset_right = 79.0
 offset_bottom = 52.0
-theme_override_styles/normal = SubResource("StyleBoxTexture_mmsdo")
-theme_override_styles/hover = SubResource("StyleBoxTexture_e3i4o")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_e3i4o")
+theme_override_styles/normal = SubResource("StyleBoxTexture_tfjnu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ibc1t")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_ibc1t")
 
 [node name="CloseButton" type="Button" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum" groups=["UIButton"]]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(120, 51)
 layout_mode = 0
 offset_left = 422.0
 offset_top = 400.0
 offset_right = 542.0
 offset_bottom = 451.0
-theme_override_styles/normal = ExtResource("8_krh7m")
-theme_override_styles/hover = ExtResource("9_t2ev5")
-theme_override_styles/hover_pressed = ExtResource("9_t2ev5")
-text = "Close"
+theme_override_styles/normal = ExtResource("8_e3h3t")
+theme_override_styles/hover = ExtResource("9_utsle")
+theme_override_styles/hover_pressed = ExtResource("9_utsle")
+text = "Main Menu"
 
-[node name="exitButtonContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 960.0
-offset_bottom = -576.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-
-[node name="exitButton" type="VBoxContainer" parent="exitButtonContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-
-[node name="Exit" type="Button" parent="exitButtonContainer/exitButton" groups=["UIButton"]]
+[node name="SkipButton" type="Button" parent="tutorialScreen/tutorialMenuContainer/MarginContainer/backgroundGolum"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_qvx7c")
-theme_override_styles/hover = SubResource("StyleBoxTexture_winlv")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_winlv")
+visible = false
+custom_minimum_size = Vector2(140, 51)
+layout_mode = 0
+offset_left = 78.0
+offset_top = 408.0
+offset_right = 218.0
+offset_bottom = 459.0
+scale = Vector2(0.8, 0.8)
+theme_override_styles/normal = ExtResource("8_e3h3t")
+theme_override_styles/hover = ExtResource("9_utsle")
+theme_override_styles/hover_pressed = ExtResource("9_utsle")
+text = "Skip Tutorial"

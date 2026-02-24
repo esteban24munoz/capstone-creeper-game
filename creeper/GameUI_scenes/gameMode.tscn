@@ -101,7 +101,7 @@ layout_mode = 2
 theme_override_styles/normal = ExtResource("7_47xwk")
 theme_override_styles/hover = ExtResource("8_q1ipb")
 theme_override_styles/hover_pressed = ExtResource("8_q1ipb")
-text = "Multiplayer"
+text = "Local PvP"
 
 [node name="OnlineGame" type="Button" parent="MarginContainer/UIContainer/optionsContainer/VBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true

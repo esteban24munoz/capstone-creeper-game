@@ -27,7 +27,7 @@ public partial class MainMenu : Control
 			GetNode<Control>("SettingsMenu").Visible = true;
 			
 		GetNode<Button>("%CreditsButton").Pressed += () => 
-		_ui.ShowScreen("res://GameUI_scenes/creditsScreen.tscn");
+			_ui.ShowScreen("res://GameUI_scenes/creditsScreen.tscn");
 
 
 		GetNode<Button>("%QuitButton").Pressed += () => GetTree().Quit();

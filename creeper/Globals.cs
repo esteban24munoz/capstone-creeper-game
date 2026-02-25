@@ -5,8 +5,7 @@ using System.Threading;
 
 public partial class Globals : Node
 {
-	//TODO:: Update to offical server URL
-	public static string ServerBaseUrl = "http://localhost:8000";
+	public static string ServerBaseUrl = "http://10.30.208.129:8000";
 	public static System.Net.Http.HttpClient http = new System.Net.Http.HttpClient { BaseAddress = new Uri(ServerBaseUrl) };
 	public static string username = "";
 	public static string gameId;

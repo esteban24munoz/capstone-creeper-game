@@ -317,6 +317,51 @@ public partial class MTCS_Pure : Node
 				}
 				state.MoveCharacter(moves[rand.Next(moves.Count)]._from,moves[rand.Next(moves.Count)].to);
 			}
+			
+			int aiTileCount = 0;
+			int parentAITileCount = 0;
+			string gameState = state.StringifyState();
+			char CP = ' ';
+			
+			if (currentPlayer == Constants.Player.Hero)
+			{
+				gameState = gameState + 'x';
+				CP = 'x';
+			}
+			else
+			{
+				gameState = gameState + 'o';
+				CP = 'o';
+			}
+			GD.Print(gameState);
+			for (int count = 49; count < 85; count++)
+			{
+				if (gameState[count] == CP)
+				{
+					aiTileCount++;
+				}
+			}
+			
+			string parentGameState = this.Parent.State.StringifyState();
+			char PCP = ' ';
+			if (currentPlayer == Constants.Player.Hero)
+			{
+				gameState = gameState + 'x';
+				PCP = 'x';
+			}
+			else
+			{
+				gameState = gameState + 'o';
+				PCP = 'o';
+			}
+			for (int count = 49; count < 85; count++)
+			{
+				if (gameState[count] == PCP)
+				{
+					parentAITileCount++;
+				}
+			}
+			
 			if(state.FindWinner() == currentPlayer)
 			{
 				return 1; // 1 for win, 0 for loss, 0.5 for draw
@@ -324,6 +369,10 @@ public partial class MTCS_Pure : Node
 			else if(state.IsDraw(currentPlayer))
 			{
 				return 0.5f; //struggled to get float had to get gemini to help promp of "in c# how to make a float = to .5"
+			}
+			else if (aiTileCount > parentAITileCount)
+			{
+				return 0.1f;
 			}
 			else
 			{

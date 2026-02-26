@@ -23,8 +23,9 @@ public partial class MTCS_Pure : Node
 	{
 		string playStateUrl = $"{SOFTSERVE_URL}/aivai/play-state";
 		Model currentGame = new();
-		//while (true)
-		for (int i = 0; i < 1; i++)
+		bool gameOver = false;
+		while (!gameOver)
+		//for (int i = 0; i < 1; i++)
 		{
 			var playStateObj = new
 			{
@@ -50,6 +51,7 @@ public partial class MTCS_Pure : Node
 			//GD.Print(playStateJson);
 			string state = playStateJson.GetProperty("state").GetString();
 			string action_id = playStateJson.GetProperty("action_id").ToString();
+			string parsedAction;
 
 			GD.Print($"state:\t{state}");
 
@@ -67,33 +69,47 @@ public partial class MTCS_Pure : Node
 				currentNode.currentPlayer = activePlayer;
 				Move bestMove = currentNode.GetBestMove(currentGame);
 				GD.Print($"Move {bestMove._from} {bestMove.to} chosen");
+				parsedAction = ParseAction(bestMove._from, bestMove.to);
+				
+				var submitActionObj = new
+				{
+					action = parsedAction,
+					action_id = action_id,
+					player = PLAYER_NAME,
+					token = PLAYER_TOKEN
+				};
+
+				var submitResponse = await client.PostAsJsonAsync($"{SOFTSERVE_URL}/aivai/submit-action", submitActionObj);
+				submitResponse.EnsureSuccessStatusCode();
 			}
 			else if (winner == Constants.Player.Draw)
 			{
 				GD.Print("Game Over! It was a draw!");
+				gameOver = true;
 			}
 			else
 			{
 				GD.Print($"Game Over! {winner} won!");
+				gameOver = true;
 			}
 			
 			//GD.Print("Testing Action Parsing");
-			string parsedAction = ParseAction(bestMove._from, bestMove.to);
+			//string parsedAction = ParseAction(bestMove._from, bestMove.to);
 			
 			/***************************************************************************************
 			End of AI
 			***************************************************************************************/
 			
-			var submitActionObj = new
-			{
-				action = parsedAction,
-				action_id = action_id,
-				player = PLAYER_NAME,
-				token = PLAYER_TOKEN
-			};
-
-			var submitResponse = await client.PostAsJsonAsync($"{SOFTSERVE_URL}/aivai/submit-action", submitActionObj);
-			submitResponse.EnsureSuccessStatusCode();
+			//var submitActionObj = new
+			//{
+				//action = parsedAction,
+				//action_id = action_id,
+				//player = PLAYER_NAME,
+				//token = PLAYER_TOKEN
+			//};
+//
+			//var submitResponse = await client.PostAsJsonAsync($"{SOFTSERVE_URL}/aivai/submit-action", submitActionObj);
+			//submitResponse.EnsureSuccessStatusCode();
 		}
 	}
 	
@@ -142,8 +158,8 @@ public partial class MTCS_Pure : Node
 		//MCTSNode currentNode = new MCTSNode(currentGame);
 		//Move bestMove = currentNode.GetBestMove(currentGame);
 		//GD.Print($"Move {bestMove._from} {bestMove.to} chosen");
-		//PlayAiVsAi();
-		TestState();
+		PlayAiVsAi();
+		//TestState();
 	}
 	public string boardState = ".oo.xx.o.....xo.....x.......x.....ox.....o.xx.oo.o....x........................x....ox"; 
 	public Model currentGame;

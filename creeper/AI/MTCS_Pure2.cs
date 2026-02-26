@@ -36,7 +36,6 @@ public partial class MTCS_Pure2 : Node
 			
 			GD.Print("Getting the state");
 			var playStateResponse = await client.PostAsJsonAsync(playStateUrl, playStateObj);
-			//GD.Print(playStateResponse.StatusCode);
 			playStateResponse.EnsureSuccessStatusCode();
 
 			if (playStateResponse.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -111,9 +110,14 @@ public partial class MTCS_Pure2 : Node
 		//Move bestMove = currentNode.ChooseBestMove(currentGame, activePlayer);
 		//GD.Print(bestMove);
 		//string parsedAction = ParseAction(bestMove.From, bestMove.To);
-		
-		PlayAiVsAi();
-		//TestState();
+		try
+		{
+			PlayAiVsAi();
+		}
+		catch (HttpRequestException ex)
+		{
+			GD.Print($"Request to softserve failed: {ex.Message}");
+		}
 	}
 	
 	public readonly struct Move

@@ -58,10 +58,24 @@ public partial class MTCS_Pure : Node
 			***************************************************************************************/
 			
 			Constants.Player activePlayer = currentGame.UpdateState(state);
-			MCTSNode currentNode = new MCTSNode(currentGame);
-			currentNode.currentPlayer = activePlayer;
-			Move bestMove = currentNode.GetBestMove(currentGame);
-			GD.Print($"Move {bestMove._from} {bestMove.to} chosen");
+			var winner = currentGame.FindWinner();
+			GD.Print($"Winner: {winner}");
+			if (winner == Constants.Player.None)
+			{
+				GD.Print("Game continues");
+				MCTSNode currentNode = new MCTSNode(currentGame);
+				currentNode.currentPlayer = activePlayer;
+				Move bestMove = currentNode.GetBestMove(currentGame);
+				GD.Print($"Move {bestMove._from} {bestMove.to} chosen");
+			}
+			else if (winner == Constants.Player.Draw)
+			{
+				GD.Print("Game Over! It was a draw!");
+			}
+			else
+			{
+				GD.Print($"Game Over! {winner} won!");
+			}
 			
 			//GD.Print("Testing Action Parsing");
 			string parsedAction = ParseAction(bestMove._from, bestMove.to);
@@ -94,6 +108,32 @@ public partial class MTCS_Pure : Node
 		return action;
 	}
 	
+	public void TestState()
+	{
+		Model currentGame = new();
+		string state = ".oo.xx.o.....xo.....x.......x.....ox.....o.xx.oo.o....x........................x....ox";
+		GD.Print($"state:\t{state}");
+		Constants.Player activePlayer = currentGame.UpdateState(state);
+		var winner = currentGame.FindWinner();
+		GD.Print($"Winner: {winner}");
+		if (winner == Constants.Player.None)
+		{
+			GD.Print("Game continues");
+			MCTSNode currentNode = new MCTSNode(currentGame);
+			currentNode.currentPlayer = activePlayer;
+			Move bestMove = currentNode.GetBestMove(currentGame);
+			GD.Print($"Move {bestMove._from} {bestMove.to} chosen");
+		}
+		else if (winner == Constants.Player.Draw)
+		{
+			GD.Print("Game Over! It was a draw!");
+		}
+		else
+		{
+			GD.Print($"Game Over! {winner} won!");
+		}
+	}
+	
 	public override void _Ready()
 	{
 		//string boardState = ".o..x..o.....xoo....x....x..x.....oxx..o....x.oo.o...xx.o.x.....x............oox....ox";
@@ -102,9 +142,10 @@ public partial class MTCS_Pure : Node
 		//MCTSNode currentNode = new MCTSNode(currentGame);
 		//Move bestMove = currentNode.GetBestMove(currentGame);
 		//GD.Print($"Move {bestMove._from} {bestMove.to} chosen");
-		PlayAiVsAi();
+		//PlayAiVsAi();
+		TestState();
 	}
-	public string boardState = ".o..x..o.....xoo....x....x..x.....oxx..o....x.oo.o...xx.o.x.....x............oox....ox"; 
+	public string boardState = ".oo.xx.o.....xo.....x.......x.....ox.....o.xx.oo.o....x........................x....ox"; 
 	public Model currentGame;
 	//public Constants.Player currentPlayer = Constants.Player.Hero;
 	//currentPlayer = currentGame.UpdateState(boardState);

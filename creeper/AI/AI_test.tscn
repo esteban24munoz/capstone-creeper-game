@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://b5dpvonhh3ju4"]
 
-[ext_resource type="Script" uid="uid://d0arbfsdn73wl" path="res://AI/MTCS_Pure.cs" id="2_mehvm"]
+[ext_resource type="Script" uid="uid://cs0wel15q36cn" path="res://AI/MTCS_Pure2.cs" id="1_11u4d"]
 
 [node name="AiTest" type="Node2D"]
-script = ExtResource("2_mehvm")
+script = ExtResource("1_11u4d")
 
 [node name="Node" type="Node" parent="."]

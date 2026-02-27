@@ -15,7 +15,7 @@ public partial class MTCS_Pure2 : Node
 	private const string PLAYER_NAME = "LOTRAI";
 	private const string PLAYER_TOKEN = "yV73X6Wtg_4rAnHEI2UP1Iw53F9XkuQ4Gr-tbfWo1-M";
 	private const string PLAYER_EMAIL = "hconner@harding.edu";
-	private const string EVENT = "mirror";
+	private const string EVENT = "ThursdayAITest";
 	private static System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
 	
 	public async void PlayAiVsAi()
@@ -23,8 +23,9 @@ public partial class MTCS_Pure2 : Node
 		string playStateUrl = $"{SOFTSERVE_URL}/aivai/play-state";
 		Model currentGame = new();
 		bool gameOver = false;
-		int gameCount = 0;
-		while (gameCount < 10)
+		int winCount = 0;
+		int drawCount = 0;
+		while (true)
 		//for (int i = 0; i < 1; i++)
 		{
 			var playStateObj = new
@@ -36,12 +37,12 @@ public partial class MTCS_Pure2 : Node
 			
 			GD.Print("Getting the state");
 			var playStateResponse = await client.PostAsJsonAsync(playStateUrl, playStateObj);
-			playStateResponse.EnsureSuccessStatusCode();
+			//playStateResponse.EnsureSuccessStatusCode();
 
-			if (playStateResponse.StatusCode == System.Net.HttpStatusCode.NoContent)
+			if (playStateResponse.StatusCode == System.Net.HttpStatusCode.NoContent || playStateResponse.StatusCode == System.Net.HttpStatusCode.InternalServerError)
 			{
 				// No games waiting for move, wait and continue
-				GD.Print("204: Sleep 5 seconds and try again");
+				GD.Print("playStateResponse.StatusCode: Sleep 5 seconds and try again");
 				await Task.Delay(5000);
 				continue;
 			}
@@ -60,7 +61,7 @@ public partial class MTCS_Pure2 : Node
 			if (state == ".oo.xx.o.....xo.....x.......x.....ox.....o.xx.oo.o....x........................x....ox"){
 				//gameOver = true;
 				GD.Print("New game started");
-				gameCount++;
+				//gameCount++;
 				//return;
 			}
 			
@@ -86,7 +87,28 @@ public partial class MTCS_Pure2 : Node
 			};
 
 			var submitResponse = await client.PostAsJsonAsync($"{SOFTSERVE_URL}/aivai/submit-action", submitActionObj);
-			submitResponse.EnsureSuccessStatusCode();
+			//submitResponse.EnsureSuccessStatusCode();
+			if (submitResponse.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+			{
+				GD.Print("500: Sleep 5 seconds and try again");
+				await Task.Delay(5000);
+				continue;
+			}
+			else if (submitResponse.StatusCode == System.Net.HttpStatusCode.OK)
+			{
+				var submitJson = await submitResponse.Content.ReadFromJsonAsync<JsonElement>();
+				string winner = submitJson.GetProperty("winner").GetString();
+				if (winner == "draw")
+				{
+					drawCount++;
+				}
+				if (winner == "x" || winner == "o")
+				{
+					winCount++;
+				}
+				GD.Print($"Wins: {winCount}");
+				GD.Print($"Draws: {drawCount}");
+			}
 		}
 	}
 	
@@ -101,6 +123,18 @@ public partial class MTCS_Pure2 : Node
 		return action;
 	}
 	
+	public void _on_button_pressed()
+	{
+		try
+		{
+			PlayAiVsAi();
+		}
+		catch (HttpRequestException ex)
+		{
+			GD.Print($"Request to softserve failed: {ex.Message}");
+		}
+	}
+	
 	public override void _Ready()
 	{
 		//string boardState = ".o..x..o.....xoo....x....x..x.....oxx..o....x.oo.o...xx.o.x.....x............oox....ox";
@@ -110,14 +144,14 @@ public partial class MTCS_Pure2 : Node
 		//Move bestMove = currentNode.ChooseBestMove(currentGame, activePlayer);
 		//GD.Print(bestMove);
 		//string parsedAction = ParseAction(bestMove.From, bestMove.To);
-		try
-		{
-			PlayAiVsAi();
-		}
-		catch (HttpRequestException ex)
-		{
-			GD.Print($"Request to softserve failed: {ex.Message}");
-		}
+		//try
+		//{
+			//PlayAiVsAi();
+		//}
+		//catch (HttpRequestException ex)
+		//{
+			//GD.Print($"Request to softserve failed: {ex.Message}");
+		//}
 	}
 	
 	public readonly struct Move

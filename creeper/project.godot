@@ -19,8 +19,7 @@ config/windows_native_icon="res://Bases/The One Ring Sprite_frame_1.ico"
 
 [autoload]
 
-ButtonSoundManager="*res://Globals/button_sound_manager.tscn"
-VolumeManager="*res://Globals/VolumeManager.cs"
+ButtonSoundManager="*res://GameUI_scenes/button_sound_manager.tscn"
 
 [display]
 
@@ -35,10 +34,6 @@ project/assembly_name="Creeper"
 [global_group]
 
 UIButton=""
-MusicSlider=""
-SFXSlider=""
-Music=""
-SFX=""
 
 [input]
 

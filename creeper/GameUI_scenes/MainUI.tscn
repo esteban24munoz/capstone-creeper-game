@@ -136,7 +136,8 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.11764706, 0.11764706, 0.11764706, 1)
 
-[node name="Music" type="AudioStreamPlayer2D" parent="." groups=["Music"]]
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_ktaii")
+volume_db = -10.0
 autoplay = true
 panning_strength = 0.0

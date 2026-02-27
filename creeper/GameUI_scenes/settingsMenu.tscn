@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwuhjsr0e5w4l"]
+[gd_scene load_steps=8 format=3 uid="uid://brrhcweyj3tc2"]
 
 [ext_resource type="Script" uid="uid://cb8c7v03nq7x" path="res://GameUI_scripts/SettingsMenu.cs" id="1_xcfh5"]
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="2_qhr54"]
@@ -93,15 +93,13 @@ theme_override_constants/separation = 24
 layout_mode = 2
 text = "Music"
 
-[node name="MusicSlider" type="HSlider" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/MusicContainer" groups=["MusicSlider"]]
+[node name="HSlider" type="HSlider" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/MusicContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_styles/slider = SubResource("StyleBoxLine_5u4q0")
 theme_override_styles/grabber_area = SubResource("StyleBoxLine_1wofd")
-max_value = 2.0
-step = 0.01
-value = 1.0
+value = 50.0
 
 [node name="SoundEffecContainer" type="HBoxContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer"]
 layout_mode = 2
@@ -111,15 +109,13 @@ theme_override_constants/separation = 42
 layout_mode = 2
 text = "SFX"
 
-[node name="SFXSlider" type="HSlider" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/SoundEffecContainer" groups=["SFXSlider"]]
+[node name="HSlider" type="HSlider" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/SoundEffecContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_styles/slider = SubResource("StyleBoxLine_5u4q0")
 theme_override_styles/grabber_area = SubResource("StyleBoxLine_1wofd")
-max_value = 2.0
-step = 0.01
-value = 1.0
+value = 50.0
 
 [node name="optionsButton" type="HBoxContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer"]
 layout_mode = 2

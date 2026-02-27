@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bmk3h7qs4gcqi"]
 
 [ext_resource type="Script" uid="uid://oh3ng2oepsbq" path="res://Character Scripts/CharacterBase.cs" id="1_e5sm8"]
-[ext_resource type="AudioStream" uid="uid://qk8k4kxoqs36" path="res://Sounds/DelayHit.wav" id="2_r5ik2"]
+[ext_resource type="AudioStream" uid="uid://dm68lqyxmibri" path="res://Sounds/DelayHit.wav" id="2_r5ik2"]
 [ext_resource type="AudioStream" uid="uid://y3rdapxyt283" path="res://Sounds/Fade.wav" id="3_r5ik2"]
 
 [node name="Character Base" type="AnimatedSprite2D"]
@@ -9,11 +9,13 @@ script = ExtResource("1_e5sm8")
 
 [node name="Area2D" type="Area2D" parent="."]
 
-[node name="Hit" type="AudioStreamPlayer2D" parent="." groups=["SFX"]]
+[node name="Hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_r5ik2")
+volume_db = 4.0
 panning_strength = 0.0
 
-[node name="Fade" type="AudioStreamPlayer2D" parent="." groups=["SFX"]]
+[node name="Fade" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_r5ik2")
+volume_db = -5.0
 pitch_scale = 1.6
 panning_strength = 0.0

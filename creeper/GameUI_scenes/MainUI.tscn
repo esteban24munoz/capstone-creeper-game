@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="5_6545i"]
 [ext_resource type="StyleBox" uid="uid://dlpn6pyq67rah" path="res://UI_assets/UI_Buttons/backButton_hover.tres" id="5_ktaii"]
 [ext_resource type="StyleBox" uid="uid://2nvh4x3dxlp7" path="res://UI_assets/UI_Buttons/menuButton_hover.tres" id="6_6545i"]
-[ext_resource type="PackedScene" uid="uid://dwuhjsr0e5w4l" path="res://GameUI_scenes/settingsMenu.tscn" id="9_tcq21"]
+[ext_resource type="PackedScene" uid="uid://brrhcweyj3tc2" path="res://GameUI_scenes/settingsMenu.tscn" id="9_tcq21"]
 [ext_resource type="AudioStream" uid="uid://cj6dcj6rdybfg" path="res://Music/Concerning Hobbits.wav" id="10_ktaii"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u1f4g"]
@@ -26,6 +26,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_stm4m")
 
 [node name="gradientBkg" type="TextureRect" parent="."]
@@ -132,7 +133,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 color = Color(0.11764706, 0.11764706, 0.11764706, 1)
 
 [node name="Music" type="AudioStreamPlayer2D" parent="." groups=["Music"]]

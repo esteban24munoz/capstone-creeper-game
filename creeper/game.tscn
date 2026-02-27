@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bskcrihd33k5i"]
 
-[ext_resource type="Script" uid="uid://cvpxne745inii" path="res://Controller.cs" id="1_vwcep"]
-[ext_resource type="PackedScene" uid="uid://4h0xfo1evrve" path="res://Grid.tscn" id="2_b6q5f"]
+[ext_resource type="Script" uid="uid://cvpxne745inii" path="res://Controller.cs" id="1_eow3j"]
+[ext_resource type="PackedScene" uid="uid://v8rtqn5ipqng" path="res://grid.tscn" id="2_b6q5f"]
 [ext_resource type="PackedScene" uid="uid://c2yve67u2a0ei" path="res://InGameUI_scenes/inGameScene.tscn" id="3_feb5d"]
 [ext_resource type="AudioStream" uid="uid://c7a5ud5pisce0" path="res://Music/The Shadow of the Past.wav" id="4_fc0e3"]
 [ext_resource type="AudioStream" uid="uid://dmi6k2rj03doa" path="res://Music/The Ring Goes South.wav" id="5_7jktm"]
@@ -9,7 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://dtfoic4sgbak3" path="res://Music/Prologue.wav" id="7_eow3j"]
 
 [node name="Game" type="Node2D"]
-script = ExtResource("1_vwcep")
+script = ExtResource("1_eow3j")
 
 [node name="Grid" parent="." instance=ExtResource("2_b6q5f")]
 
@@ -17,23 +17,19 @@ script = ExtResource("1_vwcep")
 
 [node name="Music" type="Node2D" parent="."]
 
-[node name="Battle" type="AudioStreamPlayer2D" parent="Music"]
+[node name="Battle" type="AudioStreamPlayer2D" parent="Music" groups=["Music"]]
 stream = ExtResource("4_fc0e3")
-volume_db = -10.0
 autoplay = true
 panning_strength = 0.0
 
-[node name="FrodoWin" type="AudioStreamPlayer2D" parent="Music"]
+[node name="FrodoWin" type="AudioStreamPlayer2D" parent="Music" groups=["Music"]]
 stream = ExtResource("5_7jktm")
-volume_db = -10.0
 panning_strength = 0.0
 
-[node name="SauronWin" type="AudioStreamPlayer2D" parent="Music"]
+[node name="SauronWin" type="AudioStreamPlayer2D" parent="Music" groups=["Music"]]
 stream = ExtResource("6_ryrav")
-volume_db = -10.0
 panning_strength = 0.0
 
-[node name="DrawMusic" type="AudioStreamPlayer2D" parent="Music"]
+[node name="DrawMusic" type="AudioStreamPlayer2D" parent="Music" groups=["Music"]]
 stream = ExtResource("7_eow3j")
-volume_db = -10.0
 panning_strength = 0.0

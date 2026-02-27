@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsxynqvoiqkjd"]
+[gd_scene load_steps=9 format=3 uid="uid://bsxynqvoiqkjd"]
 
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="1_cetak"]
-[ext_resource type="Script" uid="uid://ban7kgiujpu3m" path="res://InGameUI_scenes/WinnerScreen.cs" id="1_moukq"]
 [ext_resource type="Texture2D" uid="uid://bb44daipxpaba" path="res://UI_assets/TeamSelection/frodoTeam.png" id="2_21cg0"]
 [ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="2_r8ynq"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="2_v5ky7"]
@@ -25,7 +24,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_moukq")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -91,7 +89,6 @@ size_flags_vertical = 8
 theme_override_constants/separation = 16
 
 [node name="PlayAgain" type="Button" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin/VBoxContainer/buttonsContainer" groups=["UIButton"]]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 101.25)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("3_lwfrj")
@@ -100,7 +97,6 @@ theme_override_styles/hover_pressed = ExtResource("6_kxa7g")
 text = "Play Again"
 
 [node name="ReturnMenu" type="Button" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin/VBoxContainer/buttonsContainer" groups=["UIButton"]]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 101.25)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("3_lwfrj")

@@ -12,31 +12,20 @@ public partial class MenuOptions : Control
 		{
 			Visible = false;
 		};
-		
-		GetNode<Button>("%ExitButton").Pressed += () =>
+
+		GetNode<Button>("%RestartGame").Pressed += () =>
 		{
-			Visible = false;
+			_ui.ShowScreen("res://GameUI_scenes/gameMode.tscn");
 		};
 
-		GetNode<Button>("%RestartGame").Pressed += async () =>
+		GetNode<Button>("%SettingsMenu").Pressed += () =>
 		{
-			Visible = false; // Hide this options menu
-			
-			// Destroys the game and unhides the UIManager, 
-			// automatically showing whatever screen was there before!
-			await _ui.RestartGame();
+			_ui.ShowScreen("res://GameUI_scenes/tutorialScreen.tscn");
 		};
 
-		GetNode<Button>("%SettingsButton").Pressed += () =>
+		GetNode<Button>("%MainMenu").Pressed += () =>
 		{
-			GetNode<Control>("%SettingsMenu").Visible = true;
-		};
-
-		GetNode<Button>("%MainMenu").Pressed += async () =>
-		{
-			Visible = false; // Hide this menu
-			// Pass the path to your main menu scene here
-			await _ui.ReturnToMenu("res://GameUI_scenes/mainMenu.tscn");
+			_ui.ShowScreen("res://GameUI_scenes/mainMenu.tscn");
 		};
 	}
 }

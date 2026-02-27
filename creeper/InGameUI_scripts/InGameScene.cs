@@ -9,8 +9,8 @@ public partial class InGameScene : CanvasLayer
 	private Control _draw;
 	private Control _sauronWins;
 	
-	public override void _Ready()
-	{
+	public override async void _Ready(){
+		
 		// GET THE HELP BUTTON
 		GetNode<Button>("%Help").Pressed += OnHelpButtonPressed;
 		_helpUI = GetNode<Control>("HelpUI");
@@ -24,6 +24,11 @@ public partial class InGameScene : CanvasLayer
 		_draw = GetNode<Control>("Draw");
 		_sauronWins = GetNode<Control>("SauronWins");
 
+		// 2. Create a 1.5 second timer and await its timeout signal
+		await ToSignal(GetTree().CreateTimer(1.0f), SceneTreeTimer.SignalName.Timeout);
+
+		// 3. Make the HelpUI visible!
+		_helpUI.Visible = true;
 	}
 
 	private void OnHelpButtonPressed(){

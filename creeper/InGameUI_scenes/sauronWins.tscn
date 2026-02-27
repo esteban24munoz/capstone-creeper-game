@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgaogpp1g1ybe"]
+[gd_scene load_steps=10 format=3 uid="uid://dgaogpp1g1ybe"]
 
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="1_8ayx6"]
+[ext_resource type="Script" uid="uid://ban7kgiujpu3m" path="res://InGameUI_scenes/WinnerScreen.cs" id="1_x63en"]
 [ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="2_x63en"]
 [ext_resource type="Texture2D" uid="uid://dlfry5i1lh687" path="res://UI_assets/UI_Buttons/dark-bluet-bkg_v2.png" id="3_xj6n0"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="4_r8gov"]
@@ -17,13 +18,14 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="FrodoWins" type="Control"]
+[node name="SauronWins" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_x63en")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -89,6 +91,7 @@ size_flags_vertical = 8
 theme_override_constants/separation = 16
 
 [node name="PlayAgain" type="Button" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin/VBoxContainer/buttonsContainer" groups=["UIButton"]]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 101.25)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("5_2y7rk")
@@ -97,6 +100,7 @@ theme_override_styles/hover_pressed = ExtResource("6_qx3c2")
 text = "Play Again"
 
 [node name="ReturnMenu" type="Button" parent="MarginContainer/HBoxContainer/MenuContainer/TextureMargin/VBoxContainer/buttonsContainer" groups=["UIButton"]]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 101.25)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("5_2y7rk")

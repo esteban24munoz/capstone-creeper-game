@@ -46,8 +46,8 @@ public partial class MTCS_Pure2 : Node
 		
 		string playStateUrl = $"{SOFTSERVE_URL}/aivai/play-state";
 		Model currentGame = new();
-		while (true)
-		//for (int i = 0; i < 1; i++)
+		int gameCount = 0;
+		while (gameCount < 10)
 		{
 			var playStateObj = new
 			{
@@ -81,6 +81,7 @@ public partial class MTCS_Pure2 : Node
 			***************************************************************************************/
 			if (state == ".oo.xx.o.....xo.....x.......x.....ox.....o.xx.oo.o....x........................x....ox"){
 				GD.Print("New game started");
+				gameCount++;
 				//return;
 			}
 			
@@ -151,25 +152,6 @@ public partial class MTCS_Pure2 : Node
 		{
 			GD.Print($"Request to softserve failed: {ex.Message}");
 		}
-	}
-	
-	public override void _Ready()
-	{
-		//string boardState = ".o..x..o.....xoo....x....x..x.....oxx..o....x.oo.o...xx.o.x.....x............oox....ox";
-		//Model currentGame = new();
-		//Constants.Player activePlayer = currentGame.UpdateState(boardState);
-		//MonteCarloStrategy currentNode = new MonteCarloStrategy();
-		//Move bestMove = currentNode.ChooseBestMove(currentGame, activePlayer);
-		//GD.Print(bestMove);
-		//string parsedAction = ParseAction(bestMove.From, bestMove.To);
-		//try
-		//{
-			//PlayAiVsAi();
-		//}
-		//catch (HttpRequestException ex)
-		//{
-			//GD.Print($"Request to softserve failed: {ex.Message}");
-		//}
 	}
 	
 	public readonly struct Move

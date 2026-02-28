@@ -12,19 +12,40 @@ using System.Text.Json;
 public partial class MTCS_Pure2 : Node
 {
 	private static string SOFTSERVE_URL = "https://softserve.harding.edu";
-	private const string PLAYER_NAME = "LOTRAI";
-	private const string PLAYER_TOKEN = "yV73X6Wtg_4rAnHEI2UP1Iw53F9XkuQ4Gr-tbfWo1-M";
+	private const string PLAYER_NAME = "Team10Test";
+	//private const string PLAYER_TOKEN = "yV73X6Wtg_4rAnHEI2UP1Iw53F9XkuQ4Gr-tbfWo1-M";
 	private const string PLAYER_EMAIL = "hconner@harding.edu";
-	private const string EVENT = "ThursdayAITest";
+	private const string EVENT = "mirror"; //midterm
 	private static System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
+	int winCount = 0;
+	int drawCount = 0;
 	
 	public async void PlayAiVsAi()
 	{
+		string PLAYER_TOKEN;
+		
+		try
+		{
+			PLAYER_TOKEN = await File.ReadAllTextAsync($"{PLAYER_NAME}_token.txt");
+		}
+		catch (FileNotFoundException)
+		{
+			var createPlayerPayload = new
+			{
+				name = PLAYER_NAME,
+				email = PLAYER_EMAIL
+			};
+			
+			var createResponse = await client.PostAsJsonAsync($"{SOFTSERVE_URL}/player/create", createPlayerPayload);
+			createResponse.EnsureSuccessStatusCode();
+			var createJson = await createResponse.Content.ReadFromJsonAsync<JsonElement>();
+			PLAYER_TOKEN = createJson.GetProperty("token").GetString();
+			
+			await File.WriteAllTextAsync($"{PLAYER_NAME}_token.txt", PLAYER_TOKEN);
+		}
+		
 		string playStateUrl = $"{SOFTSERVE_URL}/aivai/play-state";
 		Model currentGame = new();
-		bool gameOver = false;
-		int winCount = 0;
-		int drawCount = 0;
 		while (true)
 		//for (int i = 0; i < 1; i++)
 		{
@@ -42,26 +63,24 @@ public partial class MTCS_Pure2 : Node
 			if (playStateResponse.StatusCode == System.Net.HttpStatusCode.NoContent || playStateResponse.StatusCode == System.Net.HttpStatusCode.InternalServerError)
 			{
 				// No games waiting for move, wait and continue
-				GD.Print("playStateResponse.StatusCode: Sleep 5 seconds and try again");
-				await Task.Delay(5000);
+				GD.Print($"{playStateResponse.StatusCode}: Sleep 2 seconds and try again");
+				await Task.Delay(2000);
 				continue;
 			}
 
 			var playStateJson = await playStateResponse.Content.ReadFromJsonAsync<JsonElement>();
-			//GD.Print(playStateJson);
 			string state = playStateJson.GetProperty("state").GetString();
+			string game_id = playStateJson.GetProperty("game_id").ToString();
 			string action_id = playStateJson.GetProperty("action_id").ToString();
+			GD.Print($"game_id: {game_id}\t action_id: {action_id}");
+			GD.Print($"state: {state}");
 			string parsedAction;
-
-			GD.Print($"state:\t{state}");
 
 			/***************************************************************************************
 			Starting here, AI should take over. The state of the game is still just a string.
 			***************************************************************************************/
 			if (state == ".oo.xx.o.....xo.....x.......x.....ox.....o.xx.oo.o....x........................x....ox"){
-				//gameOver = true;
 				GD.Print("New game started");
-				//gameCount++;
 				//return;
 			}
 			
@@ -71,8 +90,6 @@ public partial class MTCS_Pure2 : Node
 			Move bestMove = currentNode.ChooseBestMove(currentGame, activePlayer);
 			GD.Print(bestMove);
 			parsedAction = ParseAction(bestMove.From, bestMove.To);
-			//currentGame.MoveCharacter(bestMove.From, bestMove.To);
-			//GD.Print($"Winner: {winner}");
 			
 			/***************************************************************************************
 			End of AI
@@ -88,26 +105,27 @@ public partial class MTCS_Pure2 : Node
 
 			var submitResponse = await client.PostAsJsonAsync($"{SOFTSERVE_URL}/aivai/submit-action", submitActionObj);
 			//submitResponse.EnsureSuccessStatusCode();
-			if (submitResponse.StatusCode == System.Net.HttpStatusCode.InternalServerError)
-			{
-				GD.Print("500: Sleep 5 seconds and try again");
-				await Task.Delay(5000);
-				continue;
-			}
-			else if (submitResponse.StatusCode == System.Net.HttpStatusCode.OK)
+			if (submitResponse.StatusCode == System.Net.HttpStatusCode.OK)
 			{
 				var submitJson = await submitResponse.Content.ReadFromJsonAsync<JsonElement>();
 				string winner = submitJson.GetProperty("winner").GetString();
+				GD.Print($"Winner: {winner}");
 				if (winner == "draw")
 				{
 					drawCount++;
+					GD.Print($"Draws: {drawCount}");
 				}
 				if (winner == "x" || winner == "o")
 				{
 					winCount++;
+					GD.Print($"Wins: {winCount}");
 				}
-				GD.Print($"Wins: {winCount}");
-				GD.Print($"Draws: {drawCount}");
+			}
+			else // (submitResponse.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+			{
+				GD.Print("{submitResponse.StatusCode}: Sleep half a second and try again");
+				await Task.Delay(500);
+				continue;
 			}
 		}
 	}

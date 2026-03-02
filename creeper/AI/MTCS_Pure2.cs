@@ -12,10 +12,10 @@ using System.Text.Json;
 public partial class MTCS_Pure2 : Node
 {
 	private static string SOFTSERVE_URL = "https://softserve.harding.edu";
-	private const string PLAYER_NAME = "Team10Test";
+	private const string PLAYER_NAME = "Team10";
 	//private const string PLAYER_TOKEN = "yV73X6Wtg_4rAnHEI2UP1Iw53F9XkuQ4Gr-tbfWo1-M";
 	private const string PLAYER_EMAIL = "hconner@harding.edu";
-	private const string EVENT = "mirror"; //midterm
+	private const string EVENT = "midterm"; //midterm
 	private static System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
 	int winCount = 0;
 	int drawCount = 0;
@@ -47,7 +47,7 @@ public partial class MTCS_Pure2 : Node
 		string playStateUrl = $"{SOFTSERVE_URL}/aivai/play-state";
 		Model currentGame = new();
 		int gameCount = 0;
-		while (gameCount < 10)
+		while (true)
 		{
 			var playStateObj = new
 			{
@@ -60,7 +60,7 @@ public partial class MTCS_Pure2 : Node
 			var playStateResponse = await client.PostAsJsonAsync(playStateUrl, playStateObj);
 			//playStateResponse.EnsureSuccessStatusCode();
 
-			if (playStateResponse.StatusCode == System.Net.HttpStatusCode.NoContent || playStateResponse.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+			if (playStateResponse.StatusCode != System.Net.HttpStatusCode.OK || playStateResponse.StatusCode == System.Net.HttpStatusCode.InternalServerError)
 			{
 				// No games waiting for move, wait and continue
 				GD.Print($"{playStateResponse.StatusCode}: Sleep 2 seconds and try again");
@@ -69,6 +69,7 @@ public partial class MTCS_Pure2 : Node
 			}
 
 			var playStateJson = await playStateResponse.Content.ReadFromJsonAsync<JsonElement>();
+			//GD.Print($"State Response: {playStateJson}");
 			string state = playStateJson.GetProperty("state").GetString();
 			string game_id = playStateJson.GetProperty("game_id").ToString();
 			string action_id = playStateJson.GetProperty("action_id").ToString();
@@ -124,7 +125,7 @@ public partial class MTCS_Pure2 : Node
 			}
 			else // (submitResponse.StatusCode == System.Net.HttpStatusCode.InternalServerError)
 			{
-				GD.Print("{submitResponse.StatusCode}: Sleep half a second and try again");
+				GD.Print($"{submitResponse.StatusCode}: Sleep half a second and try again");
 				await Task.Delay(500);
 				continue;
 			}

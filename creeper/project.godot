@@ -12,7 +12,6 @@ config_version=5
 
 config/name="Creeper"
 run/main_scene="uid://cy75bjujm7j78"
-run/disable_stdout=true
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="uid://cdh5gnijd8acy"
 config/windows_native_icon="res://Bases/The One Ring Sprite_frame_1.ico"
@@ -27,6 +26,8 @@ VolumeManager="*res://Globals/VolumeManager.cs"
 window/size/viewport_width=1024
 window/size/viewport_height=640
 window/stretch/mode="viewport"
+mouse_cursor/custom_image="uid://bn2cucwn6anfj"
+mouse_cursor/custom_image_hotspot=Vector2(19.25, 25)
 
 [dotnet]
 

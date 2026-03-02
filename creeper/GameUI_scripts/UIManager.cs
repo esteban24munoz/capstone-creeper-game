@@ -14,6 +14,7 @@ public partial class UIManager : Control
 	private ColorRect _overlay;
 	private bool _isTransitioning = false;
 	private Node _currentGameInstance;
+	private AudioStreamPlayer2D _music;
 
 	public override void _Ready()
 	{
@@ -31,6 +32,8 @@ public partial class UIManager : Control
 		_menuButton.Pressed += ShowSettingsMenu;
 		
 		CallDeferred(MethodName.ShowScreen, "res://GameUI_scenes/mainMenu.tscn", true);
+
+		_music = GetNode<AudioStreamPlayer2D>("Music");
 	}
 
 	private void ShowInitialScreen()
@@ -108,6 +111,8 @@ public partial class UIManager : Control
 			_container.Visible = false; 
 			_backButton.Visible = false;
 			_menuButton.Visible = false;
+
+			_music.Stop();
 		}
 		else 
 		{
@@ -182,6 +187,8 @@ public partial class UIManager : Control
 		// 4. Make the UI container visible again
 		_container.Visible = true;
 		UpdateBackButton(); 
+
+		_music.Play();
 
 		await FadeIn();
 		_isTransitioning = false;

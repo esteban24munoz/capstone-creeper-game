@@ -104,3 +104,4 @@ InitTestScene*.unity*
 # Godot 4+ specific ignores
 .godot/
 /android/
+creeper/addons/godot-sqlite/bin/~libgdsqlite.windows.template_debug.x86_64.dll

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmepou3jhq2la"]
+
+[ext_resource type="AudioStream" uid="uid://dhawx01vds3v" path="res://Sounds/Button.wav" id="1_tuiiv"]
+[ext_resource type="Script" uid="uid://y26y1a8of81q" path="res://Globals/ButtonSoundManager.cs" id="2_n33lv"]
+
+[node name="ButtonSoundManager" type="AudioStreamPlayer2D" groups=["SFX"]]
+stream = ExtResource("1_tuiiv")
+panning_strength = 0.0
+script = ExtResource("2_n33lv")

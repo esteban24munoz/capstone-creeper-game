@@ -83,25 +83,14 @@ public partial class Help : Control
 		PageData.TextOnly("[b]Gollum...Gollum...[/b]\n\n"),
 	};
 	
-	public override void _Ready()
+	public override async void _Ready()
 	{
-		// --- 2. SHOW/HIDE LOGIC ON LOAD ---
-		if (_hasShownTutorial)
-		{
-			this.Visible = false;
-			// Optionally: queue_free() if you never want it to exist again
-			return; 
-		}
-
-		// Set the flag so next time the scene loads, it stays hidden
-		_hasShownTutorial = true;
-
 		// Initialize Nodes
 		_tutorialText = GetNode<RichTextLabel>("%TutorialText");
 		_nextButton = GetNode<Button>("%Next");
 		_backButton = GetNode<Button>("%Back");
 		_closeButton = GetNode<Button>("%CloseButton");
-		_skipButton = GetNode<Button>("%SkipButton"); // Ensure this unique name/ID exists in Scene
+		_skipButton = GetNode<Button>("%SkipButton");
 		
 		_spritePlayer = GetNode<AnimatedSprite2D>("%TutorialSprite");
 		_pathSpritePlayer = GetNode<AnimatedSprite2D>("%AnimatedPathSprite");
@@ -115,6 +104,24 @@ public partial class Help : Control
 		GetNode<Button>("%Exit").Pressed += OnExitButtonPressed;
 
 		UpdatePage();
+		
+		// 2. SHOW/HIDE LOGIC
+		if (_hasShownTutorial)
+		{
+			// If we already saw the tutorial, just hide it and do nothing else.
+			// Because we didn't "return" early, the nodes are safely loaded 
+			// if the player clicks the Help button later!
+			Visible = false;
+		}
+		else
+		{
+			// First time playing: hide it initially, wait 1 second, then pop it up.
+			Visible = false;
+			_hasShownTutorial = true;
+			
+			await ToSignal(GetTree().CreateTimer(1.0f), SceneTreeTimer.SignalName.Timeout);
+			Visible = true;
+		}
 	}
 
 	private void OnExitButtonPressed()

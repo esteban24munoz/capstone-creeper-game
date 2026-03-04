@@ -169,13 +169,11 @@ position = Vector2(-50, 335)
 [node name="Volcano" parent="TileMapLayer/Bases" instance=ExtResource("22_kfiik")]
 position = Vector2(622, -49)
 
-[node name="Fire" type="AudioStreamPlayer2D" parent="."]
+[node name="Fire" type="AudioStreamPlayer2D" parent="." groups=["SFX"]]
 stream = ExtResource("27_pisw8")
-volume_db = 5.0
 panning_strength = 0.0
 
-[node name="Grass" type="AudioStreamPlayer2D" parent="."]
+[node name="Grass" type="AudioStreamPlayer2D" parent="." groups=["SFX"]]
 stream = ExtResource("28_jpp3n")
-volume_db = 2.0
 pitch_scale = 0.5
 panning_strength = 0.0

@@ -132,6 +132,7 @@ namespace Client {
 	public partial class Guest : Control
 	{
 		private JoinResponse? _joinInfo;
+		private UIManager _ui;
 
 		// Events other nodes can subscribe to
 		public event Action<JoinResponse>? OnJoined;
@@ -142,14 +143,16 @@ namespace Client {
 		{
 			Globals.gameId = gameId;
 		}
-		
-		private void _on_back_btn_pressed()
-		{
-			GetTree().ChangeSceneToFile("res://Networking/multiplayer_test.tscn");
-		}
 
 		public override void _Ready()
 		{
+			_ui = UIManager.Instance;
+
+			if (_ui == null)
+			{
+				GD.PrintErr("GameMode: UIManager Instance is null! Is MainUI.tscn loaded?");
+				return;
+			}
 			Globals.p1Type = "Network";
 			Globals.p2Type = "Person";
 		}
@@ -158,7 +161,7 @@ namespace Client {
 		{
 			await StartGuestFlowAsync(Globals.gameId, Globals.username, Globals.cts.Token);
 			_ = HeartbeatLoopAsync(Globals.cts.Token);
-			GetTree().ChangeSceneToFile("res://game.tscn");
+			await UIManager.Instance.ChangeSceneWithTransition("res://game.tscn");
 		}
 		
 		public override void _ExitTree()
@@ -218,6 +221,7 @@ namespace Client {
 				try
 				{
 					await Globals.guestClient.HeartbeatAsync(Globals.gameId, Globals.guestToken, ct).ConfigureAwait(false);
+					GD.Print("Guest Heartbeat");
 				}
 				catch (Exception ex)
 				{

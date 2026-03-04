@@ -17,8 +17,10 @@ public partial class GameMode : Control
 		}
 
 		// Now these connections will actually happen:
-		GetNode<Button>("%SinglePlayer").Pressed += () => 
+		GetNode<Button>("%SinglePlayer").Pressed += () => {
+			Globals.gameType = Globals.GameType.Local;
 			_ui.ShowScreen("res://GameUI_scenes/aiDifficulty.tscn");
+		};
 
 		GetNode<Button>("%Multiplayer").Pressed += () => 
 			_ui.ShowScreen("res://GameUI_scenes/teamSelection.tscn");

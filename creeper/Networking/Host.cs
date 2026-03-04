@@ -80,13 +80,22 @@ namespace Client {
 	public partial class Host : Control
 	{
 		private GameCreatedResponse? _created;
+		private UIManager _ui;
 
 		public override void _Ready()
 		{
+			_ui = UIManager.Instance;
+
+			if (_ui == null)
+			{
+				GD.PrintErr("GameMode: UIManager Instance is null! Is MainUI.tscn loaded?");
+				return;
+			}
+			
 			SetUpInfo();
 			
 			 //Start background flow without blocking Godot main thread.
-			_ = StartHostFlowAsync();
+			_ = CreateGameAsync();
 		}
 		
 		private void SetUpInfo()
@@ -96,9 +105,10 @@ namespace Client {
 			p1Name.Text = Globals.username;
 			Globals.p1Type = "Person";
 			Globals.p2Type = "Network";
+			Constants.EnemyPlayer = new NetworkPlayer();
 		}
 		
-		private async Task StartHostFlowAsync()
+		private async Task CreateGameAsync()
 		{
 			try
 			{
@@ -128,7 +138,8 @@ namespace Client {
 							Label p2Name = GetNode<Label>("%P2name");
 							p2Name.Text = state.GuestName;
 							GD.Print($"[Host]: {state.GuestName} joined game");
-							GetTree().ChangeSceneToFile("res://game.tscn");
+							await UIManager.Instance.ChangeSceneWithTransition("res://game.tscn");
+							return;
 						}
 						
 						// Example: make a sample move when it's host's turn.
@@ -164,6 +175,7 @@ namespace Client {
 				try
 				{
 					await Globals.hostClient.HeartbeatAsync(Globals.gameId, Globals.hostToken, ct);
+					GD.Print("Host heartbeat");
 				}
 				catch (Exception ex)
 				{

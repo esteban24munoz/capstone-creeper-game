@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public partial class NetworkPlayer : IPlayer
 {
@@ -37,6 +38,40 @@ public partial class NetworkPlayer : IPlayer
 	public void OnClick(Vector2I pos) { /* no-op for network-controlled player */ }
 	public void MouseEntered(Vector2I pos) { /* no-op for network-controlled player */ }
 	public void MouseExited(Vector2I pos) { /* no-op for network-controlled player */ }
+
+//	while (!Globals.cts.Token.IsCancellationRequested)
+//	{
+//		try
+//		{
+//			var state = await Globals.hostClient.GetGameStateAsync(_created.GameId, Globals.cts.Token);
+//GD.Print($"[Host] Game status: {state.Status}, turn: {state.Turn}, lastActive: {state.LastActive}");
+						
+//			//Update p2 name and start game
+//			if (state.Status == "in_progress")
+//			{
+//				Label p2Name = GetNode<Label>("%P2name");
+//p2Name.Text = state.GuestName;
+//				GD.Print($"[Host]: {state.GuestName} joined game");
+//				await UIManager.Instance.ChangeSceneWithTransition("res://game.tscn");
+//				return;
+//			}
+						
+//			// Example: make a sample move when it's host's turn.
+//			//if (state.Status == "in_progress" && state.Turn == "host")
+//			//{
+//				// Replace with your real state string
+//				//var exampleState = ".oo.xx...";
+//				//await _client.MakeMoveAsync(_created.GameId, _created.HostToken, exampleState, Globals.cts.Token);
+//				//GD.Print("[Host] Submitted a move.");
+//			//}
+//		}
+//		catch (Exception ex)
+//		{
+//			GD.PrintErr($"[Host] Poll error: {ex.Message}");
+//		}
+
+//		await Task.Delay(TimeSpan.FromSeconds(2), Globals.cts.Token);
+//	}
 
 	// Called by networking code (Host/Guest) when a new game state string arrives.
 	// Compares the last seen state to the incoming one and emits MoveFound when a

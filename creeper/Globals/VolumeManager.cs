@@ -15,6 +15,7 @@ public partial class VolumeManager : Node
     public override void _Ready()
     {    
         UIManager.Instance.SceneChanged += () => {
+            GD.Print("hi");
             music.Clear();
             sfx.Clear();
 
@@ -23,7 +24,6 @@ public partial class VolumeManager : Node
 
         Setup(GetTree().Root);
     }
-
     public void Setup(Node parent)
     {
         if (parent.IsInGroup("MusicSlider")) {
@@ -72,8 +72,11 @@ public partial class VolumeManager : Node
     {
         foreach(var player in music)
         {
-            player.VolumeLinear = (float)value;
-            _musicVolume = (float)value;
+            if (IsInstanceValid(player))
+            {
+                player.VolumeLinear = (float)value;
+                _musicVolume = (float)value;
+            }
         }
     }
     private void UpdateSFX(double value) 

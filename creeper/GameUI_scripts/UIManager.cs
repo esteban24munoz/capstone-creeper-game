@@ -312,7 +312,7 @@ public async void ShowScreen(string path, bool clearStack = false)
 		_isTransitioning = false;
 	}
 	
-	private void ShowSettingsMenu(){
+	public void ShowSettingsMenu(){
 		GD.Print("Settings menu has been opened!");
 		GetNode<Control>("%SettingsMenu").Visible = true;
 	}

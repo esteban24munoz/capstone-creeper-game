@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="2_56vms"]
 [ext_resource type="Texture2D" uid="uid://bdqxvxsnvj7mg" path="res://Art/Heroes/IDLE/Legolas Idle.png" id="2_n44jj"]
 [ext_resource type="Texture2D" uid="uid://ckgd62qpq6i0i" path="res://Art/Heroes/Legolas.png" id="3_4ytf6"]
-[ext_resource type="AudioStream" uid="uid://y8xrpwshtmhr" path="res://Sounds/LegolasHit.wav" id="5_3ngyc"]
+[ext_resource type="AudioStream" uid="uid://e24oy028u5la" path="res://Sounds/LegolasHit.ogg" id="5_3ngyc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ytf6"]
 shader = ExtResource("2_56vms")

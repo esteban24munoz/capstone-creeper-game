@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 public partial class UIManager : Control
 {
 	public static UIManager Instance { get; private set; }
+	[Signal] public delegate void SceneChangedEventHandler();
+
 	
 	private Stack<Control> _screenStack = new();
 	private Control _container;
@@ -18,7 +20,10 @@ public partial class UIManager : Control
 
 	public override void _Ready()
 	{
-		Instance = this; //global reference
+		if (Instance == null)
+			Instance = this; //global reference
+		else 
+			QueueFree();
 		
 		_container = GetNode<Control>("%ScreenContainer");
 		_backButton = 	GetNode<Button>("%BackButton");
@@ -34,6 +39,8 @@ public partial class UIManager : Control
 		CallDeferred(MethodName.ShowScreen, "res://GameUI_scenes/mainMenu.tscn", true);
 
 		_music = GetNode<AudioStreamPlayer2D>("Music");
+
+		EmitSignal(SignalName.SceneChanged);
 	}
 
 	private void ShowInitialScreen()
@@ -54,6 +61,7 @@ public partial class UIManager : Control
 			// Clear existing children from the container manually
 			foreach (Node child in _container.GetChildren())
 			{
+				_container.RemoveChild(child);
 				child.QueueFree();
 			}
 			_screenStack.Clear();
@@ -94,6 +102,7 @@ public partial class UIManager : Control
 		// 1. Clean up the existing game instance if we are restarting
 		if (_currentGameInstance != null && GodotObject.IsInstanceValid(_currentGameInstance))
 		{
+			_currentGameInstance.GetParent().RemoveChild(_currentGameInstance);
 			_currentGameInstance.QueueFree();
 			_currentGameInstance = null;
 		}
@@ -113,6 +122,7 @@ public partial class UIManager : Control
 			_menuButton.Visible = false;
 
 			_music.Stop();
+			EmitSignal(SignalName.SceneChanged);
 		}
 		else 
 		{
@@ -133,6 +143,7 @@ public partial class UIManager : Control
 	// 1. Destroy the running game
 	if (_currentGameInstance != null && GodotObject.IsInstanceValid(_currentGameInstance))
 	{
+		_currentGameInstance.GetParent().RemoveChild(_currentGameInstance);
 		_currentGameInstance.QueueFree();
 		_currentGameInstance = null;
 	}
@@ -144,6 +155,10 @@ public partial class UIManager : Control
 	
 	// 3. Restore the correct state for the Top Bar buttons
 	UpdateBackButton(); 
+
+	_music.Play();
+
+	EmitSignal(SignalName.SceneChanged);
 
 	await FadeIn();
 	_isTransitioning = false;
@@ -160,6 +175,7 @@ public partial class UIManager : Control
 		// 1. Destroy the running game
 		if (_currentGameInstance != null && GodotObject.IsInstanceValid(_currentGameInstance))
 		{
+			_currentGameInstance.GetParent().RemoveChild(_currentGameInstance);
 			_currentGameInstance.QueueFree();
 			_currentGameInstance = null;
 		}
@@ -167,6 +183,7 @@ public partial class UIManager : Control
 		// 2. Clear the UI stack so we don't see Team Selection anymore
 		foreach (Node child in _container.GetChildren())
 		{
+			_container.RemoveChild(child);
 			child.QueueFree();
 		}
 		_screenStack.Clear();
@@ -189,6 +206,8 @@ public partial class UIManager : Control
 		UpdateBackButton(); 
 
 		_music.Play();
+
+		EmitSignal(SignalName.SceneChanged);
 
 		await FadeIn();
 		_isTransitioning = false;
@@ -222,6 +241,7 @@ public partial class UIManager : Control
 		await FadeOut();
 
 		var current = _screenStack.Pop();
+		current.GetParent().RemoveChild(current);
 		current.QueueFree();
 
 		// Show the previous screen

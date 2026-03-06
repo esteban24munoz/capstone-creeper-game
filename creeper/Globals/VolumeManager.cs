@@ -13,12 +13,15 @@ public partial class VolumeManager : Node
      private static float _sfxVolume = 1;
 
     public override void _Ready()
-    {
-        GetTree().TreeChanged += () => {
+    {    
+        UIManager.Instance.SceneChanged += () => {
             music.Clear();
             sfx.Clear();
+
             Setup(GetTree().Root);
         };
+
+        Setup(GetTree().Root);
     }
 
     public void Setup(Node parent)
@@ -75,12 +78,13 @@ public partial class VolumeManager : Node
     }
     private void UpdateSFX(double value) 
     {
-        sfx.Clear();
-        Setup(GetTree().Root);
         foreach(var player in sfx)
         {
-            player.VolumeLinear = (float)value;
-            _sfxVolume = (float)value;
+            if (IsInstanceValid(player))
+            {
+                player.VolumeLinear = (float)value;
+                _sfxVolume = (float)value;
+            }
         }
     }
 }

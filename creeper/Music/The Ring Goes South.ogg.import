@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://5ggytgq5da6d"
+path="res://.godot/imported/The Ring Goes South.ogg-412e8c99c5cec74ed24dba7d460e95b8.oggvorbisstr"
+
+[deps]
+
+source_file="res://Music/The Ring Goes South.ogg"
+dest_files=["res://.godot/imported/The Ring Goes South.ogg-412e8c99c5cec74ed24dba7d460e95b8.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

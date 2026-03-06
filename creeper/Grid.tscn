@@ -25,8 +25,8 @@
 [ext_resource type="PackedScene" uid="uid://c1750db4ehttj" path="res://characters_scenes/light_orc.tscn" id="20_tyu4g"]
 [ext_resource type="PackedScene" uid="uid://duklysfm6g8yo" path="res://Bases_scenes/ring.tscn" id="21_kfiik"]
 [ext_resource type="PackedScene" uid="uid://rus8obsl870u" path="res://Bases_scenes/volcano.tscn" id="22_kfiik"]
-[ext_resource type="AudioStream" uid="uid://cmxqyp2yo4x1d" path="res://Sounds/Fire.wav" id="27_pisw8"]
-[ext_resource type="AudioStream" uid="uid://dhq2qppo5p54t" path="res://Sounds/Grass.wav" id="28_jpp3n"]
+[ext_resource type="AudioStream" uid="uid://bh5s16vqyu5ak" path="res://Sounds/Fire.ogg" id="27_jpp3n"]
+[ext_resource type="AudioStream" uid="uid://cxaoyyq5by0r2" path="res://Sounds/Grass.ogg" id="28_jpp3n"]
 [ext_resource type="Texture2D" uid="uid://b36u4koh0cyhc" path="res://UI_assets/GameBackground/GameBackground_v2.png" id="30_1l2id"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g32va"]
@@ -170,7 +170,7 @@ position = Vector2(-50, 335)
 position = Vector2(622, -49)
 
 [node name="Fire" type="AudioStreamPlayer2D" parent="." groups=["SFX"]]
-stream = ExtResource("27_pisw8")
+stream = ExtResource("27_jpp3n")
 panning_strength = 0.0
 
 [node name="Grass" type="AudioStreamPlayer2D" parent="." groups=["SFX"]]

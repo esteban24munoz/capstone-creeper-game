@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://caglyp5cwadt0"
+path="res://.godot/imported/The Fighting Uruk-hai.ogg-5236beba70978f89468fb8fdd0e76e6c.oggvorbisstr"
+
+[deps]
+
+source_file="res://Music/The Fighting Uruk-hai.ogg"
+dest_files=["res://.godot/imported/The Fighting Uruk-hai.ogg-5236beba70978f89468fb8fdd0e76e6c.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

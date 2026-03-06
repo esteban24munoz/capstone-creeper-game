@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://drqpyhi74wo6q"
+path="res://.godot/imported/The Shadow of the Past.ogg-1e8015f959528276f9b9fb6e7e79b737.oggvorbisstr"
+
+[deps]
+
+source_file="res://Music/The Shadow of the Past.ogg"
+dest_files=["res://.godot/imported/The Shadow of the Past.ogg-1e8015f959528276f9b9fb6e7e79b737.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bougisymggfh"]
 
-[ext_resource type="VideoStream" uid="uid://dxw2cwu57x0au" path="res://UI_assets/MainMenu/There_and_back_again_story.ogv" id="1_ar8w6"]
 [ext_resource type="Script" uid="uid://bldu7tqw2jwdo" path="res://GameUI_scripts/StoryVideo.cs" id="2_1v7j1"]
+[ext_resource type="VideoStream" uid="uid://dm5ybdvnkltpl" path="res://UI_assets/MainMenu/game_trailer_v2.ogv" id="2_so6c7"]
 [ext_resource type="StyleBox" uid="uid://buyitcrqna1ux" path="res://UI_assets/UI_Buttons/normal_button_texture.tres" id="3_so6c7"]
 [ext_resource type="StyleBox" uid="uid://dclx2cpxac0q0" path="res://UI_assets/UI_Buttons/normal_button_hover_texture.tres" id="4_75u7w"]
 
@@ -21,7 +21,7 @@ offset_right = 1024.0
 offset_bottom = 640.0
 grow_horizontal = 2
 grow_vertical = 2
-stream = ExtResource("1_ar8w6")
+stream = ExtResource("2_so6c7")
 autoplay = true
 
 [node name="buttonContainer" type="MarginContainer" parent="."]

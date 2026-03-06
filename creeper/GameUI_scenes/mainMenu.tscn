@@ -1,9 +1,100 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3vkuupj07kn8"]
+[gd_scene load_steps=17 format=3 uid="uid://b3vkuupj07kn8"]
 
 [ext_resource type="Script" uid="uid://crrvnyx6vanh8" path="res://GameUI_scripts/MainMenu.cs" id="1_d5b4s"]
-[ext_resource type="Texture2D" uid="uid://bg36yicl118iy" path="res://UI_assets/GameBackground/main_menu_bkg_v2.png" id="2_pa66l"]
-[ext_resource type="PackedScene" uid="uid://brrhcweyj3tc2" path="res://GameUI_scenes/settingsMenu.tscn" id="4_va3xh"]
+[ext_resource type="Texture2D" uid="uid://cak2y2pgwj742" path="res://UI_assets/MainMenu/nazguls-animation1.png" id="2_mc3iv"]
+[ext_resource type="Texture2D" uid="uid://c3qs6nevbiyx2" path="res://UI_assets/MainMenu/nazguls-animation2.png" id="3_7vqnn"]
+[ext_resource type="Texture2D" uid="uid://djwiwti3h8svt" path="res://UI_assets/MainMenu/nazguls-animation3.png" id="4_cdtku"]
+[ext_resource type="PackedScene" uid="uid://dwuhjsr0e5w4l" path="res://GameUI_scenes/settingsMenu.tscn" id="4_va3xh"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="5_65ijf"]
+[ext_resource type="Texture2D" uid="uid://dqimy8ivyityc" path="res://UI_assets/MainMenu/nazguls-animation4.png" id="5_fcv4o"]
+[ext_resource type="Texture2D" uid="uid://d1vj83d0nv2ca" path="res://UI_assets/MainMenu/nazguls-animation5.png" id="6_ajp5e"]
+[ext_resource type="Texture2D" uid="uid://coqy1fec455hb" path="res://UI_assets/MainMenu/nazguls-animation6.png" id="7_d1ab6"]
+[ext_resource type="Texture2D" uid="uid://eud053ldxjt6" path="res://UI_assets/MainMenu/nazguls-animation7.png" id="8_25rbi"]
+[ext_resource type="Texture2D" uid="uid://laalefk1qlg1" path="res://UI_assets/MainMenu/light_position_1.png" id="9_324ll"]
+[ext_resource type="Texture2D" uid="uid://b5veo82leoy04" path="res://UI_assets/MainMenu/light_position_3.png" id="10_v1g27"]
+[ext_resource type="Texture2D" uid="uid://c2heo8v4ppf6e" path="res://UI_assets/MainMenu/light_position_2.png" id="11_div8g"]
+[ext_resource type="Texture2D" uid="uid://bs4fd2uuym0uj" path="res://UI_assets/MainMenu/light_position_4.png" id="12_ineqx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uyavp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mc3iv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7vqnn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_cdtku")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_fcv4o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ajp5e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_d1ab6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_25rbi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s3ted"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_324ll")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_v1g27")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_div8g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ineqx")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 0.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_324ll")
+}],
+"loop": true,
+"name": &"position1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_div8g")
+}],
+"loop": true,
+"name": &"position2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_v1g27")
+}],
+"loop": true,
+"name": &"position3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_ineqx")
+}],
+"loop": true,
+"name": &"position4",
+"speed": 5.0
+}]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -14,14 +105,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_d5b4s")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_pa66l")
+[node name="Nazguls" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_uyavp")
+autoplay = "default"
+frame = 6
+frame_progress = 1.0
+centered = false
+
+[node name="EyeTower" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_s3ted")
+animation = &"position1"
+autoplay = "idle"
+centered = false
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

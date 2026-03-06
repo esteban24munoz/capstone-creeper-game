@@ -118,11 +118,6 @@ animation = &"position1"
 autoplay = "idle"
 centered = false
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(512, 320)
-sprite_frames = SubResource("SpriteFrames_ajp5e")
-autoplay = "default"
-frame_progress = 0.72601366
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

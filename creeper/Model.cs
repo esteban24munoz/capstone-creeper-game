@@ -1,12 +1,11 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 
 public class Model
 {
-	private const int REPEATS_UNTIL_DRAW = 3;
+	private const int REPEATS_UNTIL_DRAW = 2;
 	Constants.Player[,] Grid {get;} = {
 		{Constants.Player.None, Constants.Player.Enemy, Constants.Player.Enemy, Constants.Player.None, Constants.Player.Hero, Constants.Player.Hero, Constants.Player.None},
 		{Constants.Player.Enemy, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Hero},
@@ -27,11 +26,11 @@ public class Model
 		{Constants.Player.Hero, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.None, Constants.Player.Enemy},
 	};
 
-	private List<string> pastStates = [];
+	private Queue<string> pastStates = [];
 
 	public Model()
 	{
-		pastStates.Add(StringifyState());
+		pastStates.Enqueue(StringifyState());
 	}
 	
 	//Copy Constructor needed for AI
@@ -60,7 +59,8 @@ public class Model
 			Tiles[jumped.Value.X, jumped.Value.Y] = player;
 		}
 
-		pastStates.Add(StringifyState());
+		pastStates.Enqueue(StringifyState());
+		if (pastStates.Count > (REPEATS_UNTIL_DRAW * 4) + 1) pastStates.Dequeue();
 	}
 
 	public Constants.Player PlayerAt(Vector2I pos)
@@ -128,11 +128,32 @@ public class Model
 
 	public bool IsDraw(Constants.Player activePlayer)
 	{
-		//check if the last state has occured REPEATS_UNTIL_DRAW times
-		if (pastStates.FindAll(s => s == pastStates[pastStates.Count - 1]).Count >= 3)
+		//check if the same 4 states have been repeated REPEATS_UNTIL_DRAW times
+		string[] statesArray = pastStates.ToArray();
+		if (statesArray.Length == (REPEATS_UNTIL_DRAW * 4) + 1)
 		{
-			return true;
-		}
+			bool draw = true;
+			for (int i = 4; i < statesArray.Length; i += 4)
+			{
+				if (statesArray[i] != statesArray[0])
+				{
+					draw = false;
+					break;
+				}
+			}
+			
+
+			for (int i = 6; i < statesArray.Length; i += 4)
+			{
+				if (statesArray[i] != statesArray[2])
+				{
+					draw = false;
+					break;
+				}
+			}
+
+			if (draw) return draw;
+		} 
 
 		//Check if any valid moves are available
 		for (int i = 0; i < Grid.GetLength(0); i++)

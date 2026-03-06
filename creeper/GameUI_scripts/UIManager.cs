@@ -16,7 +16,6 @@ public partial class UIManager : Control
 	private ColorRect _overlay;
 	private bool _isTransitioning = false;
 	private Node _currentGameInstance;
-	private AudioStreamPlayer2D _music;
 
 	public override void _Ready()
 	{

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bn2cucwn6anfj"
-path="res://.godot/imported/The One Ring Sprite_frame_1_sparkless.png-46258e0eaf0d6bdfa91901f58ed58737.ctex"
+uid="uid://b11bnto4vfvmc"
+path="res://.godot/imported/nazguls-animation3.png-ae31c35ef92164598c1046581c8cc7f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Bases/The One Ring Sprite_frame_1_sparkless.png"
-dest_files=["res://.godot/imported/The One Ring Sprite_frame_1_sparkless.png-46258e0eaf0d6bdfa91901f58ed58737.ctex"]
+source_file="res://UI_assets/MainMenu/nazguls-animation/nazguls-animation3.png"
+dest_files=["res://.godot/imported/nazguls-animation3.png-ae31c35ef92164598c1046581c8cc7f8.ctex"]
 
 [params]
 

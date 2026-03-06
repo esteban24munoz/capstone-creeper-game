@@ -47,31 +47,69 @@ public partial class UIManager : Control
 		ShowScreen("res://GameUI_scenes/mainMenu.tscn", true);
 	}
 
-	public async void ShowScreen(string path, bool clearStack = false)
+public async void ShowScreen(string path, bool clearStack = false)
+{
+	if (_isTransitioning) return;
+	_isTransitioning = true;
+
+	// Start Transition
+	await FadeOut();
+
+	if (clearStack)
+	{
+		foreach (Node child in _container.GetChildren())
+		{
+			child.QueueFree();
+		}
+		_screenStack.Clear();
+	}
+	else if (_screenStack.Count > 0)
+	{
+		_screenStack.Peek().Visible = false;
+	}
+
+	var scene = GD.Load<PackedScene>(path);
+	if (scene == null)
+	{
+		GD.PrintErr($"Failed to load scene at: {path}");
+		_isTransitioning = false;
+		return;
+	}
+
+	var screenInstance = scene.Instantiate<Control>();
+	_container.AddChild(screenInstance);
+	_screenStack.Push(screenInstance);
+
+	UpdateBackButton();
+
+	// Check if this is the Story Video and force hide the buttons
+	if (path.Contains("storyVideo"))
+	{
+		_backButton.Visible = false;
+		_menuButton.Visible = false;
+	}
+	
+	// End Transition
+	await FadeIn();
+	_isTransitioning = false;
+}
+
+
+	public async void SwitchScreen(string path)
 	{
 		if (_isTransitioning) return;
 		_isTransitioning = true;
 
-		// Start Transition
 		await FadeOut();
 
-		if (clearStack)
+		// Remove the current screen (StoryVideo) from the stack and destroy it
+		if (_screenStack.Count > 0)
 		{
-			// Clear existing children from the container manually
-			foreach (Node child in _container.GetChildren())
-			{
-				_container.RemoveChild(child);
-				child.QueueFree();
-			}
-			_screenStack.Clear();
-		}
-		else if (_screenStack.Count > 0)
-		{
-			// Just hide the top screen if we aren't clearing
-			_screenStack.Peek().Visible = false;
+			var current = _screenStack.Pop();
+			current.QueueFree();
 		}
 
-		// Load and Instance
+		// 2. Load the new screen (GameMode)
 		var scene = GD.Load<PackedScene>(path);
 		if (scene == null)
 		{
@@ -82,11 +120,13 @@ public partial class UIManager : Control
 
 		var screenInstance = scene.Instantiate<Control>();
 		_container.AddChild(screenInstance);
+		
+		// 3. Push it to the stack. 
+		// The Stack is now: [MainMenu, GameMode] (StoryVideo is gone)
 		_screenStack.Push(screenInstance);
 
 		UpdateBackButton();
 		
-		// End Transition
 		await FadeIn();
 		_isTransitioning = false;
 	}
@@ -130,6 +170,23 @@ public partial class UIManager : Control
 
 		await FadeIn(); 
 		_isTransitioning = false;
+	}
+	
+	public void StopMusic()
+	{
+		if (_music.Playing)
+		{
+			_music.Stop();
+		}
+	}
+
+	public void PlayMusic()
+	{
+		// Only play if it isn't already playing
+		if (!_music.Playing)
+		{
+			_music.Play();
+		}
 	}
 	
 	public async Task RestartGame()

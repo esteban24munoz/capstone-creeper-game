@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://bougisymggfh"]
+
+[ext_resource type="VideoStream" uid="uid://dxw2cwu57x0au" path="res://UI_assets/MainMenu/There_and_back_again_story.ogv" id="1_ar8w6"]
+[ext_resource type="Script" uid="uid://bldu7tqw2jwdo" path="res://GameUI_scripts/StoryVideo.cs" id="2_1v7j1"]
+[ext_resource type="StyleBox" uid="uid://buyitcrqna1ux" path="res://UI_assets/UI_Buttons/normal_button_texture.tres" id="3_so6c7"]
+[ext_resource type="StyleBox" uid="uid://dclx2cpxac0q0" path="res://UI_assets/UI_Buttons/normal_button_hover_texture.tres" id="4_75u7w"]
+
+[node name="StoryVideo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_1v7j1")
+
+[node name="TrailerVideo" type="VideoStreamPlayer" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 1024.0
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("1_ar8w6")
+autoplay = true
+
+[node name="buttonContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="SkipButton" type="Button" parent="buttonContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_styles/normal = ExtResource("3_so6c7")
+theme_override_styles/hover = ExtResource("4_75u7w")
+text = "Skip"

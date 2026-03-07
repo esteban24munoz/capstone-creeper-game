@@ -14,6 +14,9 @@ public partial class LocalPlayer : IPlayer
 
 	//declare event
 	public event EventHandler<(Vector2I, Vector2I)> MoveFound;
+	
+	// Network player does not handle local click/hover input; no-ops per IPlayer contract
+	public void ReceiveState(string state) { /* no-op for local-controlled player */ }
 
 	public void SetupTurn(Model model, Grid grid)
 	{

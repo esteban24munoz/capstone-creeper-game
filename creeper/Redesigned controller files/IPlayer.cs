@@ -15,4 +15,7 @@ public interface IPlayer
 	void OnClick(Vector2I pos);
 	void MouseEntered(Vector2I pos);
 	void MouseExited(Vector2I pos);
+	
+	//this function should only be used by the NetworkPlayer object
+	public void ReceiveState(string state);
 }

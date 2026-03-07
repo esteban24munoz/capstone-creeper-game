@@ -8,7 +8,7 @@ public partial class NetworkPlayer : IPlayer
 	private Model ModelInstance;
 	private Grid ViewInstance;
 	private Constants.Player Player;
-	private string? LastState;
+	private string? LastState;// = ".oo.xx.o.....xo.....x.......x.....ox.....o.xx.oo.o....x........................x....o";
 	
 	// Emit this when a network move is detected
 	public event EventHandler<(Vector2I, Vector2I)> MoveFound;
@@ -44,18 +44,7 @@ public partial class NetworkPlayer : IPlayer
 //		try
 //		{
 //			var state = await Globals.hostClient.GetGameStateAsync(_created.GameId, Globals.cts.Token);
-//GD.Print($"[Host] Game status: {state.Status}, turn: {state.Turn}, lastActive: {state.LastActive}");
-						
-//			//Update p2 name and start game
-//			if (state.Status == "in_progress")
-//			{
-//				Label p2Name = GetNode<Label>("%P2name");
-//p2Name.Text = state.GuestName;
-//				GD.Print($"[Host]: {state.GuestName} joined game");
-//				await UIManager.Instance.ChangeSceneWithTransition("res://game.tscn");
-//				return;
-//			}
-						
+//			GD.Print($"[Host] Game status: {state.Status}, turn: {state.Turn}, lastActive: {state.LastActive}");
 //			// Example: make a sample move when it's host's turn.
 //			//if (state.Status == "in_progress" && state.Turn == "host")
 //			//{
@@ -69,7 +58,6 @@ public partial class NetworkPlayer : IPlayer
 //		{
 //			GD.PrintErr($"[Host] Poll error: {ex.Message}");
 //		}
-
 //		await Task.Delay(TimeSpan.FromSeconds(2), Globals.cts.Token);
 //	}
 
@@ -78,6 +66,7 @@ public partial class NetworkPlayer : IPlayer
 	// single pin move for this player can be determined.
 	public void ReceiveState(string state)
 	{
+		GD.Print($"Last State: {LastState} \t Incoming state: {state}");
 		if (string.IsNullOrEmpty(state)) return;
 		if (state == LastState) return;
 
@@ -96,10 +85,12 @@ public partial class NetworkPlayer : IPlayer
 		{
 			oldModel.UpdateState(LastState);
 			newModel.UpdateState(state);
+			GD.Print($"Models old and new have been updated in state");
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
 			// Malformed state string; ignore
+			GD.Print($"Problem updating Models: {ex}");
 			LastState = state;
 			return;
 		}
@@ -133,6 +124,15 @@ public partial class NetworkPlayer : IPlayer
 		// If we found a clear from->to, emit a MoveFound so the controller will apply it
 		if (from != null && to != null)
 		{
+			GD.Print($"RecieveState func: Move Found: {from} to {to}");
+			if (this == Constants.HeroPlayer)
+			{
+				GD.Print("Host is network");
+			}
+			else if (this == Constants.EnemyPlayer)
+			{
+				GD.Print("Guest is network");
+			}
 			MoveFound?.Invoke(this, (from.Value, to.Value));
 		}
 

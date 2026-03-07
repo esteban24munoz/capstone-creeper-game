@@ -155,8 +155,7 @@ namespace Client {
 			}
 			Globals.p1Type = "Network";
 			Globals.p2Type = "Person";
-			NetworkPlayer netHero = new NetworkPlayer();
-			Constants.HeroPlayer = netHero;
+			Constants.HeroPlayer = new NetworkPlayer();
 		}
 		
 		private async void _on_join_btn_pressed()
@@ -245,16 +244,23 @@ namespace Client {
 		private async Task PollStateLoopAsync(string gameId, CancellationToken ct)
 		{
 			var interval = TimeSpan.FromSeconds(2);
+			bool moveFound = false;
 			while (!ct.IsCancellationRequested)
 			{
 				try
 				{
 					var stateResp = await Globals.guestClient.GetGameStateAsync(gameId, ct);
-					GD.Print($"[Guest Poll Loop] Game status: {stateResp.Status}, turn: {stateResp.Turn}, lastActive: {stateResp.LastActive}");
+					GD.Print($"[Guest Poll Loop] Game status: {stateResp.Status}, turn: {stateResp.Turn}, state: {stateResp.State}");
 					if (!string.IsNullOrEmpty(stateResp.State))
 					{
-						if (Globals.p1Type == "Network" && Constants.HeroPlayer is NetworkPlayer netHero)
-							netHero.ReceiveState(stateResp.State);
+						if (stateResp.Status == "in_progress" && stateResp.Turn == "guest" && !moveFound)
+						{
+							GD.Print("[Guest] Recieve state called");
+							Constants.HeroPlayer.ReceiveState(stateResp.State);
+							moveFound = true;
+						}
+						if (stateResp.Turn == "host")
+							moveFound = false;
 					}
 				}
 				catch (Exception ex)

@@ -108,8 +108,7 @@ namespace Client {
 			p1Name.Text = Globals.username;
 			Globals.p1Type = "Person";
 			Globals.p2Type = "Network";
-			NetworkPlayer netEnemy = new NetworkPlayer();
-			Constants.EnemyPlayer = netEnemy;
+			Constants.EnemyPlayer = new NetworkPlayer();
 		}
 		
 		private async Task StartHostFlowAsync()
@@ -134,7 +133,7 @@ namespace Client {
 					try
 					{
 						var state = await Globals.hostClient.GetGameStateAsync(_created.GameId, Globals.cts.Token);
-						GD.Print($"[Host] Game status: {state.Status}, turn: {state.Turn}, lastActive: {state.LastActive}");
+						GD.Print($"[Host] Game status: {state.Status}, turn: {state.Turn}, state: {state.State}");
 						
 						//Update p2 name and start game
 						if (state.Status == "in_progress")
@@ -164,6 +163,7 @@ namespace Client {
 		private async Task PollStateLoopAsync(string gameId, CancellationToken ct)
 		{
 			var interval = TimeSpan.FromSeconds(2);
+			bool moveFound = false;
 			while (!ct.IsCancellationRequested)
 			{
 				try
@@ -171,9 +171,14 @@ namespace Client {
 					var stateResp = await Globals.hostClient.GetGameStateAsync(gameId, ct);
 					if (!string.IsNullOrEmpty(stateResp.State) && stateResp.Status == "in_progress")
 					{
-						GD.Print($"[Host Poll Loop] Game status: {stateResp.Status}, turn: {stateResp.Turn}, lastActive: {stateResp.LastActive}");
-						if (Globals.p2Type == "Network" && Constants.EnemyPlayer is NetworkPlayer netEnemy)
-							netEnemy.ReceiveState(stateResp.State);
+						GD.Print($"[Host Poll Loop] Game status: {stateResp.Status}, turn: {stateResp.Turn}, state: {stateResp.State}");
+						if (stateResp.Status == "in_progress" && stateResp.Turn == "host" && !moveFound) {
+							GD.Print("[Host] Recieve state called");
+							Constants.EnemyPlayer.ReceiveState(stateResp.State);
+							moveFound = true;
+						}
+						if (stateResp.Turn == "guest")
+							moveFound = false;
 					}
 				}
 				catch (Exception ex)
@@ -217,11 +222,6 @@ namespace Client {
 					break;
 				}
 			}
-		}
-		
-		private void _on_back_btn_pressed()
-		{
-			GetTree().ChangeSceneToFile("res://Networking/multiplayer_test.tscn");
 		}
 	}
 }

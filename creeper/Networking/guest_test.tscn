@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://diytp2fq38kpo"]
+[gd_scene load_steps=11 format=3 uid="uid://diytp2fq38kpo"]
 
 [ext_resource type="Script" uid="uid://c2ds11rrpmwad" path="res://Networking/Guest.cs" id="1_3ehw5"]
 [ext_resource type="Texture2D" uid="uid://dn1ra2m8au2kx" path="res://UI_assets/TeamSelection/gradient-bkg.png" id="2_emlmw"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://bl73um72w5ddo" path="res://UI_assets/TeamSelection/Moria Gate.png" id="4_8lbxw"]
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="5_t8hsa"]
 [ext_resource type="Texture2D" uid="uid://fiu2mgen58wi" path="res://UI_assets/UI_Buttons/Buttons_states_v2.png" id="6_t3pyp"]
-[ext_resource type="StyleBox" uid="uid://dlpn6pyq67rah" path="res://UI_assets/UI_Buttons/backButton_hover.tres" id="7_mwc38"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="8_wdlxe"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dl61h"]
@@ -20,10 +19,6 @@ region_rect = Rect2(334, 178, 120, 70)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_upaj8"]
 texture = ExtResource("6_t3pyp")
 region_rect = Rect2(334, 178, 120, 70)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yi5od"]
-texture = ExtResource("6_t3pyp")
-region_rect = Rect2(38, 92, 70, 52)
 
 [node name="GuestTest" type="Control"]
 layout_mode = 3
@@ -111,19 +106,6 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_emlmw")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_upaj8")
 text = "Join"
 
-[node name="BackButton" type="Button" parent="."]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(70, 52)
-layout_mode = 0
-offset_left = 75.0
-offset_top = 58.0
-offset_right = 145.0
-offset_bottom = 110.0
-theme_override_styles/normal = SubResource("StyleBoxTexture_yi5od")
-theme_override_styles/hover = ExtResource("7_mwc38")
-theme_override_styles/hover_pressed = ExtResource("7_mwc38")
-
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_left = 297.0
@@ -138,4 +120,3 @@ horizontal_alignment = 1
 
 [connection signal="text_changed" from="HBoxContainer/GameID" to="." method="_on_game_id_text_changed"]
 [connection signal="pressed" from="JoinBtn" to="." method="_on_join_btn_pressed"]
-[connection signal="pressed" from="BackButton" to="." method="_on_back_btn_pressed"]

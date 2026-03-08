@@ -23,8 +23,9 @@ public partial class MTCS_Pure : Node
 	{
 		string playStateUrl = $"{SOFTSERVE_URL}/aivai/play-state";
 		Model currentGame = new();
-		//while (true)
-		for (int i = 0; i < 1; i++)
+		bool gameOver = false;
+		while (!gameOver)
+		//for (int i = 0; i < 1; i++)
 		{
 			var playStateObj = new
 			{
@@ -50,26 +51,42 @@ public partial class MTCS_Pure : Node
 			//GD.Print(playStateJson);
 			string state = playStateJson.GetProperty("state").GetString();
 			string action_id = playStateJson.GetProperty("action_id").ToString();
+			string parsedAction;
 
 			GD.Print($"state:\t{state}");
 
 			/***************************************************************************************
 			Starting here, AI should take over. The state of the game is still just a string.
 			***************************************************************************************/
-			
+			if (state == ".oo.xx.o.....xo.....x.......x.....ox.....o.xx.oo.o....x........................x....ox"){
+				gameOver = true;
+				return;
+			}
 			Constants.Player activePlayer = currentGame.UpdateState(state);
 			MCTSNode currentNode = new MCTSNode(currentGame);
 			currentNode.currentPlayer = activePlayer;
 			Move bestMove = currentNode.GetBestMove(currentGame);
 			GD.Print($"Move {bestMove._from} {bestMove.to} chosen");
-			
-			//GD.Print("Testing Action Parsing");
-			string parsedAction = ParseAction(bestMove._from, bestMove.to);
-			
-			/***************************************************************************************
-			End of AI
-			***************************************************************************************/
-			
+			//GD.Print($"Tiles added: {currentNode.TilesAdded}");
+			parsedAction = ParseAction(bestMove._from, bestMove.to);
+			currentGame.MoveCharacter(bestMove._from, bestMove.to);
+			var winner = currentGame.FindWinner();
+			GD.Print($"Winner: {winner}");
+			if (winner == Constants.Player.None)
+			{
+				GD.Print("Game continues");
+			}
+			else if (winner == Constants.Player.Draw)
+			{
+				GD.Print("Game Over! It was a draw!");
+				gameOver = true;
+			}
+			else
+			{
+				GD.Print($"Game Over! {winner} won!");
+				gameOver = true;
+			}
+				
 			var submitActionObj = new
 			{
 				action = parsedAction,
@@ -80,6 +97,24 @@ public partial class MTCS_Pure : Node
 
 			var submitResponse = await client.PostAsJsonAsync($"{SOFTSERVE_URL}/aivai/submit-action", submitActionObj);
 			submitResponse.EnsureSuccessStatusCode();
+			
+			//GD.Print("Testing Action Parsing");
+			//string parsedAction = ParseAction(bestMove._from, bestMove.to);
+			
+			/***************************************************************************************
+			End of AI
+			***************************************************************************************/
+			
+			//var submitActionObj = new
+			//{
+				//action = parsedAction,
+				//action_id = action_id,
+				//player = PLAYER_NAME,
+				//token = PLAYER_TOKEN
+			//};
+//
+			//var submitResponse = await client.PostAsJsonAsync($"{SOFTSERVE_URL}/aivai/submit-action", submitActionObj);
+			//submitResponse.EnsureSuccessStatusCode();
 		}
 	}
 	
@@ -94,6 +129,37 @@ public partial class MTCS_Pure : Node
 		return action;
 	}
 	
+	public void TestState()
+	{
+		Model currentGame = new();
+		string state = ".oo.xx.o.....xo.....x.......x.....ox.....o.xx.oo.o....x........................x....ox";
+		GD.Print($"state:\t{state}");
+		Constants.Player activePlayer = currentGame.UpdateState(state);
+		//var winner = currentGame.FindWinner();
+		//GD.Print($"Winner: {winner}");
+		//if (winner == Constants.Player.None)
+		//{
+		MCTSNode currentNode = new MCTSNode(currentGame);
+		currentNode.currentPlayer = activePlayer;
+		Move bestMove = currentNode.GetBestMove(currentGame);
+		GD.Print($"Move {bestMove._from} {bestMove.to} chosen");
+		currentGame.MoveCharacter(bestMove._from, bestMove.to);
+		var winner = currentGame.FindWinner();
+		GD.Print($"Winner: {winner}");
+		if (winner == Constants.Player.None)
+		{
+			GD.Print("Game continues");
+		}
+		else if (winner == Constants.Player.Draw)
+		{
+			GD.Print("Game Over! It was a draw!");
+		}
+		else
+		{
+			GD.Print($"Game Over! {winner} won!");
+		}
+	}
+	
 	public override void _Ready()
 	{
 		//string boardState = ".o..x..o.....xoo....x....x..x.....oxx..o....x.oo.o...xx.o.x.....x............oox....ox";
@@ -103,8 +169,9 @@ public partial class MTCS_Pure : Node
 		//Move bestMove = currentNode.GetBestMove(currentGame);
 		//GD.Print($"Move {bestMove._from} {bestMove.to} chosen");
 		PlayAiVsAi();
+		//TestState();
 	}
-	public string boardState = ".o..x..o.....xoo....x....x..x.....oxx..o....x.oo.o...xx.o.x.....x............oox....ox"; 
+	public string boardState = ".oo.xx.o.....xo.....x.......x.....ox.....o.xx.oo.o....x........................x....ox"; 
 	public Model currentGame;
 	//public Constants.Player currentPlayer = Constants.Player.Hero;
 	//currentPlayer = currentGame.UpdateState(boardState);
@@ -136,6 +203,7 @@ public partial class MTCS_Pure : Node
 		public Move Action; // Move taken to reach this state
 		public double Wins = 0;
 		public int Visits = 0;
+		public float TilesAdded = 0.0f;
 		public Move LastMove;
 		public Constants.Player currentPlayer;
 
@@ -146,6 +214,7 @@ public partial class MTCS_Pure : Node
 			this.Wins = other.Wins;
 			this.Visits = other.Visits;
 			this.currentPlayer = other.currentPlayer;
+			this.TilesAdded = other.TilesAdded;
 			
 			// Immutable or simple reference types
 			this.Action = other.Action != null ? new Move(other.Action) : null;
@@ -170,10 +239,11 @@ public partial class MTCS_Pure : Node
 			Parent = parent;
 			LastMove = action;
 		}
+		
 		public double GetUCB1(double explorationConstant = 1.41)
 		{
 			if (Visits == 0) return double.MaxValue;
-			return (Wins / Visits) + explorationConstant * Math.Sqrt(Math.Log(Parent.Visits) / Visits);
+			return (Wins / Visits) + TilesAdded + explorationConstant * Math.Sqrt(Math.Log(Parent.Visits) / Visits);
 		}
 		
 		public Move GetBestMove(Model rootState, int maxTimeMs = 4000)
@@ -193,8 +263,10 @@ public partial class MTCS_Pure : Node
 			}
 			//GD.Print(root.Children.Count);
 			//GD.Print("Move "+root.Children.OrderByDescending(c => c.Visits).FirstOrDefault());
-			return root.Children.OrderByDescending(c => c.Visits).FirstOrDefault()?.LastMove;
+			GD.Print($"Tiles added: {this.TilesAdded}");
+			return root.Children.OrderByDescending(c => c.Wins).FirstOrDefault()?.LastMove;
 		}
+		
 		private MCTSNode Select(MCTSNode node)
 		{
 			List<Move> moves = new();
@@ -242,6 +314,29 @@ public partial class MTCS_Pure : Node
 		}
 		private float Simulate(Model state)
 		{
+			int parentTileCount = 0;
+			string parentsGameState = state.StringifyState();
+			char CP = ' ';
+			
+			if (currentPlayer == Constants.Player.Hero)
+			{
+				parentsGameState = parentsGameState + 'x';
+				CP = 'x';
+			}
+			else
+			{
+				parentsGameState = parentsGameState + 'o';
+				CP = 'o';
+			}
+			for (int count = 49; count < 85; count++)
+			{
+				if (parentsGameState[count] == CP)
+				{
+					parentTileCount++;
+				}
+			}
+			//GD.Print($"Parent Tiles: {parentTileCount}");
+
 			Random rand = new Random();
 			while (!state.IsDraw(currentPlayer) && state.FindWinner() == Constants.Player.None)
 			{
@@ -260,13 +355,41 @@ public partial class MTCS_Pure : Node
 				}
 				state.MoveCharacter(moves[rand.Next(moves.Count)]._from,moves[rand.Next(moves.Count)].to);
 			}
+			
+			int newTileCount = 0;
+			string gameState = state.StringifyState();
+			
+			if (currentPlayer == Constants.Player.Hero)
+			{
+				gameState = gameState + 'x';
+				CP = 'x';
+			}
+			else
+			{
+				gameState = gameState + 'o';
+				CP = 'o';
+			}
+
+			for (int count = 49; count < 85; count++)
+			{
+				if (gameState[count] == CP)
+				{
+					newTileCount++;
+				}
+			}
+			//GD.Print($"Current Tiles: {newTileCount}");
+			
 			if(state.FindWinner() == currentPlayer)
 			{
-				return 1; // 1 for win, 0 for loss, 0.5 for draw
+				return 10; // 1 for win, 0 for loss, 0.5 for draw
 			}
 			else if(state.IsDraw(currentPlayer))
 			{
 				return 0.5f; //struggled to get float had to get gemini to help promp of "in c# how to make a float = to .5"
+			}
+			else if (newTileCount > parentTileCount)
+			{
+				return 0.01f;
 			}
 			else
 			{
@@ -278,7 +401,15 @@ public partial class MTCS_Pure : Node
 			while (node != null)
 			{
 				node.Visits++;
-				node.Wins += result;
+				if (result == .01)
+				{
+					node.TilesAdded += result;
+				}
+				else 
+				{
+					node.Wins += result;
+				}
+				//GD.Print($"Wins: {node.Wins}, Tiles: {node.TilesAdded}");
 				node = node.Parent;
 			}
 		}

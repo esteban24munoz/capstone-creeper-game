@@ -75,6 +75,8 @@ public partial class VolumeManager : Node
     }
     private void UpdateSFX(double value) 
     {
+        sfx.Clear();
+        Setup(GetTree().Root);
         foreach(var player in sfx)
         {
             player.VolumeLinear = (float)value;

@@ -133,7 +133,10 @@ public partial class NetworkPlayer : IPlayer
 			{
 				GD.Print("Guest is network");
 			}
-			MoveFound?.Invoke(this, (from.Value, to.Value));
+			
+			Callable.From(() => MoveFound?.Invoke(this, (from.Value, to.Value))).CallDeferred();
+			
+			//MoveFound?.Invoke(this, (from.Value, to.Value));
 		}
 
 		// Always update last known state

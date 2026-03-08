@@ -67,6 +67,11 @@ public partial class NewController : Node2D
 		{
 			// Capture state after applying move (same format other networking code uses)
 			string state = ModelInstance.StringifyState();
+			if (ActivePlayer == Constants.Player.Hero)
+				state += 'x';
+			else if (ActivePlayer == Constants.Player.Enemy)
+				state += 'o';
+			GD.Print($"Submitting state: {state}");
 			_ = SubmitMoveToServerAsync(state); // fire-and-forget; errors are logged inside helper
 		}
 	}

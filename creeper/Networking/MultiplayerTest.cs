@@ -10,7 +10,7 @@ public partial class MultiplayerTest : Control
 	
 	public override void _Ready()
 	{
-		Globals.gameType = "Network";
+		Globals.gameType = Globals.GameType.Network;
 		_ui = UIManager.Instance;
 
 		if (_ui == null)
@@ -25,15 +25,10 @@ public partial class MultiplayerTest : Control
 		username = text;
 	}
 	
-	private void _on_back_btn_pressed()
-	{
-		_ui.ShowScreen("res://GameUI_scenes/gameMode.tscn");
-	}
-	
 	private void _on_ai_btn_pressed()
 	{
 		GD.Print("AI Tournament");
-		GetTree().ChangeSceneToFile("res://AI/AI_test.tscn");
+		_ui.ShowScreen("res://AI/AI_test.tscn");
 	}
 	
 	private void _on_host_btn_pressed()
@@ -45,7 +40,7 @@ public partial class MultiplayerTest : Control
 		
 		Globals.username = username;
 		GD.Print(Globals.username);
-		GetTree().ChangeSceneToFile("res://Networking/host_test.tscn");
+		_ui.ShowScreen("res://Networking/host_test.tscn");
 	}
 	
 	private void _on_join_btn_pressed()
@@ -57,6 +52,6 @@ public partial class MultiplayerTest : Control
 		
 		Globals.username = username;
 		GD.Print(Globals.username);
-		GetTree().ChangeSceneToFile("res://Networking/guest_test.tscn");
+		_ui.ShowScreen("res://Networking/guest_test.tscn");
 	}
 }

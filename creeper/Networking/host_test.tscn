@@ -1,17 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cpw23key46sdo"]
+[gd_scene load_steps=7 format=3 uid="uid://cpw23key46sdo"]
 
 [ext_resource type="Script" uid="uid://dtsyvrdkt11p7" path="res://Networking/Host.cs" id="1_xhhxm"]
 [ext_resource type="Texture2D" uid="uid://dn1ra2m8au2kx" path="res://UI_assets/TeamSelection/gradient-bkg.png" id="2_mkcn1"]
 [ext_resource type="Texture2D" uid="uid://guby48e31ivk" path="res://UI_assets/TeamSelection/Character Trees.png" id="3_g0vd8"]
 [ext_resource type="Texture2D" uid="uid://bl73um72w5ddo" path="res://UI_assets/TeamSelection/Moria Gate.png" id="4_ogta6"]
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="5_ss7qm"]
-[ext_resource type="Texture2D" uid="uid://fiu2mgen58wi" path="res://UI_assets/UI_Buttons/Buttons_states_v2.png" id="6_ijil7"]
-[ext_resource type="StyleBox" uid="uid://dlpn6pyq67rah" path="res://UI_assets/UI_Buttons/backButton_hover.tres" id="7_rp0je"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="8_5764j"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2ebxi"]
-texture = ExtResource("6_ijil7")
-region_rect = Rect2(38, 92, 70, 52)
 
 [node name="Host" type="Control"]
 layout_mode = 3
@@ -42,6 +36,17 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_g0vd8")
 
+[node name="gradientBkg3" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.5
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_ss7qm")
+
 [node name="gradientBkg4" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -56,29 +61,6 @@ grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("4_ogta6")
 stretch_mode = 2
-
-[node name="gradientBkg3" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -0.5
-offset_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_ss7qm")
-
-[node name="BackButton" type="Button" parent="."]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(70, 52)
-layout_mode = 0
-offset_left = 75.0
-offset_top = 58.0
-offset_right = 145.0
-offset_bottom = 110.0
-theme_override_styles/normal = SubResource("StyleBoxTexture_2ebxi")
-theme_override_styles/hover = ExtResource("7_rp0je")
-theme_override_styles/hover_pressed = ExtResource("7_rp0je")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -153,5 +135,3 @@ offset_top = -1.0
 offset_right = 232.0
 offset_bottom = 22.0
 text = "Waiting for player"
-
-[connection signal="pressed" from="BackButton" to="." method="_on_back_btn_pressed"]

@@ -7,7 +7,9 @@ public partial class AiDifficulty : Control
 
 	public override void _Ready()
 	{
-		Globals.gameType = "AI";
+		Globals.gameType = Globals.GameType.AI;
+		//TODO:: Make AIPlayer according to team selected. It's currently hard coded to be the enemy
+		Constants.EnemyPlayer = new AIPlayer();
 		// Get the global reference
 		_ui = UIManager.Instance;
 

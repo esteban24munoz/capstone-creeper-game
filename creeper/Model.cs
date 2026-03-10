@@ -369,13 +369,15 @@ public class Model
 			}
 		}
 		
-		if (state[85] == 'x')
-		{
-			activePlayer = Constants.Player.Hero;
-		}
-		else if (state[85] == 'o')
-		{
-			activePlayer = Constants.Player.Enemy;
+		if (state.Length > 85){
+			if (state[85] == 'x')
+			{
+				activePlayer = Constants.Player.Hero;
+			}
+			else
+			{
+				activePlayer = Constants.Player.Enemy;
+			}
 		}
 		else
 		{

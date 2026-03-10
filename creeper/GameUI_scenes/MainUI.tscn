@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cy75bjujm7j78"]
+[gd_scene load_steps=13 format=3 uid="uid://dnfdgphcwnnaq"]
 
 [ext_resource type="Script" uid="uid://ce33asv8yj453" path="res://GameUI_scripts/UIManager.cs" id="1_stm4m"]
 [ext_resource type="Texture2D" uid="uid://dn1ra2m8au2kx" path="res://UI_assets/TeamSelection/gradient-bkg.png" id="2_ecmct"]

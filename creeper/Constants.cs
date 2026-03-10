@@ -6,4 +6,7 @@ public static class Constants {
 		Draw,
 		None
 	}
+
+	public static IPlayer HeroPlayer = new LocalPlayer();
+	public static IPlayer EnemyPlayer = new LocalPlayer();
 }

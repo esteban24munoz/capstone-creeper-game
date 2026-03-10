@@ -87,16 +87,16 @@ namespace Client {
 		 public string GameId { get; set; } = default!;
 
 		 [JsonPropertyName("host_display_name")]
-		 public string? HostName { get; set; }
+		 public string HostName { get; set; }
 		
 		[JsonPropertyName("guest_display_name")]
-		 public string? GuestName { get; set; }
+		 public string GuestName { get; set; }
 
 		 [JsonPropertyName("status")]
 		 public string Status { get; set; } = default!;
 
 		 [JsonPropertyName("turn")]
-		 public string? Turn { get; set; }
+		 public string Turn { get; set; }
 
 		 [JsonPropertyName("state")]
 		 public string State { get; set; } = default!;
@@ -117,7 +117,7 @@ namespace Client {
 		 public string GameId { get; set; } = default!;
 
 		 [JsonPropertyName("host_display_name")]
-		 public string? HostDisplayName { get; set; }
+		 public string HostDisplayName { get; set; }
 
 		 [JsonPropertyName("status")]
 		 public string Status { get; set; } = default!;
@@ -132,6 +132,7 @@ namespace Client {
 	public partial class Guest : Control
 	{
 		private JoinResponse? _joinInfo;
+		private UIManager _ui;
 
 		// Events other nodes can subscribe to
 		public event Action<JoinResponse>? OnJoined;
@@ -142,23 +143,28 @@ namespace Client {
 		{
 			Globals.gameId = gameId;
 		}
-		
-		private void _on_back_btn_pressed()
-		{
-			GetTree().ChangeSceneToFile("res://Networking/multiplayer_test.tscn");
-		}
 
 		public override void _Ready()
 		{
+			_ui = UIManager.Instance;
+
+			if (_ui == null)
+			{
+				GD.PrintErr("GameMode: UIManager Instance is null! Is MainUI.tscn loaded?");
+				return;
+			}
 			Globals.p1Type = "Network";
 			Globals.p2Type = "Person";
+			Constants.HeroPlayer = new NetworkPlayer();
 		}
 		
 		private async void _on_join_btn_pressed()
 		{
-			await StartGuestFlowAsync(Globals.gameId, Globals.username, Globals.cts.Token);
+			await JoinGame(Globals.gameId, Globals.username, Globals.cts.Token);
+			// start heartbeat and polling loops
 			_ = HeartbeatLoopAsync(Globals.cts.Token);
-			GetTree().ChangeSceneToFile("res://game.tscn");
+			_ = PollStateLoopAsync(Globals.gameId, Globals.cts.Token);
+			await UIManager.Instance.ChangeSceneWithTransition("res://game.tscn");
 		}
 		
 		public override void _ExitTree()
@@ -188,20 +194,17 @@ namespace Client {
 			}
 		}
 
-		private async Task StartGuestFlowAsync(string gameId, string username, CancellationToken ct)
+		private async Task JoinGame(string gameId, string username, CancellationToken ct)
 		{
 			try
 			{
-				_joinInfo = await Globals.guestClient.JoinGameAsync(gameId, username, ct).ConfigureAwait(false);
+				_joinInfo = await Globals.guestClient.JoinGameAsync(gameId, username, ct);
 				GD.Print($"[Guest] Joined game {_joinInfo.GameId} token={_joinInfo.GuestToken} status={_joinInfo.Status}");
 				OnJoined?.Invoke(_joinInfo);
 				Globals.guestToken = _joinInfo.GuestToken;
 				Globals.status = _joinInfo.Status;
 				
-				//GetTree().ChangeSceneToFile("res://game.tscn");
-				// start heartbeat and polling
-				//_ = HeartbeatLoopAsync(ct);
-				//_ = PollStateLoopAsync(_joinInfo.GameId, ct);
+				// Note: heartbeat + polling started by caller after this returns
 			}
 			catch (Exception ex)
 			{
@@ -218,6 +221,7 @@ namespace Client {
 				try
 				{
 					await Globals.guestClient.HeartbeatAsync(Globals.gameId, Globals.guestToken, ct).ConfigureAwait(false);
+					GD.Print("Guest Heartbeat");
 				}
 				catch (Exception ex)
 				{
@@ -236,16 +240,28 @@ namespace Client {
 			}
 		}
 
+		// Poll server for state and forward it to NetworkPlayer.ReceiveState
 		private async Task PollStateLoopAsync(string gameId, CancellationToken ct)
 		{
 			var interval = TimeSpan.FromSeconds(2);
+			bool moveFound = false;
 			while (!ct.IsCancellationRequested)
 			{
 				try
 				{
-					var state = await Globals.guestClient.GetGameStateAsync(gameId, ct).ConfigureAwait(false);
-					// Use CallDeferred to safely interact with Godot main thread if needed
-					//CallDeferred(nameof(EmitStateUpdated), state);
+					var stateResp = await Globals.guestClient.GetGameStateAsync(gameId, ct);
+					GD.Print($"[Guest Poll Loop] Game status: {stateResp.Status}, turn: {stateResp.Turn}, state: {stateResp.State}");
+					if (!string.IsNullOrEmpty(stateResp.State))
+					{
+						if (stateResp.Status == "in_progress" && stateResp.Turn == "guest" && !moveFound)
+						{
+							GD.Print("[Guest] Recieve state called");
+							Constants.HeroPlayer.ReceiveState(stateResp.State);
+							moveFound = true;
+						}
+						if (stateResp.Turn == "host")
+							moveFound = false;
+					}
 				}
 				catch (Exception ex)
 				{

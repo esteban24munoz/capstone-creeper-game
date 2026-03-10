@@ -4,7 +4,6 @@ using System;
 public partial class TeamSelection : Control
 {
 	public override void _Ready() { 
-		Globals.gameType = "Local";
 		GetNode<Button>("%StartGame").Pressed += async () =>  { 
 			
 			if (UIManager.Instance != null) 

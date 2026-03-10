@@ -74,7 +74,7 @@ public partial class Controller : Node2D
 
 				ViewInstance.RemoveGhosts();
 				SelectedCharacter = null;
-				if (Globals.gameType == "Network")
+				if (Globals.gameType == Globals.GameType.Network)
 				{
 					try
 					{
@@ -89,7 +89,7 @@ public partial class Controller : Node2D
 					}
 					//TODO:: Toggle turn and wait for other player. Update Game State and UI according to move
 				}
-				else if (Globals.gameType == "AI")
+				else if (Globals.gameType == Globals.GameType.AI)
 				{
 					//TODO:: AI game handling
 				}

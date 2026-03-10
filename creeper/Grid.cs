@@ -127,7 +127,15 @@ public partial class Grid : Node2D
 		CharacterBase CharacterTo = FindCharacteratGridPos(to);
 
 		CharacterFrom.StopHover();
-		CharacterTo.StopHover();
+		if (CharacterTo != null)
+			CharacterTo.StopHover();
+		
+		if (CharacterTo == null)
+		{
+			CreateGhosts(from, new List<Vector2I>([to]));
+			CharacterTo = FindCharacteratGridPos(to);
+			CharacterTo.Visible = false;
+		}
 
 		//ensure the character to move is valid and that the target space is either empty or contains a ghost.
 		if (CharacterFrom == null || (CharacterTo != null && !CharacterTo.IsGhost)) return;

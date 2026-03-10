@@ -1,12 +1,14 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Client {
 	public class HostClient
@@ -45,6 +47,7 @@ namespace Client {
 			var payload = new { player_token = playerToken, state = state };
 			var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
 			var resp = await _http.PostAsync($"/games/{gameId}/move", content, ct).ConfigureAwait(false);
+			GD.Print($"[HostClient] MakeMoveAsync response status: {resp.StatusCode}");
 			resp.EnsureSuccessStatusCode();
 		}
 
@@ -80,9 +83,18 @@ namespace Client {
 	public partial class Host : Control
 	{
 		private GameCreatedResponse? _created;
+		private UIManager _ui;
 
 		public override void _Ready()
 		{
+			_ui = UIManager.Instance;
+
+			if (_ui == null)
+			{
+				GD.PrintErr("GameMode: UIManager Instance is null! Is MainUI.tscn loaded?");
+				return;
+			}
+			
 			SetUpInfo();
 			
 			 //Start background flow without blocking Godot main thread.
@@ -96,6 +108,7 @@ namespace Client {
 			p1Name.Text = Globals.username;
 			Globals.p1Type = "Person";
 			Globals.p2Type = "Network";
+			Constants.EnemyPlayer = new NetworkPlayer();
 		}
 		
 		private async Task StartHostFlowAsync()
@@ -114,13 +127,13 @@ namespace Client {
 				// 2) Start heartbeat loop (run concurrently)
 				_ = HeartbeatLoopAsync(Globals.cts.Token);
 
-				// Example: poll state periodically and optionally make a move.
+				// Example: poll state periodically to check when p2 has joined.
 				while (!Globals.cts.Token.IsCancellationRequested)
 				{
 					try
 					{
 						var state = await Globals.hostClient.GetGameStateAsync(_created.GameId, Globals.cts.Token);
-						GD.Print($"[Host] Game status: {state.Status}, turn: {state.Turn}, lastActive: {state.LastActive}");
+						GD.Print($"[Host] Game status: {state.Status}, turn: {state.Turn}, state: {state.State}");
 						
 						//Update p2 name and start game
 						if (state.Status == "in_progress")
@@ -128,17 +141,10 @@ namespace Client {
 							Label p2Name = GetNode<Label>("%P2name");
 							p2Name.Text = state.GuestName;
 							GD.Print($"[Host]: {state.GuestName} joined game");
-							GetTree().ChangeSceneToFile("res://game.tscn");
+							_ = PollStateLoopAsync(Globals.gameId, Globals.cts.Token);
+							await UIManager.Instance.ChangeSceneWithTransition("res://game.tscn");
+							return;
 						}
-						
-						// Example: make a sample move when it's host's turn.
-						//if (state.Status == "in_progress" && state.Turn == "host")
-						//{
-							// Replace with your real state string
-							//var exampleState = ".oo.xx...";
-							//await _client.MakeMoveAsync(_created.GameId, _created.HostToken, exampleState, Globals.cts.Token);
-							//GD.Print("[Host] Submitted a move.");
-						//}
 					}
 					catch (Exception ex)
 					{
@@ -153,7 +159,44 @@ namespace Client {
 				GD.PrintErr($"[Host] Initialization error: {ex.Message}");
 			}
 		}
-		
+
+		private async Task PollStateLoopAsync(string gameId, CancellationToken ct)
+		{
+			var interval = TimeSpan.FromSeconds(2);
+			bool moveFound = false;
+			while (!ct.IsCancellationRequested)
+			{
+				try
+				{
+					var stateResp = await Globals.hostClient.GetGameStateAsync(gameId, ct);
+					if (!string.IsNullOrEmpty(stateResp.State) && stateResp.Status == "in_progress")
+					{
+						GD.Print($"[Host Poll Loop] Game status: {stateResp.Status}, turn: {stateResp.Turn}, state: {stateResp.State}");
+						if (stateResp.Status == "in_progress" && stateResp.Turn == "host" && !moveFound) {
+							GD.Print("[Host] Recieve state called");
+							Constants.EnemyPlayer.ReceiveState(stateResp.State);
+							moveFound = true;
+						}
+						if (stateResp.Turn == "guest")
+							moveFound = false;
+					}
+				}
+				catch (Exception ex)
+				{
+					GD.PrintErr($"[Host] Poll loop error: {ex.Message}");
+				}
+
+				try
+				{
+					await Task.Delay(interval, ct).ConfigureAwait(false);
+				}
+				catch (TaskCanceledException)
+				{
+					break;
+				}
+			}
+		}
+
 		private async Task HeartbeatLoopAsync(CancellationToken ct)
 		{
 			// Heartbeat interval should be well under server PLAYER_TIMEOUT (server default 120s).
@@ -179,11 +222,6 @@ namespace Client {
 					break;
 				}
 			}
-		}
-		
-		private void _on_back_btn_pressed()
-		{
-			GetTree().ChangeSceneToFile("res://Networking/multiplayer_test.tscn");
 		}
 	}
 }

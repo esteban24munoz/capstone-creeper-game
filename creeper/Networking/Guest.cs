@@ -133,6 +133,7 @@ namespace Client {
 	{
 		private JoinResponse? _joinInfo;
 		private UIManager _ui;
+		private Label errorMessage;
 
 		// Events other nodes can subscribe to
 		public event Action<JoinResponse>? OnJoined;
@@ -142,6 +143,7 @@ namespace Client {
 		private void _on_game_id_text_changed(string gameId)
 		{
 			Globals.gameId = gameId;
+			errorMessage.Visible = false;
 		}
 
 		public override void _Ready()
@@ -156,10 +158,15 @@ namespace Client {
 			Globals.p1Type = "Network";
 			Globals.p2Type = "Person";
 			Constants.HeroPlayer = new NetworkPlayer();
+			errorMessage = GetNode<Label>("%ErrorMessage");
 		}
 		
 		private async void _on_join_btn_pressed()
 		{
+			if (string.IsNullOrWhiteSpace(Globals.gameId)) {
+				errorMessage.Visible = true;
+				return;
+			}
 			await JoinGame(Globals.gameId, Globals.username, Globals.cts.Token);
 			// start heartbeat and polling loops
 			_ = HeartbeatLoopAsync(Globals.cts.Token);

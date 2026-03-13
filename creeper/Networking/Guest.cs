@@ -136,8 +136,6 @@ namespace Client {
 		private Label errorMessage;
 
 		// Events other nodes can subscribe to
-		public event Action<JoinResponse>? OnJoined;
-		//public event Action<GameStateResponse>? OnStateUpdated;
 		public event Action<string>? OnError;
 		
 		private void _on_game_id_text_changed(string gameId)
@@ -155,8 +153,6 @@ namespace Client {
 				GD.PrintErr("GameMode: UIManager Instance is null! Is MainUI.tscn loaded?");
 				return;
 			}
-			Globals.p1Type = "Network";
-			Globals.p2Type = "Person";
 			Constants.HeroPlayer = new NetworkPlayer();
 			errorMessage = GetNode<Label>("%ErrorMessage");
 		}
@@ -174,11 +170,11 @@ namespace Client {
 			await UIManager.Instance.ChangeSceneWithTransition("res://game.tscn");
 		}
 		
-		public override void _ExitTree()
-		{
-			Globals.cts?.Cancel();
-			Globals.cts?.Dispose();
-		}
+		//public override void _ExitTree()
+		//{
+			//Globals.cts?.Cancel();
+			//Globals.cts?.Dispose();
+		//}
 		
 		// Submit a move from UI/game logic
 		public async Task SubmitMoveAsync(string state)
@@ -207,8 +203,7 @@ namespace Client {
 			{
 				_joinInfo = await Globals.guestClient.JoinGameAsync(gameId, username, ct);
 				GD.Print($"[Guest] Joined game {_joinInfo.GameId} token={_joinInfo.GuestToken} status={_joinInfo.Status}");
-				OnJoined?.Invoke(_joinInfo);
-				Globals.guestToken = _joinInfo.GuestToken;
+				Globals.token = _joinInfo.GuestToken;
 				Globals.status = _joinInfo.Status;
 				
 				// Note: heartbeat + polling started by caller after this returns
@@ -227,7 +222,7 @@ namespace Client {
 			{
 				try
 				{
-					await Globals.guestClient.HeartbeatAsync(Globals.gameId, Globals.guestToken, ct).ConfigureAwait(false);
+					await Globals.guestClient.HeartbeatAsync(Globals.gameId, Globals.token, ct).ConfigureAwait(false);
 					GD.Print("Guest Heartbeat");
 				}
 				catch (Exception ex)
@@ -285,13 +280,6 @@ namespace Client {
 					break;
 				}
 			}
-		}
-
-		// Invoked on the main thread via CallDeferred
-		private void EmitStateUpdated(GameStateResponse state)
-		{
-			GD.Print($"[Guest] State update: status={state.Status}, turn={state.Turn}, lastActive={state.LastActive}");
-			//OnStateUpdated?.Invoke(state);
 		}
 	}
 }

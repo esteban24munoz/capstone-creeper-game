@@ -104,11 +104,19 @@ namespace Client {
 		private void SetUpInfo()
 		{
 			Label p1Name = GetNode<Label>("%P1name");
-			GD.Print(Globals.username);
 			p1Name.Text = Globals.username;
-			Globals.p1Type = "Person";
-			Globals.p2Type = "Network";
 			Constants.EnemyPlayer = new NetworkPlayer();
+		}
+		
+		private async Task CreateGame()
+		{
+			_created = await Globals.hostClient.CreateGameAsync(Globals.username, Globals.cts.Token);
+			GD.Print($"[Host] Created game {_created.GameId} token={_created.HostToken} status={_created.Status}");
+			Label id = GetNode<Label>("%ID");
+			id.Text = _created.GameId;
+			Globals.gameId = _created.GameId;
+			Globals.token = _created.HostToken;
+			Globals.status = _created.Status;
 		}
 		
 		private async Task StartHostFlowAsync()
@@ -116,13 +124,7 @@ namespace Client {
 			try
 			{
 				// 1) Create game
-				_created = await Globals.hostClient.CreateGameAsync(Globals.username, Globals.cts.Token);
-				GD.Print($"[Host] Created game {_created.GameId} token={_created.HostToken} status={_created.Status}");
-				Label id = GetNode<Label>("%ID");
-				id.Text = _created.GameId;
-				Globals.gameId = _created.GameId;
-				Globals.hostToken = _created.HostToken;
-				Globals.status = _created.Status;
+				await CreateGame();
 
 				// 2) Start heartbeat loop (run concurrently)
 				_ = HeartbeatLoopAsync(Globals.cts.Token);
@@ -132,7 +134,7 @@ namespace Client {
 				{
 					try
 					{
-						var state = await Globals.hostClient.GetGameStateAsync(_created.GameId, Globals.cts.Token);
+						var state = await Globals.hostClient.GetGameStateAsync(Globals.gameId, Globals.cts.Token);
 						GD.Print($"[Host] Game status: {state.Status}, turn: {state.Turn}, state: {state.State}");
 						
 						//Update p2 name and start game
@@ -206,7 +208,7 @@ namespace Client {
 			{
 				try
 				{
-					await Globals.hostClient.HeartbeatAsync(Globals.gameId, Globals.hostToken, ct);
+					await Globals.hostClient.HeartbeatAsync(Globals.gameId, Globals.token, ct);
 				}
 				catch (Exception ex)
 				{

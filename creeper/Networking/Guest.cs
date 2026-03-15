@@ -255,7 +255,7 @@ namespace Client {
 					GD.Print($"[Guest Poll Loop] Game status: {stateResp.Status}, turn: {stateResp.Turn}, state: {stateResp.State}");
 					if (!string.IsNullOrEmpty(stateResp.State))
 					{
-						if (stateResp.Status == "in_progress" && stateResp.Turn == "guest" && !moveFound)
+						if (stateResp.Status == "in_progress" && stateResp.Turn == "guest" && !moveFound || stateResp.Status == "finished")
 						{
 							GD.Print("[Guest] Recieve state called");
 							Constants.HeroPlayer.ReceiveState(stateResp.State);

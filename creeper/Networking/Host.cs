@@ -171,10 +171,10 @@ namespace Client {
 				try
 				{
 					var stateResp = await Globals.hostClient.GetGameStateAsync(gameId, ct);
-					if (!string.IsNullOrEmpty(stateResp.State) && stateResp.Status == "in_progress")
+					if (!string.IsNullOrEmpty(stateResp.State))
 					{
 						GD.Print($"[Host Poll Loop] Game status: {stateResp.Status}, turn: {stateResp.Turn}, state: {stateResp.State}");
-						if (stateResp.Status == "in_progress" && stateResp.Turn == "host" && !moveFound) {
+						if (stateResp.Status == "in_progress" && stateResp.Turn == "host" && !moveFound || stateResp.Status == "finished") {
 							GD.Print("[Host] Recieve state called");
 							Constants.EnemyPlayer.ReceiveState(stateResp.State);
 							moveFound = true;

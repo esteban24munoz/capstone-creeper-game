@@ -31,6 +31,8 @@ public partial class MTCS_Pure2 : Node
 		private readonly int _maxPlayoutLength;
 		private readonly double _winScore;
 		private readonly double _drawScore;
+		private readonly double _jumpBonus;
+		private readonly double _tileCaptureBonus;
 		private readonly Random _rng;
 		//public Model state
 
@@ -38,13 +40,17 @@ public partial class MTCS_Pure2 : Node
 		/// Monte Carlo constructor.
 		/// Default behavior weights wins higher than draws (winScore=1.0, drawScore=0.4).
 		/// Time budget is specified in seconds (default 4).
+		/// jumpBonus adds a small extra score to candidate moves that jump an enemy piece.
+		/// tileCaptureBonus adds a small extra score to candidate moves that jump over and capture a tile.
 		/// </summary>
-		public MonteCarloStrategy(int timeBudgetSeconds = 4, int maxPlayoutLength = 200, double winScore = 1.0, double drawScore = 0.4, int? seed = null)
+		public MonteCarloStrategy(int timeBudgetSeconds = 4, int maxPlayoutLength = 200, double winScore = 1.0, double drawScore = 0.4, double jumpBonus = 0.3, double tileCaptureBonus = 0.25, int? seed = null)
 		{
 			_timeBudget = TimeSpan.FromSeconds(Math.Max(0.1, timeBudgetSeconds));
 			_maxPlayoutLength = Math.Max(1, maxPlayoutLength);
 			_winScore = winScore;
 			_drawScore = drawScore;
+			_jumpBonus = Math.Max(0.0, jumpBonus);
+			_tileCaptureBonus = Math.Max(0.0, tileCaptureBonus);
 			_rng = seed.HasValue ? new Random(seed.Value) : new Random();
 		}
 
@@ -56,7 +62,7 @@ public partial class MTCS_Pure2 : Node
 		public Move ChooseBestMove(Model rootModel, Constants.Player myPlayer)
 		{
 			// Enumerate legal candidate moves from the root state
-			var candidates = new List<Move>();
+			var allCandidates = new List<Move>();
 			foreach (var pos in rootModel.GetAllCharacters(myPlayer))
 			{
 				var valid = rootModel.FindValidMoves(pos, myPlayer);
@@ -64,13 +70,45 @@ public partial class MTCS_Pure2 : Node
 				{
 					foreach (var to in valid)
 					{
-						candidates.Add(new Move(pos, to));
+						allCandidates.Add(new Move(pos, to));
 					}
 				}
 			}
 
-			if (candidates.Count == 0)
+			if (allCandidates.Count == 0)
 				throw new InvalidOperationException("No legal moves available for player.");
+
+			// If opponent has only one character left, avoid candidate moves that jump (capture) that character.
+			var opponent = Opponent(myPlayer);
+			int opponentCount = rootModel.GetAllCharacters(opponent).Count;
+
+			var candidates = new List<Move>();
+			if (opponentCount > 1)
+			{
+				// normal case - include all
+				candidates.AddRange(allCandidates);
+			}
+			else
+			{
+				// filter out moves that would jump the opponent's last piece
+				foreach (var c in allCandidates)
+				{
+					var jumpedPos = Model.FindJumpedCharacter(c.From, c.To);
+					if (jumpedPos != null)
+					{
+						// if jumped position contains the lone opponent piece, skip this candidate
+						if (rootModel.PlayerAt(jumpedPos.Value) == opponent)
+						{
+							continue;
+						}
+					}
+					candidates.Add(c);
+				}
+
+				// If filtering removed all candidates (rare), fall back to including all to ensure a move exists.
+				if (candidates.Count == 0)
+					candidates.AddRange(allCandidates);
+			}
 
 			// stats per candidate: accumulated weighted score and simulation count
 			var accScore = new double[candidates.Count];
@@ -116,6 +154,40 @@ public partial class MTCS_Pure2 : Node
 		{
 			// Clone and play
 			var simModel = new Model(rootModel);
+
+			// If this candidate move jumps a character, reward it slightly.
+			// Use the cloned model (pre-move) to see what was at the jumped position.
+			var jumpedPos = Model.FindJumpedCharacter(candidate.From, candidate.To);
+			if (jumpedPos != null)
+			{
+				var jumpedPlayer = simModel.PlayerAt(jumpedPos.Value);
+				if (jumpedPlayer == Opponent(myPlayer))
+				{
+					// small immediate bonus to encourage capturing jumps
+					accScoreOut += _jumpBonus;
+				}
+			}
+
+			// If this candidate move jumps a hex (captures a tile), reward it slightly.
+			// We can't access Model.Tiles directly, so use StringifyState to inspect the tile owner.
+			var jumpedHex = simModel.FindJumpedHex(candidate.From, candidate.To);
+			if (jumpedHex != null)
+			{
+				// tile indices in StringifyState start at offset 49 with 6 columns per row
+				int tileIndex = 49 + jumpedHex.Value.X * 6 + jumpedHex.Value.Y;
+				var stateStr = simModel.StringifyState();
+				if (tileIndex >= 49 && tileIndex < stateStr.Length)
+				{
+					char tileChar = stateStr[tileIndex];
+					// if the jumped tile is not already owned by the moving player, it's a capture
+					char myChar = myPlayer == Constants.Player.Hero ? 'x' : 'o';
+					if (tileChar != myChar)
+					{
+						accScoreOut += _tileCaptureBonus;
+					}
+				}
+			}
+
 			simModel.MoveCharacter(candidate.From, candidate.To);
 
 			var current = Opponent(myPlayer);

@@ -69,7 +69,6 @@ public partial class AIvAI : Node2D
 			}
 
 			var playStateJson = await playStateResponse.Content.ReadFromJsonAsync<JsonElement>();
-			//GD.Print($"State Response: {playStateJson}");
 			string state = playStateJson.GetProperty("state").GetString();
 			string game_id = playStateJson.GetProperty("game_id").ToString();
 			string action_id = playStateJson.GetProperty("action_id").ToString();

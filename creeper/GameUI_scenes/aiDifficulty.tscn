@@ -97,11 +97,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/EasyTexture/MarginContainer"]
+[node name="EasyButton" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/EasyTexture/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.8627451, 0.2901961, 1)
-theme_override_colors/font_hover_color = Color(0.8352941, 0.15686275, 0.09019608, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.8352941, 0.15686275, 0.09019608, 1)
+theme_override_colors/font_hover_color = Color(0.4, 0.6627451, 0.2509804, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.4, 0.6627451, 0.2509804, 1)
 theme_override_fonts/font = ExtResource("7_7xdnq")
 theme_override_font_sizes/font_size = 32
 text = "EASY"
@@ -119,11 +120,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MediumTexture/MarginContainer"]
+[node name="MediumButton" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MediumTexture/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.8627451, 0.2901961, 1)
-theme_override_colors/font_hover_color = Color(0.8352941, 0.15686275, 0.09019608, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.8352941, 0.15686275, 0.09019608, 1)
+theme_override_colors/font_hover_color = Color(0.6901961, 0.8156863, 0.78431374, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.6901961, 0.8156863, 0.78431374, 1)
 theme_override_fonts/font = ExtResource("7_7xdnq")
 theme_override_font_sizes/font_size = 32
 text = "MEDIUM"
@@ -142,7 +144,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/ExpertTexture/MarginContainer"]
+[node name="ExpertButton" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/ExpertTexture/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.8627451, 0.2901961, 1)
 theme_override_colors/font_hover_color = Color(0.8352941, 0.15686275, 0.09019608, 1)

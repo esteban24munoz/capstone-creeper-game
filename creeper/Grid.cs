@@ -30,7 +30,7 @@ public partial class Grid : Node2D
 	public override void _Ready()
 	{
 		TileMap = GetNode<TileMapLayer>("TileMapLayer");
-		characters = TileMap.GetChild(0).GetChildren();
+		characters = TileMap.GetNode<Node2D>("Characters").GetChildren();
 		foreach(CharacterBase c in characters)
 		{
 			c.OnClick += OnClick;

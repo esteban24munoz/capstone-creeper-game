@@ -2,10 +2,13 @@ using Godot;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Security;
 using System.Threading.Tasks;
 
 public partial class NewController : Node2D
 {
+	[Export] public AudioStream[] MusicArray = [];
+	private Stack<AudioStream> MusicStack = [];
 	Constants.Player ActivePlayer = Constants.Player.Hero;
 	IPlayer ActivePlayerObject = Constants.HeroPlayer;
 	Constants.Player Winner = Constants.Player.None;
@@ -36,6 +39,9 @@ public partial class NewController : Node2D
 		GameUI = GetNode<InGameScene>("GameUI");
 
 		Music = GetNode<AudioStreamPlayer2D>("Music/Battle");
+		Music.Finished += MusicFinished;
+		Music.Stream = RandomizeMusic();
+		Music.Play();
 		FrodoWin = GetNode<AudioStreamPlayer2D>("Music/FrodoWin");
 		SauronWin = GetNode<AudioStreamPlayer2D>("Music/SauronWin");
 		DrawMusic = GetNode<AudioStreamPlayer2D>("Music/DrawMusic");
@@ -153,5 +159,33 @@ public partial class NewController : Node2D
 
 		// If the new active player is a network player, you may want to show a "Waiting for opponent" UI.
 		// Example (if you have such method): GameUI.SetWaiting(ActivePlayerObject is NetworkPlayer);
+	}
+
+	private AudioStream RandomizeMusic(AudioStream current = null)
+	{
+		if (!MusicStack.TryPop(out AudioStream track))
+		{
+			do 
+			{
+				Random.Shared.Shuffle(MusicArray);
+				MusicStack = new(MusicArray);
+				track = MusicStack.Pop();
+			} while (track == current);
+		}
+		
+		return track;
+	}
+
+	void MusicFinished()
+	{
+		Music.Play();
+		Tween tween = CreateTween();
+		tween.TweenProperty(Music, "volume_linear", 0, 5).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
+		tween.Finished += () =>
+		{
+			Music.Stream = RandomizeMusic(Music.Stream);
+			Music.VolumeLinear = VolumeManager.MusicVolume;
+			Music.Play();
+		};
 	}
 }

@@ -10,12 +10,12 @@ public partial class VolumeManager : Node
     private Slider SFXSlider;
 
     private static float _musicVolume = 1;
+    public static float MusicVolume {get {return _musicVolume;}}
      private static float _sfxVolume = 1;
 
     public override void _Ready()
     {    
         UIManager.Instance.SceneChanged += () => {
-            GD.Print("hi");
             music.Clear();
             sfx.Clear();
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b3vkuupj07kn8"]
+[gd_scene load_steps=18 format=3 uid="uid://b3vkuupj07kn8"]
 
 [ext_resource type="Script" uid="uid://crrvnyx6vanh8" path="res://GameUI_scripts/MainMenu.cs" id="1_d5b4s"]
 [ext_resource type="Texture2D" uid="uid://cak2y2pgwj742" path="res://UI_assets/MainMenu/nazguls-animation1.png" id="2_mc3iv"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://b5veo82leoy04" path="res://UI_assets/MainMenu/light_position_3.png" id="10_v1g27"]
 [ext_resource type="Texture2D" uid="uid://c2heo8v4ppf6e" path="res://UI_assets/MainMenu/light_position_2.png" id="11_div8g"]
 [ext_resource type="Texture2D" uid="uid://bs4fd2uuym0uj" path="res://UI_assets/MainMenu/light_position_4.png" id="12_ineqx"]
+[ext_resource type="PackedScene" uid="uid://c81wixfkra6yv" path="res://Globals/confirmation_modal.tscn" id="15_cdtku"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uyavp"]
 animations = [{
@@ -118,7 +119,6 @@ animation = &"position1"
 autoplay = "idle"
 centered = false
 
-
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -217,5 +217,10 @@ text = "Quit"
 flat = true
 
 [node name="SettingsMenu" parent="." instance=ExtResource("4_va3xh")]
+visible = false
+layout_mode = 1
+
+[node name="ConfirmationModal" parent="." instance=ExtResource("15_cdtku")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1

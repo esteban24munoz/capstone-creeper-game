@@ -1,12 +1,18 @@
 using Godot;
+using System; 
 
 public partial class MenuOptions : Control
 {
 	private UIManager _ui;
+	
+	private ConfirmationModalInGame _confirmationModal;
 
 	public override void _Ready()
 	{
 		_ui = UIManager.Instance;
+
+		// Get the reference to the modal in your scene tree
+		_confirmationModal = GetNode<ConfirmationModalInGame>("%ConfirmationModal");
 
 		GetNode<Button>("%ResumeGame").Pressed += () =>
 		{
@@ -18,13 +24,18 @@ public partial class MenuOptions : Control
 			Visible = false;
 		};
 
-		GetNode<Button>("%RestartGame").Pressed += async () =>
+		// --- RESTART GAME ---
+		GetNode<Button>("%RestartGame").Pressed += () =>
 		{
-			Visible = false; // Hide this options menu
-			
-			// Destroys the game and unhides the UIManager, 
-			// automatically showing whatever screen was there before!
-			await _ui.RestartGame();
+			// Open the modal and pass the specific Restart logic
+			_confirmationModal.Setup(
+				"Are you sure you want to restart?", 
+				async () => 
+				{
+					Visible = false; // Hide this options menu
+					await _ui.RestartGame();
+				}
+			);
 		};
 
 		GetNode<Button>("%SettingsButton").Pressed += () =>
@@ -32,11 +43,18 @@ public partial class MenuOptions : Control
 			GetNode<Control>("%SettingsMenu").Visible = true;
 		};
 
-		GetNode<Button>("%MainMenu").Pressed += async () =>
+		// --- MAIN MENU ---
+		GetNode<Button>("%MainMenu").Pressed += () =>
 		{
-			Visible = false; // Hide this menu
-			// Pass the path to your main menu scene here
-			await _ui.ReturnToMenu("res://GameUI_scenes/mainMenu.tscn");
+			// Open the modal and pass the specific Main Menu logic
+			_confirmationModal.Setup(
+				"Quit to Main Menu?", 
+				async () => 
+				{
+					Visible = false; // Hide this menu
+					await _ui.ReturnToMenu("res://GameUI_scenes/mainMenu.tscn");
+				}
+			);
 		};
 	}
 }

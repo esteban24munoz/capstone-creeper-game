@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://v8rtqn5ipqng"]
+[gd_scene load_steps=38 format=4 uid="uid://v8rtqn5ipqng"]
 
 [ext_resource type="Script" uid="uid://dnttn430tx1qb" path="res://Grid.cs" id="1_u6jcp"]
 [ext_resource type="Texture2D" uid="uid://djms4xij1g142" path="res://Art/Tiles/New Neutral Tile Sprite.png" id="2_xrsif"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dnmnmrymbvad6" path="res://Art/Tiles/New Lava Tile Sprite.png" id="5_gk1wl"]
 [ext_resource type="Texture2D" uid="uid://cpmkuleak3jp8" path="res://Art/Tiles/special_grass_tile.png" id="5_s5c1x"]
 [ext_resource type="PackedScene" uid="uid://ddohyifhg7pkf" path="res://characters_scenes/boromir.tscn" id="7_aiw0r"]
+[ext_resource type="Texture2D" uid="uid://c7emwpsb1pnpy" path="res://Art/Heroes/Ghosts/aragon_ghost.png" id="10_sr26l"]
 [ext_resource type="PackedScene" uid="uid://b2np60la80is1" path="res://characters_scenes/sam.tscn" id="13_gk1wl"]
 [ext_resource type="PackedScene" uid="uid://d2nplcigroap8" path="res://characters_scenes/heavy_orc.tscn" id="15_qpqai"]
 [ext_resource type="PackedScene" uid="uid://cpdpv0t1t7qk7" path="res://characters_scenes/sauron.tscn" id="16_hg3fi"]
@@ -70,6 +71,17 @@ sources/7 = SubResource("TileSetAtlasSource_bsa5o")
 sources/0 = SubResource("TileSetAtlasSource_g32va")
 sources/1 = SubResource("TileSetAtlasSource_sr26l")
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_f2kab"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_sr26l")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Grid" type="Node2D"]
 script = ExtResource("1_u6jcp")
 
@@ -85,6 +97,10 @@ texture = ExtResource("3_fh4re")
 position = Vector2(210, 161)
 tile_map_data = PackedByteArray("AAAKAAEABQAAAAAAAAAJAAAABQAAAAAAAAAJAP//BAAAAAAAAAAJAP7/BQAAAAAAAAAIAP7/BAAAAAAAAAAIAP3/BQAAAAAAAAAHAP3/BAAAAAAAAAAGAP3/BQAAAAAAAAAGAPz/BAAAAAAAAAAGAPv/BQAAAAAAAAAEAPv/BQAAAAAAAAAEAPz/BAAAAAAAAAAFAPz/BQAAAAAAAAAFAP3/BAAAAAAAAAAHAP7/BQAAAAAAAAAIAP//BQAAAAAAAAAJAAEABAAAAAAAAAAHAPz/BQAAAAAAAAAKAP//BQAAAAAAAAAIAAEABQAAAAAAAAAIAAAABAAAAAAAAAAHAAAABQAAAAAAAAAHAP//BAAAAAAAAAAGAP//BQAAAAAAAAAGAP7/BAAAAAAAAAAFAP7/BQAAAAAAAAAEAP3/BQAAAAAAAAADAPz/BQAAAAAAAAADAP3/BAAAAAAAAAAEAP7/BAAAAAAAAAAFAP//BAAAAAAAAAAGAAAABAAAAAAAAAAHAAEABAAAAAAAAAAIAAIABAAAAAAAAAAJAAIABQAAAAAAAAAGAAEABQAAAAAAAAAFAAAABQAAAAAAAAAEAAAABAAAAAAAAAAEAP//BQAAAAAAAAADAP//BAAAAAAAAAADAP7/BQAAAAAAAAACAP7/BAAAAAAAAAACAP3/BQAAAAAAAAAHAAIABQAAAAAAAAAIAAMABQAAAAAAAAAHAAMABAAAAAAAAAAGAAIABAAAAAAAAAAFAAEABAAAAAAAAAAEAAEABQAAAAAAAAADAAAABQAAAAAAAAACAP//BQAAAAAAAAABAP7/BQAAAAAAAAABAP//BAAAAAAAAAAFAAIABQAAAAAAAAAGAAMABQAAAAAAAAAHAAQABQAAAAAAAAAGAAQABAAAAAAAAAAFAAMABAAAAAAAAAAEAAIABAAAAAAAAAADAAEABAAAAAAAAAACAAAABAAAAAAAAAAAAP//BQAAAAAAAAABAAAABQAAAAAAAAACAAEABQAAAAAAAAADAAIABQAAAAAAAAAEAAMABQAAAAAAAAAEAAQABAAAAAAAAAAFAAQABQAAAAAAAAAGAAUABQAAAAAAAAAEAAUABQAAAAAAAAADAAQABQAAAAAAAAADAAMABAAAAAAAAAACAAMABQAAAAAAAAACAAIABAAAAAAAAAABAAIABQAAAAAAAAABAAEABAAAAAAAAAAAAAEABQAAAAAAAAAAAAAAAAAAAAAAAAD//wAABwAAAAAAAAD+/wEABwAAAAAAAAD+/wAABwAAAAAAAAAKAAAAAAAAAAAAAAALAP//BwAAAAAAAAALAAAABwAAAAAAAAAMAP//BwAAAAAAAAAMAAAABwAAAAAAAAAFAAUAAQAAAAAAAAAEAAYABgAAAAAAAAAFAAYABgAAAAAAAAAEAAcABgAAAAAAAAAFAAcABgAAAAAAAAAFAPv/AQAAAAAAAAAFAPr/BgAAAAAAAAAGAPr/BgAAAAAAAAAFAPn/BgAAAAAAAAAGAPn/BgAAAAAAAAD//wEABwAAAAAAAAA=")
 tile_set = SubResource("TileSet_mel50")
+
+[node name="AragonGhost" type="AnimatedSprite2D" parent="TileMapLayer"]
+position = Vector2(566, -49)
+sprite_frames = SubResource("SpriteFrames_f2kab")
 
 [node name="Characters" type="Node2D" parent="TileMapLayer"]
 

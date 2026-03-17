@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c54qtjpsk8am8"]
+[gd_scene load_steps=19 format=3 uid="uid://c54qtjpsk8am8"]
 
 [ext_resource type="Script" uid="uid://c7yx0p7xjj8rp" path="res://Networking/MultiplayerTest.cs" id="1_yj2l8"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="3_n2hxb"]
@@ -7,6 +7,20 @@
 [ext_resource type="Texture2D" uid="uid://bl73um72w5ddo" path="res://UI_assets/TeamSelection/Moria Gate.png" id="6_n0188"]
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="7_dnjtk"]
 [ext_resource type="Texture2D" uid="uid://fiu2mgen58wi" path="res://UI_assets/UI_Buttons/Buttons_states_v2.png" id="8_gs1pn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp3sh"]
+bg_color = Color(0.11372549, 0.13725491, 0.13333334, 0.8235294)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frxoa"]
+bg_color = Color(0.07450981, 0.105882354, 0.105882354, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ssc5p"]
 texture = ExtResource("8_gs1pn")
@@ -113,13 +127,16 @@ horizontal_alignment = 1
 
 [node name="UserLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 369.0
-offset_top = 207.0
-offset_right = 502.0
-offset_bottom = 230.0
+offset_left = 363.0
+offset_top = 208.0
+offset_right = 496.0
+offset_bottom = 231.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_hp3sh")
 text = "Enter username: "
 
 [node name="Username" type="LineEdit" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 0
 offset_left = 506.0
@@ -127,6 +144,19 @@ offset_top = 200.0
 offset_right = 656.0
 offset_bottom = 238.0
 placeholder_text = "Username"
+
+[node name="ErrorMessage" type="Label" parent="Username"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = -115.0
+offset_top = 45.0
+offset_right = 129.0
+offset_bottom = 71.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_frxoa")
+text = "Username must be entered!"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

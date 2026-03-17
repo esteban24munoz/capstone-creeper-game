@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://diytp2fq38kpo"]
+[gd_scene load_steps=13 format=3 uid="uid://diytp2fq38kpo"]
 
 [ext_resource type="Script" uid="uid://c2ds11rrpmwad" path="res://Networking/Guest.cs" id="1_3ehw5"]
 [ext_resource type="Texture2D" uid="uid://dn1ra2m8au2kx" path="res://UI_assets/TeamSelection/gradient-bkg.png" id="2_emlmw"]
@@ -7,6 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="5_t8hsa"]
 [ext_resource type="Texture2D" uid="uid://fiu2mgen58wi" path="res://UI_assets/UI_Buttons/Buttons_states_v2.png" id="6_t3pyp"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="8_wdlxe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_44vjf"]
+bg_color = Color(0.08627451, 0.12156863, 0.11764706, 0.8235294)
+expand_margin_left = 2.0
+expand_margin_right = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dl61h"]
 texture = ExtResource("6_t3pyp")
@@ -19,6 +24,11 @@ region_rect = Rect2(334, 178, 120, 70)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_upaj8"]
 texture = ExtResource("6_t3pyp")
 region_rect = Rect2(334, 178, 120, 70)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_emlmw"]
+bg_color = Color(0.07450981, 0.105882354, 0.105882354, 0.8235294)
+expand_margin_left = 5.0
+expand_margin_right = 5.0
 
 [node name="GuestTest" type="Control"]
 layout_mode = 3
@@ -87,6 +97,7 @@ offset_bottom = 243.0
 
 [node name="GameIDLabel" type="Label" parent="HBoxContainer"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_44vjf")
 text = "Enter Room code"
 
 [node name="GameID" type="LineEdit" parent="HBoxContainer"]
@@ -117,6 +128,19 @@ theme_override_fonts/font = ExtResource("8_wdlxe")
 theme_override_font_sizes/font_size = 72
 text = "Lobby"
 horizontal_alignment = 1
+
+[node name="ErrorMessage" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 403.0
+offset_top = 176.0
+offset_right = 628.0
+offset_bottom = 202.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_emlmw")
+text = "Room code must be entered!"
 
 [connection signal="text_changed" from="HBoxContainer/GameID" to="." method="_on_game_id_text_changed"]
 [connection signal="pressed" from="JoinBtn" to="." method="_on_join_btn_pressed"]

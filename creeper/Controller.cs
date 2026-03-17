@@ -79,7 +79,7 @@ public partial class Controller : Node2D
 					try
 					{
 						string state = ModelInstance.StringifyState();
-						await Globals.hostClient.MakeMoveAsync(Globals.gameId, Globals.hostToken, state, Globals.cts.Token);
+						await Globals.hostClient.MakeMoveAsync(Globals.gameId, Globals.token, state, Globals.cts.Token);
 						GD.Print("[Host] Submitted a move.");
 						
 					}

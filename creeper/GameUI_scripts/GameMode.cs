@@ -24,6 +24,8 @@ public partial class GameMode : Control
 
 		GetNode<Button>("%Multiplayer").Pressed += () => {
 			Globals.gameType = Globals.GameType.Local;
+			Constants.EnemyPlayer = new LocalPlayer();
+			Constants.HeroPlayer = new LocalPlayer();
 			_ui.ShowScreen("res://GameUI_scenes/teamSelection.tscn");
 		};
 		

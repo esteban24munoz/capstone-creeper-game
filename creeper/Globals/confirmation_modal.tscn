@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://c81wixfkra6yv"]
+
+[ext_resource type="Script" uid="uid://dix6ira46v0qh" path="res://Globals/ConfirmationModalInGame.cs" id="1_2ocfc"]
+[ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="1_3lyug"]
+[ext_resource type="Texture2D" uid="uid://cytitecbkq37w" path="res://UI_assets/Tutorial/settings_modal.png" id="2_2ocfc"]
+[ext_resource type="StyleBox" uid="uid://buyitcrqna1ux" path="res://UI_assets/UI_Buttons/normal_button_texture.tres" id="3_ufvu1"]
+[ext_resource type="StyleBox" uid="uid://dclx2cpxac0q0" path="res://UI_assets/UI_Buttons/normal_button_hover_texture.tres" id="4_anfy6"]
+
+[node name="ConfirmationModal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2ocfc")
+
+[node name="darkBackgroundOverlay" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1024.0
+offset_bottom = 640.0
+texture = ExtResource("1_3lyug")
+
+[node name="tutorialScreen" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 56
+
+[node name="VBoxContainer" type="VBoxContainer" parent="tutorialScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="tutorialMenuContainer" type="VBoxContainer" parent="tutorialScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="backgroundGolum" type="TextureRect" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_2ocfc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -67.442505
+offset_right = 192.0
+offset_bottom = 67.442505
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="MessageText" type="Label" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="optionsButton" type="HBoxContainer" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="yesButton" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 51)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_ufvu1")
+theme_override_styles/hover = ExtResource("4_anfy6")
+theme_override_styles/hover_pressed = ExtResource("4_anfy6")
+text = "Yes"
+
+[node name="noButton" type="Button" parent="tutorialScreen/VBoxContainer/tutorialMenuContainer/MarginContainer/backgroundGolum/VBoxContainer/optionsButton"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 51)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_ufvu1")
+theme_override_styles/hover = ExtResource("4_anfy6")
+theme_override_styles/hover_pressed = ExtResource("4_anfy6")
+text = "No"

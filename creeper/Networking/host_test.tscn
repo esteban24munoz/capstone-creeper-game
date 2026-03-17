@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpw23key46sdo"]
+[gd_scene load_steps=9 format=3 uid="uid://cpw23key46sdo"]
 
 [ext_resource type="Script" uid="uid://dtsyvrdkt11p7" path="res://Networking/Host.cs" id="1_xhhxm"]
 [ext_resource type="Texture2D" uid="uid://dn1ra2m8au2kx" path="res://UI_assets/TeamSelection/gradient-bkg.png" id="2_mkcn1"]
@@ -6,6 +6,20 @@
 [ext_resource type="Texture2D" uid="uid://bl73um72w5ddo" path="res://UI_assets/TeamSelection/Moria Gate.png" id="4_ogta6"]
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="5_ss7qm"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="8_5764j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qnhoi"]
+bg_color = Color(0.11372549, 0.13725491, 0.13333334, 0.8235294)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 49.0
+expand_margin_bottom = 59.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25u2h"]
+bg_color = Color(0.11372549, 0.13725491, 0.13333334, 0.8235294)
+expand_margin_left = 6.0
+expand_margin_top = 4.0
+expand_margin_right = 98.0
+expand_margin_bottom = 60.0
 
 [node name="Host" type="Control"]
 layout_mode = 3
@@ -84,7 +98,7 @@ anchor_bottom = 0.5
 offset_left = -170.5
 offset_top = -100.5
 offset_right = 175.5
-offset_bottom = 38.5
+offset_bottom = -15.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -93,6 +107,7 @@ layout_mode = 2
 
 [node name="GameID" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_qnhoi")
 text = "Room code"
 
 [node name="ID" type="Label" parent="VBoxContainer/HBoxContainer/GameID"]
@@ -102,6 +117,7 @@ offset_left = 142.0
 offset_top = -1.0
 offset_right = 231.0
 offset_bottom = 22.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_25u2h")
 text = "Generating..."
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]

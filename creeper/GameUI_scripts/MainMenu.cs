@@ -16,10 +16,14 @@ public partial class MainMenu : Control
 	private Vector2 _lastMousePos;
 	private double _timeSinceLastMove = 0.0;
 	private const double IdleThreshold = 4.0; // Seconds to wait
+	
+	private ConfirmationModalInGame _confirmationModal;
 
 	public override void _Ready()
 	{
-		_eyeTower = GetNode<AnimatedSprite2D>("EyeTower"); 
+		_eyeTower = GetNode<AnimatedSprite2D>("EyeTower");
+		
+		_confirmationModal = GetNode<ConfirmationModalInGame>("%ConfirmationModal");
 
 		_ui = UIManager.Instance;
 
@@ -43,7 +47,14 @@ public partial class MainMenu : Control
 		GetNode<Button>("%CreditsButton").Pressed += () => 
 			_ui.ShowScreen("res://GameUI_scenes/creditsScreen.tscn");
 
-		GetNode<Button>("%QuitButton").Pressed += () => GetTree().Quit();
+		GetNode<Button>("%QuitButton").Pressed += () => 
+			_confirmationModal.Setup(
+					"Quit Game?", 
+					async () => 
+					{
+						GetTree().Quit();
+					}
+				);
 	}
 
 	public override void _Process(double delta)

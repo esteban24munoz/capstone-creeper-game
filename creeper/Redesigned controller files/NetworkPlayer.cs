@@ -8,7 +8,7 @@ public partial class NetworkPlayer : IPlayer
 	private Model ModelInstance;
 	private Grid ViewInstance;
 	private Constants.Player Player;
-	private string? LastState;// = ".oo.xx.o.....xo.....x.......x.....ox.....o.xx.oo.o....x........................x....o";
+	private string? LastState;
 	
 	// Emit this when a network move is detected
 	public event EventHandler<(Vector2I, Vector2I)> MoveFound;
@@ -38,28 +38,6 @@ public partial class NetworkPlayer : IPlayer
 	public void OnClick(Vector2I pos) { /* no-op for network-controlled player */ }
 	public void MouseEntered(Vector2I pos) { /* no-op for network-controlled player */ }
 	public void MouseExited(Vector2I pos) { /* no-op for network-controlled player */ }
-
-//	while (!Globals.cts.Token.IsCancellationRequested)
-//	{
-//		try
-//		{
-//			var state = await Globals.hostClient.GetGameStateAsync(_created.GameId, Globals.cts.Token);
-//			GD.Print($"[Host] Game status: {state.Status}, turn: {state.Turn}, lastActive: {state.LastActive}");
-//			// Example: make a sample move when it's host's turn.
-//			//if (state.Status == "in_progress" && state.Turn == "host")
-//			//{
-//				// Replace with your real state string
-//				//var exampleState = ".oo.xx...";
-//				//await _client.MakeMoveAsync(_created.GameId, _created.HostToken, exampleState, Globals.cts.Token);
-//				//GD.Print("[Host] Submitted a move.");
-//			//}
-//		}
-//		catch (Exception ex)
-//		{
-//			GD.PrintErr($"[Host] Poll error: {ex.Message}");
-//		}
-//		await Task.Delay(TimeSpan.FromSeconds(2), Globals.cts.Token);
-//	}
 
 	// Called by networking code (Host/Guest) when a new game state string arrives.
 	// Compares the last seen state to the incoming one and emits MoveFound when a
@@ -135,8 +113,6 @@ public partial class NetworkPlayer : IPlayer
 			}
 			
 			Callable.From(() => MoveFound?.Invoke(this, (from.Value, to.Value))).CallDeferred();
-			
-			//MoveFound?.Invoke(this, (from.Value, to.Value));
 		}
 
 		// Always update last known state

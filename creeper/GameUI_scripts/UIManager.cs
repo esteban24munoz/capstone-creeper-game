@@ -316,6 +316,10 @@ public async void ShowScreen(string path, bool clearStack = false)
 		GD.Print("Settings menu has been opened!");
 		GetNode<Control>("%SettingsMenu").Visible = true;
 	}
+	
+	public void ShowConfirmationModal(){
+		GetNode<Control>("%ConfirmationModal").Visible = true;
+	}
 
 	private void UpdateBackButton()
 	{

@@ -133,15 +133,15 @@ namespace Client {
 	{
 		private JoinResponse? _joinInfo;
 		private UIManager _ui;
+		private Label errorMessage;
 
 		// Events other nodes can subscribe to
-		public event Action<JoinResponse>? OnJoined;
-		//public event Action<GameStateResponse>? OnStateUpdated;
 		public event Action<string>? OnError;
 		
 		private void _on_game_id_text_changed(string gameId)
 		{
 			Globals.gameId = gameId;
+			errorMessage.Visible = false;
 		}
 
 		public override void _Ready()
@@ -153,13 +153,16 @@ namespace Client {
 				GD.PrintErr("GameMode: UIManager Instance is null! Is MainUI.tscn loaded?");
 				return;
 			}
-			Globals.p1Type = "Network";
-			Globals.p2Type = "Person";
 			Constants.HeroPlayer = new NetworkPlayer();
+			errorMessage = GetNode<Label>("%ErrorMessage");
 		}
 		
 		private async void _on_join_btn_pressed()
 		{
+			if (string.IsNullOrWhiteSpace(Globals.gameId)) {
+				errorMessage.Visible = true;
+				return;
+			}
 			await JoinGame(Globals.gameId, Globals.username, Globals.cts.Token);
 			// start heartbeat and polling loops
 			_ = HeartbeatLoopAsync(Globals.cts.Token);
@@ -167,11 +170,11 @@ namespace Client {
 			await UIManager.Instance.ChangeSceneWithTransition("res://game.tscn");
 		}
 		
-		public override void _ExitTree()
-		{
-			Globals.cts?.Cancel();
-			Globals.cts?.Dispose();
-		}
+		//public override void _ExitTree()
+		//{
+			//Globals.cts?.Cancel();
+			//Globals.cts?.Dispose();
+		//}
 		
 		// Submit a move from UI/game logic
 		public async Task SubmitMoveAsync(string state)
@@ -200,8 +203,7 @@ namespace Client {
 			{
 				_joinInfo = await Globals.guestClient.JoinGameAsync(gameId, username, ct);
 				GD.Print($"[Guest] Joined game {_joinInfo.GameId} token={_joinInfo.GuestToken} status={_joinInfo.Status}");
-				OnJoined?.Invoke(_joinInfo);
-				Globals.guestToken = _joinInfo.GuestToken;
+				Globals.token = _joinInfo.GuestToken;
 				Globals.status = _joinInfo.Status;
 				
 				// Note: heartbeat + polling started by caller after this returns
@@ -220,7 +222,7 @@ namespace Client {
 			{
 				try
 				{
-					await Globals.guestClient.HeartbeatAsync(Globals.gameId, Globals.guestToken, ct).ConfigureAwait(false);
+					await Globals.guestClient.HeartbeatAsync(Globals.gameId, Globals.token, ct).ConfigureAwait(false);
 					GD.Print("Guest Heartbeat");
 				}
 				catch (Exception ex)
@@ -253,7 +255,7 @@ namespace Client {
 					GD.Print($"[Guest Poll Loop] Game status: {stateResp.Status}, turn: {stateResp.Turn}, state: {stateResp.State}");
 					if (!string.IsNullOrEmpty(stateResp.State))
 					{
-						if (stateResp.Status == "in_progress" && stateResp.Turn == "guest" && !moveFound)
+						if (stateResp.Status == "in_progress" && stateResp.Turn == "guest" && !moveFound || stateResp.Status == "finished")
 						{
 							GD.Print("[Guest] Recieve state called");
 							Constants.HeroPlayer.ReceiveState(stateResp.State);
@@ -278,13 +280,6 @@ namespace Client {
 					break;
 				}
 			}
-		}
-
-		// Invoked on the main thread via CallDeferred
-		private void EmitStateUpdated(GameStateResponse state)
-		{
-			GD.Print($"[Guest] State update: status={state.Status}, turn={state.Turn}, lastActive={state.LastActive}");
-			//OnStateUpdated?.Invoke(state);
 		}
 	}
 }

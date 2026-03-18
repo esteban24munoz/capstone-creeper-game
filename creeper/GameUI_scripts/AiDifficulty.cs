@@ -20,12 +20,21 @@ public partial class AiDifficulty : Control
 
 		// Now these connections will actually happen:
 		GetNode<Button>("%EasyButton").Pressed += () => 
+		{
+			Globals.difficulty = Globals.AIDifficulty.Easy;
 			_ui.ShowScreen("res://GameUI_scenes/teamSelection.tscn");
+		};
 			
 		GetNode<Button>("%MediumButton").Pressed += () => 
+		{
+			Globals.difficulty = Globals.AIDifficulty.Medium;
 			_ui.ShowScreen("res://GameUI_scenes/teamSelection.tscn");
+		};
 			
 		GetNode<Button>("%ExpertButton").Pressed += () => 
+		{
+			Globals.difficulty = Globals.AIDifficulty.Hard;
 			_ui.ShowScreen("res://GameUI_scenes/teamSelection.tscn");
+		};
 	}
 }

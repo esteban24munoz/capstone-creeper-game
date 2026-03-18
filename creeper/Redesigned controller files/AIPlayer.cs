@@ -13,7 +13,6 @@ public class AIPlayer : IPlayer
 	Constants.Player _player = Constants.Player.None;
 	Model _model;
 	Grid _grid;
-	MTCS_Pure2.MonteCarloStrategy currentNode = new MTCS_Pure2.MonteCarloStrategy();
 
 	// time budget (ms) used for MCTS; tune as needed
 	private readonly int _mctsTimeMs = 4000;
@@ -50,35 +49,65 @@ public class AIPlayer : IPlayer
 			// Clone model to avoid accidental shared-state mutation during heavy compute
 			var modelClone = new Model(_model);
 
-			// Run the MCTS selection on a thread-pool thread
+			// Convert ms budget to seconds for the strategy constructors
+			int secondsBudget = Math.Max(1, (int)Math.Ceiling(_mctsTimeMs / 1000.0));
+
+			// Run the MCTS selection on a thread-pool thread and return a simple (from,to) tuple
 			var bestMove = await Task.Run(() =>
 			{
-				// The MonteCarloStrategy may expect a fresh model instance
 				try
 				{
-					return currentNode.ChooseBestMove(modelClone, _player);
+					// Choose strategy based on Globals.difficulty
+					switch (Globals.difficulty)
+					{
+						case Globals.AIDifficulty.Easy:
+						{
+							// Easy: use MTCS_Pure (lighter strategy)
+							var strat = new MTCS_Pure.MonteCarloStrategy(secondsBudget);
+							var mv = strat.ChooseBestMove(modelClone, _player);
+							GD.Print($"[AI] Easy strategy selected {mv}");
+							return (mv.From, mv.To);
+						}
+						case Globals.AIDifficulty.Medium:
+						{
+							// Medium: use MTCS_Pure2 (more advanced)
+							var strat = new MTCS_Pure2.MonteCarloStrategy(secondsBudget);
+							var mv = strat.ChooseBestMove(modelClone, _player);
+							GD.Print($"[AI] Medium strategy selected {mv}");
+							return (mv.From, mv.To);
+						}
+						case Globals.AIDifficulty.Hard:
+						default:
+						{
+							// Hard/default: use MTCS_Pure2 with same budget (could be tuned larger)
+							var strat = new MTCS_Pure2.MonteCarloStrategy(secondsBudget);
+							var mv = strat.ChooseBestMove(modelClone, _player);
+							GD.Print($"[AI] Hard strategy selected {mv}");
+							return (mv.From, mv.To);
+						}
+					}
 				}
 				catch (Exception ex)
 				{
-					GD.PrintErr($"[AIPlayer] ChooseBestMove error (background): {ex.Message}");
-					return default(MTCS_Pure2.Move);
+					GD.PrintErr($"[AI] ChooseBestMove error (background): {ex.Message}");
+					return (new Vector2I(-1, -1), new Vector2I(-1, -1));
 				}
 			}).ConfigureAwait(false);
 
-			// Check if bestMove is not the default value (since Move is a struct)
-			if (!bestMove.Equals(default(MTCS_Pure2.Move)))
+			// Validate move (use sentinel -1,-1 to indicate failure)
+			if (bestMove.Item1.X >= 0 && bestMove.Item1.Y >= 0)
 			{
 				// Schedule the event invocation on the main thread (Godot) so subscribers can safely interact with scene nodes.
-				Callable.From(() => MoveFound?.Invoke(this, (bestMove.From, bestMove.To))).CallDeferred();
+				Callable.From(() => MoveFound?.Invoke(this, (bestMove.Item1, bestMove.Item2))).CallDeferred();
 			}
 			else
 			{
-				GD.PrintErr("[AIPlayer] Compute finished but no move returned.");
+				GD.PrintErr("[AI] Compute finished but no move returned.");
 			}
 		}
 		catch (Exception ex)
 		{
-			GD.PrintErr($"[AIPlayer] ComputeAndEmitMoveAsync error: {ex.Message}");
+			GD.PrintErr($"[AI] ComputeAndEmitMoveAsync error: {ex.Message}");
 		}
 	}
 

@@ -12,6 +12,13 @@ public partial class Globals : Node
 		Network
 	}
 	
+	public enum AIDifficulty
+	{
+		Easy,
+		Medium,
+		Hard
+	}
+	
 	public static string ServerBaseUrl = "http://10.30.208.129:8000";
 	public static System.Net.Http.HttpClient http = new System.Net.Http.HttpClient { BaseAddress = new Uri(ServerBaseUrl) };
 	public static string username = "";
@@ -23,4 +30,5 @@ public partial class Globals : Node
 	public static GameType gameType = GameType.Local;
 	public static string status;
 	public static string winner;
+	public static AIDifficulty difficulty = AIDifficulty.Easy;
 }

@@ -4,4 +4,4 @@
 
 [resource]
 texture = ExtResource("1_iunna")
-region_rect = Rect2(278, 26, 68, 56)
+region_rect = Rect2(281, 103, 61, 52)

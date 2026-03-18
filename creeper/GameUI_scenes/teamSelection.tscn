@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://clmgesswav3k3"]
+[gd_scene load_steps=18 format=3 uid="uid://clmgesswav3k3"]
 
 [ext_resource type="Script" uid="uid://dyrjww727kmme" path="res://GameUI_scripts/TeamSelection.cs" id="1_lx2cq"]
 [ext_resource type="Texture2D" uid="uid://fiu2mgen58wi" path="res://UI_assets/UI_Buttons/Buttons_states_v2.png" id="5_g0xv1"]
@@ -21,6 +21,10 @@ texture = ExtResource("5_g0xv1")
 region_rect = Rect2(46, 270, 70, 52)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lx2cq"]
+texture = ExtResource("7_r0k66")
+region_rect = Rect2(278, 26, 68, 56)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hblw2"]
 texture = ExtResource("7_r0k66")
 region_rect = Rect2(281, 103, 61, 52)
 
@@ -99,12 +103,13 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 24
 
-[node name="Label" type="Label" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer"]
+[node name="ChosenTeam" type="Label" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.8627451, 0.2509804, 1)
 theme_override_fonts/font = ExtResource("6_r0k66")
 theme_override_font_sizes/font_size = 24
-text = "Player 1"
+text = "Chose wisely"
 horizontal_alignment = 1
 
 [node name="SelectionButtonContainer" type="HBoxContainer" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer"]
@@ -112,13 +117,14 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="Button" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer" groups=["UIButton"]]
+[node name="HobbitBtn" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer" groups=["UIButton"]]
 custom_minimum_size = Vector2(61, 52)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("10_40n7o")
 theme_override_styles/hover = SubResource("StyleBoxTexture_lx2cq")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_hblw2")
 
-[node name="Button2" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer" groups=["UIButton"]]
+[node name="SauronBtn" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer" groups=["UIButton"]]
 custom_minimum_size = Vector2(61, 52)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_4xrc8")
@@ -139,3 +145,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("9_0mmc1")
+
+[connection signal="pressed" from="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer/HobbitBtn" to="." method="_on_hobbit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer/SauronBtn" to="." method="_on_sauron_btn_pressed"]

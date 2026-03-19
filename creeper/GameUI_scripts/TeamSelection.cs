@@ -26,7 +26,7 @@ public partial class TeamSelection : Control
 	public void _on_hobbit_btn_pressed()
 	{
 		isTeamChosen = true;
-		Team.Text = "Hobbits!";
+		Team.Text = "The Fellowship";
 		if (Globals.gameType == Globals.GameType.AI)
 		{
 			Constants.HeroPlayer = new LocalPlayer();
@@ -37,7 +37,7 @@ public partial class TeamSelection : Control
 	public void _on_sauron_btn_pressed()
 	{
 		isTeamChosen = true;
-		Team.Text = "Sauron!";
+		Team.Text = "Forces of Mordor";
 		if (Globals.gameType == Globals.GameType.AI)
 		{
 			Constants.HeroPlayer = new AIPlayer();

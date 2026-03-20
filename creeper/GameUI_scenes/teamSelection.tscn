@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://clmgesswav3k3"]
+[gd_scene load_steps=26 format=3 uid="uid://clmgesswav3k3"]
 
 [ext_resource type="Script" uid="uid://dyrjww727kmme" path="res://GameUI_scripts/TeamSelection.cs" id="1_lx2cq"]
 [ext_resource type="Texture2D" uid="uid://fiu2mgen58wi" path="res://UI_assets/UI_Buttons/Buttons_states_v2.png" id="5_g0xv1"]
@@ -7,10 +7,12 @@
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="6_r0k66"]
 [ext_resource type="StyleBox" uid="uid://cxalsunrvb4jg" path="res://UI_assets/UI_Buttons/styled_button_texture.tres" id="7_40n7o"]
 [ext_resource type="Texture2D" uid="uid://b68yg4stetukc" path="res://UI_assets/UI_Buttons/Buttons_states_v3.png" id="7_r0k66"]
+[ext_resource type="StyleBox" uid="uid://debojpw0blcs5" path="res://UI_assets/UI_Buttons/leftArrowButtonPressed.tres" id="8_g0xv1"]
 [ext_resource type="StyleBox" uid="uid://2nvh4x3dxlp7" path="res://UI_assets/UI_Buttons/menuButton_hover.tres" id="8_hblw2"]
 [ext_resource type="StyleBox" uid="uid://lv2pdg5qvcwu" path="res://UI_assets/UI_Buttons/styled_button_hover_texture.tres" id="8_po8d8"]
 [ext_resource type="Texture2D" uid="uid://csl7k1cruf8ej" path="res://UI_assets/TeamSelection/sauronTeam.png" id="9_0mmc1"]
 [ext_resource type="StyleBox" uid="uid://wd4262upgeng" path="res://UI_assets/UI_Buttons/arrowButton_hover.tres" id="10_40n7o"]
+[ext_resource type="StyleBox" uid="uid://borofns26wv4f" path="res://UI_assets/UI_Buttons/rightButtonPressed.tres" id="10_hblw2"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fyg3s"]
 texture = ExtResource("5_g0xv1")
@@ -30,9 +32,7 @@ region_rect = Rect2(46, 270, 70, 52)
 texture = ExtResource("7_r0k66")
 region_rect = Rect2(278, 26, 68, 56)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hblw2"]
-texture = ExtResource("7_r0k66")
-region_rect = Rect2(281, 103, 61, 52)
+[sub_resource type="ButtonGroup" id="ButtonGroup_g0xv1"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4xrc8"]
 texture = ExtResource("5_g0xv1")
@@ -143,15 +143,19 @@ alignment = 1
 custom_minimum_size = Vector2(61, 52)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("10_40n7o")
+theme_override_styles/pressed = ExtResource("8_g0xv1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_lx2cq")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_hblw2")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_g0xv1")
 
 [node name="SauronBtn" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer" groups=["UIButton"]]
 custom_minimum_size = Vector2(61, 52)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_4xrc8")
+theme_override_styles/pressed = ExtResource("10_hblw2")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ol5qf")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_ol5qf")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_g0xv1")
 
 [node name="StartGame" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer" groups=["UIButton"]]
 unique_name_in_owner = true

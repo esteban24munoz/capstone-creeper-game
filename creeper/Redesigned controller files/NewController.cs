@@ -115,27 +115,55 @@ public partial class NewController : Node2D
 		if (ModelInstance.IsDraw(ActivePlayer))
 		{
 			GameUI.ShowWinScreen(Constants.Player.None);
+			GameUI.EnableBoardToggleButton();
 			ActivePlayer = Constants.Player.None;
 
 			Music.Stop();
 			DrawMusic.Play();
+		
 		}
 		else if (Winner != Constants.Player.None)
 		{
-			GameUI.ShowWinScreen(Winner);
 			ActivePlayer = Constants.Player.None;
 
 			Music.Stop();
-			switch (Winner)
+			
+			// -- AI & NETWORK LOGIC (Show Defeat Screens) --
+			if (Globals.gameType == Globals.GameType.AI || Globals.gameType == Globals.GameType.Network)
 			{
-				case Constants.Player.Hero:
-					FrodoWin.Play();
-					break;
-				case Constants.Player.Enemy:
-					SauronWin.Play();
-					break;
+				// Local player is Fellowship, but Enemy won -> Frodo Loses
+				if (Constants.HeroPlayer is LocalPlayer && Winner == Constants.Player.Enemy)
+				{
+					GameUI.ShowFrodoLosesScreen();
+					SauronWin.Play(); 
+				}
+				else if (Constants.EnemyPlayer is LocalPlayer && Winner == Constants.Player.Hero)
+				{
+					GameUI.ShowSauronLosesScreen();
+					FrodoWin.Play(); 
+				}
+		
+				// Local player won against the AI/Network Opponent -> Show normal Win Screen
+				else
+				{
+					GameUI.ShowWinScreen(Winner);
+					if (Winner == Constants.Player.Hero) FrodoWin.Play();
+					else SauronWin.Play();
+				}
 			}
+			// -- LOCAL MULTIPLAYER LOGIC (Hotseat 1v1) --
+			else if (Globals.gameType == Globals.GameType.Local)
+			{
+				// Two humans are playing locally, so just announce the winner
+				GameUI.ShowWinScreen(Winner);
+				if (Winner == Constants.Player.Hero) FrodoWin.Play();
+				else SauronWin.Play();
+			}
+
+			// Show the CheckButton so the player can toggle the board
+			GameUI.EnableBoardToggleButton();
 		}
+				
 		else 
 			NewTurn();
 	}
@@ -160,6 +188,7 @@ public partial class NewController : Node2D
 		// If the new active player is a network player, you may want to show a "Waiting for opponent" UI.
 		// Example (if you have such method): GameUI.SetWaiting(ActivePlayerObject is NetworkPlayer);
 	}
+
 
 	private AudioStream RandomizeMusic(AudioStream current = null)
 	{

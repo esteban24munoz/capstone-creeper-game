@@ -1,7 +1,7 @@
 [gd_scene load_steps=71 format=3 uid="uid://ckb1etmea5n10"]
 
 [ext_resource type="PackedScene" uid="uid://bmk3h7qs4gcqi" path="res://characters_scenes/character_base.tscn" id="1_wwymi"]
-[ext_resource type="Shader" path="res://outline.gdshader" id="2_2su0g"]
+[ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="2_2su0g"]
 [ext_resource type="Texture2D" uid="uid://ggf77eeo142r" path="res://Art/Heroes/IDLE/Frodo Idle.png" id="2_wwymi"]
 [ext_resource type="Texture2D" uid="uid://08hq6pwdbr3u" path="res://Art/Heroes/Frodo.png" id="3_62qfa"]
 

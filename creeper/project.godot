@@ -42,6 +42,10 @@ SFXSlider=""
 Music=""
 SFX=""
 
+[gui]
+
+theme/custom="uid://cmubgmyt28o3e"
+
 [input]
 
 mouse_click={

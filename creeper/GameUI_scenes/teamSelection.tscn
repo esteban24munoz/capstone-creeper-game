@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://clmgesswav3k3"]
+[gd_scene load_steps=32 format=3 uid="uid://clmgesswav3k3"]
 
 [ext_resource type="Script" uid="uid://dyrjww727kmme" path="res://GameUI_scripts/TeamSelection.cs" id="1_lx2cq"]
 [ext_resource type="Texture2D" uid="uid://fiu2mgen58wi" path="res://UI_assets/UI_Buttons/Buttons_states_v2.png" id="5_g0xv1"]
@@ -22,15 +22,21 @@ region_rect = Rect2(38, 92, 70, 52)
 texture = ExtResource("5_g0xv1")
 region_rect = Rect2(46, 270, 70, 52)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g0xv1"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lx2cq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g0xv1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hblw2"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0mmc1"]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lx2cq"]
 texture = ExtResource("7_r0k66")
 region_rect = Rect2(278, 26, 68, 56)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fyg3s"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_g0xv1"]
 
@@ -42,11 +48,17 @@ region_rect = Rect2(376, 103, 61, 52)
 texture = ExtResource("7_r0k66")
 region_rect = Rect2(372, 26, 69, 56)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_85nmy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_roq32"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ol5qf"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_40n7o"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_po8d8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4xrc8"]
 
 [node name="TeamSelection" type="Control"]
 layout_mode = 3
@@ -111,6 +123,7 @@ size_flags_vertical = 4
 texture = ExtResource("6_hblw2")
 
 [node name="Button" type="Button" parent="MarginContainer/UIContainer/teamsContainer/TextureRect"]
+material = SubResource("ShaderMaterial_g0xv1")
 layout_mode = 0
 offset_left = 28.0
 offset_top = 11.0
@@ -119,6 +132,7 @@ offset_bottom = 520.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_lx2cq")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_g0xv1")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hblw2")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0mmc1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/UIContainer/teamsContainer"]
 layout_mode = 2
@@ -139,21 +153,25 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="HobbitBtn" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer" groups=["UIButton"]]
+[node name="HobbitArrow" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer" groups=["UIButton"]]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(61, 52)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("10_40n7o")
 theme_override_styles/pressed = ExtResource("8_g0xv1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_lx2cq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fyg3s")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_g0xv1")
 
-[node name="SauronBtn" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer" groups=["UIButton"]]
+[node name="SauronArrow" type="Button" parent="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer" groups=["UIButton"]]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(61, 52)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_4xrc8")
 theme_override_styles/pressed = ExtResource("10_hblw2")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ol5qf")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_85nmy")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_g0xv1")
 
@@ -164,6 +182,7 @@ layout_mode = 2
 theme_override_styles/normal = ExtResource("7_40n7o")
 theme_override_styles/hover = ExtResource("8_po8d8")
 theme_override_styles/hover_pressed = ExtResource("8_po8d8")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_roq32")
 text = "Start Game"
 
 [node name="TextureRect2" type="TextureRect" parent="MarginContainer/UIContainer/teamsContainer"]
@@ -181,8 +200,9 @@ offset_bottom = 524.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ol5qf")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_40n7o")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_po8d8")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4xrc8")
 
 [connection signal="pressed" from="MarginContainer/UIContainer/teamsContainer/TextureRect/Button" to="." method="_on_hobbit_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer/HobbitBtn" to="." method="_on_hobbit_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer/SauronBtn" to="." method="_on_sauron_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer/HobbitArrow" to="." method="_on_hobbit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/UIContainer/teamsContainer/VBoxContainer/SelectionButtonContainer/SauronArrow" to="." method="_on_sauron_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/UIContainer/teamsContainer/TextureRect2/Button" to="." method="_on_sauron_btn_pressed"]

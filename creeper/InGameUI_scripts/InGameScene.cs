@@ -14,11 +14,18 @@ public partial class InGameScene : CanvasLayer
 
 	private Control _activeEndScreen;
 	
+	// 1. ADD THE LABEL VARIABLE
+	private Label _turnLabel;
+	
 
 	private CheckButton _toggleBoardButton;
 	
 	public override void _Ready()
 	{
+		
+		// 2. INITIALIZE THE LABEL REFERENCE
+		// Ensure you have a Label named "TurnLabel" inside your GameUI scene
+		_turnLabel = GetNode<Label>("%TurnLabel");
 
 		GetNode<Button>("%Help").Pressed += OnHelpButtonPressed;
 		_helpUI = GetNode<Control>("HelpUI");
@@ -39,6 +46,22 @@ public partial class InGameScene : CanvasLayer
 		_toggleBoardButton = GetNode<CheckButton>("%ToggleBoardButton");
 		_toggleBoardButton.Visible = false;
 		_toggleBoardButton.Toggled += OnToggleBoardButtonPressed;
+	}
+	
+	public void UpdateTurnText(string text, string hexColor)
+	{
+		if (_turnLabel != null)
+		{
+			_turnLabel.Text = text;
+			// Color.FromHtml converts your "8d2817" string into a Godot Color object
+			_turnLabel.Modulate = Color.FromHtml(hexColor);
+		}
+	}
+	
+	// 4. HIDE THE LABEL WHEN THE GAME ENDS
+	public void HideTurnLabel()
+	{
+		if (_turnLabel != null) _turnLabel.Visible = false;
 	}
 
 	private void OnHelpButtonPressed(){

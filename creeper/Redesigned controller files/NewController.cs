@@ -37,6 +37,9 @@ public partial class NewController : Node2D
 		ViewInstance.CharacterMouseExited += Constants.EnemyPlayer.MouseExited;
 
 		GameUI = GetNode<InGameScene>("GameUI");
+		
+		// Set the initial label text
+		UpdateTurnLabel();
 
 		Music = GetNode<AudioStreamPlayer2D>("Music/Battle");
 		Music.Finished += MusicFinished;
@@ -50,6 +53,8 @@ public partial class NewController : Node2D
 		//start the first turn
 		ActivePlayerObject.SetupTurn(ModelInstance, ViewInstance);
 	}
+	
+
 
 	//this is called whenever a player object wants to make a move
 	async void MakeMove(object sender, (Vector2I from, Vector2I to) move)
@@ -181,12 +186,53 @@ public partial class NewController : Node2D
 			ActivePlayer = Constants.Player.Hero;
 			ActivePlayerObject = Constants.HeroPlayer;
 		}
+		
+		// Update the UI Label
+		UpdateTurnLabel();
 
 		//tell new active player to setup
 		ActivePlayerObject.SetupTurn(ModelInstance, ViewInstance);
 
 		// If the new active player is a network player, you may want to show a "Waiting for opponent" UI.
 		// Example (if you have such method): GameUI.SetWaiting(ActivePlayerObject is NetworkPlayer);
+	}
+
+
+	private void UpdateTurnLabel()
+	{
+		// If the game is over, hide the label
+		if (Winner != Constants.Player.None || ActivePlayer == Constants.Player.None)
+		{
+			GameUI.HideTurnLabel();
+			return;
+		}
+
+		// Define the consistent hex colors
+		string greenHex = "66dc40";
+		string redHex = "f25625";
+		
+		// Determine the color based on the ActivePlayer enum
+		string turnColor = (ActivePlayer == Constants.Player.Hero) ? greenHex : redHex;
+
+		if (Globals.gameType == Globals.GameType.Local)
+		{
+			if (ActivePlayer == Constants.Player.Hero)
+			{
+				GameUI.UpdateTurnText("Fellowship's Turn", turnColor);
+			}
+			else
+			{
+				GameUI.UpdateTurnText("Mordor's Turn", turnColor);
+			}
+		}
+		else
+		{
+			bool isLocal = ActivePlayerObject is LocalPlayer;
+			string msg = isLocal ? "Your Turn" : "Opponent's Turn..";
+			
+			// Applies greenHex if it's Hero's turn, redHex if it's Enemy's turn
+			GameUI.UpdateTurnText(msg, turnColor);
+		}
 	}
 
 

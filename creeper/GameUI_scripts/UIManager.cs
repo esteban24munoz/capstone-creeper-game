@@ -207,26 +207,12 @@ public async void ShowScreen(string path, bool clearStack = false)
 		_currentGameInstance = null;
 	}
 
-	// 2. If network game, pop one UI screens; otherwise pop none (so UI returns accordingly).
-	if (Globals.gameType == Globals.GameType.Network)
-	{
-		// Pop up to two screens
-		var top = _screenStack.Pop();
-		// Defensive removal from container if present
-		if (top.GetParent() == _container)
-		{
-			_container.RemoveChild(top);
-		}
-		top.QueueFree();
-		Globals.cts.Cancel();
-	}
-
-	// 3. Unhide the UI container and show the current top screen if present.
+	// 2. Unhide the UI container. 
 	// Since we never cleared the stack when starting the game, 
 	// the previous screen (like Team Selection) will instantly be visible again!
 	_container.Visible = true;
-
-	// 4. Restore the correct state for the Top Bar buttons
+	
+	// 3. Restore the correct state for the Top Bar buttons
 	UpdateBackButton(); 
 
 	_music.Play();

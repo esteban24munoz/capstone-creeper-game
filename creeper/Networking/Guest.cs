@@ -31,16 +31,7 @@ namespace Client {
 
 			var content = new StringContent("{}", Encoding.UTF8, "application/json");
 			var resp = await _http.PostAsync(url, content, ct).ConfigureAwait(false);
-			try
-			{
-				resp.EnsureSuccessStatusCode();
-			}
-			catch (HttpRequestException ex)
-			{
-				if (resp.StatusCode == System.Net.HttpStatusCode.NotFound)
-					return null;
-				
-			}
+			resp.EnsureSuccessStatusCode();
 			var body = await resp.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
 			return JsonSerializer.Deserialize<JoinResponse>(body, _jsonOptions)!;
 		}
@@ -163,25 +154,27 @@ namespace Client {
 				return;
 			}
 			Constants.HeroPlayer = new NetworkPlayer();
-			Globals.cts = new CancellationTokenSource();
 			errorMessage = GetNode<Label>("%ErrorMessage");
 		}
 		
 		private async void _on_join_btn_pressed()
 		{
 			if (string.IsNullOrWhiteSpace(Globals.gameId)) {
-				errorMessage.Text = "Room code must be entered!";
 				errorMessage.Visible = true;
 				return;
 			}
 			await JoinGame(Globals.gameId, Globals.username, Globals.cts.Token);
-			if (errorMessage.Visible)
-				return;
 			// start heartbeat and polling loops
 			_ = HeartbeatLoopAsync(Globals.cts.Token);
 			_ = PollStateLoopAsync(Globals.gameId, Globals.cts.Token);
 			await UIManager.Instance.ChangeSceneWithTransition("res://game.tscn");
 		}
+		
+		//public override void _ExitTree()
+		//{
+			//Globals.cts?.Cancel();
+			//Globals.cts?.Dispose();
+		//}
 		
 		// Submit a move from UI/game logic
 		public async Task SubmitMoveAsync(string state)
@@ -209,11 +202,6 @@ namespace Client {
 			try
 			{
 				_joinInfo = await Globals.guestClient.JoinGameAsync(gameId, username, ct);
-				if (_joinInfo == null)
-				{
-					errorMessage.Text = "Wrong room code entered";
-					errorMessage.Visible = true;
-				}
 				GD.Print($"[Guest] Joined game {_joinInfo.GameId} token={_joinInfo.GuestToken} status={_joinInfo.Status}");
 				Globals.token = _joinInfo.GuestToken;
 				Globals.status = _joinInfo.Status;
@@ -267,16 +255,11 @@ namespace Client {
 					GD.Print($"[Guest Poll Loop] Game status: {stateResp.Status}, turn: {stateResp.Turn}, state: {stateResp.State}");
 					if (!string.IsNullOrEmpty(stateResp.State))
 					{
-						if ((stateResp.Status == "in_progress" && stateResp.Turn == "guest" && !moveFound) || (stateResp.Status == "finished" && !moveFound))
+						if (stateResp.Status == "in_progress" && stateResp.Turn == "guest" && !moveFound || stateResp.Status == "finished")
 						{
 							GD.Print("[Guest] Recieve state called");
 							Constants.HeroPlayer.ReceiveState(stateResp.State);
 							moveFound = true;
-							Globals.status = stateResp.Status;
-						}
-						else if (stateResp.Status == "finished" && moveFound)
-						{
-							Globals.cts.Cancel();
 						}
 						if (stateResp.Turn == "host")
 							moveFound = false;

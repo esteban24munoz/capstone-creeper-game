@@ -95,12 +95,10 @@ public partial class NewController : Node2D
 			if (Constants.HeroPlayer is LocalPlayer)
 			{
 				await Globals.hostClient.MakeMoveAsync(Globals.gameId, Globals.token, state, Globals.cts.Token).ConfigureAwait(false);
-				GD.Print("[Network] Host submitted move.");
 			}
 			else if (Constants.EnemyPlayer is LocalPlayer)
 			{
 				await Globals.guestClient.MakeMoveAsync(Globals.gameId, Globals.token, state, Globals.cts.Token).ConfigureAwait(false);
-				GD.Print("[Network] Guest submitted move.");
 			}
 			else
 			{

@@ -37,6 +37,15 @@ public class AIPlayer : IPlayer
 			if (_model.FindValidMoves(p, _player).Count > 0) { hasMove = true; break; }
 		}
 		if (!hasMove) return;
+		
+		////Wait until LocalPlayer has closed Help Menu
+		//if (Globals.gameType == Globals.GameType.AI && Constants.HeroPlayer is AIPlayer)
+		//{
+			//while (!Globals.isHelpClosed)
+			//{
+				//await Task.Delay(500);
+			//}
+		//}
 
 		// Fire-and-forget background computation
 		_ = ComputeAndEmitMoveAsync();
@@ -44,6 +53,15 @@ public class AIPlayer : IPlayer
 
 	private async Task ComputeAndEmitMoveAsync()
 	{
+		//Wait until LocalPlayer has closed Help Menu
+		if (Globals.gameType == Globals.GameType.AI && Constants.HeroPlayer is AIPlayer)
+		{
+			while (!Globals.isHelpClosed)
+			{
+				await Task.Delay(500);
+			}
+		}
+		
 		try
 		{
 			// Clone model to avoid accidental shared-state mutation during heavy compute

@@ -106,6 +106,7 @@ namespace Client {
 			Label p1Name = GetNode<Label>("%P1name");
 			p1Name.Text = Globals.username;
 			Constants.EnemyPlayer = new NetworkPlayer();
+			Globals.cts = new CancellationTokenSource();
 		}
 		
 		private async Task CreateGame()
@@ -174,10 +175,16 @@ namespace Client {
 					if (!string.IsNullOrEmpty(stateResp.State))
 					{
 						GD.Print($"[Host Poll Loop] Game status: {stateResp.Status}, turn: {stateResp.Turn}, state: {stateResp.State}");
-						if (stateResp.Status == "in_progress" && stateResp.Turn == "host" && !moveFound || stateResp.Status == "finished") {
+						if ((stateResp.Status == "in_progress" && stateResp.Turn == "host" && !moveFound) || (stateResp.Status == "finished" && !moveFound)) 
+						{
 							GD.Print("[Host] Recieve state called");
 							Constants.EnemyPlayer.ReceiveState(stateResp.State);
 							moveFound = true;
+							Globals.status = stateResp.Status;
+						}
+						else if (stateResp.Status == "finished" && moveFound)
+						{
+							Globals.cts.Cancel();
 						}
 						if (stateResp.Turn == "guest")
 							moveFound = false;

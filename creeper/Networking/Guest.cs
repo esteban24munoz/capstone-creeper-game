@@ -196,7 +196,6 @@ namespace Client {
 			try
 			{
 				await Globals.guestClient.MakeMoveAsync(_joinInfo.GameId, _joinInfo.GuestToken, state, Globals.cts.Token).ConfigureAwait(false);
-				GD.Print("[Guest] Move submitted.");
 			}
 			catch (Exception ex)
 			{
@@ -215,7 +214,7 @@ namespace Client {
 					errorMessage.Text = "Wrong room code entered";
 					errorMessage.Visible = true;
 				}
-				GD.Print($"[Guest] Joined game {_joinInfo.GameId} token={_joinInfo.GuestToken} status={_joinInfo.Status}");
+				GD.Print($"[Guest]\tJoined game: {_joinInfo.GameId}\ttoken: {_joinInfo.GuestToken}\tstatus: {_joinInfo.Status}");
 				Globals.token = _joinInfo.GuestToken;
 				Globals.status = _joinInfo.Status;
 				
@@ -230,13 +229,12 @@ namespace Client {
 		
 		private async Task HeartbeatLoopAsync(CancellationToken ct)
 		{
-			var interval = TimeSpan.FromSeconds(20); // keep < server PLAYER_TIMEOUT
+			var interval = TimeSpan.FromSeconds(10); // keep < server PLAYER_TIMEOUT
 			while (!ct.IsCancellationRequested)
 			{
 				try
 				{
 					await Globals.guestClient.HeartbeatAsync(Globals.gameId, Globals.token, ct).ConfigureAwait(false);
-					GD.Print("Guest Heartbeat");
 				}
 				catch (Exception ex)
 				{
@@ -265,12 +263,11 @@ namespace Client {
 				try
 				{
 					var stateResp = await Globals.guestClient.GetGameStateAsync(gameId, ct);
-					GD.Print($"[Guest Poll Loop] Game status: {stateResp.Status}, turn: {stateResp.Turn}, state: {stateResp.State}");
+					GD.Print($"[Guest Poll Loop]\tGame status: {stateResp.Status}\tturn: {stateResp.Turn}\tstate: {stateResp.State}");
 					if (!string.IsNullOrEmpty(stateResp.State))
 					{
 						if ((stateResp.Status == "in_progress" && stateResp.Turn == "guest" && !moveFound) || (stateResp.Status == "finished" && !moveFound))
 						{
-							GD.Print("[Guest] Recieve state called");
 							Constants.HeroPlayer.ReceiveState(stateResp.State);
 							moveFound = true;
 							Globals.status = stateResp.Status;
@@ -279,6 +276,15 @@ namespace Client {
 						{
 							Globals.cts.Cancel();
 						}
+						else if (stateResp.Status == "disconnected")
+						{
+							// The guest disconnected (left the game)
+							GD.Print("[Guest] The other player has left the game");
+							Globals.status = stateResp.Status;
+							Globals.cts.Cancel();
+							//Change to main menu or something
+						}
+						
 						if (stateResp.Turn == "host")
 							moveFound = false;
 					}

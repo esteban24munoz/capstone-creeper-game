@@ -281,6 +281,10 @@ public async void ShowScreen(string path, bool clearStack = false)
 		// 4. Make the UI container visible again
 		_container.Visible = true;
 		UpdateBackButton(); 
+		
+		// 5. Cancel token if it's a Network game
+		if (Globals.gameType == Globals.GameType.Network)
+			Globals.cts.Cancel();
 
 		_music.Play();
 

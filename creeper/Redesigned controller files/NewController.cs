@@ -82,7 +82,7 @@ public partial class NewController : Node2D
 				state += 'x';
 			else if (ActivePlayer == Constants.Player.Enemy)
 				state += 'o';
-			GD.Print($"Submitting state: {state}");
+			
 			_ = SubmitMoveToServerAsync(state); // fire-and-forget; errors are logged inside helper
 		}
 	}

@@ -54,7 +54,7 @@ public class AIPlayer : IPlayer
 	private async Task ComputeAndEmitMoveAsync()
 	{
 		//Wait until LocalPlayer has closed Help Menu
-		if (Globals.gameType == Globals.GameType.AI && Constants.HeroPlayer is AIPlayer)
+		if (Constants.HeroPlayer is AIPlayer)
 		{
 			while (!Globals.isHelpClosed)
 			{

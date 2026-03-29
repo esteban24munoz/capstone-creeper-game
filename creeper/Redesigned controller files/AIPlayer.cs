@@ -97,11 +97,20 @@ public class AIPlayer : IPlayer
 						case Globals.AIDifficulty.Hard:
 						default:
 						{
-							// Hard/default: use MTCS_Pure2 with same budget (could be tuned larger)
-							var strat = new MTCS_Pure2.MonteCarloStrategy(secondsBudget);
-							var mv = strat.ChooseBestMove(modelClone, _player);
-							GD.Print($"[AI] Hard strategy selected {mv}");
-							return (mv.From, mv.To);
+							if (_player == Constants.Player.Hero)
+							{
+								var strat = new MTCS_Pure.MonteCarloStrategy(secondsBudget);
+								var mv = strat.ChooseBestMove(modelClone, _player);
+								GD.Print($"[AI] Easy strategy selected {mv}");
+								return (mv.From, mv.To);
+							}
+							else {
+								// Hard/default: use MTCS_Pure2 with same budget (could be tuned larger)
+								var strat = new MTCS_Pure2.MonteCarloStrategy(secondsBudget);
+								var mv = strat.ChooseBestMove(modelClone, _player);
+								GD.Print($"[AI] Hard strategy selected {mv}");
+								return (mv.From, mv.To);
+							}
 						}
 					}
 				}

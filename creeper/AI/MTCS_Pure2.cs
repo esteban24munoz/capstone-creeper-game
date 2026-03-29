@@ -33,6 +33,7 @@ public partial class MTCS_Pure2 : Node
 		private readonly double _drawScore;
 		private readonly double _jumpBonus;
 		private readonly double _tileCaptureBonus;
+		private readonly double _vulnerabilityPenalty;
 		private readonly Random _rng;
 		//public Model state
 
@@ -42,8 +43,9 @@ public partial class MTCS_Pure2 : Node
 		/// Time budget is specified in seconds (default 4).
 		/// jumpBonus adds a small extra score to candidate moves that jump an enemy piece.
 		/// tileCaptureBonus adds a small extra score to candidate moves that jump over and capture a tile.
+		/// vulnerabilityPenalty subtracts a small score from candidates that leave the moved piece vulnerable to an opponent jump next turn.
 		/// </summary>
-		public MonteCarloStrategy(int timeBudgetSeconds = 4, int maxPlayoutLength = 200, double winScore = 1.0, double drawScore = 0.4, double jumpBonus = 0.3, double tileCaptureBonus = 0.25, int? seed = null)
+		public MonteCarloStrategy(int timeBudgetSeconds = 4, int maxPlayoutLength = 200, double winScore = 1.0, double drawScore = 0.4, double jumpBonus = 0.35, double tileCaptureBonus = 0.25, double vulnerabilityPenalty = 0.35, int? seed = null)
 		{
 			_timeBudget = TimeSpan.FromSeconds(Math.Max(0.1, timeBudgetSeconds));
 			_maxPlayoutLength = Math.Max(1, maxPlayoutLength);
@@ -51,6 +53,7 @@ public partial class MTCS_Pure2 : Node
 			_drawScore = drawScore;
 			_jumpBonus = Math.Max(0.0, jumpBonus);
 			_tileCaptureBonus = Math.Max(0.0, tileCaptureBonus);
+			_vulnerabilityPenalty = Math.Max(0.0, vulnerabilityPenalty);
 			_rng = seed.HasValue ? new Random(seed.Value) : new Random();
 		}
 
@@ -192,6 +195,12 @@ public partial class MTCS_Pure2 : Node
 
 			simModel.MoveCharacter(candidate.From, candidate.To);
 
+			// Penalty: if the moved piece is now vulnerable to an opponent jump on their next turn, subtract a small penalty
+			if (IsPositionVulnerableToOpponentJump(simModel, candidate.To, Opponent(myPlayer)))
+			{
+				accScoreOut -= _vulnerabilityPenalty;
+			}
+
 			var current = Opponent(myPlayer);
 			int steps = 0;
 
@@ -227,6 +236,34 @@ public partial class MTCS_Pure2 : Node
 		private static Constants.Player Opponent(Constants.Player p)
 		{
 			return p == Constants.Player.Hero ? Constants.Player.Enemy : Constants.Player.Hero;
+		}
+
+		// Determine whether the piece at 'pos' (occupied by the active player) can be captured
+		// by an opponent's single jump on their next turn.
+		private bool IsPositionVulnerableToOpponentJump(Model simModel, Vector2I pos, Constants.Player opponent)
+		{
+			// For every opponent piece, compute the symmetric landing cell across 'pos'.
+			// If that landing cell is empty and the static FindJumpedCharacter(from, landing) == pos,
+			// then the opponent can capture this piece in one jump.
+			foreach (var from in simModel.GetAllCharacters(opponent))
+			{
+				// Require 'from' to be orthogonally adjacent to 'pos' (one space up/down/left/right).
+				// If it's not, it cannot perform a single jump that lands across 'pos'.
+				bool fromIsOrthAdjacent =
+					(Math.Abs(from.X - pos.X) == 1 && from.Y == pos.Y) ||
+					(Math.Abs(from.Y - pos.Y) == 1 && from.X == pos.X);
+				if (!fromIsOrthAdjacent) continue;
+
+				// Compute landing = 2*pos - from
+				var landing = new Vector2I(pos.X * 2 - from.X, pos.Y * 2 - from.Y);
+				if (landing.X < 0 || landing.X > 6 || landing.Y < 0 || landing.Y > 6) continue;
+				if (simModel.PlayerAt(landing) != Constants.Player.None) continue;
+
+				// Validate that jumping from -> landing would indeed jump 'pos'
+				var jumped = Model.FindJumpedCharacter(from, landing);
+				if (jumped != null && jumped.Value == pos) return true;
+			}
+			return false;
 		}
 
 		// Gather all legal moves for a player as Move records

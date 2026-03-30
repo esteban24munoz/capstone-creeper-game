@@ -39,7 +39,7 @@ namespace Client {
 			{
 				if (resp.StatusCode == System.Net.HttpStatusCode.NotFound)
 					return null;
-				
+				GD.PrintErr($"Join game failed: {ex}");
 			}
 			var body = await resp.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
 			return JsonSerializer.Deserialize<JoinResponse>(body, _jsonOptions)!;
@@ -140,17 +140,19 @@ namespace Client {
 	
 	public partial class Guest : Control
 	{
-		private JoinResponse? _joinInfo;
+		private JoinResponse _joinInfo;
 		private UIManager _ui;
 		private Label errorMessage;
-
-		// Events other nodes can subscribe to
-		public event Action<string>? OnError;
 		
 		private void _on_game_id_text_changed(string gameId)
 		{
 			Globals.gameId = gameId;
 			errorMessage.Visible = false;
+		}
+
+		private void _on_game_id_text_submitted(string text)
+		{
+			_on_join_btn_pressed();
 		}
 
 		public override void _Ready()
@@ -163,6 +165,7 @@ namespace Client {
 				return;
 			}
 			Constants.HeroPlayer = new NetworkPlayer();
+			Constants.EnemyPlayer = new LocalPlayer();
 			Globals.cts = new CancellationTokenSource();
 			errorMessage = GetNode<Label>("%ErrorMessage");
 		}
@@ -200,7 +203,6 @@ namespace Client {
 			catch (Exception ex)
 			{
 				GD.PrintErr($"[Guest] SubmitMove error: {ex.Message}");
-				OnError?.Invoke(ex.Message);
 			}
 		}
 
@@ -223,7 +225,6 @@ namespace Client {
 			catch (Exception ex)
 			{
 				GD.PrintErr($"[Guest] Join error: {ex.Message}");
-				OnError?.Invoke(ex.Message);
 			}
 		}
 		
@@ -235,11 +236,11 @@ namespace Client {
 				try
 				{
 					await Globals.guestClient.HeartbeatAsync(Globals.gameId, Globals.token, ct).ConfigureAwait(false);
+					GD.Print($"[Guest] Heartbeat");
 				}
 				catch (Exception ex)
 				{
 					GD.PrintErr($"[Guest] Heartbeat error: {ex.Message}");
-					OnError?.Invoke(ex.Message);
 				}
 
 				try
@@ -256,7 +257,7 @@ namespace Client {
 		// Poll server for state and forward it to NetworkPlayer.ReceiveState
 		private async Task PollStateLoopAsync(string gameId, CancellationToken ct)
 		{
-			var interval = TimeSpan.FromSeconds(2);
+			var interval = TimeSpan.FromSeconds(1);
 			bool moveFound = false;
 			while (!ct.IsCancellationRequested)
 			{
@@ -292,7 +293,6 @@ namespace Client {
 				catch (Exception ex)
 				{
 					GD.PrintErr($"[Guest] Poll error: {ex.Message}");
-					OnError?.Invoke(ex.Message);
 				}
 
 				try

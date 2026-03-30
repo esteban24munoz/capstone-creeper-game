@@ -81,7 +81,7 @@ namespace Client {
 	
 	public partial class Host : Control
 	{
-		private GameCreatedResponse? _created;
+		private GameCreatedResponse _created;
 		private UIManager _ui;
 
 		public override void _Ready()
@@ -105,6 +105,7 @@ namespace Client {
 			Label p1Name = GetNode<Label>("%P1name");
 			p1Name.Text = Globals.username;
 			Constants.EnemyPlayer = new NetworkPlayer();
+			Constants.HeroPlayer = new LocalPlayer();
 			Globals.cts = new CancellationTokenSource();
 		}
 		
@@ -164,7 +165,7 @@ namespace Client {
 
 		private async Task PollStateLoopAsync(string gameId, CancellationToken ct)
 		{
-			var interval = TimeSpan.FromSeconds(2);
+			var interval = TimeSpan.FromSeconds(1);
 			bool moveFound = false;
 			while (!ct.IsCancellationRequested)
 			{
@@ -222,6 +223,7 @@ namespace Client {
 				try
 				{
 					await Globals.hostClient.HeartbeatAsync(Globals.gameId, Globals.token, ct);
+					GD.Print($"[Host] Heartbeat");
 				}
 				catch (Exception ex)
 				{

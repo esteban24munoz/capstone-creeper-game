@@ -8,7 +8,7 @@ public partial class NetworkPlayer : IPlayer
 	private Model ModelInstance;
 	private Grid ViewInstance;
 	private Constants.Player Player;
-	private string? LastState;
+	private string LastState;
 	
 	// Emit this when a network move is detected
 	public event EventHandler<(Vector2I, Vector2I)> MoveFound;

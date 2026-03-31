@@ -321,6 +321,21 @@ public class Model
 		return ValidMoves;
 	}
 
+	public List<Vector2I> FindKillable(Vector2I pos, Constants.Player activePlayer)
+	{
+		List<Vector2I> Killable = [];
+
+		foreach (var move in FindValidMoves(pos, activePlayer))
+		{
+			if (Math.Abs(pos.X - move.X) == 2 || Math.Abs(pos.Y - move.Y) == 2)
+			{
+				Killable.Add(pos + ((move - pos) / 2));
+			}
+		}
+
+		return Killable;
+	}
+
 	//Needed to read in a state for the AI - state string in softserve format
 	public Constants.Player UpdateState(string state) 
 	{

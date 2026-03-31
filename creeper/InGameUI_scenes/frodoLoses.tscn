@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsxynqvoiqkjd"]
+[gd_scene load_steps=10 format=3 uid="uid://jpdy6ugi7r6i"]
 
 [ext_resource type="Script" uid="uid://ban7kgiujpu3m" path="res://InGameUI_scenes/WinnerScreen.cs" id="1_dqlac"]
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="2_ploj8"]

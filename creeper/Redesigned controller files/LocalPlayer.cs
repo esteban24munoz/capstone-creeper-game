@@ -49,6 +49,7 @@ public partial class LocalPlayer : IPlayer
 			{
 				//unselect the selected character
 				ViewInstance.RemoveGhosts();
+				ViewInstance.UnHighLightKillable();
 
 				if (pos == SelectedCharacter)
 				{
@@ -64,6 +65,7 @@ public partial class LocalPlayer : IPlayer
 				//the object now knows what move it wants to make, so it emits MoveFound to tell the controller
 				MoveFound?.Invoke(this, (SelectedCharacter.Value, pos));
 				ViewInstance.RemoveGhosts();
+				ViewInstance.UnHighLightKillable();
 				SelectedCharacter = null;
 
 				ready = false;
@@ -76,6 +78,7 @@ public partial class LocalPlayer : IPlayer
 	{
 		List<Vector2I> moves = ModelInstance.FindValidMoves(pos, Player);
 		ViewInstance.CreateGhosts(pos, moves);
+		ViewInstance.HighlightKillable(ModelInstance.FindKillable(pos, Player));
 
 		SelectedCharacter = pos;
 	}

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b71cvo12avyvb"
+path="res://.godot/imported/The Bridge of Khazad Dum.ogg-666c9330de79fb0308fbab036dc3442b.oggvorbisstr"
+
+[deps]
+
+source_file="res://Music/The Bridge of Khazad Dum.ogg"
+dest_files=["res://.godot/imported/The Bridge of Khazad Dum.ogg-666c9330de79fb0308fbab036dc3442b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

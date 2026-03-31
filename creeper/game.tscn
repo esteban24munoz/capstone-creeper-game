@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bskcrihd33k5i"]
+[gd_scene load_steps=12 format=3 uid="uid://bskcrihd33k5i"]
 
 [ext_resource type="Script" uid="uid://cg426abein67r" path="res://Redesigned controller files/NewController.cs" id="1_eow3j"]
 [ext_resource type="PackedScene" uid="uid://v8rtqn5ipqng" path="res://Grid.tscn" id="2_b6q5f"]
@@ -7,13 +7,14 @@
 [ext_resource type="AudioStream" uid="uid://cv2lf1gnpwbn8" path="res://Music/The Black Gate Opens.ogg" id="4_eow3j"]
 [ext_resource type="AudioStream" uid="uid://drqpyhi74wo6q" path="res://Music/The Shadow of the Past.ogg" id="4_hve3p"]
 [ext_resource type="AudioStream" uid="uid://5ggytgq5da6d" path="res://Music/The Ring Goes South.ogg" id="5_eow3j"]
+[ext_resource type="AudioStream" uid="uid://b71cvo12avyvb" path="res://Music/The Bridge of Khazad Dum.ogg" id="5_mfdv2"]
 [ext_resource type="AudioStream" uid="uid://caglyp5cwadt0" path="res://Music/The Fighting Uruk-hai.ogg" id="6_eow3j"]
 [ext_resource type="AudioStream" uid="uid://dlk1x0fompcfe" path="res://Music/Prologue.ogg" id="7_eow3j"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="10_hve3p"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_eow3j")
-MusicArray = [ExtResource("2_vef74"), ExtResource("4_eow3j"), ExtResource("4_hve3p")]
+MusicArray = [ExtResource("2_vef74"), ExtResource("4_eow3j"), ExtResource("4_hve3p"), ExtResource("5_mfdv2")]
 
 [node name="Grid" parent="." instance=ExtResource("2_b6q5f")]
 

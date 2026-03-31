@@ -91,7 +91,7 @@ public partial class Grid : Node2D
 
 			characters.Add(Ghost);
 
-			Ghost.Play("idle");
+			Ghost.Stop();
 		}
 	}
 
@@ -118,6 +118,31 @@ public partial class Grid : Node2D
 				child.QueueFree();
 			}
 		}  
+	}
+
+	private List<CharacterBase> highlighted = [];
+
+	public void HighlightKillable(List<Vector2I> positions)
+	{
+		highlighted.Clear();
+		foreach (var pos in positions)
+		{
+			var character = FindCharacteratGridPos(pos);
+			if (character != null)
+			{
+				character.SelfModulate = new(1, 0, 0);
+				highlighted.Add(character);
+			}
+		}
+	}
+
+	public void UnHighLightKillable()
+	{
+		foreach (var c in highlighted)
+		{
+			c.SelfModulate = new(1, 1, 1);
+		}
+		highlighted.Clear();
 	}
 
 	//moves the appropriate character as well deletes jumped characters

@@ -121,11 +121,13 @@ public partial class Help : Control
 			
 			await ToSignal(GetTree().CreateTimer(1.0f), SceneTreeTimer.SignalName.Timeout);
 			Visible = true;
+			Globals.isHelpClosed = false;
 		}
 	}
 
 	private void OnExitButtonPressed()
 	{
+		Globals.isHelpClosed = true;
 		Visible = false;
 		_pageIndex = 0;
 		UpdatePage();

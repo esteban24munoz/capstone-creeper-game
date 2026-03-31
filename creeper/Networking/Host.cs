@@ -47,7 +47,6 @@ namespace Client {
 			var payload = new { player_token = playerToken, state = state };
 			var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
 			var resp = await _http.PostAsync($"/games/{gameId}/move", content, ct).ConfigureAwait(false);
-			GD.Print($"[HostClient] MakeMoveAsync response status: {resp.StatusCode}");
 			resp.EnsureSuccessStatusCode();
 		}
 
@@ -82,7 +81,7 @@ namespace Client {
 	
 	public partial class Host : Control
 	{
-		private GameCreatedResponse? _created;
+		private GameCreatedResponse _created;
 		private UIManager _ui;
 
 		public override void _Ready()
@@ -106,12 +105,14 @@ namespace Client {
 			Label p1Name = GetNode<Label>("%P1name");
 			p1Name.Text = Globals.username;
 			Constants.EnemyPlayer = new NetworkPlayer();
+			Constants.HeroPlayer = new LocalPlayer();
+			Globals.cts = new CancellationTokenSource();
 		}
 		
 		private async Task CreateGame()
 		{
 			_created = await Globals.hostClient.CreateGameAsync(Globals.username, Globals.cts.Token);
-			GD.Print($"[Host] Created game {_created.GameId} token={_created.HostToken} status={_created.Status}");
+			GD.Print($"[Host]\tCreated game: {_created.GameId}\ttoken: {_created.HostToken}\tstatus: {_created.Status}");
 			Label id = GetNode<Label>("%ID");
 			id.Text = _created.GameId;
 			Globals.gameId = _created.GameId;
@@ -135,14 +136,14 @@ namespace Client {
 					try
 					{
 						var state = await Globals.hostClient.GetGameStateAsync(Globals.gameId, Globals.cts.Token);
-						GD.Print($"[Host] Game status: {state.Status}, turn: {state.Turn}, state: {state.State}");
+						GD.Print($"[Host]\tGame status: {state.Status}\tstate: {state.State}");
 						
 						//Update p2 name and start game
 						if (state.Status == "in_progress")
 						{
 							Label p2Name = GetNode<Label>("%P2name");
 							p2Name.Text = state.GuestName;
-							GD.Print($"[Host]: {state.GuestName} joined game");
+							GD.Print($"[Host]\t{state.GuestName} joined game");
 							_ = PollStateLoopAsync(Globals.gameId, Globals.cts.Token);
 							await UIManager.Instance.ChangeSceneWithTransition("res://game.tscn");
 							return;
@@ -164,7 +165,7 @@ namespace Client {
 
 		private async Task PollStateLoopAsync(string gameId, CancellationToken ct)
 		{
-			var interval = TimeSpan.FromSeconds(2);
+			var interval = TimeSpan.FromSeconds(1);
 			bool moveFound = false;
 			while (!ct.IsCancellationRequested)
 			{
@@ -173,11 +174,24 @@ namespace Client {
 					var stateResp = await Globals.hostClient.GetGameStateAsync(gameId, ct);
 					if (!string.IsNullOrEmpty(stateResp.State))
 					{
-						GD.Print($"[Host Poll Loop] Game status: {stateResp.Status}, turn: {stateResp.Turn}, state: {stateResp.State}");
-						if (stateResp.Status == "in_progress" && stateResp.Turn == "host" && !moveFound || stateResp.Status == "finished") {
-							GD.Print("[Host] Recieve state called");
+						GD.Print($"[Host Poll Loop]\tGame status: {stateResp.Status}\tturn: {stateResp.Turn}\tstate: {stateResp.State}");
+						if ((stateResp.Status == "in_progress" && stateResp.Turn == "host" && !moveFound) || (stateResp.Status == "finished" && !moveFound)) 
+						{
 							Constants.EnemyPlayer.ReceiveState(stateResp.State);
 							moveFound = true;
+							Globals.status = stateResp.Status;
+						}
+						else if (stateResp.Status == "finished" && moveFound)
+						{
+							Globals.cts.Cancel();
+						}
+						else if (stateResp.Status == "disconnected")
+						{
+							// The guest disconnected (left the game)
+							GD.Print("[Host] The other player has left the game");
+							Globals.status = stateResp.Status;
+							Globals.cts.Cancel();
+							//Change to main menu or something
 						}
 						if (stateResp.Turn == "guest")
 							moveFound = false;
@@ -201,14 +215,15 @@ namespace Client {
 
 		private async Task HeartbeatLoopAsync(CancellationToken ct)
 		{
-			// Heartbeat interval should be well under server PLAYER_TIMEOUT (server default 120s).
-			var interval = TimeSpan.FromSeconds(20);
+			// Heartbeat interval should be well under server PLAYER_TIMEOUT.
+			var interval = TimeSpan.FromSeconds(10);
 
 			while (!ct.IsCancellationRequested)
 			{
 				try
 				{
 					await Globals.hostClient.HeartbeatAsync(Globals.gameId, Globals.token, ct);
+					GD.Print($"[Host] Heartbeat");
 				}
 				catch (Exception ex)
 				{

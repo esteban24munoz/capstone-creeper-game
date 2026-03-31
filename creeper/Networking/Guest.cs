@@ -31,7 +31,16 @@ namespace Client {
 
 			var content = new StringContent("{}", Encoding.UTF8, "application/json");
 			var resp = await _http.PostAsync(url, content, ct).ConfigureAwait(false);
-			resp.EnsureSuccessStatusCode();
+			try
+			{
+				resp.EnsureSuccessStatusCode();
+			}
+			catch (HttpRequestException ex)
+			{
+				if (resp.StatusCode == System.Net.HttpStatusCode.NotFound)
+					return null;
+				GD.PrintErr($"Join game failed: {ex}");
+			}
 			var body = await resp.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
 			return JsonSerializer.Deserialize<JoinResponse>(body, _jsonOptions)!;
 		}
@@ -131,17 +140,19 @@ namespace Client {
 	
 	public partial class Guest : Control
 	{
-		private JoinResponse? _joinInfo;
+		private JoinResponse _joinInfo;
 		private UIManager _ui;
 		private Label errorMessage;
-
-		// Events other nodes can subscribe to
-		public event Action<string>? OnError;
 		
 		private void _on_game_id_text_changed(string gameId)
 		{
 			Globals.gameId = gameId;
 			errorMessage.Visible = false;
+		}
+
+		private void _on_game_id_text_submitted(string text)
+		{
+			_on_join_btn_pressed();
 		}
 
 		public override void _Ready()
@@ -154,27 +165,27 @@ namespace Client {
 				return;
 			}
 			Constants.HeroPlayer = new NetworkPlayer();
+			Constants.EnemyPlayer = new LocalPlayer();
+			Globals.cts = new CancellationTokenSource();
 			errorMessage = GetNode<Label>("%ErrorMessage");
 		}
 		
 		private async void _on_join_btn_pressed()
 		{
 			if (string.IsNullOrWhiteSpace(Globals.gameId)) {
+				errorMessage.Text = "Room code must be entered!";
 				errorMessage.Visible = true;
 				return;
 			}
 			await JoinGame(Globals.gameId, Globals.username, Globals.cts.Token);
+			if (errorMessage.Visible)
+				return;
+			
 			// start heartbeat and polling loops
 			_ = HeartbeatLoopAsync(Globals.cts.Token);
 			_ = PollStateLoopAsync(Globals.gameId, Globals.cts.Token);
 			await UIManager.Instance.ChangeSceneWithTransition("res://game.tscn");
 		}
-		
-		//public override void _ExitTree()
-		//{
-			//Globals.cts?.Cancel();
-			//Globals.cts?.Dispose();
-		//}
 		
 		// Submit a move from UI/game logic
 		public async Task SubmitMoveAsync(string state)
@@ -188,12 +199,10 @@ namespace Client {
 			try
 			{
 				await Globals.guestClient.MakeMoveAsync(_joinInfo.GameId, _joinInfo.GuestToken, state, Globals.cts.Token).ConfigureAwait(false);
-				GD.Print("[Guest] Move submitted.");
 			}
 			catch (Exception ex)
 			{
 				GD.PrintErr($"[Guest] SubmitMove error: {ex.Message}");
-				OnError?.Invoke(ex.Message);
 			}
 		}
 
@@ -202,7 +211,12 @@ namespace Client {
 			try
 			{
 				_joinInfo = await Globals.guestClient.JoinGameAsync(gameId, username, ct);
-				GD.Print($"[Guest] Joined game {_joinInfo.GameId} token={_joinInfo.GuestToken} status={_joinInfo.Status}");
+				if (_joinInfo == null)
+				{
+					errorMessage.Text = "Wrong room code entered";
+					errorMessage.Visible = true;
+				}
+				GD.Print($"[Guest]\tJoined game: {_joinInfo.GameId}\ttoken: {_joinInfo.GuestToken}\tstatus: {_joinInfo.Status}");
 				Globals.token = _joinInfo.GuestToken;
 				Globals.status = _joinInfo.Status;
 				
@@ -211,24 +225,22 @@ namespace Client {
 			catch (Exception ex)
 			{
 				GD.PrintErr($"[Guest] Join error: {ex.Message}");
-				OnError?.Invoke(ex.Message);
 			}
 		}
 		
 		private async Task HeartbeatLoopAsync(CancellationToken ct)
 		{
-			var interval = TimeSpan.FromSeconds(20); // keep < server PLAYER_TIMEOUT
+			var interval = TimeSpan.FromSeconds(10); // keep < server PLAYER_TIMEOUT
 			while (!ct.IsCancellationRequested)
 			{
 				try
 				{
 					await Globals.guestClient.HeartbeatAsync(Globals.gameId, Globals.token, ct).ConfigureAwait(false);
-					GD.Print("Guest Heartbeat");
+					GD.Print($"[Guest] Heartbeat");
 				}
 				catch (Exception ex)
 				{
 					GD.PrintErr($"[Guest] Heartbeat error: {ex.Message}");
-					OnError?.Invoke(ex.Message);
 				}
 
 				try
@@ -245,22 +257,35 @@ namespace Client {
 		// Poll server for state and forward it to NetworkPlayer.ReceiveState
 		private async Task PollStateLoopAsync(string gameId, CancellationToken ct)
 		{
-			var interval = TimeSpan.FromSeconds(2);
+			var interval = TimeSpan.FromSeconds(1);
 			bool moveFound = false;
 			while (!ct.IsCancellationRequested)
 			{
 				try
 				{
 					var stateResp = await Globals.guestClient.GetGameStateAsync(gameId, ct);
-					GD.Print($"[Guest Poll Loop] Game status: {stateResp.Status}, turn: {stateResp.Turn}, state: {stateResp.State}");
+					GD.Print($"[Guest Poll Loop]\tGame status: {stateResp.Status}\tturn: {stateResp.Turn}\tstate: {stateResp.State}");
 					if (!string.IsNullOrEmpty(stateResp.State))
 					{
-						if (stateResp.Status == "in_progress" && stateResp.Turn == "guest" && !moveFound || stateResp.Status == "finished")
+						if ((stateResp.Status == "in_progress" && stateResp.Turn == "guest" && !moveFound) || (stateResp.Status == "finished" && !moveFound))
 						{
-							GD.Print("[Guest] Recieve state called");
 							Constants.HeroPlayer.ReceiveState(stateResp.State);
 							moveFound = true;
+							Globals.status = stateResp.Status;
 						}
+						else if (stateResp.Status == "finished" && moveFound)
+						{
+							Globals.cts.Cancel();
+						}
+						else if (stateResp.Status == "disconnected")
+						{
+							// The guest disconnected (left the game)
+							GD.Print("[Guest] The other player has left the game");
+							Globals.status = stateResp.Status;
+							Globals.cts.Cancel();
+							//Change to main menu or something
+						}
+						
 						if (stateResp.Turn == "host")
 							moveFound = false;
 					}
@@ -268,7 +293,6 @@ namespace Client {
 				catch (Exception ex)
 				{
 					GD.PrintErr($"[Guest] Poll error: {ex.Message}");
-					OnError?.Invoke(ex.Message);
 				}
 
 				try

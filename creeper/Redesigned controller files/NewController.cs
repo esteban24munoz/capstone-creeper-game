@@ -82,7 +82,7 @@ public partial class NewController : Node2D
 				state += 'x';
 			else if (ActivePlayer == Constants.Player.Enemy)
 				state += 'o';
-			GD.Print($"Submitting state: {state}");
+			
 			_ = SubmitMoveToServerAsync(state); // fire-and-forget; errors are logged inside helper
 		}
 	}
@@ -93,19 +93,11 @@ public partial class NewController : Node2D
 		try
 		{
 			if (Constants.HeroPlayer is LocalPlayer)
-			{
 				await Globals.hostClient.MakeMoveAsync(Globals.gameId, Globals.token, state, Globals.cts.Token).ConfigureAwait(false);
-				GD.Print("[Network] Host submitted move.");
-			}
 			else if (Constants.EnemyPlayer is LocalPlayer)
-			{
 				await Globals.guestClient.MakeMoveAsync(Globals.gameId, Globals.token, state, Globals.cts.Token).ConfigureAwait(false);
-				GD.Print("[Network] Guest submitted move.");
-			}
 			else
-			{
 				GD.PrintErr("[Network] No player token available when trying to submit move.");
-			}
 		}
 		catch (Exception ex)
 		{
@@ -192,9 +184,6 @@ public partial class NewController : Node2D
 
 		//tell new active player to setup
 		ActivePlayerObject.SetupTurn(ModelInstance, ViewInstance);
-
-		// If the new active player is a network player, you may want to show a "Waiting for opponent" UI.
-		// Example (if you have such method): GameUI.SetWaiting(ActivePlayerObject is NetworkPlayer);
 	}
 
 

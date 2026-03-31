@@ -8,7 +8,7 @@ public partial class NetworkPlayer : IPlayer
 	private Model ModelInstance;
 	private Grid ViewInstance;
 	private Constants.Player Player;
-	private string? LastState;
+	private string LastState;
 	
 	// Emit this when a network move is detected
 	public event EventHandler<(Vector2I, Vector2I)> MoveFound;
@@ -44,7 +44,6 @@ public partial class NetworkPlayer : IPlayer
 	// single pin move for this player can be determined.
 	public void ReceiveState(string state)
 	{
-		GD.Print($"Last State: {LastState} \t Incoming state: {state}");
 		if (string.IsNullOrEmpty(state)) return;
 		if (state == LastState) return;
 
@@ -63,12 +62,11 @@ public partial class NetworkPlayer : IPlayer
 		{
 			oldModel.UpdateState(LastState);
 			newModel.UpdateState(state);
-			GD.Print($"Models old and new have been updated in state");
 		}
 		catch (Exception ex)
 		{
 			// Malformed state string; ignore
-			GD.Print($"Problem updating Models: {ex}");
+			GD.PrintErr($"Problem updating Models: {ex}");
 			LastState = state;
 			return;
 		}
@@ -102,16 +100,6 @@ public partial class NetworkPlayer : IPlayer
 		// If we found a clear from->to, emit a MoveFound so the controller will apply it
 		if (from != null && to != null)
 		{
-			GD.Print($"RecieveState func: Move Found: {from} to {to}");
-			if (this == Constants.HeroPlayer)
-			{
-				GD.Print("Host is network");
-			}
-			else if (this == Constants.EnemyPlayer)
-			{
-				GD.Print("Guest is network");
-			}
-			
 			Callable.From(() => MoveFound?.Invoke(this, (from.Value, to.Value))).CallDeferred();
 		}
 

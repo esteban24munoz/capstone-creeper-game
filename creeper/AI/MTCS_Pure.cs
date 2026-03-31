@@ -55,6 +55,7 @@ public partial class MTCS_Pure : Node
 		/// </summary>
 		public Move ChooseBestMove(Model rootModel, Constants.Player myPlayer)
 		{
+			int count = 0;
 			// Enumerate legal candidate moves from the root state
 			var candidates = new List<Move>();
 			foreach (var pos in rootModel.GetAllCharacters(myPlayer))
@@ -90,10 +91,11 @@ public partial class MTCS_Pure : Node
 				for (int i = 0; i < candidates.Count; i++)
 				{
 					RunSingleSimulation(rootModel, myPlayer, candidates[i], ref accScore[i], ref sims[i]);
+					count++;
 					if (sw.Elapsed >= _timeBudget) break;
 				}
 			}
-
+GD.Print($"Easy sims ran: {count}");
 			// Pick best by average weighted score (accScore / sims)
 			double bestScore = double.NegativeInfinity;
 			Move bestMove = candidates[0];

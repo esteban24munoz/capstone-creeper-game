@@ -117,10 +117,11 @@ public partial class NewController : Node2D
 
 			Music.Stop();
 			DrawMusic.Play();
-		
+			ViewInstance.StopAllCharacterAnimations();
 		}
 		else if (Winner != Constants.Player.None)
 		{
+			ViewInstance.StopCharacterAnimations(ModelInstance.GetAllCharacters(ActivePlayer));
 			ActivePlayer = Constants.Player.None;
 
 			Music.Stop();

@@ -70,7 +70,7 @@ public class AIPlayer : IPlayer
 			// Convert ms budget to seconds for the strategy constructors
 			int secondsBudget = Math.Max(1, (int)Math.Ceiling(_mctsTimeMs / 1000.0));
 
-			// Run the MCTS selection on a thread-pool thread and return a simple (from,to) tuple
+			// Run the computation on a thread-pool thread and return a simple (from,to) tuple
 			var bestMove = await Task.Run(() =>
 			{
 				try
@@ -97,19 +97,39 @@ public class AIPlayer : IPlayer
 						case Globals.AIDifficulty.Hard:
 						default:
 						{
-							if (_player == Constants.Player.Hero)
+							if (Constants.HeroPlayer is LocalPlayer || Constants.EnemyPlayer is LocalPlayer)
 							{
-								var strat = new MTCS_Pure.MonteCarloStrategy(secondsBudget);
-								var mv = strat.ChooseBestMove(modelClone, _player);
-								GD.Print($"[AI] Easy strategy selected {mv}");
-								return (mv.From, mv.To);
+								// Hard: use NeuralNetStrategy (greedy NN evaluator)
+								try
+								{
+									var mv = NeuralNetStrategy.ChooseBestMove(modelClone, _player);
+									GD.Print($"[AI] Hard (Neural) strategy selected {mv}");
+									return (mv.From, mv.To);
+								}
+								catch (Exception ex)
+								{
+									// Fallback to stronger Monte Carlo if the neural evaluator fails
+									GD.PrintErr($"[AI] Neural strategy failed - falling back to MTCS_Pure2: {ex.Message}");
+									var strat = new MTCS_Pure2.MonteCarloStrategy(secondsBudget);
+									var mv = strat.ChooseBestMove(modelClone, _player);
+									return (mv.From, mv.To);
+								}
 							}
-							else {
-								// Hard/default: use MTCS_Pure2 with same budget (could be tuned larger)
-								var strat = new MTCS_Pure2.MonteCarloStrategy(secondsBudget);
-								var mv = strat.ChooseBestMove(modelClone, _player);
-								GD.Print($"[AI] Hard strategy selected {mv}");
-								return (mv.From, mv.To);
+							else
+							{
+								if (_player == Constants.Player.Hero)
+								{
+									var mv = NeuralNetStrategy.ChooseBestMove(modelClone, _player);
+									GD.Print($"[AI] Hard (Neural) strategy selected {mv}");
+									return (mv.From, mv.To);
+								}
+								else
+								{
+									var strat = new MTCS_Pure2.MonteCarloStrategy(secondsBudget);
+									var mv = strat.ChooseBestMove(modelClone, _player);
+									GD.Print($"[AI] Hard strategy selected {mv}");
+									return (mv.From, mv.To);
+								}
 							}
 						}
 					}

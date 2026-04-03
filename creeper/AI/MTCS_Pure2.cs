@@ -82,6 +82,17 @@ public partial class MTCS_Pure2 : Node
 			if (allCandidates.Count == 0)
 				throw new InvalidOperationException("No legal moves available for player.");
 
+			// NEW: If any available move immediately wins the game, take it unconditionally.
+			foreach (var c in allCandidates)
+			{
+				var sim = new Model(rootModel);
+				sim.MoveCharacter(c.From, c.To);
+				if (sim.FindWinner() == myPlayer)
+				{
+					return c;
+				}
+			}
+
 			// If opponent has only one character left, avoid candidate moves that jump (capture) that character.
 			var opponent = Opponent(myPlayer);
 			int opponentCount = rootModel.GetAllCharacters(opponent).Count;
@@ -136,7 +147,7 @@ public partial class MTCS_Pure2 : Node
 					if (sw.Elapsed >= _timeBudget) break;
 				}
 			}
-			GD.Print($"Med sims ran: {count}");
+			//GD.Print($"Med sims ran: {count}");
 			// Pick best by average weighted score (accScore / sims)
 			double bestScore = double.NegativeInfinity;
 			Move bestMove = candidates[0];

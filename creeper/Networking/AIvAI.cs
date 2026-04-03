@@ -248,19 +248,19 @@ public partial class AIvAI : Node2D
 		return action;
 	}
 	
-	public string StringifyState()
-	{
-		string state = ai.AIGame.StringifyState();
-		
-		if (ai.currentPlayer == Constants.Player.Hero)
-		{
-			state = state + 'x';
-		}
-		else
-		{
-			state = state + 'o';
-		}
-		GD.Print(state);
-		return state;
-	}
+	//public string StringifyState()
+	//{
+		//string state = ai.AIGame.StringifyState();
+		//
+		//if (ai.currentPlayer == Constants.Player.Hero)
+		//{
+			//state = state + 'x';
+		//}
+		//else
+		//{
+			//state = state + 'o';
+		//}
+		//GD.Print(state);
+		//return state;
+	//}
 }

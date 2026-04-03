@@ -155,12 +155,18 @@ public class Model
 			if (draw) return draw;
 		} 
 
+		Constants.Player nextPlayer;
+		if (activePlayer == Constants.Player.Hero) 
+			nextPlayer = Constants.Player.Enemy; 
+		else 
+			nextPlayer = Constants.Player.Hero;
+
 		//Check if any valid moves are available
 		for (int i = 0; i < Grid.GetLength(0); i++)
 		{
 			for (int j = 0; j < Grid.GetLength(0); j++)
 			{
-				if (Grid[i,j] == activePlayer && FindValidMoves(new(i,j), activePlayer).Count != 0)
+				if (Grid[i,j] == nextPlayer && FindValidMoves(new(i,j), nextPlayer).Count != 0)
 					return false;          
 			}
 		}

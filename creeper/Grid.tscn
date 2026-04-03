@@ -98,8 +98,84 @@ position = Vector2(210, 161)
 tile_map_data = PackedByteArray("AAAKAAEABQAAAAAAAAAJAAAABQAAAAAAAAAJAP//BAAAAAAAAAAJAP7/BQAAAAAAAAAIAP7/BAAAAAAAAAAIAP3/BQAAAAAAAAAHAP3/BAAAAAAAAAAGAP3/BQAAAAAAAAAGAPz/BAAAAAAAAAAGAPv/BQAAAAAAAAAEAPv/BQAAAAAAAAAEAPz/BAAAAAAAAAAFAPz/BQAAAAAAAAAFAP3/BAAAAAAAAAAHAP7/BQAAAAAAAAAIAP//BQAAAAAAAAAJAAEABAAAAAAAAAAHAPz/BQAAAAAAAAAKAP//BQAAAAAAAAAIAAEABQAAAAAAAAAIAAAABAAAAAAAAAAHAAAABQAAAAAAAAAHAP//BAAAAAAAAAAGAP//BQAAAAAAAAAGAP7/BAAAAAAAAAAFAP7/BQAAAAAAAAAEAP3/BQAAAAAAAAADAPz/BQAAAAAAAAADAP3/BAAAAAAAAAAEAP7/BAAAAAAAAAAFAP//BAAAAAAAAAAGAAAABAAAAAAAAAAHAAEABAAAAAAAAAAIAAIABAAAAAAAAAAJAAIABQAAAAAAAAAGAAEABQAAAAAAAAAFAAAABQAAAAAAAAAEAAAABAAAAAAAAAAEAP//BQAAAAAAAAADAP//BAAAAAAAAAADAP7/BQAAAAAAAAACAP7/BAAAAAAAAAACAP3/BQAAAAAAAAAHAAIABQAAAAAAAAAIAAMABQAAAAAAAAAHAAMABAAAAAAAAAAGAAIABAAAAAAAAAAFAAEABAAAAAAAAAAEAAEABQAAAAAAAAADAAAABQAAAAAAAAACAP//BQAAAAAAAAABAP7/BQAAAAAAAAABAP//BAAAAAAAAAAFAAIABQAAAAAAAAAGAAMABQAAAAAAAAAHAAQABQAAAAAAAAAGAAQABAAAAAAAAAAFAAMABAAAAAAAAAAEAAIABAAAAAAAAAADAAEABAAAAAAAAAACAAAABAAAAAAAAAAAAP//BQAAAAAAAAABAAAABQAAAAAAAAACAAEABQAAAAAAAAADAAIABQAAAAAAAAAEAAMABQAAAAAAAAAEAAQABAAAAAAAAAAFAAQABQAAAAAAAAAGAAUABQAAAAAAAAAEAAUABQAAAAAAAAADAAQABQAAAAAAAAADAAMABAAAAAAAAAACAAMABQAAAAAAAAACAAIABAAAAAAAAAABAAIABQAAAAAAAAABAAEABAAAAAAAAAAAAAEABQAAAAAAAAAAAAAAAAAAAAAAAAD//wAABwAAAAAAAAD+/wEABwAAAAAAAAD+/wAABwAAAAAAAAAKAAAAAAAAAAAAAAALAP//BwAAAAAAAAALAAAABwAAAAAAAAAMAP//BwAAAAAAAAAMAAAABwAAAAAAAAAFAAUAAQAAAAAAAAAEAAYABgAAAAAAAAAFAAYABgAAAAAAAAAEAAcABgAAAAAAAAAFAAcABgAAAAAAAAAFAPv/AQAAAAAAAAAFAPr/BgAAAAAAAAAGAPr/BgAAAAAAAAAFAPn/BgAAAAAAAAAGAPn/BgAAAAAAAAD//wEABwAAAAAAAAA=")
 tile_set = SubResource("TileSet_mel50")
 
-[node name="AragonGhost" type="AnimatedSprite2D" parent="TileMapLayer"]
-position = Vector2(566, -49)
+[node name="Bases" type="Node2D" parent="TileMapLayer"]
+
+[node name="Eye Tower" parent="TileMapLayer/Bases" instance=ExtResource("19_mp7ew")]
+position = Vector2(-50, -57)
+
+[node name="Isengard Tower" parent="TileMapLayer/Bases" instance=ExtResource("20_gk1wl")]
+position = Vector2(622, 311)
+
+[node name="Ring" parent="TileMapLayer/Bases" instance=ExtResource("21_kfiik")]
+position = Vector2(-50, 335)
+
+[node name="Volcano" parent="TileMapLayer/Bases" instance=ExtResource("22_kfiik")]
+position = Vector2(622, -49)
+
+[node name="Ghosts" type="Node2D" parent="TileMapLayer"]
+
+[node name="AragornGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(677, -12)
+sprite_frames = SubResource("SpriteFrames_f2kab")
+
+[node name="BoromirGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(619, 13)
+sprite_frames = SubResource("SpriteFrames_f2kab")
+
+[node name="LegolasGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(667, -67)
+sprite_frames = SubResource("SpriteFrames_f2kab")
+
+[node name="GandalfGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(566, -50)
+sprite_frames = SubResource("SpriteFrames_f2kab")
+
+[node name="FrodoGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(-48, 377)
+sprite_frames = SubResource("SpriteFrames_f2kab")
+
+[node name="SamGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(20, 340)
+sprite_frames = SubResource("SpriteFrames_f2kab")
+
+[node name="MerryGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(-114, 333)
+sprite_frames = SubResource("SpriteFrames_f2kab")
+
+[node name="PippinGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(-53, 280)
+sprite_frames = SubResource("SpriteFrames_f2kab")
+
+[node name="SauronGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(-104, -63)
+sprite_frames = SubResource("SpriteFrames_f2kab")
+
+[node name="Light Orc2Ghost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(-92, -10)
+sprite_frames = SubResource("SpriteFrames_f2kab")
+
+[node name="Heavy OrcGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(-47, 9)
+sprite_frames = SubResource("SpriteFrames_f2kab")
+
+[node name="King of the DeadGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(12, -46)
+sprite_frames = SubResource("SpriteFrames_f2kab")
+
+[node name="Heavy Orc2Ghost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(676, 301)
+sprite_frames = SubResource("SpriteFrames_f2kab")
+
+[node name="Light Orc3Ghost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(660, 356)
+sprite_frames = SubResource("SpriteFrames_f2kab")
+
+[node name="SarumanGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(602, 361)
+sprite_frames = SubResource("SpriteFrames_f2kab")
+
+[node name="Light OrcGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
+position = Vector2(565, 325)
 sprite_frames = SubResource("SpriteFrames_f2kab")
 
 [node name="Characters" type="Node2D" parent="TileMapLayer"]
@@ -170,20 +246,6 @@ autoplay = "idle"
 [node name="Pippin" parent="TileMapLayer/Characters" instance=ExtResource("19_bsa5o")]
 position = Vector2(0, 200)
 scale = Vector2(1, 1)
-
-[node name="Bases" type="Node2D" parent="TileMapLayer"]
-
-[node name="Eye Tower" parent="TileMapLayer/Bases" instance=ExtResource("19_mp7ew")]
-position = Vector2(-50, -57)
-
-[node name="Isengard Tower" parent="TileMapLayer/Bases" instance=ExtResource("20_gk1wl")]
-position = Vector2(622, 311)
-
-[node name="Ring" parent="TileMapLayer/Bases" instance=ExtResource("21_kfiik")]
-position = Vector2(-50, 335)
-
-[node name="Volcano" parent="TileMapLayer/Bases" instance=ExtResource("22_kfiik")]
-position = Vector2(622, -49)
 
 [node name="Fire" type="AudioStreamPlayer2D" parent="." groups=["SFX"]]
 stream = ExtResource("27_jpp3n")

@@ -27,6 +27,7 @@ public partial class Grid : Node2D
 	TileMapLayer TileMap;
 	AudioStreamPlayer2D Fire, Grass;
 	Godot.Collections.Array<Node> characters;
+	Godot.Collections.Array<Node> ghosts;
 	public override void _Ready()
 	{
 		TileMap = GetNode<TileMapLayer>("TileMapLayer");
@@ -36,6 +37,14 @@ public partial class Grid : Node2D
 			c.OnClick += OnClick;
 			c.MouseEntered += MouseEntered;
 			c.MouseExited += MouseExited;
+		}
+
+		ghosts = TileMap.GetNode<Node2D>("Ghosts").GetChildren();
+		foreach(AnimatedSprite2D ghost in ghosts)
+		{
+			var modulate = ghost.Modulate;
+			modulate.A = 0.0f;
+			ghost.Modulate = modulate;
 		}
 		
 		Fire = GetNode<AudioStreamPlayer2D>("Fire");
@@ -130,7 +139,7 @@ public partial class Grid : Node2D
 			var character = FindCharacteratGridPos(pos);
 			if (character != null)
 			{
-				character.SelfModulate = new(1, 0, 0);
+				character.SelfModulate = new(1f, 0, 0);
 				highlighted.Add(character);
 			}
 		}
@@ -264,13 +273,26 @@ public partial class Grid : Node2D
 				tween.TweenProperty(toKill, "modulate:a", 0.0f, 1);
 				toKill.Fade.Play();
 
-				//when toKill is done fading out, move killer and delete toKill
+				//when toKill is done fading out: move killer, delete toKill, and make appropriate ghost visible
 				tween.Finished += () =>
 				{
 					AnimateMove(killer, moveTo, 2);
 					toKill.GetParent().RemoveChild(toKill);
 					toKill.QueueFree();
 					characters.Remove(toKill);
+
+					foreach(AnimatedSprite2D ghost in ghosts)
+					{
+						if (ghost.Name == toKill.Name + "Ghost")
+						{
+							var targetPos = ghost.GlobalPosition;
+							ghost.Position = toKill.Position;
+							Tween tween = CreateTween();
+							tween.TweenProperty(ghost, "modulate:a", 1, 0.5);
+							tween.TweenProperty(ghost, "global_position", targetPos, 1).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.InOut);
+							break;
+						}
+					}
 				};		
 			};
 		}

@@ -227,9 +227,9 @@ public partial class Grid : Node2D
 		{
 			from.Play("idle");
 			moving = false;
-			EmitSignal(SignalName.MoveFinished);
 
 			ToggleCharacterAnimations();
+			EmitSignal(SignalName.MoveFinished);
 		};
 
 		DeleteGhosts();
@@ -328,6 +328,14 @@ public partial class Grid : Node2D
 		{
 			if (character.IsPlaying()) character.Stop();
 			else character.Play();
+		}
+	}
+	
+	public void StopAllCharacterAnimations()
+	{
+		foreach (CharacterBase character in characters.Cast<CharacterBase>())
+		{
+			if (character.IsPlaying()) character.Stop();
 		}
 	}
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b3vkuupj07kn8"]
+[gd_scene load_steps=22 format=3 uid="uid://b3vkuupj07kn8"]
 
 [ext_resource type="Script" uid="uid://crrvnyx6vanh8" path="res://GameUI_scripts/MainMenu.cs" id="1_d5b4s"]
 [ext_resource type="Texture2D" uid="uid://cak2y2pgwj742" path="res://UI_assets/MainMenu/nazguls-animation1.png" id="2_mc3iv"]
@@ -14,7 +14,11 @@
 [ext_resource type="Texture2D" uid="uid://b5veo82leoy04" path="res://UI_assets/MainMenu/light_position_3.png" id="10_v1g27"]
 [ext_resource type="Texture2D" uid="uid://c2heo8v4ppf6e" path="res://UI_assets/MainMenu/light_position_2.png" id="11_div8g"]
 [ext_resource type="Texture2D" uid="uid://bs4fd2uuym0uj" path="res://UI_assets/MainMenu/light_position_4.png" id="12_ineqx"]
+[ext_resource type="Texture2D" uid="uid://dgppamuui12ty" path="res://UI_assets/MainMenu/v2/light_position1.png" id="13_d1ab6"]
+[ext_resource type="Texture2D" uid="uid://b2oaj6hm5woav" path="res://UI_assets/MainMenu/v2/light_position2.png" id="14_25rbi"]
+[ext_resource type="Texture2D" uid="uid://bbp02bgm6wlfb" path="res://UI_assets/MainMenu/v2/light_position3.png" id="15_324ll"]
 [ext_resource type="PackedScene" uid="uid://c81wixfkra6yv" path="res://Globals/confirmation_modal.tscn" id="15_cdtku"]
+[ext_resource type="Texture2D" uid="uid://coohjac382qa7" path="res://UI_assets/MainMenu/v2/light_position4.png" id="16_v1g27"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uyavp"]
 animations = [{
@@ -66,7 +70,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("9_324ll")
+"texture": ExtResource("13_d1ab6")
 }],
 "loop": true,
 "name": &"position1",
@@ -74,7 +78,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("11_div8g")
+"texture": ExtResource("14_25rbi")
 }],
 "loop": true,
 "name": &"position2",
@@ -82,7 +86,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("10_v1g27")
+"texture": ExtResource("15_324ll")
 }],
 "loop": true,
 "name": &"position3",
@@ -90,7 +94,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("12_ineqx")
+"texture": ExtResource("16_v1g27")
 }],
 "loop": true,
 "name": &"position4",

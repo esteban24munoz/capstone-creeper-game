@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmonqtlhyfbll"
-path="res://.godot/imported/gollum.png-c3478eeca378e45ffee9867c3169ade1.ctex"
+uid="uid://cev7gwakvo36n"
+path="res://.godot/imported/LegolasGhost1.png-1cf93811c2e3dea484668635cfb03ce3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI_assets/Tutorial/gollum.png"
-dest_files=["res://.godot/imported/gollum.png-c3478eeca378e45ffee9867c3169ade1.ctex"]
+source_file="res://Art/Heroes/Ghosts/LegolasGhost1.png"
+dest_files=["res://.godot/imported/LegolasGhost1.png-1cf93811c2e3dea484668635cfb03ce3.ctex"]
 
 [params]
 

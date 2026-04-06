@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmonqtlhyfbll"
-path="res://.godot/imported/gollum.png-c3478eeca378e45ffee9867c3169ade1.ctex"
+uid="uid://c2xe5acakw024"
+path="res://.godot/imported/boromir-ghost1.png-415c08704a9108abbc3e2e53ecddb028.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI_assets/Tutorial/gollum.png"
-dest_files=["res://.godot/imported/gollum.png-c3478eeca378e45ffee9867c3169ade1.ctex"]
+source_file="res://Globals/boromir-ghost1.png"
+dest_files=["res://.godot/imported/boromir-ghost1.png-415c08704a9108abbc3e2e53ecddb028.ctex"]
 
 [params]
 

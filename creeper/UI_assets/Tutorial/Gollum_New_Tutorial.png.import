@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmonqtlhyfbll"
-path="res://.godot/imported/gollum.png-c3478eeca378e45ffee9867c3169ade1.ctex"
+uid="uid://b38xbm42gcrna"
+path="res://.godot/imported/Gollum_New_Tutorial.png-1cf72d96902f57cf1d4c5cd8cb782e80.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI_assets/Tutorial/gollum.png"
-dest_files=["res://.godot/imported/gollum.png-c3478eeca378e45ffee9867c3169ade1.ctex"]
+source_file="res://UI_assets/Tutorial/Gollum_New_Tutorial.png"
+dest_files=["res://.godot/imported/Gollum_New_Tutorial.png-1cf72d96902f57cf1d4c5cd8cb782e80.ctex"]
 
 [params]
 

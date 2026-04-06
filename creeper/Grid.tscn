@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://v8rtqn5ipqng"]
+[gd_scene load_steps=76 format=4 uid="uid://v8rtqn5ipqng"]
 
 [ext_resource type="Script" uid="uid://dnttn430tx1qb" path="res://Grid.cs" id="1_u6jcp"]
 [ext_resource type="Texture2D" uid="uid://djms4xij1g142" path="res://Art/Tiles/New Neutral Tile Sprite.png" id="2_xrsif"]
@@ -9,26 +9,49 @@
 [ext_resource type="Texture2D" uid="uid://dnmnmrymbvad6" path="res://Art/Tiles/New Lava Tile Sprite.png" id="5_gk1wl"]
 [ext_resource type="Texture2D" uid="uid://cpmkuleak3jp8" path="res://Art/Tiles/special_grass_tile.png" id="5_s5c1x"]
 [ext_resource type="PackedScene" uid="uid://ddohyifhg7pkf" path="res://characters_scenes/boromir.tscn" id="7_aiw0r"]
-[ext_resource type="Texture2D" uid="uid://c7emwpsb1pnpy" path="res://Art/Heroes/Ghosts/aragon_ghost.png" id="10_sr26l"]
 [ext_resource type="PackedScene" uid="uid://b2np60la80is1" path="res://characters_scenes/sam.tscn" id="13_gk1wl"]
+[ext_resource type="Texture2D" uid="uid://bddvhg2to1gj7" path="res://Art/Heroes/Ghosts/AragornGhost1.png" id="14_f2kab"]
+[ext_resource type="Texture2D" uid="uid://dht2ad13a5l8j" path="res://Art/Heroes/Ghosts/AragornGhost2.png" id="15_fh4re"]
 [ext_resource type="PackedScene" uid="uid://d2nplcigroap8" path="res://characters_scenes/heavy_orc.tscn" id="15_qpqai"]
+[ext_resource type="Texture2D" uid="uid://djewmqvbf8o1y" path="res://Art/Heroes/Ghosts/BoromirGhost1.png" id="16_2oon2"]
 [ext_resource type="PackedScene" uid="uid://cpdpv0t1t7qk7" path="res://characters_scenes/sauron.tscn" id="16_hg3fi"]
+[ext_resource type="Texture2D" uid="uid://ctfogwkckg1aq" path="res://Art/Heroes/Ghosts/BoromirGhost2.png" id="17_3o6bw"]
 [ext_resource type="PackedScene" uid="uid://b8eng5glhbea6" path="res://characters_scenes/saruman.tscn" id="17_bsa5o"]
+[ext_resource type="Texture2D" uid="uid://drkesqpff6mi3" path="res://Art/Heroes/Ghosts/GandalfGhost1.png" id="18_5qlsf"]
+[ext_resource type="Texture2D" uid="uid://cev7gwakvo36n" path="res://Art/Heroes/Ghosts/LegolasGhost1.png" id="18_vom08"]
 [ext_resource type="PackedScene" uid="uid://by3v2tslvmqwr" path="res://characters_scenes/aragorn.tscn" id="19_aiw0r"]
 [ext_resource type="PackedScene" uid="uid://dnu4c6bt62sqe" path="res://characters_scenes/pippin.tscn" id="19_bsa5o"]
+[ext_resource type="Texture2D" uid="uid://dq3yecjvpw7en" path="res://Art/Heroes/Ghosts/LegolasGhost2.png" id="19_dp043"]
 [ext_resource type="PackedScene" uid="uid://b23mrfkhmht37" path="res://characters_scenes/gandalf.tscn" id="19_gk1wl"]
 [ext_resource type="PackedScene" uid="uid://c1ksvherjw0rt" path="res://characters_scenes/merry.tscn" id="19_hg3fi"]
 [ext_resource type="PackedScene" uid="uid://pfnsyjsyvlmr" path="res://characters_scenes/king_of_the_dead.tscn" id="19_kfiik"]
 [ext_resource type="PackedScene" uid="uid://dsf28pp43orbx" path="res://Bases_scenes/eye_tower.tscn" id="19_mp7ew"]
+[ext_resource type="Texture2D" uid="uid://bivxoptoeqw3x" path="res://Art/Heroes/Ghosts/GandalfGhost2.png" id="19_pnrmn"]
 [ext_resource type="PackedScene" uid="uid://05gtou4jwd2y" path="res://characters_scenes/legolas.tscn" id="19_qpqai"]
 [ext_resource type="PackedScene" uid="uid://ckb1etmea5n10" path="res://characters_scenes/frodo.tscn" id="19_tyu4g"]
 [ext_resource type="PackedScene" uid="uid://dej68q6gb6r62" path="res://Bases_scenes/isengard_tower.tscn" id="20_gk1wl"]
 [ext_resource type="PackedScene" uid="uid://c1750db4ehttj" path="res://characters_scenes/light_orc.tscn" id="20_tyu4g"]
 [ext_resource type="PackedScene" uid="uid://duklysfm6g8yo" path="res://Bases_scenes/ring.tscn" id="21_kfiik"]
 [ext_resource type="PackedScene" uid="uid://rus8obsl870u" path="res://Bases_scenes/volcano.tscn" id="22_kfiik"]
+[ext_resource type="Texture2D" uid="uid://djqvuirrfe3s" path="res://Art/Heroes/Ghosts/FrodoGhost1.png" id="22_uiun2"]
+[ext_resource type="Texture2D" uid="uid://bys7fmt46dbfm" path="res://Art/Heroes/Ghosts/FrodoGhost2.png" id="23_go0an"]
+[ext_resource type="Texture2D" uid="uid://dka83tma8n5xy" path="res://Art/Heroes/Ghosts/MerryGhost1.png" id="24_md6kt"]
+[ext_resource type="Texture2D" uid="uid://bouue6fr2s12w" path="res://Art/Heroes/Ghosts/MerryGhost2.png" id="25_4dj85"]
+[ext_resource type="Texture2D" uid="uid://yk0h4lcs7t28" path="res://Art/Heroes/Ghosts/PippinGhost1.png" id="26_pt1xc"]
+[ext_resource type="Texture2D" uid="uid://x170qgmg8yus" path="res://Art/Heroes/Ghosts/PippinGhost2.png" id="27_flkpp"]
 [ext_resource type="AudioStream" uid="uid://bh5s16vqyu5ak" path="res://Sounds/Fire.ogg" id="27_jpp3n"]
 [ext_resource type="AudioStream" uid="uid://cxaoyyq5by0r2" path="res://Sounds/Grass.ogg" id="28_jpp3n"]
+[ext_resource type="Texture2D" uid="uid://cotj4ef3qtufo" path="res://Art/Enemies/Ghosts/sauronGhost1.png" id="28_k8oun"]
+[ext_resource type="Texture2D" uid="uid://bvlibit8ksrdw" path="res://Art/Enemies/Ghosts/sauronGhost2.png" id="29_2fyw7"]
 [ext_resource type="Texture2D" uid="uid://b36u4koh0cyhc" path="res://UI_assets/GameBackground/GameBackground_v2.png" id="30_1l2id"]
+[ext_resource type="Texture2D" uid="uid://roj1kaavvk64" path="res://Art/Enemies/Ghosts/lightOrcGhost1.png" id="30_qachs"]
+[ext_resource type="Texture2D" uid="uid://dv0n6a1o5igis" path="res://Art/Enemies/Ghosts/lightOrcGhost2.png" id="31_swfes"]
+[ext_resource type="Texture2D" uid="uid://ywl3mylhjish" path="res://Art/Enemies/Ghosts/orangeOrc1.png" id="32_rbt5k"]
+[ext_resource type="Texture2D" uid="uid://cuppnkv1imqms" path="res://Art/Enemies/Ghosts/orangeOrc2.png" id="33_frjso"]
+[ext_resource type="Texture2D" uid="uid://dx01wro40j584" path="res://Art/Enemies/Ghosts/kingofDeadGhost1.png" id="34_pnlwl"]
+[ext_resource type="Texture2D" uid="uid://5yo8osbcuuu2" path="res://Art/Enemies/Ghosts/kingofDeadGhost2.png" id="35_26jmd"]
+[ext_resource type="Texture2D" uid="uid://5vfxus4il4jv" path="res://Art/Enemies/Ghosts/sarumanGhost1.png" id="36_wsjhe"]
+[ext_resource type="Texture2D" uid="uid://djl0o1djqfsw8" path="res://Art/Enemies/Ghosts/sarumanGhost2.png" id="37_mixcj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g32va"]
 texture = ExtResource("4_mp7ew")
@@ -75,11 +98,224 @@ sources/1 = SubResource("TileSetAtlasSource_sr26l")
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("10_sr26l")
+"texture": ExtResource("14_f2kab")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_fh4re")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wrepf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_2oon2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_3o6bw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h2uen"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_vom08")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_dp043")
+}],
+"loop": false,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v6pjy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_5qlsf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_pnrmn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qxheh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_uiun2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_go0an")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_darfu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_md6kt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_4dj85")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hbkax"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_md6kt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_4dj85")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jccim"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_pt1xc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_flkpp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pxpqu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("28_k8oun")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_2fyw7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u8nxd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30_qachs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_swfes")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sklw4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("32_rbt5k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_frjso")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ehvfx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("34_pnlwl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_26jmd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6pmvb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("32_rbt5k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_frjso")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ridib"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30_qachs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_swfes")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_upy1l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("36_wsjhe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_mixcj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1dx86"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30_qachs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_swfes")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
 }]
 
 [node name="Grid" type="Node2D"]
@@ -117,66 +353,81 @@ position = Vector2(622, -49)
 [node name="AragornGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(677, -12)
 sprite_frames = SubResource("SpriteFrames_f2kab")
+autoplay = "default"
 
 [node name="BoromirGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(619, 13)
-sprite_frames = SubResource("SpriteFrames_f2kab")
+sprite_frames = SubResource("SpriteFrames_wrepf")
+autoplay = "default"
 
 [node name="LegolasGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(667, -67)
-sprite_frames = SubResource("SpriteFrames_f2kab")
+sprite_frames = SubResource("SpriteFrames_h2uen")
+autoplay = "default"
 
 [node name="GandalfGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(566, -50)
-sprite_frames = SubResource("SpriteFrames_f2kab")
+sprite_frames = SubResource("SpriteFrames_v6pjy")
+autoplay = "default"
 
 [node name="FrodoGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(-48, 377)
-sprite_frames = SubResource("SpriteFrames_f2kab")
+sprite_frames = SubResource("SpriteFrames_qxheh")
+autoplay = "default"
 
 [node name="SamGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(20, 340)
-sprite_frames = SubResource("SpriteFrames_f2kab")
+sprite_frames = SubResource("SpriteFrames_darfu")
+autoplay = "default"
 
 [node name="MerryGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(-114, 333)
-sprite_frames = SubResource("SpriteFrames_f2kab")
+sprite_frames = SubResource("SpriteFrames_hbkax")
+autoplay = "default"
 
 [node name="PippinGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(-53, 280)
-sprite_frames = SubResource("SpriteFrames_f2kab")
+sprite_frames = SubResource("SpriteFrames_jccim")
+autoplay = "default"
 
 [node name="SauronGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(-104, -63)
-sprite_frames = SubResource("SpriteFrames_f2kab")
+sprite_frames = SubResource("SpriteFrames_pxpqu")
+autoplay = "default"
 
 [node name="Light Orc2Ghost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(-92, -10)
-sprite_frames = SubResource("SpriteFrames_f2kab")
+sprite_frames = SubResource("SpriteFrames_u8nxd")
+autoplay = "default"
 
 [node name="Heavy OrcGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(-47, 9)
-sprite_frames = SubResource("SpriteFrames_f2kab")
+sprite_frames = SubResource("SpriteFrames_sklw4")
 
 [node name="King of the DeadGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(12, -46)
-sprite_frames = SubResource("SpriteFrames_f2kab")
+sprite_frames = SubResource("SpriteFrames_ehvfx")
+autoplay = "default"
 
 [node name="Heavy Orc2Ghost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(676, 301)
-sprite_frames = SubResource("SpriteFrames_f2kab")
+sprite_frames = SubResource("SpriteFrames_6pmvb")
+autoplay = "default"
 
 [node name="Light Orc3Ghost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(660, 356)
-sprite_frames = SubResource("SpriteFrames_f2kab")
+sprite_frames = SubResource("SpriteFrames_ridib")
+autoplay = "default"
 
 [node name="SarumanGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(602, 361)
-sprite_frames = SubResource("SpriteFrames_f2kab")
+sprite_frames = SubResource("SpriteFrames_upy1l")
+autoplay = "default"
 
 [node name="Light OrcGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(565, 325)
-sprite_frames = SubResource("SpriteFrames_f2kab")
+sprite_frames = SubResource("SpriteFrames_1dx86")
+autoplay = "default"
 
 [node name="Characters" type="Node2D" parent="TileMapLayer"]
 

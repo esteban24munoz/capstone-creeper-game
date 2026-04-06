@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmonqtlhyfbll"
-path="res://.godot/imported/gollum.png-c3478eeca378e45ffee9867c3169ade1.ctex"
+uid="uid://bys7fmt46dbfm"
+path="res://.godot/imported/FrodoGhost2.png-0cd5548ec9bc39caa98705bd78db2eb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI_assets/Tutorial/gollum.png"
-dest_files=["res://.godot/imported/gollum.png-c3478eeca378e45ffee9867c3169ade1.ctex"]
+source_file="res://Art/Heroes/Ghosts/FrodoGhost2.png"
+dest_files=["res://.godot/imported/FrodoGhost2.png-0cd5548ec9bc39caa98705bd78db2eb0.ctex"]
 
 [params]
 

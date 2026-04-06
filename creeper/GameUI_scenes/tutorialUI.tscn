@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnncyhuydit0m"]
+
+[ext_resource type="Texture2D" uid="uid://b38xbm42gcrna" path="res://UI_assets/Tutorial/Gollum_New_Tutorial.png" id="1_s5x7f"]
+[ext_resource type="Texture2D" uid="uid://dirle1aiau0px" path="res://UI_assets/Tutorial/uncompleted_path.png" id="1_v1qqn"]
+[ext_resource type="Texture2D" uid="uid://dkgeuttfism88" path="res://UI_assets/Tutorial/gradient_tutorial.png" id="2_v1qqn"]
+
+[node name="TutorialUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="game_demo" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_v1qqn")
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_v1qqn")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = -40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_s5x7f")
+stretch_mode = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(1, 0.8627451, 0.2901961, 1)
+text = "HELLLOO MASTER"

@@ -106,4 +106,10 @@ public partial class LocalPlayer : IPlayer
 			ViewInstance.StopHover(pos);
 		}
 	}
+
+    public void Stop()
+    {
+        ready = false;
+    }
+
 }

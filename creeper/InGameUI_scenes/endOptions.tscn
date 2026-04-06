@@ -1,0 +1,109 @@
+[gd_scene load_steps=9 format=3 uid="uid://b6u5wrs6113uf"]
+
+[ext_resource type="Script" uid="uid://8nsg7it4mr8g" path="res://InGameUI_scripts/EndOptions.cs" id="1_6aekj"]
+[ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="1_ui52t"]
+[ext_resource type="StyleBox" uid="uid://cxalsunrvb4jg" path="res://UI_assets/UI_Buttons/styled_button_texture.tres" id="2_6aekj"]
+[ext_resource type="StyleBox" uid="uid://lv2pdg5qvcwu" path="res://UI_assets/UI_Buttons/styled_button_hover_texture.tres" id="3_783wj"]
+[ext_resource type="Texture2D" uid="uid://bf3md45gw7a4" path="res://UI_assets/UI_Buttons/exitButton.png" id="4_qbmw7"]
+[ext_resource type="PackedScene" uid="uid://c81wixfkra6yv" path="res://Globals/confirmation_modal.tscn" id="5_cencb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i40w7"]
+texture = ExtResource("4_qbmw7")
+region_rect = Rect2(25, 7, 28, 28)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ylhll"]
+texture = ExtResource("4_qbmw7")
+region_rect = Rect2(25, 45, 28, 28)
+
+[node name="EndOptions" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6aekj")
+
+[node name="darkBackgroundOverlay" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1024.0
+offset_bottom = 640.0
+texture = ExtResource("1_ui52t")
+
+[node name="MenuScreen" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuContainer" type="VBoxContainer" parent="MenuScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="FrodoButton" type="Button" parent="MenuScreen/MenuContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 90)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("2_6aekj")
+theme_override_styles/hover = ExtResource("3_783wj")
+text = "FELLOWSHIP WINS"
+
+[node name="SauronButton" type="Button" parent="MenuScreen/MenuContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 90)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("2_6aekj")
+theme_override_styles/hover = ExtResource("3_783wj")
+text = "MORDOR WINS"
+
+[node name="DrawButton" type="Button" parent="MenuScreen/MenuContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 90)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = ExtResource("2_6aekj")
+theme_override_styles/hover = ExtResource("3_783wj")
+text = "DRAW"
+
+[node name="BackButton" type="Button" parent="MenuScreen/MenuContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 90)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("2_6aekj")
+theme_override_styles/hover = ExtResource("3_783wj")
+text = "BACK
+"
+
+[node name="exitButtonContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 960.0
+offset_bottom = -576.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+
+[node name="exitButton" type="VBoxContainer" parent="exitButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="ExitButton" type="Button" parent="exitButtonContainer/exitButton" groups=["UIButton"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_i40w7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ylhll")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_ylhll")
+
+[node name="ConfirmationModal" parent="." instance=ExtResource("5_cencb")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1

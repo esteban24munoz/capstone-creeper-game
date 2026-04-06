@@ -3,6 +3,8 @@ using System;
 
 public partial class MenuOptions : Control
 {
+	[Signal] public delegate void EndButtonPressedEventHandler();
+
 	private UIManager _ui;
 	
 	private ConfirmationModalInGame _confirmationModal;
@@ -13,6 +15,15 @@ public partial class MenuOptions : Control
 
 		// Get the reference to the modal in your scene tree
 		_confirmationModal = GetNode<ConfirmationModalInGame>("%ConfirmationModal");
+
+		if (Globals.gameType == Globals.GameType.Network)
+		{
+			GetNode<Button>("%EndButton").Visible = false;
+		}
+		else
+		{
+			GetNode<Button>("%EndButton").Visible = true;
+		}
 
 		GetNode<Button>("%ResumeGame").Pressed += () =>
 		{
@@ -36,6 +47,18 @@ public partial class MenuOptions : Control
 					await _ui.RestartGame();
 				}
 			);
+		};
+
+		GetNode<Button>("%SettingsButton").Pressed += () =>
+		{
+			GetNode<Control>("%SettingsMenu").Visible = true;
+		};
+
+		// --- END GAME ---
+		GetNode<Button>("%EndButton").Pressed += () =>
+		{
+			Visible = false;
+			EmitSignal(SignalName.EndButtonPressed);
 		};
 
 		GetNode<Button>("%SettingsButton").Pressed += () =>

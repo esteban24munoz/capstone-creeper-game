@@ -5,6 +5,7 @@ public partial class InGameScene : CanvasLayer
 {
 	private Control _helpUI;
 	private Control _menuUI;
+	private Control _endUI;
 	private Control _frodoWins;
 	private Control _draw;
 	private Control _sauronWins;
@@ -34,6 +35,10 @@ public partial class InGameScene : CanvasLayer
 		GetNode<Button>("%Menu").Pressed += OnMenuButtonPressed;
 		_menuUI = GetNode<Control>("MenuUI");
 
+		GetNode<MenuOptions>("MenuUI").EndButtonPressed += OnEndButtonPressed;
+		_endUI = GetNode<Control>("EndUI");
+
+		GetNode<EndOptions>("EndUI").EndMenuBackButtonPressed += OnMenuButtonPressed;
 
 		_frodoWins = GetNode<Control>("FrodoWins");
 		_draw = GetNode<Control>("Draw");
@@ -70,6 +75,10 @@ public partial class InGameScene : CanvasLayer
 	
 	private void OnMenuButtonPressed(){
 		_menuUI.Visible = !_menuUI.Visible;
+	}
+
+	private void OnEndButtonPressed(){
+		_endUI.Visible = !_endUI.Visible;
 	}
 
 	public void ShowWinScreen(Constants.Player winner)

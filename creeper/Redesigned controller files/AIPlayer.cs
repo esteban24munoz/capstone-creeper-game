@@ -17,6 +17,8 @@ public class AIPlayer : IPlayer
 	// time budget (ms) used for MCTS; tune as needed
 	private readonly int _mctsTimeMs = 4000;
 
+	private bool stopped = false;
+
 	public void SetPlayer(Constants.Player player)
 	{
 		_player = player;
@@ -144,8 +146,11 @@ public class AIPlayer : IPlayer
 			// Validate move (use sentinel -1,-1 to indicate failure)
 			if (bestMove.Item1.X >= 0 && bestMove.Item1.Y >= 0)
 			{
-				// Schedule the event invocation on the main thread (Godot) so subscribers can safely interact with scene nodes.
-				Callable.From(() => MoveFound?.Invoke(this, (bestMove.Item1, bestMove.Item2))).CallDeferred();
+				if (!stopped) 
+				{
+					// Schedule the event invocation on the main thread (Godot) so subscribers can safely interact with scene nodes.
+					Callable.From(() => MoveFound?.Invoke(this, (bestMove.Item1, bestMove.Item2))).CallDeferred();
+				}
 			}
 			else
 			{
@@ -165,4 +170,10 @@ public class AIPlayer : IPlayer
 
 	// Network player uses this to push state updates from server. 
 	public void ReceiveState(string state) { }
+
+    public void Stop()
+    {
+        stopped = true;
+    }
+
 }

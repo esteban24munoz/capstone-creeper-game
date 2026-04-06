@@ -15,7 +15,7 @@ public partial class UIManager : Control
 	private Button _menuButton;
 	private ColorRect _overlay;
 	private bool _isTransitioning = false;
-	private Node _currentGameInstance;
+	private NewController _currentGameInstance;
 	
 	private AudioStreamPlayer2D _music;
 	
@@ -153,7 +153,7 @@ public async void ShowScreen(string path, bool clearStack = false)
 		var scene = GD.Load<PackedScene>(path);
 		if (scene != null)
 		{
-			_currentGameInstance = scene.Instantiate();
+			_currentGameInstance = (NewController)scene.Instantiate();
 			
 			// Add the game to the root of the SceneTree
 			GetTree().Root.AddChild(_currentGameInstance);
@@ -193,52 +193,57 @@ public async void ShowScreen(string path, bool clearStack = false)
 	}
 	
 	public async Task RestartGame()
-{
-	if (_isTransitioning) return;
-	_isTransitioning = true;
-
-	await FadeOut();
-
-	// 1. Destroy the running game
-	if (_currentGameInstance != null && GodotObject.IsInstanceValid(_currentGameInstance))
 	{
-		_currentGameInstance.GetParent().RemoveChild(_currentGameInstance);
-		_currentGameInstance.QueueFree();
-		_currentGameInstance = null;
-	}
+		if (_isTransitioning) return;
+		_isTransitioning = true;
 
-	// 2. If network game, pop one UI screens; otherwise pop none (so UI returns accordingly).
-	if (Globals.gameType == Globals.GameType.Network)
-	{
-		// Pop up to two screens
-		var top = _screenStack.Pop();
-		// Defensive removal from container if present
-		if (top.GetParent() == _container)
+		await FadeOut();
+
+		// 1. Destroy the running game
+		if (_currentGameInstance != null && GodotObject.IsInstanceValid(_currentGameInstance))
 		{
-			_container.RemoveChild(top);
+			_currentGameInstance.GetParent().RemoveChild(_currentGameInstance);
+			_currentGameInstance.QueueFree();
+			_currentGameInstance = null;
 		}
-		top.QueueFree();
-		Globals.cts.Cancel();
+
+		// 2. If network game, pop one UI screens; otherwise pop none (so UI returns accordingly).
+		if (Globals.gameType == Globals.GameType.Network)
+		{
+			// Pop up to two screens
+			var top = _screenStack.Pop();
+			// Defensive removal from container if present
+			if (top.GetParent() == _container)
+			{
+				_container.RemoveChild(top);
+			}
+			top.QueueFree();
+			Globals.cts.Cancel();
+		}
+
+		// 3. Unhide the UI container.
+		// Since we never cleared the stack when starting the game, 
+		// the previous screen (like Team Selection) will instantly be visible again!
+		_container.Visible = true;
+		if (_screenStack.Count > 0)
+		{
+			_screenStack.Peek().Visible = true;
+		}
+
+		// 4. Restore the correct state for the Top Bar buttons
+		UpdateBackButton(); 
+
+		_music.Play();
+
+		EmitSignal(SignalName.SceneChanged);
+
+		await FadeIn();
+		_isTransitioning = false;
 	}
 
-	// 3. Unhide the UI container.
-	// Since we never cleared the stack when starting the game, 
-	// the previous screen (like Team Selection) will instantly be visible again!
-	_container.Visible = true;
-	if (_screenStack.Count > 0)
+	public void EndGame(Constants.Player player)
 	{
-		_screenStack.Peek().Visible = true;
-	}
-
-	// 4. Restore the correct state for the Top Bar buttons
-	UpdateBackButton(); 
-
-	_music.Play();
-
-	EmitSignal(SignalName.SceneChanged);
-
-	await FadeIn();
-	_isTransitioning = false;
+		_currentGameInstance.EndGameOverride = player;
 	}
 	
 	// We add a path parameter so it knows exactly which menu to load

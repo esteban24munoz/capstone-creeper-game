@@ -106,4 +106,7 @@ public partial class NetworkPlayer : IPlayer
 		// Always update last known state
 		LastState = state;
 	}
+
+    public void Stop() {/* forced stop cannot happen in a network game */}
+
 }

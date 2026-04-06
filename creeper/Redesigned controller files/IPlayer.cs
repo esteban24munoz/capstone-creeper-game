@@ -10,6 +10,7 @@ public interface IPlayer
 	void SetupTurn(Model model, Grid grid);
 	//tells the object whether it is a hero or villain
 	void SetPlayer(Constants.Player player);
+	void Stop();
 
 	//these three functions should only be used by the LocalPlayer object
 	void OnClick(Vector2I pos);

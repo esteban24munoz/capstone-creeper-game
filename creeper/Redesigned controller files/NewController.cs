@@ -8,6 +8,19 @@ using System.Threading.Tasks;
 public partial class NewController : Node2D
 {
 	[Export] public AudioStream[] MusicArray = [];
+	private Constants.Player _endGameOverride = Constants.Player.None;
+	public Constants.Player EndGameOverride
+	{
+		set
+		{
+			_endGameOverride = value;
+			if (value == Constants.Player.Enemy || value == Constants.Player.Hero)
+				Winner = value;
+
+			ActivePlayerObject.Stop();
+			CharacterMoveFinished();
+		}
+	}
 	private Stack<AudioStream> MusicStack = [];
 	Constants.Player ActivePlayer = Constants.Player.Hero;
 	IPlayer ActivePlayerObject = Constants.HeroPlayer;
@@ -137,7 +150,7 @@ public partial class NewController : Node2D
 	void CharacterMoveFinished()
 	{
 		//check for draw or win, else start a new turn
-		if (ModelInstance.IsDraw(ActivePlayer))
+		if (ModelInstance.IsDraw(ActivePlayer) || _endGameOverride == Constants.Player.Draw)
 		{
 			GameUI.ShowWinScreen(Constants.Player.None);
 			GameUI.EnableBoardToggleButton();
@@ -150,7 +163,7 @@ public partial class NewController : Node2D
 			// Train from trace and save neural network weights at game end (draw)
 			EndGameTrainAndSave(Constants.Player.Draw);
 		}
-		else if (Winner != Constants.Player.None)
+		else if (Winner != Constants.Player.None || _endGameOverride != Constants.Player.None)
 		{
 			ViewInstance.StopAllCharacterAnimations();
 			ActivePlayer = Constants.Player.None;
@@ -190,7 +203,8 @@ public partial class NewController : Node2D
 			}
 
 			// Train from trace and save neural network weights at game end (win/loss)
-			EndGameTrainAndSave(Winner);
+			if (_endGameOverride == Constants.Player.None)
+				EndGameTrainAndSave(Winner);
 
 			// Show the CheckButton so the player can toggle the board
 			GameUI.EnableBoardToggleButton();

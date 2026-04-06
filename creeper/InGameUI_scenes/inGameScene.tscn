@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c2yve67u2a0ei"]
+[gd_scene load_steps=18 format=3 uid="uid://c2yve67u2a0ei"]
 
 [ext_resource type="Texture2D" uid="uid://bsepq3b3h3ns5" path="res://UI_assets/UI_Buttons/Arrows and Start Button (2).png" id="1_21r1s"]
 [ext_resource type="Script" uid="uid://bmu7bkd3femsq" path="res://InGameUI_scripts/InGameScene.cs" id="1_hr6wx"]
@@ -6,11 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://c47p6flmbfrun" path="res://UI_assets/UI_Buttons/Buttons_states.png" id="2_45nnk"]
 [ext_resource type="PackedScene" uid="uid://bdd4buqnleaoh" path="res://InGameUI_scenes/frodoWins.tscn" id="5_nn33a"]
 [ext_resource type="PackedScene" uid="uid://chl4xq7eeugro" path="res://InGameUI_scenes/drawScreen.tscn" id="6_ci3c6"]
-[ext_resource type="PackedScene" uid="uid://bsxynqvoiqkjd" path="res://InGameUI_scenes/frodoLoses.tscn" id="6_jvimj"]
+[ext_resource type="PackedScene" path="res://InGameUI_scenes/frodoLoses.tscn" id="6_jvimj"]
 [ext_resource type="PackedScene" uid="uid://dgaogpp1g1ybe" path="res://InGameUI_scenes/sauronWins.tscn" id="7_s2tgd"]
 [ext_resource type="PackedScene" uid="uid://clcvw22gc506l" path="res://InGameUI_scenes/sauronLoses.tscn" id="8_no35f"]
 [ext_resource type="PackedScene" uid="uid://pa8lcpg162do" path="res://InGameUI_scenes/menuOptions.tscn" id="8_s2tgd"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="11_atoah"]
+[ext_resource type="PackedScene" uid="uid://b6u5wrs6113uf" path="res://InGameUI_scenes/endOptions.tscn" id="11_x0h4g"]
 [ext_resource type="PackedScene" uid="uid://bxcx10lmg5g6w" path="res://Globals/disconnect_modal.tscn" id="12_gexjk"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hr6wx"]
@@ -73,6 +74,25 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_usav5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_usav5")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_usav5")
 
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 32
+
+[node name="TurnLabel" type="Label" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 0.8627451, 0.2901961, 1)
+theme_override_colors/font_shadow_color = Color(0.05882353, 0.09411765, 0.09803922, 1)
+theme_override_fonts/font = ExtResource("11_atoah")
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
 [node name="HelpUI" parent="." instance=ExtResource("2_21r1s")]
 visible = false
 
@@ -94,6 +114,9 @@ visible = false
 [node name="MenuUI" parent="." instance=ExtResource("8_s2tgd")]
 visible = false
 
+[node name="EndUI" parent="." instance=ExtResource("11_x0h4g")]
+visible = false
+
 [node name="ToggleBoardButton" type="CheckButton" parent="."]
 unique_name_in_owner = true
 offset_left = 672.0
@@ -111,25 +134,6 @@ theme_override_colors/icon_hover_pressed_color = Color(0.6901961, 0.8156863, 0.7
 theme_override_colors/icon_disabled_color = Color(0.6901961, 0.8156863, 0.78431374, 1)
 theme_override_colors/button_checked_color = Color(0.8352941, 0.15686275, 0.09019608, 1)
 theme_override_colors/button_unchecked_color = Color(1, 0.8627451, 0.2901961, 1)
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_top = 32
-
-[node name="TurnLabel" type="Label" parent="MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_colors/font_color = Color(1, 0.8627451, 0.2901961, 1)
-theme_override_colors/font_shadow_color = Color(0.05882353, 0.09411765, 0.09803922, 1)
-theme_override_fonts/font = ExtResource("11_atoah")
-theme_override_font_sizes/font_size = 24
-horizontal_alignment = 1
 
 [node name="DisconnectModal" parent="." instance=ExtResource("12_gexjk")]
 visible = false

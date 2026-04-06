@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b38xbm42gcrna"
-path="res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"
+uid="uid://x170qgmg8yus"
+path="res://.godot/imported/PippinGhost2.png-b75a9f112e50bad85831f6a18ab109d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI_assets/Tutorial/Gollum.png"
-dest_files=["res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"]
+source_file="res://Art/Heroes/Ghosts/PippinGhost2.png"
+dest_files=["res://.godot/imported/PippinGhost2.png-b75a9f112e50bad85831f6a18ab109d3.ctex"]
 
 [params]
 

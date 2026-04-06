@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b38xbm42gcrna"
-path="res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"
+uid="uid://dht2ad13a5l8j"
+path="res://.godot/imported/AragornGhost2.png-24497ec99872fe89f0dc38e5671d89c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI_assets/Tutorial/Gollum.png"
-dest_files=["res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"]
+source_file="res://Art/Heroes/Ghosts/AragornGhost2.png"
+dest_files=["res://.godot/imported/AragornGhost2.png-24497ec99872fe89f0dc38e5671d89c9.ctex"]
 
 [params]
 

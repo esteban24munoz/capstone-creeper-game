@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b38xbm42gcrna"
-path="res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"
+uid="uid://drkesqpff6mi3"
+path="res://.godot/imported/GandalfGhost1.png-9082bf462ebf5111fc911838b296f76d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI_assets/Tutorial/Gollum.png"
-dest_files=["res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"]
+source_file="res://Art/Heroes/Ghosts/GandalfGhost1.png"
+dest_files=["res://.godot/imported/GandalfGhost1.png-9082bf462ebf5111fc911838b296f76d.ctex"]
 
 [params]
 

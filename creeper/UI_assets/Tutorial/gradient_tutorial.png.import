@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b38xbm42gcrna"
-path="res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"
+uid="uid://dkgeuttfism88"
+path="res://.godot/imported/gradient_tutorial.png-62e8f7a68c57ad3a5c9b7af1ce805f70.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI_assets/Tutorial/Gollum.png"
-dest_files=["res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"]
+source_file="res://UI_assets/Tutorial/gradient_tutorial.png"
+dest_files=["res://.godot/imported/gradient_tutorial.png-62e8f7a68c57ad3a5c9b7af1ce805f70.ctex"]
 
 [params]
 

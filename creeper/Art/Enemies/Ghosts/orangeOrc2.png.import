@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b38xbm42gcrna"
-path="res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"
+uid="uid://cuppnkv1imqms"
+path="res://.godot/imported/orangeOrc2.png-41b62e00a84fecb2b5ad897c54f57e4e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI_assets/Tutorial/Gollum.png"
-dest_files=["res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"]
+source_file="res://Art/Enemies/Ghosts/orangeOrc2.png"
+dest_files=["res://.godot/imported/orangeOrc2.png-41b62e00a84fecb2b5ad897c54f57e4e.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b38xbm42gcrna"
-path="res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"
+uid="uid://dka83tma8n5xy"
+path="res://.godot/imported/MerryGhost1.png-7197a42399a165738c44801702859620.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI_assets/Tutorial/Gollum.png"
-dest_files=["res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"]
+source_file="res://Art/Heroes/Ghosts/MerryGhost1.png"
+dest_files=["res://.godot/imported/MerryGhost1.png-7197a42399a165738c44801702859620.ctex"]
 
 [params]
 

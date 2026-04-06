@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://v8rtqn5ipqng"]
+[gd_scene load_steps=39 format=4 uid="uid://v8rtqn5ipqng"]
 
 [ext_resource type="Script" uid="uid://dnttn430tx1qb" path="res://Grid.cs" id="1_u6jcp"]
 [ext_resource type="Texture2D" uid="uid://djms4xij1g142" path="res://Art/Tiles/New Neutral Tile Sprite.png" id="2_xrsif"]
@@ -9,8 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://dnmnmrymbvad6" path="res://Art/Tiles/New Lava Tile Sprite.png" id="5_gk1wl"]
 [ext_resource type="Texture2D" uid="uid://cpmkuleak3jp8" path="res://Art/Tiles/special_grass_tile.png" id="5_s5c1x"]
 [ext_resource type="PackedScene" uid="uid://ddohyifhg7pkf" path="res://characters_scenes/boromir.tscn" id="7_aiw0r"]
-[ext_resource type="Texture2D" uid="uid://c7emwpsb1pnpy" path="res://Art/Heroes/Ghosts/aragon_ghost.png" id="10_sr26l"]
 [ext_resource type="PackedScene" uid="uid://b2np60la80is1" path="res://characters_scenes/sam.tscn" id="13_gk1wl"]
+[ext_resource type="Texture2D" uid="uid://bddvhg2to1gj7" path="res://Art/Heroes/Ghosts/AragornGhost1.png" id="14_f2kab"]
+[ext_resource type="Texture2D" uid="uid://dht2ad13a5l8j" path="res://Art/Heroes/Ghosts/AragornGhost2.png" id="15_fh4re"]
 [ext_resource type="PackedScene" uid="uid://d2nplcigroap8" path="res://characters_scenes/heavy_orc.tscn" id="15_qpqai"]
 [ext_resource type="PackedScene" uid="uid://cpdpv0t1t7qk7" path="res://characters_scenes/sauron.tscn" id="16_hg3fi"]
 [ext_resource type="PackedScene" uid="uid://b8eng5glhbea6" path="res://characters_scenes/saruman.tscn" id="17_bsa5o"]
@@ -75,11 +76,14 @@ sources/1 = SubResource("TileSetAtlasSource_sr26l")
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("10_sr26l")
+"texture": ExtResource("14_f2kab")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_fh4re")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 1.0
 }]
 
 [node name="Grid" type="Node2D"]
@@ -157,6 +161,8 @@ sprite_frames = SubResource("SpriteFrames_f2kab")
 [node name="Heavy OrcGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(-47, 9)
 sprite_frames = SubResource("SpriteFrames_f2kab")
+autoplay = "default"
+frame_progress = 0.5167789
 
 [node name="King of the DeadGhost" type="AnimatedSprite2D" parent="TileMapLayer/Ghosts"]
 position = Vector2(12, -46)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b38xbm42gcrna"
-path="res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"
+uid="uid://dx01wro40j584"
+path="res://.godot/imported/kingofDeadGhost1.png-0d1c25052a59adee5b1581d556cb6893.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI_assets/Tutorial/Gollum.png"
-dest_files=["res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"]
+source_file="res://Art/Enemies/Ghosts/kingofDeadGhost1.png"
+dest_files=["res://.godot/imported/kingofDeadGhost1.png-0d1c25052a59adee5b1581d556cb6893.ctex"]
 
 [params]
 

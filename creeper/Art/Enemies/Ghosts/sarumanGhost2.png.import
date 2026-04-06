@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b38xbm42gcrna"
-path="res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"
+uid="uid://djl0o1djqfsw8"
+path="res://.godot/imported/sarumanGhost2.png-365c3cb191214f0927d69f3bea8ac67c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI_assets/Tutorial/Gollum.png"
-dest_files=["res://.godot/imported/Gollum.png-091b3e6f769acf98ae8fb2fe7b6d028c.ctex"]
+source_file="res://Art/Enemies/Ghosts/sarumanGhost2.png"
+dest_files=["res://.godot/imported/sarumanGhost2.png-365c3cb191214f0927d69f3bea8ac67c.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b3vkuupj07kn8"]
+[gd_scene load_steps=18 format=3 uid="uid://b3vkuupj07kn8"]
 
 [ext_resource type="Script" uid="uid://crrvnyx6vanh8" path="res://GameUI_scripts/MainMenu.cs" id="1_d5b4s"]
 [ext_resource type="Texture2D" uid="uid://cak2y2pgwj742" path="res://UI_assets/MainMenu/nazguls-animation1.png" id="2_mc3iv"]
@@ -10,10 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://d1vj83d0nv2ca" path="res://UI_assets/MainMenu/nazguls-animation5.png" id="6_ajp5e"]
 [ext_resource type="Texture2D" uid="uid://coqy1fec455hb" path="res://UI_assets/MainMenu/nazguls-animation6.png" id="7_d1ab6"]
 [ext_resource type="Texture2D" uid="uid://eud053ldxjt6" path="res://UI_assets/MainMenu/nazguls-animation7.png" id="8_25rbi"]
-[ext_resource type="Texture2D" uid="uid://laalefk1qlg1" path="res://UI_assets/MainMenu/light_position_1.png" id="9_324ll"]
-[ext_resource type="Texture2D" uid="uid://b5veo82leoy04" path="res://UI_assets/MainMenu/light_position_3.png" id="10_v1g27"]
-[ext_resource type="Texture2D" uid="uid://c2heo8v4ppf6e" path="res://UI_assets/MainMenu/light_position_2.png" id="11_div8g"]
-[ext_resource type="Texture2D" uid="uid://bs4fd2uuym0uj" path="res://UI_assets/MainMenu/light_position_4.png" id="12_ineqx"]
 [ext_resource type="Texture2D" uid="uid://dgppamuui12ty" path="res://UI_assets/MainMenu/v2/light_position1.png" id="13_d1ab6"]
 [ext_resource type="Texture2D" uid="uid://b2oaj6hm5woav" path="res://UI_assets/MainMenu/v2/light_position2.png" id="14_25rbi"]
 [ext_resource type="Texture2D" uid="uid://bbp02bgm6wlfb" path="res://UI_assets/MainMenu/v2/light_position3.png" id="15_324ll"]
@@ -53,16 +49,16 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("9_324ll")
+"texture": ExtResource("13_d1ab6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_v1g27")
+"texture": ExtResource("14_25rbi")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_div8g")
+"texture": ExtResource("15_324ll")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12_ineqx")
+"texture": ExtResource("16_v1g27")
 }],
 "loop": true,
 "name": &"idle",
@@ -119,8 +115,10 @@ centered = false
 
 [node name="EyeTower" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_s3ted")
-animation = &"position1"
+animation = &"idle"
 autoplay = "idle"
+frame = 3
+frame_progress = 0.41804934
 centered = false
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

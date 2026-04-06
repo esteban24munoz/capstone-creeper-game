@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cwvu5pmcl356o" path="res://InGameUI_scripts/Help.cs" id="1_4kiry"]
 [ext_resource type="Texture2D" uid="uid://bc4g18qi3ahcm" path="res://UI_assets/GameBackground/dark_overlay.png" id="2_2vtip"]
-[ext_resource type="Texture2D" uid="uid://drksn8vyup10s" path="res://UI_assets/Tutorial/gollum.png" id="3_ibc1t"]
+[ext_resource type="Texture2D" uid="uid://cmonqtlhyfbll" path="res://UI_assets/Tutorial/gollum.png" id="3_ibc1t"]
 [ext_resource type="Texture2D" uid="uid://b72xvivoiivrg" path="res://UI_assets/UI_Buttons/Tutorial Arrow.png" id="4_ylhll"]
 [ext_resource type="Texture2D" uid="uid://d28dovjdgakqx" path="res://UI_assets/Tutorial/Movement Example_v2.png" id="5_2vtip"]
 [ext_resource type="Texture2D" uid="uid://bf3md45gw7a4" path="res://UI_assets/UI_Buttons/exitButton.png" id="5_i40w7"]

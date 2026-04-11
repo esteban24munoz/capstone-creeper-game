@@ -23,8 +23,8 @@ public partial class ConfirmationModalInGame : Control
 
 	private void OnYesPressed()
 	{
-		Visible = false; // Hide the modal
 		_onConfirmAction?.Invoke(); // Execute the stored function
+		Visible = false; // Hide the modal
 	}
 
 	private void OnNoPressed()

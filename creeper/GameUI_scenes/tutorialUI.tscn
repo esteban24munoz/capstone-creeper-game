@@ -1,8 +1,93 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnncyhuydit0m"]
+[gd_scene load_steps=25 format=3 uid="uid://bnncyhuydit0m"]
 
+[ext_resource type="Script" uid="uid://mn5f5m3knoem" path="res://GameUI_scripts/TutorialUi.cs" id="1_6qxxq"]
+[ext_resource type="Texture2D" uid="uid://cgq28u5ucl4sn" path="res://UI_assets/Tutorial/menu_assets/gameboardBackground.png" id="1_ey1hk"]
 [ext_resource type="Texture2D" uid="uid://b38xbm42gcrna" path="res://UI_assets/Tutorial/Gollum_New_Tutorial.png" id="1_s5x7f"]
-[ext_resource type="Texture2D" uid="uid://dirle1aiau0px" path="res://UI_assets/Tutorial/uncompleted_path.png" id="1_v1qqn"]
+[ext_resource type="Texture2D" uid="uid://dbmok3h3bc8np" path="res://UI_assets/Tutorial/menu_assets/winSprite/1.png" id="2_6qxxq"]
 [ext_resource type="Texture2D" uid="uid://dkgeuttfism88" path="res://UI_assets/Tutorial/gradient_tutorial.png" id="2_v1qqn"]
+[ext_resource type="Texture2D" uid="uid://duroc1ucw2656" path="res://UI_assets/Tutorial/menu_assets/winSprite/2.png" id="3_5hd3l"]
+[ext_resource type="Texture2D" uid="uid://10h8t00hoopk" path="res://UI_assets/Tutorial/completed_path_checked.png" id="4_2n0ls"]
+[ext_resource type="Texture2D" uid="uid://bammiofro1s6k" path="res://UI_assets/Tutorial/menu_assets/winSprite/3.png" id="4_uuny5"]
+[ext_resource type="Texture2D" uid="uid://b7kl4kh7rrow7" path="res://UI_assets/Tutorial/menu_assets/winSprite/4.png" id="5_ohuh4"]
+[ext_resource type="Texture2D" uid="uid://cg7dfuijj4xu" path="res://UI_assets/Tutorial/menu_assets/winSprite/5.png" id="6_yl0sp"]
+[ext_resource type="Texture2D" uid="uid://y7rl8kji6t4y" path="res://UI_assets/Tutorial/menu_assets/winSprite/6.png" id="7_uih6b"]
+[ext_resource type="Texture2D" uid="uid://b424umte0phbh" path="res://UI_assets/Tutorial/menu_assets/winSprite/7.png" id="8_2n0ls"]
+[ext_resource type="Texture2D" uid="uid://bfj5m61ajac5o" path="res://UI_assets/Tutorial/menu_assets/winSprite/8.png" id="9_wmytb"]
+[ext_resource type="Texture2D" uid="uid://42wmuq53maxy" path="res://UI_assets/Tutorial/menu_assets/winSprite/9.png" id="10_g0rq5"]
+[ext_resource type="Texture2D" uid="uid://b72xvivoiivrg" path="res://UI_assets/UI_Buttons/Tutorial Arrow.png" id="14_5hd3l"]
+[ext_resource type="StyleBox" uid="uid://buyitcrqna1ux" path="res://UI_assets/UI_Buttons/normal_button_texture.tres" id="15_ohuh4"]
+[ext_resource type="StyleBox" uid="uid://dclx2cpxac0q0" path="res://UI_assets/UI_Buttons/normal_button_hover_texture.tres" id="16_yl0sp"]
+[ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="18_uih6b"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3cm74"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ey1hk")
+}],
+"loop": true,
+"name": &"default_board",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_2n0ls")
+}],
+"loop": true,
+"name": &"move_example",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6qxxq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5hd3l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_uuny5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ohuh4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_yl0sp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_uih6b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_2n0ls")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_wmytb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_g0rq5")
+}],
+"loop": true,
+"name": &"win_path",
+"speed": 2.0
+}]
+
+[sub_resource type="VideoStreamTheora" id="VideoStreamTheora_5hd3l"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uuny5"]
+texture = ExtResource("14_5hd3l")
+region_rect = Rect2(169, 16, 125, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ohuh4"]
+texture = ExtResource("14_5hd3l")
+region_rect = Rect2(170, 92, 124, 65)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yl0sp"]
+content_margin_bottom = 6.0
+texture = ExtResource("14_5hd3l")
+region_rect = Rect2(19, 16, 123, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uih6b"]
+texture = ExtResource("14_5hd3l")
+region_rect = Rect2(18, 93, 124, 64)
 
 [node name="TutorialUi" type="Control"]
 layout_mode = 3
@@ -11,6 +96,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_6qxxq")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -20,34 +106,135 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="game_demo" type="TextureRect" parent="MarginContainer"]
-layout_mode = 2
-texture = ExtResource("1_v1qqn")
+[node name="TutorialSprite" type="AnimatedSprite2D" parent="MarginContainer"]
+unique_name_in_owner = true
+position = Vector2(512, 320)
+sprite_frames = SubResource("SpriteFrames_3cm74")
+animation = &"win_path"
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+[node name="TutorialVideo" type="VideoStreamPlayer" parent="MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("2_v1qqn")
+stream = SubResource("VideoStreamTheora_5hd3l")
+loop = true
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="explanationLabel" type="Label" parent="MarginContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 0.8627451, 0.2901961, 1)
+theme_override_colors/font_shadow_color = Color(0.11372549, 0.14509805, 0.23529412, 1)
+theme_override_colors/font_outline_color = Color(1, 0.8627451, 0.2901961, 1)
+theme_override_fonts/font = ExtResource("18_uih6b")
+theme_override_font_sizes/font_size = 26
+text = "The goal: a continuous path of tiles linking your home bases"
+horizontal_alignment = 1
+
+[node name="GradientBackground" type="TextureRect" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("2_v1qqn")
+
+[node name="TutorialContainer" type="MarginContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 size_flags_vertical = 8
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_right = 100
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = -40
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/TutorialContainer"]
 layout_mode = 2
-theme_override_constants/separation = 100
 
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer/MarginContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/TutorialContainer/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_s5x7f")
 stretch_mode = 2
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(300, 80)
+[node name="TutorialText" type="RichTextLabel" parent="MarginContainer/TutorialContainer/HBoxContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_colors/default_color = Color(1, 0.8627451, 0.2901961, 1)
-text = "HELLLOO MASTER"
+bbcode_enabled = true
+fit_content = true
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/TutorialContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BackSlot" type="Control" parent="MarginContainer/TutorialContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Back" type="Button" parent="MarginContainer/TutorialContainer/HBoxContainer/HBoxContainer/BackSlot" groups=["UIButton"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 52)
+layout_mode = 0
+offset_left = 4.0
+offset_right = 76.0
+offset_bottom = 52.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_uuny5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ohuh4")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_ohuh4")
+
+[node name="NextSlot" type="Control" parent="MarginContainer/TutorialContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Next" type="Button" parent="MarginContainer/TutorialContainer/HBoxContainer/HBoxContainer/NextSlot" groups=["UIButton"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 52)
+layout_mode = 0
+offset_left = 7.0
+offset_right = 79.0
+offset_bottom = 52.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_yl0sp")
+theme_override_styles/hover = SubResource("StyleBoxTexture_uih6b")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_uih6b")
+
+[node name="SkipButton" type="Button" parent="MarginContainer/TutorialContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(140, 51)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("15_ohuh4")
+theme_override_styles/hover = ExtResource("16_yl0sp")
+theme_override_styles/hover_pressed = ExtResource("16_yl0sp")
+text = "Skip Tutorial"
+
+[node name="BackToMenu" type="Button" parent="MarginContainer/TutorialContainer/HBoxContainer/HBoxContainer" groups=["UIButton"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 51)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("15_ohuh4")
+theme_override_styles/hover = ExtResource("16_yl0sp")
+theme_override_styles/hover_pressed = ExtResource("16_yl0sp")
+text = "Main Menu"
+autowrap_trim_flags = 0
+
+[node name="BackToTutorial" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 51)
+layout_mode = 0
+offset_left = 432.0
+offset_top = 584.0
+offset_right = 592.0
+offset_bottom = 635.0
+scale = Vector2(0.8, 0.8)
+theme_override_styles/normal = ExtResource("15_ohuh4")
+theme_override_styles/hover = ExtResource("16_yl0sp")
+theme_override_styles/hover_pressed = ExtResource("16_yl0sp")
+text = "Back to Tutorial"

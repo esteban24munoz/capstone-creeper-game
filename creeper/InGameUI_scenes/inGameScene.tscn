@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c47p6flmbfrun" path="res://UI_assets/UI_Buttons/Buttons_states.png" id="2_45nnk"]
 [ext_resource type="PackedScene" uid="uid://bdd4buqnleaoh" path="res://InGameUI_scenes/frodoWins.tscn" id="5_nn33a"]
 [ext_resource type="PackedScene" uid="uid://chl4xq7eeugro" path="res://InGameUI_scenes/drawScreen.tscn" id="6_ci3c6"]
-[ext_resource type="PackedScene" path="res://InGameUI_scenes/frodoLoses.tscn" id="6_jvimj"]
+[ext_resource type="PackedScene" uid="uid://jpdy6ugi7r6i" path="res://InGameUI_scenes/frodoLoses.tscn" id="6_jvimj"]
 [ext_resource type="PackedScene" uid="uid://dgaogpp1g1ybe" path="res://InGameUI_scenes/sauronWins.tscn" id="7_s2tgd"]
 [ext_resource type="PackedScene" uid="uid://clcvw22gc506l" path="res://InGameUI_scenes/sauronLoses.tscn" id="8_no35f"]
 [ext_resource type="PackedScene" uid="uid://pa8lcpg162do" path="res://InGameUI_scenes/menuOptions.tscn" id="8_s2tgd"]

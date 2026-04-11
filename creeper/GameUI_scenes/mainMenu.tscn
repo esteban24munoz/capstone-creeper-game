@@ -1,10 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://b3vkuupj07kn8"]
+[gd_scene load_steps=17 format=3 uid="uid://b3vkuupj07kn8"]
 
 [ext_resource type="Script" uid="uid://crrvnyx6vanh8" path="res://GameUI_scripts/MainMenu.cs" id="1_d5b4s"]
 [ext_resource type="Texture2D" uid="uid://cak2y2pgwj742" path="res://UI_assets/MainMenu/nazguls-animation1.png" id="2_mc3iv"]
 [ext_resource type="Texture2D" uid="uid://c3qs6nevbiyx2" path="res://UI_assets/MainMenu/nazguls-animation2.png" id="3_7vqnn"]
 [ext_resource type="Texture2D" uid="uid://djwiwti3h8svt" path="res://UI_assets/MainMenu/nazguls-animation3.png" id="4_cdtku"]
-[ext_resource type="PackedScene" uid="uid://dwuhjsr0e5w4l" path="res://GameUI_scenes/settingsMenu.tscn" id="4_va3xh"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="5_65ijf"]
 [ext_resource type="Texture2D" uid="uid://dqimy8ivyityc" path="res://UI_assets/MainMenu/nazguls-animation4.png" id="5_fcv4o"]
 [ext_resource type="Texture2D" uid="uid://d1vj83d0nv2ca" path="res://UI_assets/MainMenu/nazguls-animation5.png" id="6_ajp5e"]
@@ -218,11 +217,19 @@ theme_override_font_sizes/font_size = 24
 text = "Quit"
 flat = true
 
-[node name="SettingsMenu" parent="." instance=ExtResource("4_va3xh")]
-visible = false
-layout_mode = 1
-
 [node name="ConfirmationModal" parent="." instance=ExtResource("15_cdtku")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 696.0
+offset_top = 544.0
+offset_right = 767.0
+offset_bottom = 561.0
+rotation = 0.082494594
+theme_override_colors/font_color = Color(0.654902, 0.4509804, 0.3647059, 1)
+theme_override_colors/font_shadow_color = Color(0.40784314, 0.078431375, 0.050980393, 1)
+theme_override_font_sizes/font_size = 12
+text = "New Player?"

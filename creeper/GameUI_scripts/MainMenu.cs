@@ -40,7 +40,7 @@ public partial class MainMenu : Control
 			_ui.ShowScreen("res://GameUI_scenes/storyVideo.tscn");
 
 		GetNode<Button>("%TutorialButton").Pressed += () => 
-			_ui.ShowScreen("res://GameUI_scenes/tutorialScreen.tscn");
+			_ui.ShowScreen("res://GameUI_scenes/tutorialUI.tscn");
 			
 		GetNode<Button>("%SettingsButton").Pressed += _ui.ShowSettingsMenu;
 			

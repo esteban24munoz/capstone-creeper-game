@@ -36,7 +36,7 @@ public partial class UIManager : Control
 		_overlay.Modulate = new Color(1, 1, 1, 0);
 
 		_backButton.Pressed += GoBack;
-		_menuButton.Pressed += ShowSettingsMenu;
+		_menuButton.Pressed += ShowMenuOptions;
 		
 		CallDeferred(MethodName.ShowScreen, "res://GameUI_scenes/mainMenu.tscn", true);
 
@@ -249,18 +249,29 @@ public async void ShowScreen(string path, bool clearStack = false)
 	// We add a path parameter so it knows exactly which menu to load
 	public async Task ReturnToMenu(string mainMenuPath)
 	{
-		if (_isTransitioning) return;
+		//  allows Tweens to run and ensures the Main Menu works when loaded.
+	GD.Print("1. ReturnToMenu was successfully called!"); // <-- Moved to the very top!
+		
+		GetTree().Paused = false;
+
+		if (_isTransitioning) 
+		{
+			GD.Print("2. WARNING: _isTransitioning was stuck on true! Forcing it to false.");
+			_isTransitioning = false; // Force it to unstick!
+		}
+		
 		_isTransitioning = true;
 
 		await FadeOut();
 
-		// 1. Destroy the running game
+		// 2. Destroy the running game
 		if (_currentGameInstance != null && GodotObject.IsInstanceValid(_currentGameInstance))
 		{
 			_currentGameInstance.GetParent().RemoveChild(_currentGameInstance);
 			_currentGameInstance.QueueFree();
 			_currentGameInstance = null;
 		}
+
 
 		// 2. Clear the UI stack so we don't see Team Selection anymore
 		foreach (Node child in _container.GetChildren())
@@ -339,9 +350,15 @@ public async void ShowScreen(string path, bool clearStack = false)
 		_isTransitioning = false;
 	}
 	
-	public void ShowSettingsMenu(){
-		GD.Print("Settings menu has been opened!");
-		GetNode<Control>("%SettingsMenu").Visible = true;
+	public void ShowMenuOptions()
+	{
+		GetNode<Control>("%MenuOptions").Visible = true;
+	}
+
+	// Opens the actual Audio/Video Settings menu
+	public void ShowSettingsMenu()
+	{
+		GetNode<Control>("SettingsMenu").Visible = true;
 	}
 	
 	public void ShowConfirmationModal(){

@@ -118,4 +118,5 @@ layout_mode = 1
 
 [node name="ConfirmationModal" parent="." instance=ExtResource("7_rv8jy")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1

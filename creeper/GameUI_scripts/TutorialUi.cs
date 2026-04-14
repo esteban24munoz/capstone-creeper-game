@@ -58,14 +58,14 @@ public partial class TutorialUi : Control
 			true // Triggers the fullscreen UI toggle
 		),
 		PageData.WithVideo(
-			"[b]Attacking:[/b]\n" +
-			"You can [b]jump horizontally or vertically over an opponent’s character[/b] to remove it from the board.\n\n",
-            "res://UI_assets/Tutorial/menu_assets/videos/character_attack.ogv" 
-		),
-			PageData.WithVideo(
 				"[b]Capturing:[/b]\n" +
 			"You can [b]conquer an opponent’s tile[/b] by crossing diagonally over it\n\n",
             "res://UI_assets/Tutorial/menu_assets/videos/crossing_tile.ogv" 
+		),
+		PageData.WithVideo(
+			"[b]Attacking:[/b]\n" +
+			"If you walk through an opponent's character,[b] horizontally or vertically, [/b] you will remove them from the board.\n\n",
+            "res://UI_assets/Tutorial/menu_assets/videos/character_attack.ogv" 
 		),
 		PageData.WithVideo(
 			"[b]Home bases:[/b]\n" +

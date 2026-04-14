@@ -40,16 +40,6 @@ public class AIPlayer : IPlayer
 		}
 		if (!hasMove) return;
 		
-		////Wait until LocalPlayer has closed Help Menu
-		//if (Globals.gameType == Globals.GameType.AI && Constants.HeroPlayer is AIPlayer)
-		//{
-			//while (!Globals.isHelpClosed)
-			//{
-				//await Task.Delay(500);
-			//}
-		//}
-
-		// Fire-and-forget background computation
 		_ = ComputeAndEmitMoveAsync();
 	}
 
@@ -99,40 +89,10 @@ public class AIPlayer : IPlayer
 						case Globals.AIDifficulty.Hard:
 						default:
 						{
-							if (Constants.HeroPlayer is LocalPlayer || Constants.EnemyPlayer is LocalPlayer)
-							{
-								// Hard: use NeuralNetStrategy (greedy NN evaluator)
-								try
-								{
-									var mv = NeuralNetStrategy.ChooseBestMove(modelClone, _player);
-									GD.Print($"[AI] Hard (Neural) strategy selected {mv}");
-									return (mv.From, mv.To);
-								}
-								catch (Exception ex)
-								{
-									// Fallback to stronger Monte Carlo if the neural evaluator fails
-									GD.PrintErr($"[AI] Neural strategy failed - falling back to MTCS_Pure2: {ex.Message}");
-									var strat = new MTCS_Pure2.MonteCarloStrategy(secondsBudget);
-									var mv = strat.ChooseBestMove(modelClone, _player);
-									return (mv.From, mv.To);
-								}
-							}
-							else
-							{
-								if (_player == Constants.Player.Hero)
-								{
-									var mv = NeuralNetStrategy.ChooseBestMove(modelClone, _player);
-									GD.Print($"[AI] Hard (Neural) strategy selected {mv}");
-									return (mv.From, mv.To);
-								}
-								else
-								{
-									var strat = new MTCS_Pure2.MonteCarloStrategy(secondsBudget);
-									var mv = strat.ChooseBestMove(modelClone, _player);
-									GD.Print($"[AI] Hard strategy selected {mv}");
-									return (mv.From, mv.To);
-								}
-							}
+							// Hard: use NeuralNetStrategy (greedy NN evaluator)
+							var mv = NeuralNetStrategy.ChooseBestMove(modelClone, _player);
+							GD.Print($"[AI] Hard (NN) strategy selected {mv}");
+							return (mv.From, mv.To);
 						}
 					}
 				}
@@ -171,9 +131,9 @@ public class AIPlayer : IPlayer
 	// Network player uses this to push state updates from server. 
 	public void ReceiveState(string state) { }
 
-    public void Stop()
-    {
-        stopped = true;
-    }
+	public void Stop()
+	{
+		stopped = true;
+	}
 
 }

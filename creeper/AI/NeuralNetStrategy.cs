@@ -9,6 +9,7 @@ using System.Text.Json;
 /// Lightweight perceptron evaluator with simple training (online / batch SGD) and weight persistence.
 /// Training uses Monte-Carlo returns: each recorded state is paired with the final game outcome
 /// from the perspective of the player who moved at that state (Win=+1, Draw=0, Loss=-1).
+/// Written with the help of GitHub Copilot
 /// </summary>
 public static class NeuralNetStrategy
 {
@@ -26,12 +27,20 @@ public static class NeuralNetStrategy
 		public override string ToString() => $"Move(From={From}, To={To})";
 	}
 
-	// Feature ordering (same as before)
 	private static readonly double[] _weights = new double[]
 	{
-		-0.15, 0.15, 0.95, -0.95, 0.12, -0.12, 0.25, -0.25, -0.45, 0.45
+		0.890462548697793,
+		-0.8319791953797963,
+		1.2724287807275947,
+		-1.0115392813531137,
+		1.149401636235937,
+		-1.2043864492911385,
+		0.08762919306676697,
+		-0.24933425728563646,
+		-1.35542413666725975,
+		-0.05814343142690983
 	};
-	private static double _bias = 0.0;
+	private static double _bias = -0.11821682047247309;
 
 	// Normalization constants
 	private const double MAX_PIECES = 12.0;
@@ -51,7 +60,7 @@ public static class NeuralNetStrategy
 	/// </summary>
 	public static Move ChooseBestMove(Model rootModel, Constants.Player myPlayer)
 	{
-		var candidates = new List<Move>();
+	  var candidates = new List<Move>();
 		foreach (var pos in rootModel.GetAllCharacters(myPlayer))
 		{
 			var valid = rootModel.FindValidMoves(pos, myPlayer);
@@ -65,15 +74,54 @@ public static class NeuralNetStrategy
 		if (candidates.Count == 0)
 			throw new InvalidOperationException("No legal moves available for player.");
 
-		double bestScore = double.NegativeInfinity;
-		var bestMoves = new List<Move>();
+		// Precompute which moves would leave the opponent with zero pieces (i.e., take the last character)
+		var opp = Opponent(myPlayer);
+		var capturesLast = new Dictionary<Move, bool>();
+		bool existsNonCapturing = false;
 
 		foreach (var candidate in candidates)
 		{
 			var sim = new Model(rootModel);
 			sim.MoveCharacter(candidate.From, candidate.To);
+			int oppPiecesAfter = sim.GetAllCharacters(opp).Count;
+			bool takesLast = (oppPiecesAfter == 0);
+			capturesLast[candidate] = takesLast;
+			if (!takesLast) existsNonCapturing = true;
+		}
 
-			// Immediate win takes precedence
+		// If there is at least one move that does NOT capture the opponent's last piece,
+		// prefer those moves and ignore capturing-last moves. Otherwise allow capturing-last moves.
+		var allowedCandidates = existsNonCapturing
+			? candidates.Where(c => !capturesLast[c]).ToList()
+			: new List<Move>(candidates);
+
+		// Avoid moves that immediately result in a draw (repetition or stalemate).
+		// If at least one allowed candidate does NOT produce a draw, prefer those.
+		var causesDraw = new Dictionary<Move, bool>();
+		bool existsNonDrawing = false;
+		foreach (var candidate in allowedCandidates)
+		{
+			var sim = new Model(rootModel);
+			sim.MoveCharacter(candidate.From, candidate.To);
+			bool isDraw = sim.IsDraw(Opponent(myPlayer));
+			causesDraw[candidate] = isDraw;
+			if (!isDraw) existsNonDrawing = true;
+		}
+
+		if (existsNonDrawing)
+		{
+			allowedCandidates = allowedCandidates.Where(c => !causesDraw[c]).ToList();
+		}
+
+		double bestScore = double.NegativeInfinity;
+		var bestMoves = new List<Move>();
+
+		foreach (var candidate in allowedCandidates)
+		{
+			var sim = new Model(rootModel);
+			sim.MoveCharacter(candidate.From, candidate.To);
+
+			// Immediate win still takes precedence if it's not the disallowed "take last" move
 			if (sim.FindWinner() == myPlayer)
 				return candidate;
 
@@ -146,7 +194,7 @@ public static class NeuralNetStrategy
 		return s;
 	}
 
-	private static double EvaluateState(Model model, Constants.Player myPlayer) => Predict(BuildFeatureVector(model, myPlayer));
+	public static double EvaluateState(Model model, Constants.Player myPlayer) => Predict(BuildFeatureVector(model, myPlayer));
 
 	// ----- Training API -----
 
@@ -224,7 +272,7 @@ public static class NeuralNetStrategy
 			try
 			{
 				// Ensure directory exists
-				string? dir = Path.GetDirectoryName(resolved);
+				string dir = Path.GetDirectoryName(resolved);
 				if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
 					Directory.CreateDirectory(dir);
 

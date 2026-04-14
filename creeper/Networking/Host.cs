@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
+// Written with the help of GitHub Copilot
 namespace Client {
 	public class HostClient
 	{

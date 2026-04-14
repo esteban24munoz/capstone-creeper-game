@@ -152,8 +152,15 @@ public class Model
 				}
 			}
 
-			if (draw) return draw;
-		} 
+			if (draw) 
+			{
+				Globals.isRepitionDraw = true;
+				Globals.winner = "draw";
+				return draw;
+			}
+		}
+		
+		Globals.isRepitionDraw = false;
 
 		Constants.Player nextPlayer;
 		if (activePlayer == Constants.Player.Hero) 
@@ -170,6 +177,7 @@ public class Model
 					return false;          
 			}
 		}
+		Globals.winner = "draw";
 		return true;
 	}
 

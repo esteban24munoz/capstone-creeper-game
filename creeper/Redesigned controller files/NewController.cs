@@ -36,16 +36,24 @@ public partial class NewController : Node2D
 	public override void _Ready()
 	{
 		// Attempt to load previously saved neural weights before the first turn
-		try
+		if (Globals.gameType == Globals.GameType.AI && Globals.difficulty == Globals.AIDifficulty.Hard)
 		{
-			bool loaded = NeuralNetStrategy.TryLoadWeightsFromFile("neural_weights.json");
-			if (loaded) GD.Print("[NN] Loaded saved weights from neural_weights.json");
-			else GD.Print("[NN] No saved weights found; using defaults.");
+			try
+			{
+				bool loaded = NeuralNetStrategy.TryLoadWeightsFromFile("neural_weights.json");
+				if (loaded) GD.Print("[NN] Loaded saved weights from neural_weights.json");
+				else GD.Print("[NN] No saved weights found; using defaults.");
+			}
+			catch (Exception ex)
+			{
+				GD.PrintErr($"[NN] Error loading saved weights: {ex.Message}");
+			}
+			
+			// ensure trace is empty at game start
+			_gameTrace.Clear();
 		}
-		catch (Exception ex)
-		{
-			GD.PrintErr($"[NN] Error loading saved weights: {ex.Message}");
-		}
+		
+		Globals.winner = "none";
 
 		//tell the objects what player they belong to and attach MakeMove to each
 		Constants.HeroPlayer.SetPlayer(Constants.Player.Hero);
@@ -78,14 +86,9 @@ public partial class NewController : Node2D
 		DrawMusic = GetNode<AudioStreamPlayer2D>("Music/DrawMusic");
 		ViewInstance.StartCharacterAnimations(ModelInstance.GetAllCharacters(ActivePlayer));
 
-		// ensure trace is empty at game start
-		_gameTrace.Clear();
-
 		//start the first turn
 		ActivePlayerObject.SetupTurn(ModelInstance, ViewInstance);
 	}
-	
-
 
 	//this is called whenever a player object wants to make a move
 	async void MakeMove(object sender, (Vector2I from, Vector2I to) move)
@@ -97,14 +100,17 @@ public partial class NewController : Node2D
 		ModelInstance.MoveCharacter(move.from, move.to);
 		ViewInstance.MoveCharacter(move.from, move.to);
 
-		// Record the state after this move for training (deep copy via Model copy ctor)
-		try
+		if (Globals.gameType == Globals.GameType.AI && Globals.difficulty == Globals.AIDifficulty.Hard)
 		{
-			_gameTrace.Add((new Model(ModelInstance), ActivePlayer));
-		}
-		catch (Exception ex)
-		{
-			GD.PrintErr($"[NN] Failed to record trace entry: {ex.Message}");
+			// Record the state after this move for training (deep copy via Model copy ctor)
+			try
+			{
+				_gameTrace.Add((new Model(ModelInstance), ActivePlayer));
+			}
+			catch (Exception ex)
+			{
+				GD.PrintErr($"[NN] Failed to record trace entry: {ex.Message}");
+			}
 		}
 
 		Vector2I? jumped = ModelInstance.FindJumpedHex(move.from, move.to);
@@ -160,11 +166,15 @@ public partial class NewController : Node2D
 			DrawMusic.Play();
 			ViewInstance.StopAllCharacterAnimations();
 
-			// Train from trace and save neural network weights at game end (draw)
-			EndGameTrainAndSave(Constants.Player.Draw);
+			if (Globals.gameType == Globals.GameType.AI && Globals.difficulty == Globals.AIDifficulty.Hard)
+			{
+				// Train from trace and save neural network weights at game end (draw)
+				EndGameTrainAndSave(Constants.Player.Draw);
+			}
 		}
 		else if (Winner != Constants.Player.None || _endGameOverride != Constants.Player.None)
 		{
+			Globals.winner = "player";
 			ViewInstance.StopAllCharacterAnimations();
 			ActivePlayer = Constants.Player.None;
 
@@ -202,9 +212,12 @@ public partial class NewController : Node2D
 				else SauronWin.Play();
 			}
 
-			// Train from trace and save neural network weights at game end (win/loss)
-			if (_endGameOverride == Constants.Player.None)
-				EndGameTrainAndSave(Winner);
+			if (Globals.gameType == Globals.GameType.AI && Globals.difficulty == Globals.AIDifficulty.Hard)
+			{
+				// Train from trace and save neural network weights at game end (win/loss)
+				if (_endGameOverride == Constants.Player.None)
+					EndGameTrainAndSave(Winner);
+			}
 
 			// Show the CheckButton so the player can toggle the board
 			GameUI.EnableBoardToggleButton();
@@ -228,16 +241,16 @@ public partial class NewController : Node2D
 			{
 				if (traceSnapshot.Length > 0)
 				{
-					NeuralNetStrategy.TrainFromGame(traceSnapshot, winner, learningRate: 0.01);
-					GD.Print("[NN] Training from finished game complete.");
+					//NeuralNetStrategy.TrainFromGame(traceSnapshot, winner, learningRate: 0.01);
+					//GD.Print("[NN] Training from finished game complete.");
 				}
 				else
 				{
 					GD.Print("[NN] No training trace present; skipping TrainFromGame.");
 				}
 
-				NeuralNetStrategy.SaveWeightsToFile("neural_weights.json");
-				GD.Print("[NN] Weights saved to neural_weights.json");
+				//NeuralNetStrategy.SaveWeightsToFile("neural_weights.json");
+				//GD.Print("[NN] Weights saved to neural_weights.json");
 			}
 			catch (Exception ex)
 			{

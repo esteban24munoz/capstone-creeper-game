@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://clcvw22gc506l" path="res://InGameUI_scenes/sauronLoses.tscn" id="8_no35f"]
 [ext_resource type="PackedScene" uid="uid://pa8lcpg162do" path="res://InGameUI_scenes/menuOptions.tscn" id="8_s2tgd"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="11_atoah"]
-[ext_resource type="PackedScene" uid="uid://b6u5wrs6113uf" path="res://InGameUI_scenes/endOptions.tscn" id="11_x0h4g"]
+[ext_resource type="PackedScene" path="res://InGameUI_scenes/endOptions.tscn" id="11_x0h4g"]
 [ext_resource type="PackedScene" uid="uid://bxcx10lmg5g6w" path="res://Globals/disconnect_modal.tscn" id="12_gexjk"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hr6wx"]

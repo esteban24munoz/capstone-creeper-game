@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Text.Json;
 
+// Written with the help of GitHub Copilot
 public partial class MTCS_Pure2 : Node
 {
 	public readonly struct Move
@@ -35,7 +36,6 @@ public partial class MTCS_Pure2 : Node
 		private readonly double _tileCaptureBonus;
 		private readonly double _vulnerabilityPenalty;
 		private readonly Random _rng;
-		//public Model state
 
 		/// <summary>
 		/// Monte Carlo constructor.
@@ -64,7 +64,6 @@ public partial class MTCS_Pure2 : Node
 		/// </summary>
 		public Move ChooseBestMove(Model rootModel, Constants.Player myPlayer)
 		{
-			int count = 0;
 			// Enumerate legal candidate moves from the root state
 			var allCandidates = new List<Move>();
 			foreach (var pos in rootModel.GetAllCharacters(myPlayer))
@@ -125,6 +124,99 @@ public partial class MTCS_Pure2 : Node
 					candidates.AddRange(allCandidates);
 			}
 
+			// Avoid moves that immediately result in a draw (repetition or stalemate).
+			// If at least one candidate does NOT produce a draw, prefer those.
+			var causesDraw = new Dictionary<Move, bool>();
+			bool existsNonDrawing = false;
+			foreach (var c in candidates)
+			{
+				var sim = new Model(rootModel);
+				sim.MoveCharacter(c.From, c.To);
+				bool isDraw = sim.IsDraw(Opponent(myPlayer));
+				causesDraw[c] = isDraw;
+				if (!isDraw) existsNonDrawing = true;
+			}
+
+			if (existsNonDrawing)
+			{
+				var filtered = new List<Move>();
+				foreach (var c in candidates)
+				{
+					if (!causesDraw[c]) filtered.Add(c);
+				}
+				if (filtered.Count > 0)
+					candidates = filtered;
+			}
+
+			// If opponent can win on their next turn from the current root state,
+			// prefer moves that prevent that immediate win. If none prevent it,
+			// prefer moves that capture an opponent tile (i.e., break their tile path).
+			var opponentPlayer = Opponent(myPlayer);
+			bool opponentHasImmediateWin = false;
+			var oppLegal = GatherAllMoves(rootModel, opponentPlayer);
+			foreach (var om in oppLegal)
+			{
+				var simOpp = new Model(rootModel);
+				simOpp.MoveCharacter(om.From, om.To);
+				if (simOpp.FindWinner() == opponentPlayer)
+				{
+					opponentHasImmediateWin = true;
+					break;
+				}
+			}
+
+			if (opponentHasImmediateWin)
+			{
+				var blockers = new List<Move>();
+				var capturesOppTile = new List<Move>();
+				foreach (var c in candidates)
+				{
+					var sim = new Model(rootModel);
+					// Check if this candidate captures an opponent tile
+					var jumpedHex = sim.FindJumpedHex(c.From, c.To);
+					bool capturesTileOwnedByOpponent = false;
+					if (jumpedHex != null)
+					{
+						int tileIndex = 49 + jumpedHex.Value.X * 6 + jumpedHex.Value.Y;
+						var s = sim.StringifyState();
+						if (tileIndex >= 49 && tileIndex < s.Length)
+						{
+							char tileChar = s[tileIndex];
+							char oppChar = opponentPlayer == Constants.Player.Hero ? 'x' : 'o';
+							if (tileChar == oppChar) capturesTileOwnedByOpponent = true;
+						}
+					}
+
+					sim.MoveCharacter(c.From, c.To);
+					// After this candidate, can opponent still force an immediate win?
+					var oppAfter = GatherAllMoves(sim, opponentPlayer);
+					bool oppCanWinAfter = false;
+					foreach (var om in oppAfter)
+					{
+						var sim2 = new Model(sim);
+						sim2.MoveCharacter(om.From, om.To);
+						if (sim2.FindWinner() == opponentPlayer)
+						{
+							oppCanWinAfter = true;
+							break;
+						}
+					}
+
+					if (!oppCanWinAfter) blockers.Add(c);
+					if (capturesTileOwnedByOpponent) capturesOppTile.Add(c);
+				}
+
+				if (blockers.Count > 0)
+				{
+					candidates = blockers;
+				}
+				else if (capturesOppTile.Count > 0)
+				{
+					candidates = capturesOppTile;
+				}
+				// otherwise leave candidates as-is (can't stop immediate win)
+			}
+
 			// stats per candidate: accumulated weighted score and simulation count
 			var accScore = new double[candidates.Count];
 			var sims = new int[candidates.Count];
@@ -143,11 +235,10 @@ public partial class MTCS_Pure2 : Node
 				for (int i = 0; i < candidates.Count; i++)
 				{
 					RunSingleSimulation(rootModel, myPlayer, candidates[i], ref accScore[i], ref sims[i]);
-					count++;
 					if (sw.Elapsed >= _timeBudget) break;
 				}
 			}
-			//GD.Print($"Med sims ran: {count}");
+
 			// Pick best by average weighted score (accScore / sims)
 			double bestScore = double.NegativeInfinity;
 			Move bestMove = candidates[0];

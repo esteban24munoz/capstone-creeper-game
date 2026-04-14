@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
+// Written with the help of GitHub Copilot
 namespace Client {
 	public class GuestClient
 	{

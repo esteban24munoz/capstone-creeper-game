@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 public partial class AI : Node2D
 {
 	// Tunable parameters (override when calling)
-	public int GamesToPlay { get; set; } = 200;
+	public int GamesToPlay { get; set; } = 6;
 	public int MctsSecondsBudget { get; set; } = 4;
 	public bool AlternateSides { get; set; } = true;
 	public double LearningRate { get; set; } = 0.01;
@@ -64,8 +64,8 @@ public partial class AI : Node2D
 					// Train if we have a trace
 					if (trace != null && trace.Count > 0)
 					{
-						NeuralNetStrategy.TrainFromGame(trace, winner, learningRate);
-						GD.Print("[AI.Train] Trained from game trace.");
+						//NeuralNetStrategy.TrainFromGame(trace, winner, learningRate);
+						//GD.Print("[AI.Train] Trained from game trace.");
 					}
 					else
 					{
@@ -75,8 +75,8 @@ public partial class AI : Node2D
 					// Save periodically
 					if (saveEveryN > 0 && g % saveEveryN == 0)
 					{
-						NeuralNetStrategy.SaveWeightsToFile("neural_weights.json");
-						GD.Print($"[AI.Train] Saved weights after game {g}.");
+						//NeuralNetStrategy.SaveWeightsToFile("neural_weights.json");
+						//GD.Print($"[AI.Train] Saved weights after game {g}.");
 					}
 
 					// Update stats
@@ -99,8 +99,8 @@ public partial class AI : Node2D
 				}
 
 				// Final save
-				NeuralNetStrategy.SaveWeightsToFile("neural_weights.json");
-				GD.Print("[AI.Train] Training complete. Final weights saved.");
+				//NeuralNetStrategy.SaveWeightsToFile("neural_weights.json");
+				//GD.Print("[AI.Train] Training complete. Final weights saved.");
 				GD.Print($"[AI.Train] Final totals -> NN: {nnWins}, MCTS: {mctsWins}, Draws: {draws}");
 			}
 			catch (Exception ex)
@@ -122,11 +122,11 @@ public partial class AI : Node2D
 		Constants.Player current = Constants.Player.Hero;
 		bool gameOver = false;
 		Constants.Player winner = Constants.Player.None;
-		int plyLimit = 200; // safety cap
+		int plyLimit = 2000; // safety cap
 
 		int plies = 0;
 
-		GD.Print($"[AI.Train][Game {gameIndex}] Starting play loop. NNPlaysHero={nnPlaysHero}");
+		//GD.Print($"[AI.Train][Game {gameIndex}] Starting play loop. NNPlaysHero={nnPlaysHero}");
 
 		while (!gameOver && plies < plyLimit)
 		{
@@ -157,6 +157,8 @@ public partial class AI : Node2D
 			{
 				try
 				{
+					//var mv = NeuralNetStrategy.ChooseBestMove(model, current);
+					//model.MoveCharacter(mv.From, mv.To);
 					var mcts = new MTCS_Pure2.MonteCarloStrategy(mctsSecondsBudget);
 					var mv = mcts.ChooseBestMove(model, current);
 					model.MoveCharacter(mv.From, mv.To);
@@ -181,7 +183,7 @@ public partial class AI : Node2D
 			{
 				winner = maybeWinner;
 				gameOver = true;
-				GD.Print($"[AI.Train][Game {gameIndex}] Winner detected: {winner} at ply {plies}");
+				//GD.Print($"[AI.Train][Game {gameIndex}] Winner detected: {winner} at ply {plies}");
 				break;
 			}
 

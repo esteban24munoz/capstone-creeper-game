@@ -32,4 +32,5 @@ public partial class Globals : Node
 	public static string winner;
 	public static AIDifficulty difficulty = AIDifficulty.Easy;
 	public static bool isHelpClosed = false;
+	public static bool isRepitionDraw;
 }

@@ -30,7 +30,7 @@ public partial class GameMode : Control
 		};
 		
 		GetNode<Button>("%OnlineGame").Pressed += () => 
-			_ui.ShowScreen("res://Networking/multiplayer_test.tscn");
+			_ui.ShowScreen("res://Networking/multiplayer.tscn");
 
 	}
 }

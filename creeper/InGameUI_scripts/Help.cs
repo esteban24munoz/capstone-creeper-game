@@ -55,14 +55,14 @@ public partial class Help : Control
 			"move_example" 
 		),
 		PageData.WithVideo(
-			"[b]Attacking:[/b]\n" +
-			"You can [b]jump horizontally or vertically over an opponent’s character[/b] to remove it from the board.\n\n",
-            "res://UI_assets/Tutorial/capture_video.ogv" 
-		),
-		PageData.WithVideo(
 			"[b]Capturing:[/b]\n" +
 			"You can [b]conquer an opponent’s tile[/b] by crossing diagonally over it\n\n",
             "res://UI_assets/Tutorial/claim_tile_video.ogv" 
+		),
+		PageData.WithVideo(
+			"[b]Attacking:[/b]\n" +
+			"If you walk through an opponent's character,[b] horizontally or vertically, [/b] you will remove them from the board.\n\n",
+            "res://UI_assets/Tutorial/capture_video.ogv" 
 		),
 		PageData.WithVideo(
 			"[b]Home bases:[/b]\n" +

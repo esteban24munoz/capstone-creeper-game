@@ -54,7 +54,7 @@ public partial class WinnerScreen : Control
 	{
 		drawReason = GetNode<RichTextLabel>("%FlavorText");
 		if (Globals.isRepitionDraw)
-			drawReason.Text = "Gollum has stolen the ring!\nYou had too many repeative moves.";
+			drawReason.Text = "Gollum has stolen the ring!\nYou had too many repetitive moves.";
 		else
 			drawReason.Text = "Gollum has stolen the ring!\nAll the characters were killed.";
 			

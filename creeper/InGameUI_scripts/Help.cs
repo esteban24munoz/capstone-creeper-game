@@ -40,7 +40,7 @@ public partial class Help : Control
 	private PageData[] _pages =
 	{
 		PageData.TextOnly(
-			"[b]Ohhh hello, master…[/b]  welcome to the board, yes…\n\n" +
+			"[b]Ohhh hello, master…[/b]  if you need my help, click on the [b]?[/b]  button to guide you through the game rules…\n\n" +
 			"The sneaky little hobbitses (Green Team) are the [b]first characters[/b] to move on the board."
 		),
 		PageData.TextOnly(

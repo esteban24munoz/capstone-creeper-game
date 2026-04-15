@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://clcvw22gc506l" path="res://InGameUI_scenes/sauronLoses.tscn" id="8_no35f"]
 [ext_resource type="PackedScene" uid="uid://pa8lcpg162do" path="res://InGameUI_scenes/menuOptions.tscn" id="8_s2tgd"]
 [ext_resource type="FontFile" uid="uid://dwkpi8tj7jkuf" path="res://UI_assets/Fonts/AncientModernTales-a7Po.ttf" id="11_atoah"]
-[ext_resource type="PackedScene" path="res://InGameUI_scenes/endOptions.tscn" id="11_x0h4g"]
+[ext_resource type="PackedScene" uid="uid://b6u5wrs6113uf" path="res://InGameUI_scenes/endOptions.tscn" id="11_x0h4g"]
 [ext_resource type="PackedScene" uid="uid://bxcx10lmg5g6w" path="res://Globals/disconnect_modal.tscn" id="12_gexjk"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hr6wx"]
@@ -118,19 +118,21 @@ visible = false
 
 [node name="ToggleBoardButton" type="CheckButton" parent="."]
 unique_name_in_owner = true
-offset_left = 672.0
+offset_left = 616.0
 offset_top = 24.0
-offset_right = 853.0
+offset_right = 797.0
 offset_bottom = 55.0
-theme_override_colors/font_color = Color(0.6901961, 0.8156863, 0.78431374, 1)
-theme_override_colors/font_hover_color = Color(1, 0.8627451, 0.2901961, 1)
-theme_override_colors/font_outline_color = Color(0.6901961, 0.8156863, 0.78431374, 1)
+theme_override_colors/font_color = Color(1, 0.8627451, 0.2901961, 1)
+theme_override_colors/font_pressed_color = Color(0.8352941, 0.15686275, 0.09019608, 1)
+theme_override_colors/font_hover_color = Color(0.6901961, 0.8156863, 0.78431374, 1)
+theme_override_colors/font_outline_color = Color(0.7882353, 0.6509804, 0.3137255, 1)
 theme_override_colors/icon_normal_color = Color(1, 0.8627451, 0.2901961, 1)
 theme_override_colors/icon_focus_color = Color(0.6901961, 0.8156863, 0.78431374, 1)
 theme_override_colors/icon_pressed_color = Color(0.6901961, 0.8156863, 0.78431374, 1)
 theme_override_colors/icon_hover_color = Color(0.6901961, 0.8156863, 0.78431374, 1)
 theme_override_colors/icon_hover_pressed_color = Color(0.6901961, 0.8156863, 0.78431374, 1)
 theme_override_colors/icon_disabled_color = Color(0.6901961, 0.8156863, 0.78431374, 1)
+theme_override_font_sizes/font_size = 20
 theme_override_colors/button_checked_color = Color(0.8352941, 0.15686275, 0.09019608, 1)
 theme_override_colors/button_unchecked_color = Color(1, 0.8627451, 0.2901961, 1)
 

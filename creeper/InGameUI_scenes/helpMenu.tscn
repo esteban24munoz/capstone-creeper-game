@@ -5,12 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://cmonqtlhyfbll" path="res://UI_assets/Tutorial/gollum.png" id="3_ibc1t"]
 [ext_resource type="Texture2D" uid="uid://b72xvivoiivrg" path="res://UI_assets/UI_Buttons/Tutorial Arrow.png" id="4_ylhll"]
 [ext_resource type="Texture2D" uid="uid://d28dovjdgakqx" path="res://UI_assets/Tutorial/Movement Example_v2.png" id="5_2vtip"]
-[ext_resource type="Texture2D" uid="uid://bf3md45gw7a4" path="res://UI_assets/UI_Buttons/exitButton.png" id="5_i40w7"]
 [ext_resource type="Texture2D" uid="uid://10h8t00hoopk" path="res://UI_assets/Tutorial/completed_path_checked.png" id="5_ylhll"]
 [ext_resource type="Texture2D" uid="uid://clt2nw2g1801j" path="res://UI_assets/Tutorial/uncompleted_path_wrong.png" id="6_i40w7"]
 [ext_resource type="StyleBox" uid="uid://buyitcrqna1ux" path="res://UI_assets/UI_Buttons/normal_button_texture.tres" id="7_udlho"]
 [ext_resource type="StyleBox" uid="uid://dclx2cpxac0q0" path="res://UI_assets/UI_Buttons/normal_button_hover_texture.tres" id="8_50bbc"]
 [ext_resource type="Shader" uid="uid://dikm2gg81eftw" path="res://outline.gdshader" id="10_50bbc"]
+[ext_resource type="Texture2D" uid="uid://die272n5106g1" path="res://UI_assets/UI_Buttons/exitButton_v2.png" id="11_50bbc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ibc1t"]
 atlas = ExtResource("5_2vtip")
@@ -102,20 +102,20 @@ region_rect = Rect2(18, 93, 124, 64)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p57cw"]
 shader = ExtResource("10_50bbc")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 1.0
+shader_parameter/color = Color(1, 0.8627451, 0.2901961, 1)
+shader_parameter/width = 1.3050000619875
 shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i40w7"]
-texture = ExtResource("5_i40w7")
-region_rect = Rect2(25, 7, 28, 28)
+texture = ExtResource("11_50bbc")
+region_rect = Rect2(0, 0, 56, 50)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ylhll"]
-texture = ExtResource("5_i40w7")
-region_rect = Rect2(25, 45, 28, 28)
+texture = ExtResource("11_50bbc")
+region_rect = Rect2(0, 50, 56, 50)
 
 [node name="HelpUI" type="Control"]
 layout_mode = 3
@@ -289,18 +289,18 @@ offset_left = 960.0
 offset_bottom = -576.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 36
 
 [node name="exitButton" type="VBoxContainer" parent="exitButtonContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="Exit" type="Button" parent="exitButtonContainer/exitButton" groups=["UIButton"]]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_p57cw")
-custom_minimum_size = Vector2(46, 46)
+custom_minimum_size = Vector2(56, 50)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_i40w7")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ylhll")

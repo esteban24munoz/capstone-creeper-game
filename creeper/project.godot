@@ -10,11 +10,11 @@ config_version=5
 
 [application]
 
-config/name="Creeper"
+config/name="There and Back Again"
 run/main_scene="uid://dnfdgphcwnnaq"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
-config/icon="uid://cdh5gnijd8acy"
-config/windows_native_icon="res://Bases/The One Ring Sprite_frame_1.ico"
+config/icon="uid://cxiirg51a0fq3"
+config/windows_native_icon="res://Bases/icon.ico"
 
 [autoload]
 

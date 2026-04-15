@@ -13,8 +13,8 @@ config_version=5
 config/name="There and Back Again"
 run/main_scene="uid://dnfdgphcwnnaq"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
-config/icon="uid://cxiirg51a0fq3"
-config/windows_native_icon="res://Bases/icon.ico"
+config/icon="uid://dum8kg0kx01xu"
+config/windows_native_icon="res://UI_assets/Icon/icon.ico"
 
 [autoload]
 
@@ -26,6 +26,7 @@ VolumeManager="*res://Globals/VolumeManager.cs"
 
 window/size/viewport_width=1024
 window/size/viewport_height=640
+window/size/mode=2
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="viewport"

@@ -11,9 +11,9 @@ using System.Collections.Generic;
 public partial class AIvAI : Control
 {
 	private static string SOFTSERVE_URL = "https://softserve.harding.edu";
-	private const string PLAYER_NAME = "LOTRAI";
+	private const string PLAYER_NAME = "Team10";
 	private const string PLAYER_EMAIL = "hconner@harding.edu";
-	private const string EVENT = "mirror";
+	private const string EVENT = "final";
 	private static System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
 	int winCount = 0;
 	int drawCount = 0;

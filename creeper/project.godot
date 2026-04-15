@@ -26,6 +26,8 @@ VolumeManager="*res://Globals/VolumeManager.cs"
 
 window/size/viewport_width=1024
 window/size/viewport_height=640
+window/size/window_width_override=1920
+window/size/window_height_override=1080
 window/stretch/mode="viewport"
 mouse_cursor/custom_image="uid://cpthn1lm6vi51"
 mouse_cursor/custom_image_hotspot=Vector2(19.25, 25)

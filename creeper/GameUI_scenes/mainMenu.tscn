@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://d1vj83d0nv2ca" path="res://UI_assets/MainMenu/nazguls-animation5.png" id="6_ajp5e"]
 [ext_resource type="Texture2D" uid="uid://coqy1fec455hb" path="res://UI_assets/MainMenu/nazguls-animation6.png" id="7_d1ab6"]
 [ext_resource type="Texture2D" uid="uid://eud053ldxjt6" path="res://UI_assets/MainMenu/nazguls-animation7.png" id="8_25rbi"]
-[ext_resource type="Texture2D" uid="uid://dgppamuui12ty" path="res://UI_assets/MainMenu/v2/light_position1.png" id="13_d1ab6"]
+[ext_resource type="Texture2D" uid="uid://cqigsvgeyjy8p" path="res://UI_assets/MainMenu/v2/light_position_1t1.png" id="9_mc3iv"]
 [ext_resource type="Texture2D" uid="uid://b2oaj6hm5woav" path="res://UI_assets/MainMenu/v2/light_position2.png" id="14_25rbi"]
 [ext_resource type="Texture2D" uid="uid://bbp02bgm6wlfb" path="res://UI_assets/MainMenu/v2/light_position3.png" id="15_324ll"]
 [ext_resource type="PackedScene" uid="uid://c81wixfkra6yv" path="res://Globals/confirmation_modal.tscn" id="15_cdtku"]
@@ -48,7 +48,7 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("13_d1ab6")
+"texture": ExtResource("9_mc3iv")
 }, {
 "duration": 1.0,
 "texture": ExtResource("14_25rbi")
@@ -65,7 +65,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("13_d1ab6")
+"texture": ExtResource("9_mc3iv")
 }],
 "loop": true,
 "name": &"position1",
@@ -116,8 +116,6 @@ centered = false
 sprite_frames = SubResource("SpriteFrames_s3ted")
 animation = &"idle"
 autoplay = "idle"
-frame = 3
-frame_progress = 0.41804934
 centered = false
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
